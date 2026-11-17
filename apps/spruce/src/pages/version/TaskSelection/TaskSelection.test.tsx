@@ -38,17 +38,13 @@ describe("useTaskSelectionContext", () => {
 
   it("selects individual rows", () => {
     const { result } = setup();
-    act(() =>
-      result.current.setRowSelection(
-        { a: true, c: true },
-        pageOne,
-        filteredCount,
-      ),
-    );
-    expect(result.current.getRowSelection(pageOne)).toStrictEqual({
-      a: true,
-      c: true,
-    });
+    act(() => result.current.toggleRow("a", filteredCount));
+    act(() => result.current.toggleRow("c", filteredCount));
+    expect(pageOne.map(result.current.isSelected)).toStrictEqual([
+      true,
+      false,
+      true,
+    ]);
     expect(result.current.selectedCount).toBe(2);
     expect(result.current.taskSelection).toStrictEqual({
       mode: SelectedMode.Include,
@@ -58,34 +54,28 @@ describe("useTaskSelectionContext", () => {
 
   it("keeps selections made on other pages", () => {
     const { result } = setup();
-    act(() =>
-      result.current.setRowSelection({ a: true }, pageOne, filteredCount),
-    );
-    expect(result.current.getRowSelection(pageTwo)).toStrictEqual({});
-    act(() =>
-      result.current.setRowSelection({ d: true }, pageTwo, filteredCount),
-    );
+    act(() => result.current.toggleRow("a", filteredCount));
+    expect(pageTwo.some(result.current.isSelected)).toBe(false);
+    act(() => result.current.toggleRow("d", filteredCount));
     expect(result.current.taskSelection).toStrictEqual({
       mode: SelectedMode.Include,
       taskIds: new Set(["a", "d"]),
     });
-    expect(result.current.getRowSelection(pageOne)).toStrictEqual({ a: true });
-    expect(result.current.getRowSelection(pageTwo)).toStrictEqual({ d: true });
+    expect(pageOne.map(result.current.isSelected)).toStrictEqual([
+      true,
+      false,
+      false,
+    ]);
+    expect(pageTwo.map(result.current.isSelected)).toStrictEqual([true, false]);
   });
 
   it("selects every matching task across pages", () => {
     const { result } = setup();
     act(() => result.current.toggleAll(filteredCount));
     expect(result.current.selectedCount).toBe(5);
-    expect(result.current.getRowSelection(pageOne)).toStrictEqual({
-      a: true,
-      b: true,
-      c: true,
-    });
-    expect(result.current.getRowSelection(pageTwo)).toStrictEqual({
-      d: true,
-      e: true,
-    });
+    expect([...pageOne, ...pageTwo].every(result.current.isSelected)).toBe(
+      true,
+    );
     expect(result.current.taskSelection).toMatchObject({
       mode: SelectedMode.All,
       excludedIds: new Set(),
@@ -103,9 +93,7 @@ describe("useTaskSelectionContext", () => {
 
   it("selects everything when only some rows are selected", () => {
     const { result } = setup();
-    act(() =>
-      result.current.setRowSelection({ a: true }, pageOne, filteredCount),
-    );
+    act(() => result.current.toggleRow("a", filteredCount));
     act(() => result.current.toggleAll(filteredCount));
     expect(result.current.selectedCount).toBe(5);
     expect(result.current.taskSelection).toMatchObject({
@@ -133,13 +121,7 @@ describe("useTaskSelectionContext", () => {
   it("excludes deselected tasks while all are selected", () => {
     const { result } = setup();
     act(() => result.current.toggleAll(filteredCount));
-    act(() =>
-      result.current.setRowSelection(
-        { a: true, c: true },
-        pageOne,
-        filteredCount,
-      ),
-    );
+    act(() => result.current.toggleRow("b", filteredCount));
     expect(result.current.selectedCount).toBe(4);
     expect(result.current.taskSelection).toMatchObject({
       mode: SelectedMode.All,
@@ -150,24 +132,12 @@ describe("useTaskSelectionContext", () => {
   it("re-includes an excluded task when it is selected again", () => {
     const { result } = setup();
     act(() => result.current.toggleAll(filteredCount));
-    act(() =>
-      result.current.setRowSelection(
-        { a: true, c: true },
-        pageOne,
-        filteredCount,
-      ),
-    );
+    act(() => result.current.toggleRow("b", filteredCount));
     expect(result.current.taskSelection).toMatchObject({
       mode: SelectedMode.All,
       excludedIds: new Set(["b"]),
     });
-    act(() =>
-      result.current.setRowSelection(
-        { a: true, b: true, c: true },
-        pageOne,
-        filteredCount,
-      ),
-    );
+    act(() => result.current.toggleRow("b", filteredCount));
     expect(result.current.taskSelection).toMatchObject({
       mode: SelectedMode.All,
       excludedIds: new Set(),
@@ -178,7 +148,7 @@ describe("useTaskSelectionContext", () => {
   it("has no taskSelection once every matching task is deselected", () => {
     const { result } = setup();
     act(() => result.current.toggleAll(3));
-    act(() => result.current.setRowSelection({}, pageOne, 3));
+    pageOne.forEach((id) => act(() => result.current.toggleRow(id, 3)));
     expect(result.current.selectedCount).toBe(0);
     expect(result.current.taskSelection).toBeNull();
   });

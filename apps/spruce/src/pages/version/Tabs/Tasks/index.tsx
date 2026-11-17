@@ -28,13 +28,8 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
-  const {
-    clearSelection,
-    getRowSelection,
-    selectedCount,
-    setRowSelection,
-    toggleAll,
-  } = useTaskSelectionContext();
+  const { clearSelection, isSelected, selectedCount, toggleAll, toggleRow } =
+    useTaskSelectionContext();
 
   useEffect(() => {
     const hasValidSortsForTab =
@@ -95,11 +90,6 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
     [tasksData],
   );
 
-  const rowSelection = useMemo(
-    () => getRowSelection(activeTaskIds),
-    [getRowSelection, activeTaskIds],
-  );
-
   useEffect(() => {
     // Track the tasks currently shown by the tasks table in order to allow multiple tasks to be activated.
     // If no filters are applied, unset active tasks in order to activate the entire version.
@@ -115,15 +105,13 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
       clearQueryParams={clearQueryParams}
       filteredCount={count}
       isPatch={isPatch ?? false}
+      isRowSelected={isSelected}
       limit={limit ?? 0}
       loading={tasksData.length === 0 && loading}
       onFilterChange={clearSelection}
-      onRowSelectionChange={(updater) =>
-        setRowSelection(updater, activeTaskIds, count)
-      }
       onToggleAll={() => toggleAll(count)}
+      onToggleRow={(taskId) => toggleRow(taskId, count)}
       page={page ?? 0}
-      rowSelection={rowSelection}
       selectedCount={selectedCount}
       tasks={tasksData}
       totalCount={taskCount ?? 0}

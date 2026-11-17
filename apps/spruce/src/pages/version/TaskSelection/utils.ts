@@ -1,4 +1,3 @@
-import { RowSelectionState } from "@evg-ui/lib/components/Table";
 import { VersionTasksQueryVariables } from "gql/generated/types";
 
 export enum SelectedMode {
@@ -53,19 +52,6 @@ export const toggleTask = (
   }
   return { ...state, excludedIds };
 };
-
-export const isTaskSelected = (state: SelectionState, taskId: string) =>
-  state.mode === SelectedMode.Include
-    ? state.taskIds.has(taskId)
-    : !state.excludedIds.has(taskId);
-
-export const getTableRowSelection = (
-  state: SelectionState,
-  taskIds: string[],
-): RowSelectionState =>
-  Object.fromEntries(
-    taskIds.filter((id) => isTaskSelected(state, id)).map((id) => [id, true]),
-  );
 
 export const getSelectedCount = (
   state: SelectionState,

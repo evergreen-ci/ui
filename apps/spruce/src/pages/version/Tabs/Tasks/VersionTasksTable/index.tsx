@@ -3,8 +3,6 @@ import {
   BaseTable,
   ColumnFiltersState,
   LeafyGreenTable,
-  OnChangeFn,
-  RowSelectionState,
   SortingState,
   TableControl,
   TablePlaceholder,
@@ -51,13 +49,13 @@ interface VersionTasksTableProps {
   clearQueryParams: () => void;
   filteredCount: number;
   isPatch: boolean;
+  isRowSelected: (taskId: string) => boolean;
   limit: number;
   loading: boolean;
   onFilterChange: () => void;
-  onRowSelectionChange: OnChangeFn<RowSelectionState>;
   onToggleAll: () => void;
+  onToggleRow: (taskId: string) => void;
   page: number;
-  rowSelection: RowSelectionState;
   selectedCount: number;
   tasks: TaskTableInfo[];
   totalCount: number;
@@ -68,13 +66,13 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   clearQueryParams,
   filteredCount,
   isPatch,
+  isRowSelected,
   limit,
   loading,
   onFilterChange,
-  onRowSelectionChange,
   onToggleAll,
+  onToggleRow,
   page,
-  rowSelection,
   selectedCount,
   tasks,
   totalCount,
@@ -95,7 +93,15 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   const columns = useMemo(
     () => [
       ...(showSelectableTaskRows
-        ? [getSelectColumn({ allSelected, onToggleAll, someSelected })]
+        ? [
+            getSelectColumn({
+              allSelected,
+              isRowSelected,
+              onToggleAll,
+              onToggleRow,
+              someSelected,
+            }),
+          ]
         : []),
       ...getColumnsTemplate({
         baseStatusOptions,
@@ -124,7 +130,9 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       allSelected,
       baseStatusOptions,
       isPatch,
+      isRowSelected,
       onToggleAll,
+      onToggleRow,
       sendEvent,
       someSelected,
       statusOptions,
@@ -180,7 +188,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       state: {
         columnFilters,
-        rowSelection,
         sorting,
       },
       maxMultiSortColCount: 2,
@@ -191,7 +198,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         setColumnFilters,
         (updatedState) => updateFilters(updatedState),
       ),
-      onRowSelectionChange,
       onSortingChange: onChangeHandler<SortingState>(setSorting, updateSorting),
       getSubRows: (row) => row.executionTasksFull || [],
     });
