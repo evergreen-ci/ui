@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Align, Button, Popover, PopoverRoot, Side } from "@via-ds/components";
 import { cx } from "../../utils/css";
+import { PopoverContainer } from "../styles/Popover";
 import styles from "./index.module.css";
 
 type PopconfirmProps = {
@@ -82,7 +83,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         </span>
       )}
       <Popover>
-        <div
+        <PopoverContainer
           className={cx(styles.contentWrapper, className)}
           data-testid={dataTestId}
         >
@@ -108,7 +109,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
               {confirmText}
             </Button>
           </div>
-        </div>
+        </PopoverContainer>
       </Popover>
     </PopoverRoot>
   );
