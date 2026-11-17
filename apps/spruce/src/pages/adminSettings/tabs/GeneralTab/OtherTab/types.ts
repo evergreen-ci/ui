@@ -156,6 +156,11 @@ export interface OtherFormState {
       checkRunLimit: number;
     };
 
+    githubRecoveryApp: {
+      appId: number | null;
+      privateKey: string;
+    };
+
     diagnosticsConfig: {
       s3BucketName: string;
       s3Prefix: string;
