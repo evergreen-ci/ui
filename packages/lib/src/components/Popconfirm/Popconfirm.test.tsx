@@ -74,4 +74,23 @@ describe("uncontrolled popconfirm", () => {
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(screen.getByText("hello")).not.toBeVisible();
   });
+
+  it("opens when the trigger stops click propagation", async () => {
+    const user = userEvent.setup();
+    render(
+      <Popconfirm
+        trigger={
+          <button onClick={(e) => e.stopPropagation()} type="button">
+            Open
+          </button>
+        }
+      >
+        <div>hello</div>
+      </Popconfirm>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    await waitFor(() => {
+      expect(screen.getByText("hello")).toBeVisible();
+    });
+  });
 });
