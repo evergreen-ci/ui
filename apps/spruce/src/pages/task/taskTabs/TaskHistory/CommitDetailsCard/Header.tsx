@@ -2,12 +2,12 @@ import { useMutation } from "@apollo/client/react";
 import { Badge, Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
-import { InfoSprinkle } from "@via-ds/components";
+import { InfoSprinkle, Side } from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskHistoryAnalytics } from "analytics";
-import SetPriority, { Align } from "components/SetPriority";
+import SetPriority from "components/SetPriority";
 import {
   RestartTaskMutation,
   RestartTaskMutationVariables,
@@ -181,7 +181,7 @@ export const Header: React.FC<HeaderProps> = ({
           disabled={!canSetPriority}
           initialPriority={priority ?? 0}
           isButton
-          popconfirmAlign={Align.Top}
+          popconfirmAlign={Side.Top}
           taskIds={[taskId]}
         />
       </div>
