@@ -18,6 +18,8 @@
 .contentWrapper.contentWrapper {
   background-color: var(--via-color-neutral-900);
   color: var(--via-color-neutral-000);
+  color-scheme: dark;
+  overflow-y: auto;
 }
 
 .buttonWrapper {
