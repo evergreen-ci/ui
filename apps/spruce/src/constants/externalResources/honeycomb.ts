@@ -77,6 +77,12 @@ const buildHoneycombStatUrl = (
   return `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&${columnSeriesParams}`;
 };
 
+const buildHoneycombBreakdownUrl = (
+  dataset: string,
+  query: { breakdowns: string[] },
+) =>
+  `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&omitMissingValues`;
+
 /**
  * Generates a URL for viewing the cost breakdown of a task in Honeycomb.
  * @param taskId - The ID of the task.
@@ -190,7 +196,7 @@ export const getHoneycombVersionCostUrl = (
     end_time: getUnixTime(endTs) + 300,
   };
 
-  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(query)}&omitMissingValues`;
+  return buildHoneycombBreakdownUrl("evergreen", query);
 };
 
 const ONE_WEEK_IN_SECONDS = 604800;
