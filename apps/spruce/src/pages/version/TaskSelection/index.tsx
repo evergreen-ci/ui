@@ -67,15 +67,16 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
     [selectionState],
   );
 
-  const toggleRow = useCallback((taskId: string, filteredCount: number) => {
-    setState((prev) => {
-      const nextSelectionState = toggleTask(prev.selectionState, taskId);
-      return {
+  const toggleRow = useCallback(
+    (taskId: string, filteredCount: number) => {
+      const nextSelectionState = toggleTask(selectionState, taskId);
+      setState({
         selectedCount: getSelectedCount(nextSelectionState, filteredCount),
         selectionState: nextSelectionState,
-      };
-    });
-  }, []);
+      });
+    },
+    [selectionState],
+  );
 
   const toggleAll = useCallback(
     (filteredCount: number) => {
