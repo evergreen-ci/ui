@@ -28,6 +28,7 @@ import {
   emptyFilterQueryParams,
   mapIdToFilterParam,
 } from "./constants";
+import styles from "./VersionTasksTable.module.css";
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
 enum VersionTaskCategory {
@@ -231,6 +232,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         loadingRows={limit}
+        rowClassName={showSelectableTaskRows ? styles.row : undefined}
         shouldAlternateRowColor
         table={table}
       />
