@@ -44,12 +44,16 @@ test.describe("Waterfall menu settings", () => {
     await omitInactiveBuildsItem.click();
     await page.locator("body").click();
 
-    await page.getByTestId("build-variant-filter-input").clear();
+    await page.getByTestId("filter-chip").getByRole("button").click();
     await page.getByTestId("build-variant-filter-input").fill("ubuntu1604");
     await page.getByTestId("build-variant-filter-input").press("Enter");
 
-    const count = await page.getByTestId("build-variant-label").count();
-    expect(count).toBeGreaterThanOrEqual(1);
+    await expect(
+      page
+        .getByTestId("build-variant-label")
+        .filter({ hasText: "Ubuntu 16.04" })
+        .first(),
+    ).toBeVisible();
 
     await page.getByTestId("waterfall-menu").click();
     await page
