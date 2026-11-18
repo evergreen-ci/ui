@@ -310,7 +310,7 @@ export const scheduler = {
       maximum: 100,
     },
     gitTagFactor: {
-      type: "number" as const,
+      type: "integer" as const,
       title: "Git Tag Factor",
       default: 0,
       minimum: 0,
