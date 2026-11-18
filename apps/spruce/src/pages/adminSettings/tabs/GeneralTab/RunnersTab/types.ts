@@ -55,6 +55,7 @@ export interface RunnersFormState {
       expectedRuntimeFactor: number;
       generateTaskFactor: number;
       stepbackTaskFactor: number;
+      gitTagFactor: number;
       numDependentsFactor: number;
       translateProjectConcurrencyLimit: number;
       translateProjectCacheBytesLimit: number;
