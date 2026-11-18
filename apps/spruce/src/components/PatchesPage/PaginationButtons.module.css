@@ -9,3 +9,7 @@
   border-block-start: none;
   padding-block: var(--via-space-100);
 }
+
+.pagination.pagination > * {
+  max-inline-size: none;
+}
