@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
-import { Disclaimer, Link } from "@leafygreen-ui/typography";
+import { Disclaimer, Link } from "@via-ds/components/typography";
 import Checkmark from "@via-ds/icons/Checkmark";
 import {
-  BaseTable,
-  LGColumnDef,
   RowSelectionState,
   TablePlaceholder,
+  ViaBaseTable,
+  ViaColumnDef,
   onChangeHandler,
-  useLeafyGreenTable,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
@@ -93,14 +93,13 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     setRowSelection(initialSelection);
   }, [isRowDisabled, parsleyFilters]);
 
-  const table = useLeafyGreenTable({
+  const table = useTable({
     columns,
     data: parsleyFilters,
     enableColumnFilters: false,
     enableRowSelection: (row) => !isRowDisabled(row.index),
     enableSorting: false,
     hasSelectableRows: true,
-
     onRowSelectionChange: onChangeHandler(setRowSelection),
     state: { rowSelection },
   });
@@ -145,7 +144,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       size="large"
       title="Project Filters"
     >
-      <BaseTable
+      <ViaBaseTable
         disabledRowIndexes={parsleyFilters
           .map((_, index) => index)
           .filter(isRowDisabled)}
@@ -158,6 +157,10 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
                 No filters found! Project filters can be defined in the{" "}
                 <Link
                   href={getProjectSettingsURL(projectId, "views-and-filters")}
+                  isStandalone={false}
+                  linkStyle="external"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   project settings
                 </Link>
@@ -167,7 +170,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
           />
         }
         loading={projectFiltersLoading || taskQueryLoading}
-        rowClassName={styles.row}
         shouldAlternateRowColor
         table={table}
         verticalAlignment="top"
@@ -176,7 +178,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   );
 };
 
-const columns: LGColumnDef<
+const columns: ViaColumnDef<
   Unpacked<ProjectFiltersQuery["project"]["parsleyFilters"]>
 >[] = [
   {

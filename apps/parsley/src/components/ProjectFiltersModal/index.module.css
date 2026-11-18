@@ -1,7 +1,3 @@
-.row {
-  border-bottom: 1px solid var(--via-color-neutral-200);
-}
-
 .filterExpression {
   overflow-wrap: break-word;
   word-wrap: break-word;
