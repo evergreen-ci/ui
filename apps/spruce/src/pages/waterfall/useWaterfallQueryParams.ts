@@ -37,7 +37,9 @@ export const useWaterfallQueryParams = ({
     requesters,
     revision,
     statuses,
+    taskTags,
     tasks,
+    variantTags,
     variants,
   } = useMemo(() => {
     const {
@@ -54,8 +56,12 @@ export const useWaterfallQueryParams = ({
         ),
         statuses: toStringArray(queryParams[WaterfallFilterOptions.Statuses]),
         tasks: toStringArray(queryParams[WaterfallFilterOptions.Task]),
+        taskTags: toStringArray(queryParams[WaterfallFilterOptions.TaskTags]),
         variants: toStringArray(
           queryParams[WaterfallFilterOptions.BuildVariant],
+        ),
+        variantTags: toStringArray(
+          queryParams[WaterfallFilterOptions.VariantTags],
         ),
       }),
       maxOrder: typeof rawMaxOrder === "string" ? Number(rawMaxOrder) || 0 : 0,
@@ -74,7 +80,9 @@ export const useWaterfallQueryParams = ({
     requesters.length ||
     statuses.length ||
     tasks.length ||
-    variants.length
+    taskTags.length ||
+    variants.length ||
+    variantTags.length
   );
   const queryOptions = useMemo<WaterfallOptions>(
     () => ({
@@ -82,7 +90,9 @@ export const useWaterfallQueryParams = ({
       requesters,
       statuses,
       tasks,
+      taskTags,
       variants,
+      variantTags,
       includeAllBuildsAndTasks: !hasFilters,
       omitInactiveBuilds: omitInactiveBuilds && variants.length > 0,
       limit: VERSION_LIMIT,
@@ -96,7 +106,9 @@ export const useWaterfallQueryParams = ({
       requesters,
       statuses,
       tasks,
+      taskTags,
       variants,
+      variantTags,
       hasFilters,
       omitInactiveBuilds,
       maxOrder,

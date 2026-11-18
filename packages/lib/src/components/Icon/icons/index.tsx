@@ -9,6 +9,8 @@ export { KnownFailure } from "./statuses/KnownFailure";
 
 export { ArrowWithCircle } from "./ArrowWithCircle";
 export { ClosedEye } from "./ClosedEye";
+export { ExactString } from "./ExactString";
 export { Expand } from "./Expand";
 export { Ignored } from "./Ignored";
 export { GitHub } from "./GitHub";
+export { Regex } from "./Regex";

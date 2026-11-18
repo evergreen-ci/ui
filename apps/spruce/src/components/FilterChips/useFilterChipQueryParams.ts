@@ -1,3 +1,4 @@
+import { type IconProps } from "@evg-ui/lib/components/Icon";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { array } from "utils";
@@ -16,7 +17,9 @@ const { convertObjectToArray } = array;
  */
 const useFilterChipQueryParams = (
   validQueryParams: Set<string>,
-  urlParamToTitleMap?: { [urlParam: string]: string },
+  urlParamToTitleMap?: {
+    [urlParam: string]: { label: string; glyph?: IconProps["glyph"] };
+  },
 ) => {
   const [queryParams, setQueryParams] = useQueryParams();
 
@@ -24,11 +27,15 @@ const useFilterChipQueryParams = (
     validQueryParams.has(key as string),
   );
 
-  const chips: FilterChipType[] = queryParamsList.map((q) => ({
-    key: q.key,
-    value: q.value as string,
-    title: urlParamToTitleMap?.[q.key] ?? toSentenceCase(q.key),
-  }));
+  const chips: FilterChipType[] = queryParamsList.map((q) => {
+    const paramDetails = urlParamToTitleMap?.[q.key];
+    return {
+      key: q.key,
+      value: q.value as string,
+      glyph: paramDetails?.glyph ?? undefined,
+      title: paramDetails?.label ?? toSentenceCase(q.key),
+    };
+  });
 
   const handleClearAll = () => {
     setQueryParams((current) => {

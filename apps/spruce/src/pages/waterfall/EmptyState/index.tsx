@@ -1,8 +1,7 @@
 import { BasicEmptyState, Button, Text } from "@via-ds/components";
-import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { VERSION_SEARCH_LIMIT } from "../constants";
-import { Pagination, WaterfallFilterOptions } from "../types";
+import { Pagination } from "../types";
 import { usePaginationNavigation } from "../usePaginationNavigation";
 import { EmptyGraphic } from "./EmptyGraphic";
 import styles from "./index.module.css";
@@ -16,16 +15,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ pagination }) => {
   const { goToNextPage, hasNextPage, isNavigatingToPage } =
     usePaginationNavigation(pagination);
 
-  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-  // Task and status filters are only searched within a limited window of commits;
-  // other filters search the project's entire history in one query.
-  const searchIsWindowLimited = tasks.length > 0 || statuses.length > 0;
-
-  if (searchIsWindowLimited && hasNextPage) {
+  if (hasNextPage) {
     return (
       <BasicEmptyState
         className={styles.emptyState}

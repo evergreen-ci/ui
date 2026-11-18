@@ -9,7 +9,9 @@ const WATERFALL_FILTER_FIELDS: (keyof WaterfallOptions)[] = [
   "requesters",
   "statuses",
   "tasks",
+  "taskTags",
   "variants",
+  "variantTags",
   "omitInactiveBuilds",
 ];
 
