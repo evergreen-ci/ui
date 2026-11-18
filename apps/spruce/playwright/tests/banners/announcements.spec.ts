@@ -12,7 +12,7 @@ test.describe("Announcement overlays", () => {
     const banner = page.getByTestId("sitewide-banner-success");
     await expect(banner).toBeVisible();
 
-    await banner.locator("[aria-label='X Icon']").click();
+    await banner.getByRole("button", { name: "Dismiss" }).click();
     await expect(banner).toBeHidden();
 
     await page.goto("/");
