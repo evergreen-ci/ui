@@ -95,4 +95,20 @@ describe("textInputWithValidation", () => {
 
     expect(input).toHaveValue("reset value");
   });
+  it("should disable the plus button when the input is disabled", async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+    render(
+      <TextInputWithValidation
+        isDisabled
+        label="textinput"
+        onSubmit={onSubmit}
+        value="test"
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Select plus button" });
+    expect(button).toBeDisabled();
+    await user.click(button);
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
 });
