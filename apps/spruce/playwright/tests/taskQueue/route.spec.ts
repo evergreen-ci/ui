@@ -31,7 +31,9 @@ test.describe("Task Queue", () => {
     const option = page.getByText("osx-108");
     await expect(option).toBeVisible();
     await option.click();
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(13);
+    await expect(
+      page.getByTestId("task-queue-table").getByTestId("via-table-row"),
+    ).toHaveCount(13);
   });
 
   test("Renders link to host page filtered to that particular distro", async ({
@@ -93,7 +95,10 @@ test.describe("Task Queue", () => {
     page,
   }) => {
     await page.goto("/task-queue/osx-108");
-    const firstRow = page.getByTestId("leafygreen-table-row").first();
+    const firstRow = page
+      .getByTestId("task-queue-table")
+      .getByTestId("via-table-row")
+      .first();
     await expect(firstRow).toBeVisible();
     await expect(
       firstRow.locator('a[href*="/project/"][href*="/patches"]'),
