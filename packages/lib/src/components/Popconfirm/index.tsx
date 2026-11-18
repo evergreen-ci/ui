@@ -77,7 +77,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         <span
           ref={triggerRef}
           className={styles.trigger}
-          onClickCapture={() => (open ? close() : setOpen(true))}
+          onClickCapture={() => handleOpenChange(!open)}
           role="presentation"
         >
           {trigger}
