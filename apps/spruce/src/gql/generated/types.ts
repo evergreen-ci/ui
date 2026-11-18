@@ -697,6 +697,7 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEngFlowCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -1035,14 +1036,6 @@ export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
 }
-
-/**
- * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
- * It's used to filter a display task's execution tasks.
- */
-export type ExecutionTasksFilterOptions = {
-  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-};
 
 export type Expansion = {
   __typename?: "Expansion";
@@ -3788,6 +3781,7 @@ export type SchedulerConfig = {
   expectedRuntimeFactor?: Maybe<Scalars["Int"]["output"]>;
   futureHostFraction?: Maybe<Scalars["Float"]["output"]>;
   generateTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  gitTagFactor?: Maybe<Scalars["Int"]["output"]>;
   groupVersions: Scalars["Boolean"]["output"];
   hostAllocator?: Maybe<HostAllocatorVersion>;
   hostAllocatorFeedbackRule?: Maybe<FeedbackRule>;
@@ -3813,6 +3807,7 @@ export type SchedulerConfigInput = {
   expectedRuntimeFactor: Scalars["Int"]["input"];
   futureHostFraction: Scalars["Float"]["input"];
   generateTaskFactor: Scalars["Int"]["input"];
+  gitTagFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   hostAllocator: HostAllocatorVersion;
   hostAllocatorFeedbackRule: FeedbackRule;
@@ -4261,11 +4256,6 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: Version;
   versionMetadata: Version;
-};
-
-/** Task models a task, the simplest unit of execution for Evergreen. */
-export type TaskExecutionTasksFullArgs = {
-  options?: InputMaybe<ExecutionTasksFilterOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
@@ -7441,6 +7431,7 @@ export type SaveAdminSettingsMutation = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
@@ -8243,6 +8234,7 @@ export type AdminSettingsQuery = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
