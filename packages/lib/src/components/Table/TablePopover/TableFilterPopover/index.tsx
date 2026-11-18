@@ -42,6 +42,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
           aria-label="Table Filter Popover Icon"
           data-highlighted={hasFilters}
           data-testid={dataTestId}
+          size="small"
           variant="tertiary"
         >
           <Filter
