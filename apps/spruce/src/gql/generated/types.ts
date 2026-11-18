@@ -697,6 +697,7 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEngFlowCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -1035,14 +1036,6 @@ export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
 }
-
-/**
- * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
- * It's used to filter a display task's execution tasks.
- */
-export type ExecutionTasksFilterOptions = {
-  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-};
 
 export type Expansion = {
   __typename?: "Expansion";
@@ -4263,11 +4256,6 @@ export type Task = {
   totalTestCount: Scalars["Int"]["output"];
   version: Version;
   versionMetadata: Version;
-};
-
-/** Task models a task, the simplest unit of execution for Evergreen. */
-export type TaskExecutionTasksFullArgs = {
-  options?: InputMaybe<ExecutionTasksFilterOptions>;
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
