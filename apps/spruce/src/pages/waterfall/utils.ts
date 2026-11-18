@@ -10,7 +10,9 @@ export const normalizeWaterfallFilters = (
   requesters: options.requesters ?? [],
   statuses: options.statuses ?? [],
   tasks: options.tasks ?? [],
+  taskTags: options.taskTags ?? [],
   variants: options.variants ?? [],
+  variantTags: options.variantTags ?? [],
   includeAllBuildsAndTasks: options.includeAllBuildsAndTasks ?? true,
   omitInactiveBuilds: options.omitInactiveBuilds ?? false,
 });
