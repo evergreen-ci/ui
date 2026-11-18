@@ -5,12 +5,12 @@ import {
   Button,
   Popover,
   PopoverContext,
+  PopoverFrameWithArrow,
   PopoverRoot,
   PopoverRootProps,
   Side,
 } from "@via-ds/components";
 import { cx } from "../../utils/css";
-import { PopoverContainer } from "../styles/Popover";
 import styles from "./index.module.css";
 
 type PopconfirmProps = Pick<PopoverRootProps, "align" | "side"> & {
@@ -95,6 +95,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
 }) => {
   const isControlled = open !== undefined && !!setOpen;
   const triggerRef = useRef<HTMLElement | null>(null);
+  const arrowRef = useRef<SVGSVGElement | null>(null);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
@@ -108,6 +109,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
   return (
     <PopoverRoot
       align={align}
+      arrowRef={arrowRef}
       isDismissable
       isNonModal
       isOpen={isControlled ? open : undefined}
@@ -127,17 +129,16 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
       )}
       <Popover>
         <LeafyGreenProvider darkMode>
-          <PopoverContainer
-            className={cx(styles.contentWrapper, className)}
-            data-testid={dataTestId}
-          >
-            {children}
-            <PopconfirmActions
-              confirmDisabled={confirmDisabled}
-              confirmText={confirmText}
-              onConfirm={onConfirm}
-            />
-          </PopoverContainer>
+          <PopoverFrameWithArrow className={cx(styles.frame, className)}>
+            <div className={styles.contentWrapper} data-testid={dataTestId}>
+              {children}
+              <PopconfirmActions
+                confirmDisabled={confirmDisabled}
+                confirmText={confirmText}
+                onConfirm={onConfirm}
+              />
+            </div>
+          </PopoverFrameWithArrow>
         </LeafyGreenProvider>
       </Popover>
     </PopoverRoot>
