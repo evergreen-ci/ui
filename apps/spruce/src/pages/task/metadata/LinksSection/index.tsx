@@ -7,6 +7,7 @@ import {
   getHoneycombTraceUrl,
 } from "constants/externalResources/honeycomb";
 import { TaskQuery } from "gql/generated/types";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 
 type Task = NonNullable<TaskQuery["task"]>;
 
@@ -21,30 +22,36 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
   const metadataLinks = annotation?.metadataLinks ?? [];
   const taskTrace = details?.traceID;
   const diskDevices = details?.diskDevices ?? [];
+  const hasTaskTimeRange = !!startTime && !!finishTime;
+  const showTraceLink = hasTaskTimeRange && !!taskTrace;
+  const showMetricsLink = hasTaskTimeRange && !isPushCompletedVirtualTask(task);
+
+  if (metadataLinks.length === 0 && !showTraceLink && !showMetricsLink) {
+    return null;
+  }
 
   return (
     <MetadataSection title="External Links">
-      {metadataLinks &&
-        metadataLinks.map((link) => (
-          <MetadataItem key={link.text}>
-            <StyledLink
-              data-testid="task-metadata-link"
-              href={link.url}
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "annotation link",
-                })
-              }
-            >
-              {link.text}
-            </StyledLink>
-          </MetadataItem>
-        ))}
-      {startTime && finishTime && (
+      {metadataLinks.map((link) => (
+        <MetadataItem key={link.text}>
+          <StyledLink
+            data-testid="task-metadata-link"
+            href={link.url}
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                "link.type": "annotation link",
+              })
+            }
+          >
+            {link.text}
+          </StyledLink>
+        </MetadataItem>
+      ))}
+      {(showTraceLink || showMetricsLink) && (
         <MetadataItem>
           <HoneycombLinkContainer>
-            {taskTrace && (
+            {showTraceLink && (
               <StyledLink
                 data-testid="task-trace-link"
                 hideExternalIcon={false}
@@ -59,24 +66,26 @@ export const LinksSection: React.FC<LinksSectionProps> = ({ task }) => {
                 Honeycomb Trace
               </StyledLink>
             )}
-            <StyledLink
-              data-testid="task-metrics-link"
-              hideExternalIcon={false}
-              href={getHoneycombSystemMetricsUrl(
-                task.id,
-                diskDevices,
-                startTime,
-                finishTime,
-              )}
-              onClick={() => {
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  "link.type": "honeycomb metrics link",
-                });
-              }}
-            >
-              Honeycomb System Metrics
-            </StyledLink>
+            {showMetricsLink && (
+              <StyledLink
+                data-testid="task-metrics-link"
+                hideExternalIcon={false}
+                href={getHoneycombSystemMetricsUrl(
+                  task.id,
+                  diskDevices,
+                  startTime,
+                  finishTime,
+                )}
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "honeycomb metrics link",
+                  });
+                }}
+              >
+                Honeycomb System Metrics
+              </StyledLink>
+            )}
           </HoneycombLinkContainer>
         </MetadataItem>
       )}

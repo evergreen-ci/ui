@@ -1,5 +1,5 @@
-import { Badge } from "@leafygreen-ui/badge";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Badge, BadgeVariant } from "@via-ds/components/badge";
+import { Disclaimer } from "@via-ds/components/typography";
 import pluralize from "pluralize";
 import { Link } from "react-router-dom";
 import { getTaskQueueRoute } from "constants/routes";
@@ -19,10 +19,10 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
   return (
     <Link onClick={() => onClick(option)} to={getTaskQueueRoute(id)}>
       <div className={styles.optionWrapper}>
-        <Badge className={styles.badge}>
+        <Badge className={styles.badge} variant={BadgeVariant.Status}>
           {pluralize("task", taskCount, true)}
         </Badge>
-        <Badge className={styles.badge}>
+        <Badge className={styles.badge} variant={BadgeVariant.Status}>
           {pluralize("host", hostCount, true)}
         </Badge>
         <Disclaimer className={styles.distroName}>{id}</Disclaimer>

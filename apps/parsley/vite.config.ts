@@ -35,6 +35,7 @@ const getProjectConfig = () => {
     },
     server: serverConfig,
     build: {
+      cssTarget: ["chrome123", "edge123", "firefox120", "safari17.5"],
       sourcemap: true,
     },
 
@@ -84,11 +85,11 @@ const getProjectConfig = () => {
         "@emotion/server": "@emotion/css",
         ...(process.env.PROFILER === "true" && {
           "react-dom/client": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/react-dom/profiling",
           ),
           "scheduler/tracing": path.resolve(
-            __dirname,
+            import.meta.dirname,
             "../../node_modules/scheduler/tracing-profiling",
           ),
         }),
@@ -103,6 +104,22 @@ const getProjectConfig = () => {
       globals: true,
       outputFile: { junit: "./bin/vitest/junit.xml" },
       reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+      server: {
+        deps: {
+          // Inlining works around extensionless lodash ESM imports in the LG
+          // packages, which Node's resolver rejects.
+          // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+          // pulling graphqlHighlight and its graphql-language-service imports
+          // carry file extensions.
+          inline: [
+            "@via-ds/components",
+            "@leafygreen-ui/icon",
+            "@leafygreen-ui/icon-button",
+            "@leafygreen-ui/segmented-control",
+            "@leafygreen-ui/toggle",
+          ],
+        },
+      },
       setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
       include: ["src/**/*.test.{ts,tsx}"],
     },

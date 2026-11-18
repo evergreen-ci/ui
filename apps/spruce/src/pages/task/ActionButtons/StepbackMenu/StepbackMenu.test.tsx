@@ -98,7 +98,7 @@ const baseTask = {
   status: TaskStatus.Failed,
   timeTaken: null,
   versionMetadata: {
-    __typename: "VersionLite" as const,
+    __typename: "Version" as const,
     id: "base_version_id",
     revision: "abc123",
   },

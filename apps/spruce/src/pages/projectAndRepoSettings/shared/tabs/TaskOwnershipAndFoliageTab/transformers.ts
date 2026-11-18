@@ -10,12 +10,18 @@ export const gqlToForm = ((data) => {
   const { taskOwnership } = projectRef ?? {};
 
   return {
-    taskOwnership: {
-      mothra: {
-        defaultMothraTeam: taskOwnership?.defaultMothraTeam ?? "",
-        defaultMothraTeamForBreakingCommit:
-          taskOwnership?.defaultMothraTeamForBreakingCommit ?? "",
-      },
+    mothra: {
+      defaultMothraTeam: taskOwnership?.defaultMothraTeam ?? "",
+      defaultMothraTeamForBreakingCommit:
+        taskOwnership?.defaultMothraTeamForBreakingCommit ?? "",
+    },
+    tagValidation: {
+      generatedTaskValidationPrefix:
+        taskOwnership?.generatedTaskValidationPrefix ?? "",
+      trackGeneratedTaskTagValidation:
+        taskOwnership?.trackGeneratedTaskTagValidation ?? null,
+      blockTaskGenerationOnTagValidation:
+        taskOwnership?.blockTaskGenerationOnTagValidation ?? null,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -25,9 +31,15 @@ export const formToGql = ((data, isRepo, id) => ({
   projectRef: {
     id,
     taskOwnership: {
-      defaultMothraTeam: data.taskOwnership.mothra.defaultMothraTeam,
+      defaultMothraTeam: data.mothra.defaultMothraTeam,
       defaultMothraTeamForBreakingCommit:
-        data.taskOwnership.mothra.defaultMothraTeamForBreakingCommit,
+        data.mothra.defaultMothraTeamForBreakingCommit,
+      generatedTaskValidationPrefix:
+        data.tagValidation.generatedTaskValidationPrefix,
+      trackGeneratedTaskTagValidation:
+        data.tagValidation.trackGeneratedTaskTagValidation,
+      blockTaskGenerationOnTagValidation:
+        data.tagValidation.blockTaskGenerationOnTagValidation,
     },
   },
 })) satisfies FormToGqlFunction<Tab>;

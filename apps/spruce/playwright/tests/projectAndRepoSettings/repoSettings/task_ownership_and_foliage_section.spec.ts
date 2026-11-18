@@ -1,5 +1,5 @@
 import { expect, test } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -44,5 +44,37 @@ test.describe("Task Ownership and Foliage section", () => {
       "placeholder",
       "breaking-team (Default from repo)",
     );
+  });
+
+  test("can set tag validation settings on the repo and show 'default from repo' values on project page", async ({
+    page,
+  }) => {
+    await page.goto(repoOrigin);
+
+    const validationPrefix = page.getByTestId(
+      "generated-task-validation-prefix",
+    );
+    const trackRadioBox = page.getByTestId(
+      "track-generated-task-tag-validation",
+    );
+    const trackEnabled = trackRadioBox.getByRole("radio", {
+      name: "Enabled",
+    });
+
+    await validationPrefix.fill("prefix");
+    await clickRadio(trackEnabled);
+    await save(page);
+    await validateToast(page, "success", "Successfully updated repo");
+
+    // Visit the project page and verify the defaults from the repo.
+    await page.goto(projectOrigin);
+    await expect(validationPrefix).toHaveAttribute(
+      "placeholder",
+      "prefix (Default from repo)",
+    );
+    const trackDefaultToRepo = trackRadioBox.getByRole("radio", {
+      name: "Default to repo (enabled)",
+    });
+    await expect(trackDefaultToRepo).toBeChecked();
   });
 });

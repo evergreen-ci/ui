@@ -1,12 +1,12 @@
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useTaskAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
+import { RevisionLink } from "components/RevisionLink";
 import { getProjectPatchesRoute, getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
+import { getDisplayRevision } from "utils/string";
+import { CompletedBy } from "./CompletedBy";
 import { TaskOwnership } from "./TaskOwnership";
 
 type Task = NonNullable<TaskQuery["task"]>;
@@ -20,6 +20,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
 
   const {
     baseTask,
+    completedBy,
     displayTask,
     execution,
     generatedBy,
@@ -34,10 +35,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
     owner,
     repo,
   } = project || {};
-  const baseCommit = shortenGithash(
-    baseTask?.versionMetadata?.revision ?? undefined,
-  );
-  const { user } = versionMetadata ?? {};
+  const { isPatch, user } = versionMetadata ?? {};
 
   return (
     <MetadataSection>
@@ -64,6 +62,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {completedBy && <CompletedBy completedBy={completedBy} />}
       <TaskOwnership execution={execution} taskId={task.id} />
       {displayTask && (
         <MetadataItem label="Display task">
@@ -83,20 +82,21 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ task }) => {
         </MetadataItem>
       )}
       {baseTask && (
-        <MetadataItem label="Base commit">
-          <InlineCode
-            as={Link}
-            data-testid="base-task-link"
+        <MetadataItem label={isPatch ? "Base task" : "Previous task"}>
+          <RevisionLink
             onClick={() =>
               taskAnalytics.sendEvent({
                 name: "Clicked metadata link",
                 "link.type": "base commit",
               })
             }
+            revision={
+              baseTask.versionMetadata
+                ? getDisplayRevision(baseTask.versionMetadata)
+                : ""
+            }
             to={getTaskRoute(baseTask.id, { execution: baseTask.execution })}
-          >
-            {baseCommit}
-          </InlineCode>
+          />
         </MetadataItem>
       )}
     </MetadataSection>

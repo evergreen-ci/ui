@@ -1,4 +1,4 @@
-import { FieldProps } from "@rjsf/core";
+import { FieldProps } from "@rjsf/utils";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -54,7 +54,7 @@ const Field = ({
       {...fieldProps}
       formData={formData}
       uiSchema={{
-        options: {
+        "ui:options": {
           initialOwner: "evergreen-ci",
           initialRepo: "logkeeper",
           repoName: "evergreen",

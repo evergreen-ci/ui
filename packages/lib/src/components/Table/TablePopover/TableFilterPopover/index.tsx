@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
 import { Body } from "@leafygreen-ui/typography";
+import Filter from "@via-ds/icons/Filter";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { TreeDataEntry, TreeSelect } from "../../../TreeSelect";
@@ -48,7 +48,7 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
-        <Icon color={iconColor} glyph="Filter" />
+        <Filter fill={iconColor} size="medium" />
       </IconButton>
       <Popover
         active={active}

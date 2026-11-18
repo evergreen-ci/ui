@@ -1,5 +1,5 @@
 import { expect, test } from "../../../fixtures";
-import { validateToast } from "../../../helpers";
+import { clickRadio, validateToast } from "../../../helpers";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -34,5 +34,34 @@ test.describe("Task Ownership and Foliage section", () => {
     await expect(defaultMothraTeamForBreakingCommit).toHaveValue(
       "breaking-team",
     );
+  });
+
+  test("can set tag validation settings on the project", async ({ page }) => {
+    await page.goto(projectOrigin);
+
+    const validationPrefix = page.getByTestId(
+      "generated-task-validation-prefix",
+    );
+    const trackRadioBox = page.getByTestId(
+      "track-generated-task-tag-validation",
+    );
+    const trackEnabled = trackRadioBox.getByRole("radio", {
+      name: "Enabled",
+    });
+    const saveButton = page.getByTestId("save-settings-button");
+
+    // Saving is blocked while tracking is enabled without a prefix set.
+    await clickRadio(trackEnabled);
+    await expect(saveButton).toBeDisabled();
+
+    await validationPrefix.fill("prefix");
+    await expect(saveButton).toBeEnabled();
+
+    await save(page);
+    await validateToast(page, "success", "Successfully updated project");
+
+    await page.reload();
+    await expect(validationPrefix).toHaveValue("prefix");
+    await expect(trackEnabled).toBeChecked();
   });
 });

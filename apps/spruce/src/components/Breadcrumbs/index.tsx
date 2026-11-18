@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { palette } from "@leafygreen-ui/palette";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import styles from "./index.module.css";
@@ -23,11 +23,10 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
       <Fragment key={`breadcrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
-          <Icon
+          <ChevronRight
             className={styles.paddedIcon}
             data-testid="breadcrumb-chevron"
             fill={gray.dark2}
-            glyph="ChevronRight"
             size="small"
           />
         )}

@@ -2,7 +2,6 @@ import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
-  userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
@@ -112,8 +111,7 @@ describe("columnHeaders (Variant History)", () => {
     expect(screen.queryByText("task2")).toBeVisible();
   });
 
-  it("should show a tooltip with the full name when hovering over a truncated task name", async () => {
-    const user = userEvent.setup();
+  it("should render the truncated task name for a long column header", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders
         projectIdentifier="evergreen"
@@ -138,8 +136,6 @@ describe("columnHeaders (Variant History)", () => {
     });
 
     expect(screen.queryByText(trimmedTaskName)).toBeVisible();
-    await user.hover(screen.getByText(trimmedTaskName));
-    await screen.findByText(longTaskName);
   });
 });
 

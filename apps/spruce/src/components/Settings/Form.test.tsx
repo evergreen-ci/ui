@@ -15,18 +15,18 @@ type ComponentProps = FormProps<TestRoutes, FormStateMap>;
 const Component: React.FC<{
   disabled?: ComponentProps["disabled"];
   tab?: ComponentProps["tab"];
-  validate?: ComponentProps["validate"];
-}> = ({ disabled = false, tab = "foo", validate }) => {
+  customValidate?: ComponentProps["customValidate"];
+}> = ({ customValidate, disabled = false, tab = "foo" }) => {
   const state = useTestContext();
   usePopulateForm(initialData[tab], tab);
 
   return (
     <Form
+      customValidate={customValidate}
       disabled={disabled}
       formSchema={formSchema[tab]}
       state={state}
       tab={tab}
-      validate={validate}
     />
   );
 };
@@ -53,8 +53,7 @@ describe("context-based form", () => {
 
   it("applies a validate function that shows an error message", async () => {
     const user = userEvent.setup();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    render(<Component tab="bar" validate={barValidator} />, {
+    render(<Component customValidate={barValidator} tab="bar" />, {
       wrapper: TestProvider,
     });
     await user.clear(screen.getByLabelText("Age"));

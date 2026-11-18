@@ -5,6 +5,7 @@ export const HOST = gql`
   query Host($id: String!) {
     host(hostId: $id) {
       ...BaseHost
+      agentRevision
       ami
       distro {
         id

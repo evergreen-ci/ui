@@ -1,4 +1,4 @@
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   TestProvider,
@@ -102,7 +102,7 @@ describe("useTestContext", () => {
     act(() => {
       result.current.updateForm("foo")({
         formData: initialData.foo,
-        errors: [{ name: "err" } as AjvError],
+        errors: [{ name: "err" } as RJSFValidationError],
       });
     });
 

@@ -1,0 +1,17 @@
+.eventRow > p {
+  /* Pin the Via Body label to the metrics of the pre-migration (LeafyGreen)
+     label so the snapshot does not shift. Applies whether or not Via's
+     stylesheet is loaded in Storybook. */
+  margin: 0;
+  line-height: 20px;
+  font-size: 13px;
+  color: rgb(0, 30, 43);
+}
+
+.eventContainer {
+  /* var() fallback keeps the token when Via's stylesheet is present and a
+     literal 24px (size.m) when it is not. */
+  margin-bottom: var(--via-space-600, 24px);
+  border: 1px solid green;
+  line-height: normal;
+}

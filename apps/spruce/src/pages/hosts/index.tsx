@@ -1,15 +1,17 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { Badge, Variant } from "@leafygreen-ui/badge";
-import { Button } from "@leafygreen-ui/button";
-import { Disclaimer, H2 } from "@leafygreen-ui/typography";
+import {
+  Badge,
+  BadgeVariant,
+  Button,
+  Disclaimer,
+  H2,
+} from "@via-ds/components";
 import { Pagination } from "@evg-ui/lib/components/Pagination";
 import {
   TableControlInnerRow,
   TableControlOuterRow,
 } from "@evg-ui/lib/components/Table/TableControl/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import usePagination from "@evg-ui/lib/src/hooks/usePagination";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -21,6 +23,7 @@ import { PageWrapper } from "components/styles";
 import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { HostsTable } from "pages/hosts/HostsTable";
+import styles from "./index.module.css";
 import { getFilters, getSorting, useQueryVariables } from "./utils";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
@@ -107,41 +110,44 @@ const Hosts: React.FC = () => {
     <PageWrapper data-testid="hosts-page">
       <H2>Evergreen Hosts</H2>
       <TableControlOuterRow>
-        <SubtitleDataWrapper>
+        <div className={styles.subtitleDataWrapper}>
           <Disclaimer data-testid="filtered-hosts-count">
             {`Showing ${
               hasFilters ? filteredHostCount : totalHostsCount
             } of ${totalHostsCount}`}
           </Disclaimer>
-          <HostsSelectionWrapper>
-            <Badge data-testid="hosts-selection-badge" variant={Variant.Blue}>
+          <div className={styles.hostsSelectionWrapper}>
+            <Badge
+              data-testid="hosts-selection-badge"
+              variant={BadgeVariant.Info}
+            >
               {selectedHostIds.length} Selected
             </Badge>
-            <ButtonWrapper>
+            <div className={styles.buttonWrapper}>
               <Button
                 data-testid="update-status-button"
-                disabled={selectedHostIds.length === 0}
-                onClick={() => setIsUpdateStatusModalVisible(true)}
+                isDisabled={selectedHostIds.length === 0}
+                onPress={() => setIsUpdateStatusModalVisible(true)}
               >
                 Update Status
               </Button>
-            </ButtonWrapper>
-            <ButtonWrapper>
+            </div>
+            <div className={styles.buttonWrapper}>
               <RestartJasper
                 canRestartJasper={canRestartJasper}
                 jasperTooltipMessage={restartJasperError}
                 selectedHostIds={selectedHostIds}
               />
-            </ButtonWrapper>
-            <ButtonWrapper>
+            </div>
+            <div className={styles.buttonWrapper}>
               <Reprovision
                 canReprovision={canReprovision}
                 reprovisionTooltipMessage={reprovisionError}
                 selectedHostIds={selectedHostIds}
               />
-            </ButtonWrapper>
-          </HostsSelectionWrapper>
-        </SubtitleDataWrapper>
+            </div>
+          </div>
+        </div>
         <TableControlInnerRow>
           <Pagination
             currentPage={page}
@@ -182,21 +188,5 @@ const Hosts: React.FC = () => {
     </PageWrapper>
   );
 };
-
-const SubtitleDataWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  height: 70px;
-`;
-const HostsSelectionWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  margin-left: ${size.l};
-`;
-const ButtonWrapper = styled.div`
-  margin-left: ${size.m};
-`;
 
 export default Hosts;

@@ -1,0 +1,23 @@
+.skeleton {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--waterfall-skeleton-columns),
+    minmax(0, 1fr)
+  );
+  gap: var(--via-space-100) var(--via-space-400);
+}
+
+.cell {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--via-space-200);
+}
+
+.cell > span {
+  display: block;
+  width: 100%;
+}
+
+.skeleton[data-animations-enabled="false"] * {
+  animation: none;
+}

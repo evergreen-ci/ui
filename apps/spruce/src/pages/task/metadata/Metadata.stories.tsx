@@ -7,6 +7,7 @@ import {
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   AbortInfo,
+  ExecutionPlatform,
   MetStatus,
   RequiredStatus,
   TaskOwnerTeamsForTaskQuery,
@@ -24,6 +25,20 @@ export const Default: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
       <Metadata {...args} task={taskQuery.task} />
+    </Container>
+  ),
+};
+
+export const RanInContainer: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          executionPlatform: ExecutionPlatform.Container,
+        }}
+      />
     </Container>
   ),
 };
@@ -119,6 +134,33 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
             },
             status: TaskStatus.Failed,
             type: "type",
+            failureMetadataTags: [],
+            otherFailingCommands: [],
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const SystemFailure: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          details: {
+            failingCommand: "",
+            description: "stranded",
+            diskDevices: [],
+            oomTracker: {
+              detected: false,
+            },
+            status: TaskStatus.Failed,
+            systemFailureReason:
+              "host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)",
+            type: "system",
             failureMetadataTags: [],
             otherFailingCommands: [],
           },

@@ -32,7 +32,7 @@ export const getFormSchema = (
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
+    "ui:label": false,
   };
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 

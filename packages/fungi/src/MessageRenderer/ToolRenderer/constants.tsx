@@ -1,4 +1,4 @@
-import { glyphs } from "@evg-ui/lib/components/Icon";
+import { IconProps } from "@evg-ui/lib/components/Icon";
 import { MergedFindingsView } from "./MergedFindingsView";
 import { isMergedFindings } from "./utils";
 
@@ -13,7 +13,7 @@ export const renderableToolLabels: Record<
     loadingCopy: string;
     completedCopy: string;
     errorCopy: string;
-    glyph: keyof typeof glyphs;
+    glyph: IconProps["glyph"];
     renderOutput?: (
       output: unknown,
       onLinkClick?: (href: string) => void,

@@ -1,11 +1,9 @@
 import { useVersionAnalytics } from "analytics";
 import { CostSummary } from "components/CostSummary";
 import { MetadataSection } from "components/MetadataCard";
-import { VersionQuery } from "gql/generated/types";
+import { Version } from "pages/version/Metadata/types";
 import { ParametersModal } from "../../ParametersModal";
 import { SkippedTestsMetadata } from "../SkippedTestsMetadata";
-
-type Version = NonNullable<VersionQuery["version"]>;
 
 interface ExecutionSectionProps {
   version: Version;
@@ -14,24 +12,35 @@ interface ExecutionSectionProps {
 export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
   version,
 }) => {
-  const { cost, id, parameters, projectMetadata } = version;
+  const {
+    cost,
+    id,
+    parameters,
+    projectMetadata,
+    quarantinedTestsSkippedCount,
+  } = version;
   const { sendEvent } = useVersionAnalytics(id);
 
   const hasParameters = parameters.length > 0;
   const totalCost = cost?.total;
   const hasCost = totalCost != null && totalCost > 0;
   const testSelectionEnabled = projectMetadata?.testSelection?.allowed ?? false;
+  const hasSkippedTests =
+    testSelectionEnabled && quarantinedTestsSkippedCount > 0;
 
-  if (!hasCost && !hasParameters && !testSelectionEnabled) {
+  if (!hasCost && !hasParameters && !hasSkippedTests) {
     return null;
   }
 
   return (
     <MetadataSection title="Execution">
-      <SkippedTestsMetadata
-        testSelectionEnabled={testSelectionEnabled}
-        versionId={id}
-      />
+      {hasSkippedTests && (
+        <SkippedTestsMetadata
+          skippedTestsCount={quarantinedTestsSkippedCount}
+          testSelectionEnabled={testSelectionEnabled}
+          versionId={id}
+        />
+      )}
       {hasCost && (
         <CostSummary
           onClickDetailsButton={() =>

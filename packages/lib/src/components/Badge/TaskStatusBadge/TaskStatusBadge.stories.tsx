@@ -1,5 +1,5 @@
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { TaskStatus, TaskStatusUmbrella } from "types/task";
+import { TaskStatus } from "types/task";
 import styles from "./TaskStatusBadge.stories.module.css";
 import TaskStatusBadge from ".";
 
@@ -7,10 +7,7 @@ export default {
   component: TaskStatusBadge,
 } satisfies CustomMeta<typeof TaskStatusBadge>;
 
-const statuses = [
-  ...Object.values(TaskStatus),
-  ...Object.values(TaskStatusUmbrella),
-];
+const statuses = Object.values(TaskStatus);
 
 export const Default: CustomStoryObj<typeof TaskStatusBadge> = {
   argTypes: {

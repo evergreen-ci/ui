@@ -1,17 +1,15 @@
 import { palette } from "@leafygreen-ui/palette";
-import { Size, glyphs } from "components/Icon";
+import { IconProps, localGlyphs, sizeMap, viaGlyphs } from "components/Icon";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./IconWithTooltip.stories.module.css";
 import IconWithTooltip from ".";
 
 const { green } = palette;
 
-const Sizes = {
-  [Size.Small]: 14,
-  [Size.Default]: 16,
-  [Size.Large]: 20,
-  [Size.XLarge]: 24,
-};
+const glyphNames = [
+  ...Object.keys(viaGlyphs),
+  ...Object.keys(localGlyphs),
+].sort() as IconProps["glyph"][];
 
 export default {
   component: IconWithTooltip,
@@ -24,7 +22,7 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
     },
     size: {
       control: { type: "select" },
-      options: Object.values(Sizes),
+      options: Object.values(sizeMap),
     },
     children: {
       control: { type: "text" },
@@ -32,12 +30,12 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
   },
   args: {
     fill: green.dark3,
-    size: Sizes[Size.Default],
+    size: sizeMap.medium,
     children: "Tooltip Text",
   },
   render: ({ children, ...rest }) => (
     <div className={styles.container}>
-      {Object.keys(glyphs).map((name) => (
+      {glyphNames.map((name) => (
         <div key={name} className={styles.iconContainer}>
           <IconWithTooltip {...rest} glyph={name}>
             {children}

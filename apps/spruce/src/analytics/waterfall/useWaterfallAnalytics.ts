@@ -3,6 +3,10 @@ import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import { FilterType } from "pages/waterfall/types";
+import {
+  CreatedNotificationAction,
+  ViewedNotificationModalAction,
+} from "types/subscription";
 
 type Action =
   | { name: "Changed page"; direction: "next" | "previous" }
@@ -12,6 +16,7 @@ type Action =
       link: "jira" | "githash" | "upstream project";
       "commit.type": "active" | "inactive";
     }
+  | { name: "Toggled commit description"; expanded: boolean }
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Clicked jump to most recent commit button" }
@@ -22,11 +27,8 @@ type Action =
       action: "pinned" | "unpinned";
       variant: string;
     }
-  | {
-      name: "Created notification";
-      "subscription.type": string;
-      "subscription.trigger": string;
-    }
+  | ViewedNotificationModalAction
+  | CreatedNotificationAction
   | { name: "Deleted all filter chips" }
   | { name: "Deleted one filter chip" }
   | {

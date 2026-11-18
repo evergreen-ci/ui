@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
+import List from "@via-ds/icons/List";
 import { Link, Navigate, useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -8,13 +9,13 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  Divider,
   SettingsPageContent,
   SideNav,
   SideNavGroup,
   SideNavItem,
   SideNavPageWrapper,
 } from "components/styles";
-import { showTaskOwnershipTab } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -68,9 +69,7 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     ProjectSettingsTabRoutes.ProjectTriggers,
     ProjectSettingsTabRoutes.PeriodicBuilds,
     ProjectSettingsTabRoutes.TestSelection,
-    ...(showTaskOwnershipTab
-      ? [ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
-      : []),
+    ProjectSettingsTabRoutes.TaskOwnershipAndFoliage,
     ProjectSettingsTabRoutes.Plugins,
   ];
   const githubTabs: ProjectSettingsTabRoutes[] = [
@@ -157,13 +156,9 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             ))}
           </SideNavGroup>
 
+          <Divider margin={dividerMargin} />
           <div ref={githubGroupRef}>
-            <SideNavGroup
-              collapsible
-              glyph={<Icon glyph="GitHub" />}
-              header="GitHub"
-              initialCollapsed={!githubTabs.includes(currentTab)}
-            >
+            <SideNavGroup glyph={<Icon glyph="GitHub" />} header="GitHub">
               {githubTabs.map((v) => (
                 <SharedSettingsNavItem
                   key={v}
@@ -177,7 +172,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
             <GithubNavGuideCue refEl={githubGroupRef} />
           </div>
 
-          <SideNavGroup glyph={<Icon glyph="List" />} header="Changelog">
+          <Divider margin={dividerMargin} />
+          <SideNavGroup glyph={<List />} header="Changelog">
             {otherTabs.map((v) => (
               <SharedSettingsNavItem
                 key={v}
@@ -207,6 +203,8 @@ const SharedSettings: React.FC<SharedSettingsProps> = ({
     </ProjectSettingsProvider>
   );
 };
+
+const dividerMargin = `${size.xxs} ${size.xs} -${size.xxs} ${size.xs}`;
 
 const SharedSettingsNavItem: React.FC<{
   currentTab: ProjectSettingsTabRoutes;

@@ -154,6 +154,7 @@ export const naive = {
       `,
       items: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:label": false,
       },
     },
   },

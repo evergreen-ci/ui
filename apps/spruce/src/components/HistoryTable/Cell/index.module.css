@@ -26,6 +26,21 @@
 }
 
 .labelCellContainer {
-  width: 200px;
+  width: 230px;
+  flex-shrink: 0;
   margin-right: 40px;
+}
+
+.mediumWeight.mediumWeight {
+  font-weight: 500;
+}
+
+.loadingHeaderBar {
+  width: 100%;
+  height: var(--via-space-200);
+}
+
+.loadingIcon {
+  width: 24px;
+  height: 24px;
 }

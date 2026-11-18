@@ -89,14 +89,6 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
   const timezone = useUserTimeZone();
   const utcDate = getUTCEndOfDay(date, timezone);
 
-  // Polling refetches the timeline on an interval, which yanks the user around
-  // once they've paginated into history. Only poll on the default, most-recent
-  // view (cursor still at its default and no date filter applied).
-  const isFirstPage =
-    cursorId === defaultCursorId &&
-    direction === TaskHistoryDirection.Before &&
-    !date;
-
   const { data, error, loading } = useQuery<
     TaskHistoryQuery,
     TaskHistoryQueryVariables
@@ -117,9 +109,11 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
       includeGenerator: !!task.generatedBy,
     },
     fetchPolicy: "cache-first",
-    pollInterval: isFirstPage ? DEFAULT_POLL_INTERVAL : 0,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   useErrorToast(error, "Unable to get task history");
+
+  const isLoading = loading && !data;
 
   const { taskHistory } = data ?? {};
   const { pagination, tasks = [] } = taskHistory ?? {};
@@ -187,7 +181,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
           />
           <TaskTimeline
             ref={timelineRef}
-            loading={loading}
+            loading={isLoading}
             pagination={{
               mostRecentTaskOrder,
               oldestTaskOrder,
@@ -200,7 +194,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ baseTaskId, task }) => {
         </StickyHeader>
         <ListContent>
           <Subtitle>Commit Details</Subtitle>
-          <CommitDetailsList loading={loading} tasks={visibleTasks} />
+          <CommitDetailsList loading={isLoading} tasks={visibleTasks} />
         </ListContent>
       </Container>
       <OnboardingTutorial guideCueRef={guideCueRef} />

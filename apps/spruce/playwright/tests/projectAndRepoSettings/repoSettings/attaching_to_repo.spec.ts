@@ -27,8 +27,6 @@ test.describe("Attaching Spruce to a repo", () => {
       .click();
     await validateToast(page, "success", "Successfully attached to repo");
 
-    await page.getByRole("button", { name: "GitHub" }).click();
-
     // Pull requests section.
     await page.getByTestId("navitem-pull-requests").click();
     await expect(page.getByTestId("warning-banner")).toHaveCount(2);

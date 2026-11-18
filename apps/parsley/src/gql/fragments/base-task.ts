@@ -6,6 +6,7 @@ export const BASE_TASK = gql`
     displayName
     displayStatus
     execution
+    executionPlatform
     patchNumber
     versionMetadata: version {
       id

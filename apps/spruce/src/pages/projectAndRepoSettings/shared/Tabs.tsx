@@ -2,7 +2,6 @@ import { useEffect, useMemo } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { showTaskOwnershipTab } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
@@ -260,24 +259,22 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           }
           path={ProjectSettingsTabRoutes.TestSelection}
         />
-        {showTaskOwnershipTab && (
-          <Route
-            element={
-              <TaskOwnershipAndFoliageTab
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
-                    .projectData
-                }
-                projectType={projectType}
-                repoData={
-                  tabData[ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
-                    .repoData
-                }
-              />
-            }
-            path={ProjectSettingsTabRoutes.TaskOwnershipAndFoliage}
-          />
-        )}
+        <Route
+          element={
+            <TaskOwnershipAndFoliageTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
+                  .projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.TaskOwnershipAndFoliage]
+                  .repoData
+              }
+            />
+          }
+          path={ProjectSettingsTabRoutes.TaskOwnershipAndFoliage}
+        />
         <Route
           element={
             <AppSettingsTab

@@ -9,6 +9,8 @@ export const wikiUrl = `${wikiBaseUrl}/Home`;
 const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
 const hostsDocumentationUrl = `${wikiBaseUrl}/Hosts`;
 
+export const projectConfigFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files`;
+
 export const amazonEC2InstanceTypeDocumentationUrl =
   "https://aws.amazon.com/ec2/instance-types/";
 
@@ -96,7 +98,7 @@ export const getGithubPRUrl = (
   repo: string,
   prNumber: number,
   headHash: string,
-) => `https://github.com/${owner}/${repo}/pull/${prNumber}/commits/${headHash}`;
+) => `https://github.com/${owner}/${repo}/pull/${prNumber}/changes/${headHash}`;
 
 export const getGithubMergeQueueUrl = (
   owner: string,

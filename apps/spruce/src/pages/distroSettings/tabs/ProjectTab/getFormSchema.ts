@@ -57,7 +57,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:addButtonText": "Add project",
       "ui:orderable": false,
       items: {
-        "ui:label": false,
+        "ui:title": "Project ID",
       },
     },
   },

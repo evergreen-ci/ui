@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within } from "storybook/test";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
@@ -11,7 +11,7 @@ import {
   versionWithGitTag,
   versionWithUpstreamProject,
 } from "../testData";
-import { getVersionUpstreamProjectMock } from "./testData";
+import styles from "./VersionLabel.stories.module.css";
 import { VersionLabel, VersionLabelView } from ".";
 
 export default {
@@ -30,32 +30,35 @@ export default {
 
 export const Default: StoryObj<typeof VersionLabel> = {
   render: (args) => (
-    <Container>
+    <div className={styles.container}>
       <VersionLabel {...args} />
-    </Container>
+    </div>
   ),
   parameters: {
     apolloClient: {
       mocks: [getSpruceConfigMock, getUserSettingsMock],
     },
   },
-  args: version,
+  args: { version },
 };
 
 export const GitTag: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionWithGitTag,
+  args: { version: versionWithGitTag, view: VersionLabelView.Waterfall },
 };
 
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionWithUpstreamProject,
+  args: {
+    version: versionWithUpstreamProject,
+    view: VersionLabelView.Waterfall,
+  },
   parameters: {
     apolloClient: {
       mocks: [
+        getTaskStatsMock(versionWithUpstreamProject.id),
         getSpruceConfigMock,
         getUserSettingsMock,
-        getVersionUpstreamProjectMock,
       ],
     },
   },
@@ -63,7 +66,7 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
 
 export const SmallSize: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: { ...version, view: VersionLabelView.Waterfall },
+  args: { version, view: VersionLabelView.Waterfall },
   parameters: {
     apolloClient: {
       mocks: [
@@ -75,11 +78,18 @@ export const SmallSize: StoryObj<typeof VersionLabel> = {
   },
 };
 
-export const Broken: StoryObj<typeof VersionLabel> = {
-  ...Default,
-  args: versionBroken,
+export const TaskStatsOpen: StoryObj<typeof VersionLabel> = {
+  ...SmallSize,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Show task stats" }),
+    );
+    await within(canvasElement.ownerDocument.body).findByText("Total tasks");
+  },
 };
 
-const Container = styled.div`
-  max-width: 300px;
-`;
+export const Broken: StoryObj<typeof VersionLabel> = {
+  ...Default,
+  args: { version: versionBroken },
+};

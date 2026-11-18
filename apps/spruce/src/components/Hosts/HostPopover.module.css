@@ -2,6 +2,14 @@
   white-space: nowrap; /* prevent button collapse when screen is small */
 }
 
+.tooltipTrigger {
+  white-space: nowrap;
+
+  button {
+    pointer-events: none;
+  }
+}
+
 .buttonContainer {
   margin-top: var(--via-space-200);
   display: flex;

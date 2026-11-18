@@ -1,0 +1,19 @@
+.hashLink,
+.hashLink:hover {
+  text-decoration: none;
+}
+
+.hash {
+  color: var(--via-color-blue-400);
+  background-color: var(--via-color-neutral-100);
+  border: 1px solid var(--via-color-neutral-200);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.hashLink:hover .hash {
+  border-color: var(--via-color-neutral-300);
+  box-shadow: 0 0 0 3px var(--via-color-neutral-200);
+}
+

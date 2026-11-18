@@ -1,27 +1,22 @@
-import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { useVersionAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
+import { GithubCommitLink } from "components/GithubCommitLink";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
-import {
-  getGithubCommitUrl,
-  getGithubMergeQueueUrl,
-  getGithubPRUrl,
-} from "constants/externalResources";
+import { RevisionLink } from "components/RevisionLink";
+import { getGithubMergeQueueUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
-  getProjectPatchesRoute,
-  getTriggerRoute,
   getUserPatchesRoute,
   getVersionRoute,
+  getWaterfallRoute,
 } from "constants/routes";
-import { VersionQuery } from "gql/generated/types";
-import IncludedLocalModules from "../IncludedLocalModules";
-import ManifestBlob from "../ManifestBlob";
-
-type Version = NonNullable<VersionQuery["version"]>;
+import { Version } from "pages/version/Metadata/types";
+import { getDisplayRevision } from "utils/string";
+import BaseCommitMetadata from "./BaseCommitMetadata";
+import IncludedLocalModules from "./IncludedLocalModules";
+import ManifestBlob from "./ManifestBlob";
 
 interface GeneralSectionProps {
   version: Version;
@@ -39,7 +34,6 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
     projectMetadata,
     requester,
     revision,
-    upstreamProject,
     user,
   } = version;
   const { sendEvent } = useVersionAnalytics(id);
@@ -53,24 +47,19 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
     owner,
     repo,
   } = projectMetadata || {};
-  const hasOwnerAndRepo = !!owner && !!repo;
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
   const isGitHubPullRequest = requester === Requester.GitHubPR;
 
+  const hasOwnerAndRepo = !!owner && !!repo;
+  const hasCommitLink = !isPatch && hasOwnerAndRepo && !!revision;
+  const hasPRCommitLink =
+    isGitHubPullRequest && hasOwnerAndRepo && !!headHash && !!prNumber;
+
   return (
     <MetadataSection>
       <CopyableID textToCopy={id} tooltipLabel="Copy version ID" />
-      <MetadataItem label="Project">
-        <StyledRouterLink
-          onClick={() =>
-            sendEvent({ name: "Clicked metadata project patches link" })
-          }
-          to={getProjectPatchesRoute(projectIdentifier || projectID || "")}
-        >
-          {projectIdentifier || `${owner}/${repo}`}
-        </StyledRouterLink>
-      </MetadataItem>
+
       <MetadataItem label="Submitted by">
         <StyledRouterLink
           data-testid="user-patches-link"
@@ -89,30 +78,53 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           revision={revision}
         />
       ) : (
-        <MetadataItem label="Previous commit">
-          <InlineCode
-            as={Link}
+        <MetadataItem label="Previous version">
+          <RevisionLink
             data-testid="version-previous-commit"
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
+            revision={
+              previousVersion ? getDisplayRevision(previousVersion) : ""
+            }
             to={getVersionRoute(previousVersion?.id || "")}
-          >
-            {shortenGithash(previousVersion?.revision || "")}
-          </InlineCode>
+          />
         </MetadataItem>
       )}
-      {isGitHubPullRequest && hasOwnerAndRepo && headHash && prNumber && (
-        <MetadataItem label="GitHub PR commit">
-          <InlineCode
-            data-testid="github-pr-commit"
-            href={getGithubPRUrl(owner, repo, prNumber, headHash)}
+
+      <MetadataItem label="Project">
+        <StyledRouterLink
+          onClick={() => sendEvent({ name: "Clicked metadata waterfall link" })}
+          to={getWaterfallRoute(projectIdentifier || projectID || "")}
+        >
+          {projectIdentifier || `${owner}/${repo}`}
+        </StyledRouterLink>
+      </MetadataItem>
+      {hasCommitLink && (
+        <MetadataItem>
+          <GithubCommitLink
+            data-testid="version-github-commit"
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
             }
-          >
-            {shortenGithash(headHash)}
-          </InlineCode>
+            owner={owner}
+            repo={repo}
+            revision={revision}
+          />
+        </MetadataItem>
+      )}
+      {hasPRCommitLink && (
+        <MetadataItem>
+          <GithubCommitLink
+            data-testid="github-pr-commit"
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
+            owner={owner}
+            prNumber={prNumber}
+            repo={repo}
+            revision={headHash}
+          />
         </MetadataItem>
       )}
       {isGithubMergePatch && hasOwnerAndRepo && branch && (
@@ -126,38 +138,9 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      {!isPatch && hasOwnerAndRepo && revision && (
-        <MetadataItem label="GitHub commit">
-          <InlineCode
-            data-testid="version-github-commit"
-            href={getGithubCommitUrl(owner, repo, revision)}
-            onClick={() =>
-              sendEvent({ name: "Clicked metadata github commit link" })
-            }
-          >
-            {shortenGithash(revision)}
-          </InlineCode>
-        </MetadataItem>
-      )}
+      {manifest && <ManifestBlob manifest={manifest} />}
       {includedLocalModules && includedLocalModules.length > 0 && (
         <IncludedLocalModules includedLocalModules={includedLocalModules} />
-      )}
-      {manifest && <ManifestBlob manifest={manifest} />}
-      {upstreamProject && (
-        <MetadataItem label="Triggered from">
-          <StyledRouterLink
-            to={getTriggerRoute({
-              triggerType: upstreamProject.triggerType,
-              upstreamTask: upstreamProject.task,
-              upstreamVersion: upstreamProject.version,
-              upstreamRevision: upstreamProject.revision,
-              upstreamOwner: upstreamProject.owner,
-              upstreamRepo: upstreamProject.repo,
-            })}
-          >
-            {upstreamProject.project}
-          </StyledRouterLink>
-        </MetadataItem>
       )}
       {gitTags && (
         <MetadataItem>
@@ -169,41 +152,5 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </MetadataItem>
       )}
     </MetadataSection>
-  );
-};
-
-interface BaseCommitMetadataProps {
-  baseVersionId: string;
-  isGithubMergePatch: boolean;
-  onClick: () => void;
-  revision: string;
-}
-
-const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
-  baseVersionId,
-  isGithubMergePatch,
-  onClick,
-  revision,
-}) => {
-  const isBaseVersionPending = isGithubMergePatch && !baseVersionId;
-
-  return (
-    <MetadataItem label="Base commit">
-      {isBaseVersionPending ? (
-        <InlineCode data-testid="patch-base-commit">
-          {shortenGithash(revision)}
-        </InlineCode>
-      ) : (
-        <InlineCode
-          as={Link}
-          data-testid="patch-base-commit"
-          onClick={onClick}
-          to={getVersionRoute(baseVersionId)}
-        >
-          {shortenGithash(revision)}
-        </InlineCode>
-      )}
-      {isBaseVersionPending && " (pending)"}
-    </MetadataItem>
   );
 };

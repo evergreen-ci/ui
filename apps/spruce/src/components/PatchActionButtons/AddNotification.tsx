@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@leafygreen-ui/button";
 import { useVersionAnalytics } from "analytics";
+import { NotificationModalSource } from "types/subscription";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
 
 interface Props {
@@ -17,7 +18,10 @@ export const AddNotification: React.FC<Props> = ({ patchId }) => {
       <Button
         data-testid="notify-patch"
         onClick={() => {
-          sendEvent({ name: "Viewed notification modal" });
+          sendEvent({
+            name: "Viewed notification modal",
+            "notification.source": NotificationModalSource.NotifyMeButton,
+          });
           setIsVisibleModal(true);
         }}
         size="small"
@@ -26,6 +30,8 @@ export const AddNotification: React.FC<Props> = ({ patchId }) => {
       </Button>
       <PatchNotificationModal
         onCancel={() => setIsVisibleModal(false)}
+        source={NotificationModalSource.NotifyMeButton}
+        versionId={patchId}
         visible={isVisibleModal}
       />
     </>

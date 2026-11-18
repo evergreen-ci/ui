@@ -1,4 +1,4 @@
-import { TaskQuery } from "gql/generated/types";
+import { ExecutionPlatform, TaskQuery } from "gql/generated/types";
 
 export const taskData: NonNullable<TaskQuery["task"]> = {
   id: "evergreen_ui_parsley_test_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
@@ -25,7 +25,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
     versionMetadata: {
       id: "evergreen_ui_da7ae2020c5af16fdc5daf95a6420b36ec742a06",
       revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
-      __typename: "VersionLite",
+      __typename: "Version",
     },
     __typename: "Task",
   },
@@ -83,6 +83,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
       },
     ],
     status: "failed",
+    systemFailureReason: null,
     timedOut: false,
     timeoutType: "",
     traceID: "6e52941f6e33a086fba12d3174815014",
@@ -92,6 +93,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   displayTask: null,
   distroId: "ubuntu2204-large",
   estimatedStart: 0,
+  executionPlatform: ExecutionPlatform.Host,
   executionTasksFull: null,
   expectedDuration: 129456,
   files: {
@@ -105,6 +107,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
   hostId: "i-0defcae9395f8e081",
   imageId: "ubuntu2204",
   ingestTime: new Date("2025-07-17T20:30:58.127Z"),
+  isVirtual: false,
   latestExecution: 0,
   logs: {
     agentLogLink:
@@ -163,7 +166,7 @@ export const taskData: NonNullable<TaskQuery["task"]> = {
       identifier: "evergreen-ui",
     },
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
-    __typename: "VersionLite",
+    __typename: "Version",
   },
   quarantinedTestsSkippedCount: 0,
   testSelectionEnabled: false,
@@ -222,6 +225,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       },
     ],
     status: "failed",
+    systemFailureReason: null,
     timedOut: false,
     timeoutType: "",
     traceID: "",
@@ -231,6 +235,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   displayTask: null,
   distroId: "",
   estimatedStart: 0,
+  executionPlatform: ExecutionPlatform.Host,
   executionTasksFull: [
     {
       id: "evergreen_ui_spruce_e2e_spruce_0_patch_da7ae2020c5af16fdc5daf95a6420b36ec742a06_68795d3e3ec03f0007deb52c_25_07_17_20_29_51",
@@ -305,6 +310,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
   hostId: "",
   imageId: "",
   ingestTime: new Date("2025-07-17T20:31:07.64Z"),
+  isVirtual: false,
   latestExecution: 0,
   logs: {
     agentLogLink:
@@ -356,7 +362,7 @@ export const displayTaskData: NonNullable<TaskQuery["task"]> &
       identifier: "evergreen-ui",
     },
     revision: "da7ae2020c5af16fdc5daf95a6420b36ec742a06",
-    __typename: "VersionLite",
+    __typename: "Version",
   },
   quarantinedTestsSkippedCount: 0,
   testSelectionEnabled: false,

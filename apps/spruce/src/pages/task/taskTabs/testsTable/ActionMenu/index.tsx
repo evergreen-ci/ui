@@ -13,6 +13,7 @@ import {
   UnquarantineTestMutationVariables,
 } from "gql/generated/types";
 import { QUARANTINE_TEST, UNQUARANTINE_TEST } from "gql/mutations";
+import { QuarantineDetails, QuarantineTestModal } from "./QuarantineTestModal";
 
 interface ActionMenuProps {
   task: NonNullable<TaskQuery["task"]>;
@@ -23,6 +24,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);
+  const [isQuarantineModalOpen, setIsQuarantineModalOpen] = useState(false);
 
   const [quarantineTest] = useMutation<
     QuarantineTestMutation,
@@ -52,8 +54,10 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
     },
   });
 
-  const onQuarantineTest = () => {
-    setOpen(false);
+  const onQuarantineTest = ({
+    existingJiraTicketsToLink,
+    justification,
+  }: QuarantineDetails) => {
     // Fall back to task.id since the field is nullable in the schema; for non-display tasks the two IDs are equal.
     const taskId = test.taskId ?? task.id;
     sendEvent({
@@ -62,7 +66,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       "test.task_id": taskId,
     });
     quarantineTest({
-      variables: { taskId, testName: test.testFile },
+      variables: {
+        taskId,
+        testName: test.testFile,
+        existingJiraTicketsToLink,
+        justification,
+      },
     });
   };
 
@@ -104,7 +113,10 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         key="quarantine"
         data-testid="quarantine-test"
         description="Quarantine test so that it does not run in future task runs."
-        onClick={onQuarantineTest}
+        onClick={() => {
+          setOpen(false);
+          setIsQuarantineModalOpen(true);
+        }}
       >
         Quarantine
       </DropdownItem>,
@@ -112,11 +124,22 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   }
 
   return (
-    <ButtonDropdown
-      dropdownItems={dropdownItems}
-      open={open}
-      setOpen={setOpen}
-      size={ButtonSize.XSmall}
-    />
+    <>
+      <ButtonDropdown
+        dropdownItems={dropdownItems}
+        open={open}
+        setOpen={setOpen}
+        size={ButtonSize.XSmall}
+      />
+      <QuarantineTestModal
+        isOpen={isQuarantineModalOpen}
+        onClose={() => setIsQuarantineModalOpen(false)}
+        onConfirm={onQuarantineTest}
+        requireJiraTickets={
+          task.project?.testSelection?.quarantineJiraTicketsRequired ?? false
+        }
+        testName={test.testFile}
+      />
+    </>
   );
 };

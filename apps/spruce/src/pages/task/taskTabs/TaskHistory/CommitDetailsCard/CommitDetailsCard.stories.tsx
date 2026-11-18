@@ -5,10 +5,24 @@ import { TestStatus } from "@evg-ui/lib/types/test";
 import { Requester } from "constants/requesters";
 import { TaskQuery, TestResult } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
-import { getVersionUpstreamProjectMock } from "pages/waterfall/VersionLabel/testData";
+import { UpstreamProject } from "gql/mocks/upstreamProject";
 import { TaskHistoryContextProvider } from "../context";
 import { tasks } from "../testData";
 import CommitDetailsCard from ".";
+
+const TRIGGER_VERSION_ID =
+  "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a";
+
+const upstreamProject: UpstreamProject = {
+  owner: "evergreen-ci",
+  project: "evergreen",
+  repo: "evergreen",
+  revision: "ed0e891754059eb7055c8c82752dedf1a35a87a6",
+  task: { execution: 0, id: "678", displayName: "Task 678" },
+  triggerID: "12345",
+  triggerType: "task",
+  version: { id: "9876" },
+};
 
 type CommitDetailsCardType = React.ComponentProps<typeof CommitDetailsCard> & {
   activated: boolean;
@@ -71,11 +85,6 @@ export default {
       control: { type: "select" },
     },
   },
-  parameters: {
-    apolloClient: {
-      mocks: [getVersionUpstreamProjectMock],
-    },
-  },
 } satisfies CustomMeta<CommitDetailsCardType>;
 
 export const Default: CustomStoryObj<TemplateProps> = {
@@ -88,6 +97,10 @@ export const WithFailingTests: CustomStoryObj<TemplateProps> = {
   ),
 };
 
+export const WithPriority: CustomStoryObj<TemplateProps> = {
+  render: (args) => <Template {...args} priority={50} />,
+};
+
 export const WithLongMessage: CustomStoryObj<TemplateProps> = {
   render: (args) => (
     <Template
@@ -97,7 +110,7 @@ export const WithLongMessage: CustomStoryObj<TemplateProps> = {
   ),
 };
 
-export const WithUpstreamProject: CustomStoryObj<TemplateProps> = {
+export const WithTrigger: CustomStoryObj<TemplateProps> = {
   args: {
     isTrigger: true,
   },
@@ -115,6 +128,7 @@ type TemplateProps = {
   isTrigger?: boolean;
   execution: number;
   message: string;
+  priority?: number;
   status: TaskStatus;
 };
 
@@ -141,13 +155,13 @@ const getStoryTask = (args: TemplateProps) => {
     canRestart: args.canRestart,
     canSchedule: args.canSchedule,
     execution: args.execution,
+    priority: args.priority ?? task.priority,
     requester: args.isTrigger ? Requester.Trigger : task.requester,
     version: {
       ...task.version,
-      id: args.isTrigger
-        ? "evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a"
-        : task.version.id,
+      id: args.isTrigger ? TRIGGER_VERSION_ID : task.version.id,
       message: args.message,
+      upstreamProject: args.isTrigger ? upstreamProject : null,
     },
   };
 };

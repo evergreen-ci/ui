@@ -50,6 +50,7 @@ export const useQueryVariables = (
 
   return {
     versionId,
+    includeNeverActivatedTasks,
     taskFilterOptions: {
       variant,
       taskName,

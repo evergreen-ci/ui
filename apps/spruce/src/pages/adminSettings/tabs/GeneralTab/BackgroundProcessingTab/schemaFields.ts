@@ -84,6 +84,7 @@ const namedQueues = {
     "ui:fieldCss": fullWidthCss,
     "ui:arrayItemCSS": arrayItemCSS,
     items: {
+      "ui:label": false,
       regexp: {
         "ui:optional": true,
       },

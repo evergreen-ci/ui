@@ -1,8 +1,6 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { MetadataItem, MetadataSection } from "components/MetadataCard";
-import { VersionQuery } from "gql/generated/types";
-
-type Version = NonNullable<VersionQuery["version"]>;
+import { Version } from "pages/version/Metadata/types";
 
 interface LinksSectionProps {
   version: Version;

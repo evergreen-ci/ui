@@ -4,6 +4,7 @@ import {
   CustomMeta,
   CustomStoryObj,
 } from "@evg-ui/lib/test_utils/types";
+import { Requester } from "constants/requesters";
 import {
   VersionQuarantinedTasksQuery,
   VersionQuarantinedTasksQueryVariables,
@@ -58,12 +59,12 @@ const version: Version = {
     repo: "evergreen",
     testSelection: null,
   },
+  quarantinedTestsSkippedCount: 0,
   repo: "evergreen",
   requester: "gitter_request",
   revision: "abc123def456",
   startTime: new Date("2024-01-01T15:05:00Z"),
   status: PatchStatus.Success,
-  taskCount: null,
   upstreamProject: null,
   user: {
     __typename: "User",
@@ -81,7 +82,7 @@ const version: Version = {
 const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
   request: {
     query: VERSION,
-    variables: { id: version.id, includeNeverActivatedTasks: false },
+    variables: { id: version.id },
   },
   result: {
     data: { version },
@@ -90,6 +91,7 @@ const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
 
 const versionWithSkippedTests: Version = {
   ...version,
+  quarantinedTestsSkippedCount: 12,
   projectMetadata: {
     ...version.projectMetadata!,
     testSelection: {
@@ -131,11 +133,6 @@ const versionSkippedTestsMock: ApolloMock<
   },
 };
 
-const versionSkippedTestsLoadingMock = {
-  ...versionSkippedTestsMock,
-  delay: Infinity,
-};
-
 export const WithTimeline: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
@@ -157,19 +154,6 @@ export const WithSkippedTests: CustomStoryObj<typeof Metadata> = {
   },
 };
 
-export const WithSkippedTestsLoading: CustomStoryObj<typeof Metadata> = {
-  render: (args) => (
-    <Container>
-      <Metadata {...args} version={versionWithSkippedTests} />
-    </Container>
-  ),
-  parameters: {
-    apolloClient: {
-      mocks: [versionMock, versionSkippedTestsLoadingMock],
-    },
-  },
-};
-
 export const WithExecutionData: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
@@ -185,6 +169,126 @@ export const WithExecutionData: CustomStoryObj<typeof Metadata> = {
               value: "true",
             },
           ],
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const WithTriggeredBy: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          upstreamProject: {
+            __typename: "UpstreamProject",
+            owner: "mongodb",
+            project: "mongo",
+            repo: "mongo",
+            revision: "def5361abc",
+            triggerID: "mongo_def5361abc",
+            triggerType: "push",
+            task: null,
+            version: null,
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const WithModulesAndGitTags: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          gitTags: [
+            { __typename: "GitTag", pusher: "testuser", tag: "v1.2.3" },
+            { __typename: "GitTag", pusher: "testuser", tag: "stable" },
+          ],
+          manifest: {
+            __typename: "Manifest",
+            id: "manifest123",
+            branch: "main",
+            isBase: false,
+            moduleOverrides: null,
+            modules: {
+              wiredtiger: {
+                branch: "main",
+                repo: "wiredtiger",
+                revision: "wiredtiger_revision",
+              },
+            },
+            project: "evergreen",
+            revision: version.revision,
+          },
+          patch: {
+            __typename: "Patch",
+            id: "patch123",
+            alias: null,
+            githubPatchData: null,
+            includedLocalModules: [
+              {
+                __typename: "IncludedLocalModule",
+                fileName: "wiredtiger.patch",
+                module: "wiredtiger",
+              },
+              {
+                __typename: "IncludedLocalModule",
+                fileName: "enterprise.patch",
+                module: "enterprise",
+              },
+            ],
+            patchNumber: 1,
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const GithubPullRequest: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          baseVersion: { __typename: "Version", id: "base123" },
+          isPatch: true,
+          patch: {
+            __typename: "Patch",
+            id: "patch123",
+            alias: null,
+            githubPatchData: {
+              __typename: "GithubPatch",
+              headHash: "9f8e7d6c5b4a39281706f5e4d3c2b1a098765432",
+              prNumber: 1234,
+            },
+            includedLocalModules: [],
+            patchNumber: 1,
+          },
+          requester: Requester.GitHubPR,
+        }}
+      />
+    </Container>
+  ),
+};
+
+export const GithubMergeQueue: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        version={{
+          ...version,
+          baseVersion: { __typename: "Version", id: "base123" },
+          isPatch: true,
+          requester: Requester.GitHubMergeQueue,
         }}
       />
     </Container>

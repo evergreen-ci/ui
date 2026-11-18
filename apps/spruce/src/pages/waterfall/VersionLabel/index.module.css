@@ -1,0 +1,49 @@
+.versionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-basis: calc(100% / var(--waterfall-version-count));
+}
+
+.versionContainer[data-view="waterfall"] :is(div, p) {
+  font-size: 12px;
+}
+
+.description {
+  line-height: 1.3;
+}
+
+.versionContainer[data-disabled="true"] > * {
+  color: var(--via-color-neutral-400);
+}
+
+.versionContainer p {
+  overflow-wrap: anywhere;
+}
+
+.versionContainer[data-highlighted="true"] {
+  background-color: var(--via-color-blue-100);
+}
+
+.date {
+  color: var(--via-color-neutral-500);
+}
+
+.hashRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--via-space-100);
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  gap: var(--via-space-100);
+}
+
+.headerLine {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+

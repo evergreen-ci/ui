@@ -32,12 +32,11 @@ import {
 
 interface Props {
   versionId: string;
-  taskCount: number;
 }
 
 const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
 
-const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
+const VersionTiming: React.FC<Props> = ({ versionId }) => {
   const navigate = useNavigate();
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -89,7 +88,8 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
     refetch,
   });
   const { version } = data || {};
-  const { childVersions: childVersionsData, tasks } = version || {};
+  const { childVersions: childVersionsData, taskCount, tasks } = version || {};
+  const totalCount = taskCount ?? 0;
   const childVersions = childVersionsData ?? [];
   const { count = 0, data: tasksData = [] } = tasks || {};
   const { limit, page } = queryVariables.taskFilterOptions;
@@ -139,7 +139,7 @@ const VersionTiming: React.FC<Props> = ({ taskCount, versionId }) => {
           });
         }}
         page={isVariantTimingView ? page || 0 : 0}
-        totalCount={isVariantTimingView ? taskCount : chartData.length - 1}
+        totalCount={isVariantTimingView ? totalCount : chartData.length - 1}
       />
       <GanttChart
         data={chartData}

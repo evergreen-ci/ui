@@ -94,7 +94,9 @@ describe("new distro button", () => {
       await waitFor(() => {
         expect(screen.queryByTestId("create-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByTestId("new-distro-menu")).not.toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByTestId("new-distro-menu")).not.toBeInTheDocument();
+      });
     });
 
     it("clicking the 'Copy distro' button opens the create distro modal and closes the menu", async () => {
@@ -114,7 +116,9 @@ describe("new distro button", () => {
       await waitFor(() => {
         expect(screen.queryByTestId("copy-distro-modal")).toBeVisible();
       });
-      expect(screen.queryByTestId("new-distro-menu")).not.toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByTestId("new-distro-menu")).not.toBeInTheDocument();
+      });
     });
   });
 });

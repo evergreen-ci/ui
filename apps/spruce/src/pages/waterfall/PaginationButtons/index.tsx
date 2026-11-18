@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import { Button } from "@leafygreen-ui/button";
-import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { Button } from "@via-ds/components";
+import ChevronLeft from "@via-ds/icons/ChevronLeft";
+import ChevronRight from "@via-ds/icons/ChevronRight";
 import { useWaterfallAnalytics } from "analytics";
 import { Pagination } from "../types";
 import { usePaginationNavigation } from "../usePaginationNavigation";
+import styles from "./index.module.css";
 
 interface PaginationButtonsProps {
   pagination: Pagination | undefined;
@@ -36,24 +36,25 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   };
 
   return (
-    <ButtonContainer>
+    <div className={styles.buttonContainer}>
       <Button
+        aria-label="Previous page"
+        className={styles.button}
         data-testid="prev-page-button"
-        disabled={!hasPrevPage || isNavigatingToPage}
-        leftGlyph={<Icon glyph="ChevronLeft" />}
-        onClick={onPrevClick}
-      />
+        isDisabled={!hasPrevPage || isNavigatingToPage}
+        onPress={onPrevClick}
+      >
+        <ChevronLeft />
+      </Button>
       <Button
+        aria-label="Next page"
+        className={styles.button}
         data-testid="next-page-button"
-        disabled={!hasNextPage || isNavigatingToPage}
-        leftGlyph={<Icon glyph="ChevronRight" />}
-        onClick={onNextClick}
-      />
-    </ButtonContainer>
+        isDisabled={!hasNextPage || isNavigatingToPage}
+        onPress={onNextClick}
+      >
+        <ChevronRight />
+      </Button>
+    </div>
   );
 };
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: ${size.xs};
-`;

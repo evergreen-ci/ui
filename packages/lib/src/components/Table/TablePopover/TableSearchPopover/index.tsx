@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@leafygreen-ui/icon";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Align, Justify, Popover } from "@leafygreen-ui/popover";
@@ -8,6 +7,7 @@ import {
   Size as SearchInputSize,
 } from "@leafygreen-ui/search-input";
 import { Description } from "@leafygreen-ui/typography";
+import MagnifyingGlass from "@via-ds/icons/MagnifyingGlass";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { DEFAULT_SPACING, FilterWrapper } from "../constants";
@@ -39,8 +39,8 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  // If the value from the props has changed, update the input.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInput(value);
   }, [value]);
 
@@ -65,7 +65,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         data-testid={dataTestId}
         onClick={() => setActive(!active)}
       >
-        <Icon color={iconColor} glyph="MagnifyingGlass" />
+        <MagnifyingGlass fill={iconColor} size="medium" />
       </IconButton>
       <Popover
         active={active}

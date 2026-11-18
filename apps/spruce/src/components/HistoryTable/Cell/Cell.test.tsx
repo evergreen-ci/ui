@@ -1,10 +1,10 @@
 import {
+  fireEvent,
   renderWithRouterMatch as render,
   screen,
-  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { TaskCell } from ".";
+import { ColumnHeaderCell, TaskCell } from ".";
 
 describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {
@@ -82,7 +82,6 @@ describe("taskCell", () => {
   });
 
   it("should have a tooltip on hover with failing tests when they are supplied", async () => {
-    const user = userEvent.setup();
     render(
       <TaskCell
         failingTests={["some-test"]}
@@ -93,10 +92,45 @@ describe("taskCell", () => {
         }}
       />,
     );
+    // jsdom can't lay out the tooltip's portal, so check presence not visibility.
+    fireEvent.pointerMove(document.body);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByTestId("history-table-icon"));
-    await screen.findByText("some-test");
-    expect(screen.getByTestId("test-tooltip")).toBeInTheDocument();
+    fireEvent.pointerEnter(screen.queryByTestId("history-table-icon"));
+    expect(
+      await screen.findByTestId("test-tooltip", {}, { timeout: 3000 }),
+    ).toBeInTheDocument();
     expect(screen.getByText("some-test")).toBeInTheDocument();
+  });
+});
+
+describe("columnHeaderCell", () => {
+  it("should show a tooltip with the full name when hovering over a truncated column header", async () => {
+    render(
+      <ColumnHeaderCell
+        fullDisplayName="a-very-long-task-name-that-gets-truncated"
+        trimmedDisplayName="a-very-long-t..."
+      />,
+    );
+    fireEvent.pointerMove(document.body);
+    fireEvent.pointerEnter(screen.getByText("a-very-long-t..."));
+    expect(
+      await screen.findByText(
+        "a-very-long-task-name-that-gets-truncated",
+        {},
+        { timeout: 3000 },
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("should not render a tooltip when the display name is not truncated", () => {
+    render(
+      <ColumnHeaderCell
+        fullDisplayName="short-name"
+        trimmedDisplayName="short-name"
+      />,
+    );
+    fireEvent.pointerMove(document.body);
+    fireEvent.pointerEnter(screen.getByText("short-name"));
+    expect(screen.queryAllByText("short-name")).toHaveLength(1);
   });
 });

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Plus from "@via-ds/icons/Plus";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size, textInputHeight } from "@evg-ui/lib/constants/tokens";
@@ -237,7 +237,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             disabled={disabled || input.length === 0 || !isValid}
             onClick={handleOnSubmit}
           >
-            <Icon glyph="Plus" />
+            <Plus size="medium" />
           </IconButton>
         </IconButtonWrapper>
       </InputWrapper>

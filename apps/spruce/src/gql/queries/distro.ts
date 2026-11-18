@@ -11,6 +11,13 @@ export const DISTRO = gql`
       bootstrapSettings {
         clientDir
         communication
+        containerIsolation {
+          cpus
+          enabled
+          image
+          memoryMb
+          requireIsolation
+        }
         env {
           key
           value
@@ -71,6 +78,7 @@ export const DISTRO = gql`
       }
       imageId
       isCluster
+      isIaCManaged
       isVirtualWorkStation
       mountpoints
       name

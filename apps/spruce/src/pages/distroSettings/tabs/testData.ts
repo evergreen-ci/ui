@@ -23,6 +23,13 @@ const distroData: DistroQuery["distro"] = {
   bootstrapSettings: {
     clientDir: "/home/evg/client",
     communication: CommunicationMethod.LegacySsh,
+    containerIsolation: {
+      cpus: 0,
+      enabled: false,
+      image: "",
+      memoryMb: 0,
+      requireIsolation: false,
+    },
     env: [
       {
         key: "foo",
@@ -91,6 +98,7 @@ const distroData: DistroQuery["distro"] = {
     schedulerHost: "",
   },
   isCluster: false,
+  isIaCManaged: false,
   isVirtualWorkStation: false,
   name: "rhel71-power8-large",
   note: "distro note",

@@ -1,5 +1,4 @@
-import { Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { H2, Subtitle } from "@leafygreen-ui/typography";
+import { H2, H4, Skeleton } from "@via-ds/components";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./index.module.css";
@@ -18,7 +17,7 @@ const TitleTypography: React.FC<TitleTypographyProps> = ({
   if (size === "large") {
     return <H2>{children}</H2>;
   }
-  return <Subtitle>{children}</Subtitle>;
+  return <H4>{children}</H4>;
 };
 
 interface Props {
@@ -44,37 +43,46 @@ const PageTitle: React.FC<Props> = ({
 }) => {
   usePageTitle(pageTitle);
 
-  return loading ? (
-    <div
-      className={cx(styles.pageHeader, size === "large" && styles.headerLarge)}
-    >
-      <Skeleton />
-    </div>
-  ) : (
+  return (
     <div className={cx(styles.container, size === "medium" && styles.medium)}>
-      <div
-        className={cx(
-          styles.pageHeader,
-          size === "large" && styles.headerLarge,
-        )}
-      >
-        <span className={styles.titleWrapper}>
-          <TitleTypography size={size}>
-            <span data-testid="page-title">{title}</span>
-            {children}
-            <div
-              className={cx(
-                styles.badgeWrapper,
-                size === "large" && styles.badgeWrapperLarge,
-              )}
-            >
-              {badge}
-            </div>
-          </TitleTypography>
-        </span>
-        {buttons ?? null}
-      </div>
-      {subtitle}
+      {loading ? (
+        <div
+          className={cx(
+            styles.pageHeader,
+            size === "large" && styles.headerLarge,
+          )}
+        >
+          <Skeleton isLoading>
+            <TitleTypography size={size}>{title}</TitleTypography>
+          </Skeleton>
+        </div>
+      ) : (
+        <>
+          <div
+            className={cx(
+              styles.pageHeader,
+              size === "large" && styles.headerLarge,
+            )}
+          >
+            <span className={styles.titleWrapper}>
+              <TitleTypography size={size}>
+                <span data-testid="page-title">{title}</span>
+                {children}
+                <span
+                  className={cx(
+                    styles.badgeWrapper,
+                    size === "large" && styles.badgeWrapperLarge,
+                  )}
+                >
+                  {badge}
+                </span>
+              </TitleTypography>
+            </span>
+            {buttons ?? null}
+          </div>
+          {subtitle}
+        </>
+      )}
     </div>
   );
 };

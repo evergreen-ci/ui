@@ -3,9 +3,9 @@ import { CombinedGraphQLErrors } from "@apollo/client";
 import { skipToken, useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import Refresh from "@via-ds/icons/Refresh";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import Icon from "@evg-ui/lib/components/Icon";
 import { useErrorToast, useQueryParam } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
@@ -27,11 +27,13 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams } from "types/task";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import ExecutionSelector from "./task/ExecutionSelector";
 import { Metadata } from "./task/metadata";
 import TaskTabs from "./task/taskTabs";
+import { VirtualTaskBadge } from "./task/VirtualTaskBadge";
 
 export const Task = () => {
   const { [slugs.taskId]: taskId } = useParams<{
@@ -79,6 +81,7 @@ export const Task = () => {
     errors,
     executionTasksFull,
     invalidatedByUpstream,
+    isVirtual,
     latestExecution,
     priority,
     status,
@@ -119,7 +122,7 @@ export const Task = () => {
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {task && (
         <TaskPageBreadcrumbs
-          displayTask={task.displayTask || undefined}
+          displayTask={task.displayTask}
           patchNumber={task.patchNumber || undefined}
           taskName={task.displayName}
           versionMetadata={task.versionMetadata}
@@ -140,9 +143,14 @@ export const Task = () => {
             )}
             {invalidatedByUpstream && (
               <Chip
-                glyph={<Icon glyph="Refresh" />}
+                glyph={<Refresh />}
                 label="Merge Queue Aborted"
                 variant={ChipVariant.Gray}
+              />
+            )}
+            {task && isVirtual && (
+              <VirtualTaskBadge
+                isPushCompleted={isPushCompletedVirtualTask(task)}
               />
             )}
           </StyledBadgeWrapper>

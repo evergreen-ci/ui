@@ -1,7 +1,19 @@
 import { InMemoryCache } from "@apollo/client";
 import { readTaskReviewed } from "components/TaskReview/caching";
+import { WaterfallOptions } from "gql/generated/types";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
+
+const WATERFALL_FILTER_FIELDS: (keyof WaterfallOptions)[] = [
+  "projectIdentifier",
+  "requesters",
+  "statuses",
+  "tasks",
+  "taskTags",
+  "variants",
+  "variantTags",
+  "omitInactiveBuilds",
+];
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -11,17 +23,7 @@ export const cache = new InMemoryCache({
           keyArgs: ["$patchId"],
         },
         waterfall: {
-          // All server-side filter params should be used as cache keyArgs to maintain separate caches when they are applied.
-          keyArgs: [
-            "options",
-            [
-              "projectIdentifier",
-              "requesters",
-              "statuses",
-              "tasks",
-              "variants",
-            ],
-          ],
+          keyArgs: ["options", WATERFALL_FILTER_FIELDS],
           read(...args) {
             return readVersions(...args);
           },
@@ -129,25 +131,15 @@ export const cache = new InMemoryCache({
     WaterfallTask: {
       keyFields: false,
     },
+    WaterfallBuild: {
+      keyFields: false,
+    },
     Version: {
       fields: {
         waterfallBuilds: {
-          merge(existing, incoming) {
-            // Applying a server-side filter causes non-matching versions to return with waterfallBuilds = null.
-            // We don't want to overwrite existing build data for versions that previously matched, so check to see if the new waterfallBuilds is defined before merging it with the cache.
-            return incoming ?? existing;
-          },
-        },
-      },
-    },
-    VersionLite: {
-      fields: {
-        waterfallBuilds: {
-          merge(existing, incoming) {
-            // Applying a server-side filter causes non-matching versions to return with waterfallBuilds = null.
-            // We don't want to overwrite existing build data for versions that previously matched, so check to see if the new waterfallBuilds is defined before merging it with the cache.
-            return incoming ?? existing;
-          },
+          // The resolver filters this argument-less field using its parent query's options.
+          keyArgs: ["$options", WATERFALL_FILTER_FIELDS],
+          merge: false,
         },
       },
     },

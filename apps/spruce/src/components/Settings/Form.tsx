@@ -16,21 +16,21 @@ export type FormProps<
   formSchema: ReturnType<GetFormSchema>;
   state: SettingsState<T, FormStateMap>;
   tab: T;
-  validate?: ValidateProps<FormStateMap[T]>;
+  customValidate?: ValidateProps<FormStateMap[T]>;
 } & Omit<
   SpruceFormProps,
-  "fields" | "formData" | "onChange" | "schema" | "uiSchema" | "validate"
+  "customValidate" | "fields" | "formData" | "onChange" | "schema" | "uiSchema"
 >;
 
 export const Form = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, unknown>,
 >({
+  customValidate,
   formRef,
   formSchema,
   state,
   tab,
-  validate,
   ...rest
 }: FormProps<T, FormStateMap>) => {
   const { getTab, updateForm } = state;
@@ -43,12 +43,12 @@ export const Form = <
     <SpruceForm
       ref={formRef}
       {...rest}
+      customValidate={customValidate as SpruceFormProps["customValidate"]}
       fields={fields}
       formData={formData}
       onChange={updateForm(tab)}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validate as SpruceFormProps["validate"]}
     />
   );
 };

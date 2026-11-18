@@ -1,3 +1,4 @@
+import { SourceCacheMode } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export interface GeneralFormState {
@@ -25,8 +26,11 @@ export interface GeneralFormState {
     };
     scheduling: {
       deactivatePrevious: boolean | null;
+    };
+    stepback: {
       stepbackDisabled: boolean | null;
       stepbackBisection: boolean | null;
+      stepbackPushTriggers: boolean | null;
       deactivateStepback: null;
     };
     repotracker: {
@@ -38,9 +42,15 @@ export interface GeneralFormState {
     patch: {
       patchingDisabled: boolean | null;
     };
+    virtualTasks: {
+      virtualTasksEnabled: boolean | null;
+    };
   };
   historicalTaskDataCaching: {
     disabledStatsCache: boolean | null;
+  };
+  sourceCache: {
+    sourceCacheMode: SourceCacheMode | null;
   };
 }
 

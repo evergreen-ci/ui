@@ -12,7 +12,6 @@ import { useQueryParam } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useTaskAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
-import { taskReviewStyles } from "components/TasksTable/styles";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
 import { TableQueryParams } from "constants/queryParams";
@@ -97,7 +96,6 @@ const ExecutionTasksTable: React.FC<Props> = ({
 
   return (
     <BaseTable
-      css={taskReviewEnabled && taskReviewStyles}
       data-testid="execution-tasks-table"
       data-testid-row="execution-tasks-table-row"
       emptyComponent={<TablePlaceholder message="No execution tasks found." />}

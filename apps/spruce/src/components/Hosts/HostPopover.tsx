@@ -1,12 +1,12 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   Button,
-  Size as ButtonSize,
-  Variant as ButtonVariant,
-} from "@leafygreen-ui/button";
-import { Popover } from "@leafygreen-ui/popover";
-import { Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
+  Popover,
+  PopoverRoot,
+  Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+} from "@via-ds/components";
 import { PopoverContainer } from "components/styles/Popover";
 import styles from "./HostPopover.module.css";
 
@@ -32,61 +32,53 @@ export const HostPopover: React.FC<Props> = ({
   tooltipMessage,
 }) => {
   const [active, setActive] = useState(false);
-  const buttonRef = useRef(null);
-  const popoverRef = useRef(null);
-
-  // Handle onClickOutside
-  useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   return showTooltip ? (
-    <Tooltip
-      trigger={
-        <Button data-testid={dataTestId} disabled>
-          {buttonText}
-        </Button>
-      }
-      triggerEvent={TriggerEvent.Hover}
-    >
-      {tooltipMessage}
-    </Tooltip>
+    <TooltipRoot>
+      <TooltipTrigger>
+        {/* Disabled buttons suppress pointer events, so the hover handlers
+            live on the wrapper span and the button is pointer-events: none
+            for the tooltip to show. */}
+        <span className={styles.tooltipTrigger}>
+          <Button data-testid={dataTestId} isDisabled>
+            {buttonText}
+          </Button>
+        </span>
+      </TooltipTrigger>
+      <Tooltip>{tooltipMessage}</Tooltip>
+    </TooltipRoot>
   ) : (
-    <>
-      <div ref={buttonRef} className={styles.buttonWrapper}>
-        <Button
-          data-testid={dataTestId}
-          disabled={disabled}
-          onClick={() => setActive((curr) => !curr)}
-        >
+    <PopoverRoot isOpen={active} onOpenChange={setActive} triggerType="dialog">
+      <div className={styles.buttonWrapper}>
+        <Button data-testid={dataTestId} isDisabled={disabled}>
           {buttonText}
         </Button>
       </div>
-      <Popover
-        active={active}
-        align="bottom"
-        data-testid={`${dataTestId}-popover`}
-      >
-        <PopoverContainer ref={popoverRef}>
+      <Popover>
+        {/* Via's Popover stamps its own data-testid, so the identifying
+            testid lives on the content container instead. */}
+        <PopoverContainer data-testid={`${dataTestId}-popover`}>
           {titleText}
 
           <div className={styles.buttonContainer}>
             <div className={styles.buttonSpacer}>
               <Button
-                disabled={loading}
-                onClick={() => setActive(false)}
-                size={ButtonSize.XSmall}
+                isDisabled={loading}
+                onPress={() => setActive(false)}
+                size="small"
               >
                 No
               </Button>
             </div>
             <div className={styles.buttonSpacer}>
               <Button
-                disabled={loading}
-                onClick={() => {
+                isDisabled={loading}
+                onPress={() => {
                   onClick();
                   setActive(false);
                 }}
-                size={ButtonSize.XSmall}
-                variant={ButtonVariant.Primary}
+                size="small"
+                variant="primary"
               >
                 Yes
               </Button>
@@ -94,6 +86,6 @@ export const HostPopover: React.FC<Props> = ({
           </div>
         </PopoverContainer>
       </Popover>
-    </>
+    </PopoverRoot>
   );
 };

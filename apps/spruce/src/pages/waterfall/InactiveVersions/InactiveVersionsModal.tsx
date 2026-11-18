@@ -1,9 +1,10 @@
-import styled from "@emotion/styled";
+import { Content, Dialog, DialogRoot, Header, Text } from "@via-ds/components";
 import pluralize from "pluralize";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { DisplayModal } from "components/DisplayModal";
 import { Version } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
+import styles from "./InactiveVersionsModal.module.css";
+import { ModuleCommitsAccordion } from "./ModuleCommitsAccordion";
+import { groupModules } from "./utils";
 
 type Props = {
   highlightedIndex: number | undefined;
@@ -21,31 +22,40 @@ export const InactiveVersionsModal: React.FC<Props> = ({
   const hasUnmatchingVersions =
     versions?.some(({ activated }) => activated) ?? false;
 
+  const groupedVersions = groupModules(versions ?? []);
+  const highlightedId =
+    highlightedIndex === undefined ? undefined : versions[highlightedIndex]?.id;
+
   return (
-    <StyledDisplayModal
-      data-testid="inactive-versions-modal"
-      open={open}
-      setOpen={setOpen}
-      title={`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
-    >
-      {versions?.map((version, i) => (
-        <StyledVersionLabel
-          key={version.id}
-          highlighted={highlightedIndex === i}
-          isFirstVersion={false}
-          shouldDisableText={hasUnmatchingVersions}
-          view={VersionLabelView.Modal}
-          {...version}
-        />
-      ))}
-    </StyledDisplayModal>
+    <DialogRoot isOpen={open} onOpenChange={setOpen}>
+      <Dialog className={styles.dialog} data-testid="inactive-versions-modal">
+        <Header>
+          <Text slot="title">
+            {`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
+          </Text>
+        </Header>
+        <Content className={styles.content} isScrollable>
+          {groupedVersions.map((group) =>
+            group.isModule ? (
+              <ModuleCommitsAccordion
+                key={group.versions[0].id}
+                group={group}
+                highlightedId={highlightedId}
+                shouldDisableText={hasUnmatchingVersions}
+              />
+            ) : (
+              <VersionLabel
+                key={group.versions[0].id}
+                className={styles.versionLabel}
+                highlighted={highlightedId === group.versions[0].id}
+                shouldDisableText={hasUnmatchingVersions}
+                version={group.versions[0]}
+                view={VersionLabelView.Modal}
+              />
+            ),
+          )}
+        </Content>
+      </Dialog>
+    </DialogRoot>
   );
 };
-
-const StyledDisplayModal = styled(DisplayModal)`
-  text-align: left;
-`;
-
-const StyledVersionLabel = styled(VersionLabel)`
-  padding-top: ${size.xs};
-`;

@@ -42,3 +42,11 @@ export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
     },
   },
 };
+
+export const NoConfidenceScore: CustomStoryObj<typeof AnnotationTicketRow> = {
+  render: Default.render,
+  args: {
+    confidenceScore: null,
+    loading: false,
+  },
+};

@@ -5,6 +5,7 @@ import {
   setToUTCMidnight,
 } from "@leafygreen-ui/date-utils";
 import { Description, Label } from "@leafygreen-ui/typography";
+import { labelValue } from "@rjsf/utils";
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import LGTimePicker from "components/TimePicker";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
@@ -24,8 +25,17 @@ export const DateTimePicker: React.FC<
       disableAfter?: Date;
     };
   } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
-  const isDisabled = disabled || readonly;
+> = ({
+  disabled,
+  hideLabel,
+  id,
+  label,
+  onChange,
+  options,
+  readonly,
+  value = "",
+}) => {
+  const isDisabled = disabled === true || readonly === true;
   const {
     description,
     disableAfter,
@@ -33,6 +43,8 @@ export const DateTimePicker: React.FC<
     elementWrapperCSS,
     showLabel,
   } = options;
+  const shouldShowLabel = showLabel ?? !hideLabel;
+  const widgetLabel = labelValue(label, !shouldShowLabel);
 
   const timezone = useUserTimeZone();
 
@@ -61,9 +73,9 @@ export const DateTimePicker: React.FC<
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      {showLabel !== false && (
+      {shouldShowLabel && (
         <Label disabled={isDisabled} htmlFor={id}>
-          {label}
+          {widgetLabel}
         </Label>
       )}
       {description && <Description>{description}</Description>}
@@ -92,6 +104,7 @@ export const DateTimePicker: React.FC<
 
 export const TimePicker: React.FC<SpruceWidgetProps> = ({
   disabled,
+  hideLabel,
   label,
   onChange,
   options,
@@ -99,7 +112,8 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
   value,
 }) => {
   const { description, elementWrapperCSS } = options;
-  const isDisabled = disabled || readonly;
+  const isDisabled = disabled === true || readonly === true;
+  const widgetLabel = labelValue(label, hideLabel);
   const currentDateTime = new Date(value || null);
 
   const handleChange = (d?: DateType) => {
@@ -116,7 +130,7 @@ export const TimePicker: React.FC<SpruceWidgetProps> = ({
       <LGTimePicker
         data-testid="time-picker"
         disabled={isDisabled}
-        label={label}
+        label={widgetLabel}
         onDateChange={handleChange}
         value={currentDateTime}
       />

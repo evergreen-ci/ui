@@ -125,7 +125,11 @@ describe("createDuplicateProjectField", () => {
       await waitFor(() => {
         expect(screen.queryByTestId("create-project-modal")).toBeVisible();
       });
-      expect(screen.queryByTestId("new-project-menu")).not.toBeVisible();
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId("new-project-menu"),
+        ).not.toBeInTheDocument();
+      });
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
@@ -168,7 +172,11 @@ describe("createDuplicateProjectField", () => {
       await waitFor(() => {
         expect(screen.queryByTestId("copy-project-modal")).toBeVisible();
       });
-      expect(screen.queryByTestId("new-project-menu")).not.toBeVisible();
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId("new-project-menu"),
+        ).not.toBeInTheDocument();
+      });
 
       await user.type(
         screen.getByTestId("project-name-input"),

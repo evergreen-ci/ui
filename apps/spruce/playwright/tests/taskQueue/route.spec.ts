@@ -88,4 +88,19 @@ test.describe("Task Queue", () => {
     const mainlineHref = await mainlineLink.getAttribute("href");
     expect(mainlineHref).not.toContain("localhost");
   });
+
+  test("Table rows link to project, version, and activated-by patches", async ({
+    page,
+  }) => {
+    await page.goto("/task-queue/osx-108");
+    const firstRow = page.getByTestId("leafygreen-table-row").first();
+    await expect(firstRow).toBeVisible();
+    await expect(
+      firstRow.locator('a[href*="/project/"][href*="/patches"]'),
+    ).toBeVisible();
+    await expect(firstRow.locator('a[href*="/version/"]')).toBeVisible();
+    await expect(
+      firstRow.locator('a[href*="/user/"][href*="/patches"]'),
+    ).toBeVisible();
+  });
 });

@@ -1,12 +1,10 @@
 import { useReducer } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
-import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { shortenGithash } from "@evg-ui/lib/utils/string";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
 import {
   Parameter,
@@ -149,13 +147,11 @@ const DownstreamMetadata: React.FC<DownstreamMetadataProps> = ({
   <FlexRow>
     <PaddedText>
       Base commit:{" "}
-      <InlineCode
-        as={Link}
+      <RevisionLink
         data-testid="downstream-base-commit"
+        revision={githash}
         to={getVersionRoute(baseVersionID)}
-      >
-        {shortenGithash(githash)}
-      </InlineCode>
+      />
     </PaddedText>
     <ParametersModal parameters={parameters} />
   </FlexRow>

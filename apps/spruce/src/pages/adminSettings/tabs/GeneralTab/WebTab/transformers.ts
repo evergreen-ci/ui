@@ -15,6 +15,7 @@ export const gqlToForm = ((data) => {
     defaultProject,
     fileStreamingContentTypes,
     httpListenAddr: uiHttpListenAddr,
+    logUrl,
     loginDomain,
     parsleyUrl,
     secret,
@@ -39,6 +40,7 @@ export const gqlToForm = ((data) => {
         fileStreamingContentTypes: fileStreamingContentTypes ?? [],
         httpListenAddr: uiHttpListenAddr ?? "",
         loginDomain: loginDomain ?? "",
+        logUrl: logUrl ?? "",
         parsleyUrl: parsleyUrl ?? "",
         secret: secret ?? "",
         stagingEnvironment: stagingEnvironment ?? "",
@@ -65,6 +67,8 @@ export const gqlToForm = ((data) => {
         },
         graphqlComplexity: {
           graphqlComplexityLimit: rateLimit?.graphqlComplexityLimit ?? 0,
+          graphqlComplexityPerHour: rateLimit?.graphqlComplexityPerHour ?? 0,
+          graphqlComplexityBurst: rateLimit?.graphqlComplexityBurst ?? 0,
         },
         elevatedUsers: {
           elevatedUserIds: rateLimit?.elevatedUserIds ?? [],
@@ -98,6 +102,10 @@ export const formToGql = (({ web }) => {
       graphqlServiceBurst: rateLimitConfig.graphqlLimits.graphqlServiceBurst,
       graphqlComplexityLimit:
         rateLimitConfig.graphqlComplexity.graphqlComplexityLimit,
+      graphqlComplexityPerHour:
+        rateLimitConfig.graphqlComplexity.graphqlComplexityPerHour,
+      graphqlComplexityBurst:
+        rateLimitConfig.graphqlComplexity.graphqlComplexityBurst,
       elevatedUserIds: rateLimitConfig.elevatedUsers.elevatedUserIds,
       exemptUserIds: rateLimitConfig.exemptUsers.exemptUserIds,
     },

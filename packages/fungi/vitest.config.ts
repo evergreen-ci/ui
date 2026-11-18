@@ -7,6 +7,13 @@ const vitestConfig = defineTestConfig({
     globalSetup: "./config/vitest/global-setup.ts",
     outputFile: { junit: "./bin/vitest/junit.xml" },
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
+    server: {
+      deps: {
+        // Inlining works around extensionless lodash ESM imports in the LG
+        // packages, which Node's resolver rejects.
+        inline: ["@leafygreen-ui/icon-button"],
+      },
+    },
     setupFiles: "@evg-ui/lib/config/vitest/setupTests.ts",
     include: ["src/**/*.test.{ts,tsx}"],
   },

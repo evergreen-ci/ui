@@ -1,4 +1,5 @@
 import {
+  validateCron,
   validateEmail,
   validateJira,
   validateJiraURL,
@@ -10,6 +11,26 @@ import {
   validateSlack,
   validateURL,
 } from ".";
+
+describe("validateCron", () => {
+  it("accepts a valid cron expression", () => {
+    expect(validateCron("0 0 * * *")).toBe(true);
+    expect(validateCron("*/15 9-17 * * 1-5")).toBe(true);
+    expect(validateCron("@daily")).toBe(true);
+    expect(validateCron("@weekly")).toBe(true);
+  });
+
+  it("rejects an invalid cron expression", () => {
+    expect(validateCron("3")).toBe(false);
+    expect(validateCron("not a cron")).toBe(false);
+    expect(validateCron("@every 5m")).toBe(false);
+    expect(validateCron("61 * * * *")).toBe(false);
+  });
+
+  it("rejects a well-formed cron expression with an impossible schedule", () => {
+    expect(validateCron("0 0 31 2 *")).toBe(false); // February 31 is impossible to achieve
+  });
+});
 
 describe("validateNoSpecialCharacters", () => {
   it("returns true if string has no special characters", () => {
@@ -82,39 +103,31 @@ describe("validateSSHPublicKey", () => {
 });
 
 describe("validateJiraURL", () => {
+  const jiraURL = "jira.example.com";
   it("validates jira urls", () => {
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/TEST-1",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/TEST-1"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/EVG-1",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/EVG-1"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/PD-1234",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/PD-1234"),
     ).toBeTruthy();
     expect(
-      validateJiraURL(
-        "jira.example.com",
-        "https://jira.example.com/browse/PD-1234",
-      ),
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/PD-1234"),
     ).toBeTruthy();
-    expect(validateJiraURL("jira.example.com", "")).toBeFalsy();
-    expect(validateJiraURL("jira.example.com", "jira.example.com")).toBeFalsy();
     expect(
-      validateJiraURL("jira.example.com", "https://jira.example.com/browse/"),
+      validateJiraURL(jiraURL, "https://jiraxexamplexcom/browse/EVG-1"),
+    ).toBeFalsy();
+    expect(validateJiraURL(jiraURL, "")).toBeFalsy();
+    expect(validateJiraURL(jiraURL, "jira.example.com")).toBeFalsy();
+    expect(
+      validateJiraURL(jiraURL, "https://jira.example.com/browse/"),
     ).toBeFalsy();
     expect(
       validateJiraURL(
-        "jira.example.com",
+        jiraURL,
         "https://jira.example.com/browse/EVG-1/some/path",
       ),
     ).toBeFalsy();
@@ -155,12 +168,26 @@ describe("validateURL", () => {
     expect(
       validateURL("ftp://www.mongodb.com/moreUrlParams?hi=bye"),
     ).toBeTruthy();
+    expect(
+      validateURL(
+        "http://my-web-app.evergreen-namespace.svc.cluster.local/api/blah_blah/blah_blah",
+      ),
+    ).toBeTruthy();
 
     expect(validateURL("ww.fake.org")).toBeFalsy();
     expect(validateURL("bad.org")).toBeFalsy();
   });
   it("returns true for empty strings", () => {
     expect(validateURL("")).toBe(true);
+  });
+
+  it("should not experience catastrophic backtracking", () => {
+    const maliciousInput = `https://www.${"a".repeat(100)}!`;
+    const start = performance.now();
+    const result = validateURL(maliciousInput);
+    const elapsed = performance.now() - start;
+    expect(result).toBe(false);
+    expect(elapsed).toBeLessThan(1000);
   });
 });
 

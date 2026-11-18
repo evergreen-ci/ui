@@ -1,16 +1,14 @@
 import { palette } from "@leafygreen-ui/palette";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import styles from "./Icon.stories.module.css";
-import Icon, { Size, glyphs } from ".";
+import Icon, { IconProps, localGlyphs, sizeMap, viaGlyphs } from ".";
 
 const { green } = palette;
 
-const Sizes = {
-  [Size.Small]: 14,
-  [Size.Default]: 16,
-  [Size.Large]: 20,
-  [Size.XLarge]: 24,
-};
+const glyphNames = [
+  ...Object.keys(viaGlyphs),
+  ...Object.keys(localGlyphs),
+].sort() as IconProps["glyph"][];
 
 export default {
   component: Icon,
@@ -23,16 +21,16 @@ export const Default: CustomStoryObj<typeof Icon> = {
     },
     size: {
       control: { type: "select" },
-      options: Object.values(Sizes),
+      options: Object.values(sizeMap),
     },
   },
   args: {
     fill: green.dark3,
-    size: Sizes[Size.Default],
+    size: sizeMap.medium,
   },
   render: (args) => (
     <div className={styles.container}>
-      {Object.keys(glyphs).map((name) => (
+      {glyphNames.map((name) => (
         <div key={name} className={styles.iconContainer}>
           <Icon {...args} glyph={name} />
           <span>{name}</span>

@@ -31,8 +31,9 @@ export const GeneralTab: React.FC = () => {
     () => (adminSettings ? getTabData(adminSettings) : undefined),
     [adminSettings],
   );
+  useScrollToAnchor(Boolean(tabData));
 
-  if (loading) {
+  if (loading && !adminSettings) {
     return <FormSkeleton data-testid="admin-settings-skeleton" />;
   }
 
@@ -51,8 +52,6 @@ const GeneralTabContent: React.FC<{ tabData: FormStateMap }> = ({
   useEffect(() => {
     setInitialData(tabData);
   }, [setInitialData, tabData]);
-
-  useScrollToAnchor();
 
   return (
     <>

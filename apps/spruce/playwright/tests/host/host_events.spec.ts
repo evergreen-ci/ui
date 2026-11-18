@@ -240,6 +240,27 @@ test.describe("Host events", () => {
     await expect(page.getByTestId("host-provisioned")).toBeVisible();
   });
 
+  test("clicking the next page arrow shows the next page of host events and updates the URL", async ({
+    page,
+  }) => {
+    await page.goto(`${pathWithEvents}?limit=10&page=0`);
+    const firstRow = page.getByTestId("host-events-table-row").first();
+    await expect(firstRow).not.toBeEmpty();
+    const firstRowText = (await firstRow.textContent()) ?? "";
+
+    const pagination = page.getByTestId("pagination");
+    const nextPageButton = pagination.getByRole("button", {
+      name: "Next page",
+    });
+    await expect(nextPageButton).toBeEnabled();
+    await nextPageButton.click();
+
+    await expect(page).toHaveURL(/page=1/);
+    await expect(
+      page.getByTestId("host-events-table-row").first(),
+    ).not.toHaveText(firstRowText);
+  });
+
   test("host events are displayed in the right timezone", async ({ page }) => {
     await page.goto("/preferences");
     await expect(page.getByText("Preferences")).toBeVisible();

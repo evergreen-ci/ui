@@ -1,0 +1,10 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--via-space-400);
+}
+
+.progressCircle {
+  color: var(--via-color-icon-brand);
+}

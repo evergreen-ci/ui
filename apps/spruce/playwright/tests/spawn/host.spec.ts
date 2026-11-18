@@ -1,3 +1,4 @@
+import { addDays, addMonths, format, subDays } from "date-fns";
 import { expect, test } from "../../fixtures";
 import {
   clearDatePickerInput,
@@ -36,6 +37,12 @@ const setupScriptCheckboxLabel = "Define setup script to run after host";
 const startHostsCheckboxLabel =
   "Also start any hosts this task started (if applicable)";
 const loadDataCheckboxLabel = "Load data for dist";
+
+const toDatePickerDate = (date: Date) => ({
+  day: format(date, "dd"),
+  month: format(date, "MM"),
+  year: format(date, "yyyy"),
+});
 
 test.describe("Spawn Host page", () => {
   test.beforeEach(async ({ page }) => {
@@ -264,7 +271,13 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      await page.getByTestId("distro-input").click();
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+      const distroInput = modal.getByTestId("distro-input");
+      await expect(distroInput.getByTestId("dropdown-value")).toContainText(
+        distroId,
+      );
+      await distroInput.click();
       await expect(page.getByText("Admin-only distros")).toHaveCount(0);
       await page.getByTestId("distro-option-ubuntu1804-workstation").click();
       await expect(page.getByTestId("volume-select")).toBeDisabled();
@@ -307,17 +320,20 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      const setupScriptInput = page.getByRole("textbox", {
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+
+      const setupScriptInput = modal.getByRole("textbox", {
         name: "Setup Script",
       });
-      await expect(setupScriptInput).toHaveCount(0);
-
-      const projectSetupScriptCheckbox = page.getByRole("checkbox", {
+      const projectSetupScriptCheckbox = modal.getByRole("checkbox", {
         name: projectSetupCheckboxLabel,
       });
+      await expect(projectSetupScriptCheckbox).toBeChecked();
+      await expect(setupScriptInput).toHaveCount(0);
       await clickCheckbox(projectSetupScriptCheckbox);
 
-      const setupScriptCheckbox = page.getByRole("checkbox", {
+      const setupScriptCheckbox = modal.getByRole("checkbox", {
         name: setupScriptCheckboxLabel,
       });
       await expect(setupScriptCheckbox).toBeEnabled();
@@ -331,10 +347,13 @@ test.describe("Spawn Host page", () => {
       await page.goto(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
-      const projectCheckbox = page.getByRole("checkbox", {
+      const modal = page.getByTestId("spawn-host-modal");
+      await expect(modal).toBeVisible();
+
+      const projectCheckbox = modal.getByRole("checkbox", {
         name: projectSetupCheckboxLabel,
       });
-      const setupCheckbox = page.getByRole("checkbox", {
+      const setupCheckbox = modal.getByRole("checkbox", {
         name: setupScriptCheckboxLabel,
       });
 
@@ -356,26 +375,33 @@ test.describe("Spawn Host page", () => {
   test("Allows editing a modal with sleep schedule enabled and validates dates", async ({
     page,
   }) => {
-    await page.clock.setFixedTime("2026-05-26T00:00:00Z");
     await page.getByTestId("edit-host-button").nth(2).click();
 
     const modal = page.getByTestId("edit-spawn-host-modal").nth(2);
     await expect(modal).toBeVisible();
 
+    const timeZoneButton = modal.getByRole("button", {
+      name: /Time Zone|Coordinated Universal Time/,
+    });
+    await timeZoneButton.click();
+    await page
+      .getByRole("option", { name: "Coordinated Universal Time" })
+      .click();
+
     const saveButton = page.getByRole("button", { name: "Save" });
 
     // Set a valid near-future date
-    await typeDatePickerDate(page, { year: "2026", month: "06", day: "01" });
+    await typeDatePickerDate(page, toDatePickerDate(addDays(new Date(), 7)));
     await expect(saveButton).toHaveAttribute("aria-disabled", "false");
 
     // Set a date in the past
     await clearDatePickerInput(page);
-    await typeDatePickerDate(page, { year: "2025", month: "01", day: "01" });
+    await typeDatePickerDate(page, toDatePickerDate(subDays(new Date(), 1)));
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
 
     // Set a date too far in the future
     await clearDatePickerInput(page);
-    await typeDatePickerDate(page, { year: "2060", month: "01", day: "15" });
+    await typeDatePickerDate(page, toDatePickerDate(addMonths(new Date(), 2)));
     await expect(saveButton).toHaveAttribute("aria-disabled", "true");
   });
 });

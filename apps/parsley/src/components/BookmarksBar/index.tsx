@@ -4,7 +4,7 @@ import { Button } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import Icon from "@evg-ui/lib/components/Icon";
+import Link from "@via-ds/icons/Link";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -100,7 +100,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
           >
             <span data-bookmark={l}>{l}</span>
             {l === shareLine && (
-              <StyledIcon data-testid="link-icon" glyph="Link" size="small" />
+              <StyledIcon data-testid="link-icon" size="small" />
             )}
           </LogLineNumber>
         ))}
@@ -133,7 +133,7 @@ const LogLineNumber = styled.div<{ failed: boolean }>`
   ${({ failed }) => failed && `color: ${red.base};`}
 `;
 
-const StyledIcon = styled(Icon)`
+const StyledIcon = styled(Link)`
   vertical-align: text-bottom;
 `;
 

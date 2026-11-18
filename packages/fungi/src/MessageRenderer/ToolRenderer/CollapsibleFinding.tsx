@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
 import { Body, Description } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import CaretRight from "@via-ds/icons/CaretRight";
 
 type CollapsibleFindingProps = {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ export const CollapsibleFinding: React.FC<CollapsibleFindingProps> = ({
 }) => (
   <Details>
     <Summary>
-      <Caret data-caret glyph="CaretRight" />
+      <Caret data-caret />
       <SummaryText>
         <Body weight="medium">{message}</Body>
         {line && <Description>{line}</Description>}
@@ -65,7 +65,7 @@ const SummaryText = styled.div`
   min-width: 0;
 `;
 
-const Caret = styled(Icon)`
+const Caret = styled(CaretRight)`
   flex-shrink: 0;
   margin-top: 2px;
   color: ${palette.gray.dark1};

@@ -44,6 +44,7 @@ export const TestFailureSearchInput: React.FC<TestFailureSearchInputProps> = ({
   // the internal state of searchTerm.
   useEffect(() => {
     if (failingTest !== searchTerm) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearchTerm(failingTest);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

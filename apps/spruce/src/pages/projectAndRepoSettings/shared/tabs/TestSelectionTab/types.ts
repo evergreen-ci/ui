@@ -8,6 +8,9 @@ export interface TestSelectionFormState {
     defaultEnabled: boolean | null;
     mainlineDefaultEnabled: boolean | null;
   };
+  quarantine: {
+    jiraTicketsRequired: boolean | null;
+  };
 }
 
 export type TabProps = {

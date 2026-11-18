@@ -3,6 +3,7 @@ import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
 import {
+  ExecutionPlatform,
   TaskFilesQuery,
   TaskFilesQueryVariables,
   TaskQuery,
@@ -951,6 +952,7 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         displayName: "check_codegen",
         displayStatus: "failed",
         execution: 0,
+        executionPlatform: ExecutionPlatform.Host,
         id: "a-task-id",
         logs: {
           agentLogLink: "agent-link.com?type=E",
@@ -960,7 +962,7 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
         },
         patchNumber: 1,
         versionMetadata: {
-          __typename: "VersionLite",
+          __typename: "Version",
           id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
           isPatch: false,
           message: "v2.28.5",

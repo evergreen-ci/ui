@@ -1,0 +1,9 @@
+.buttonsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.buttonSpacer {
+  margin-right: var(--via-space-800);
+}

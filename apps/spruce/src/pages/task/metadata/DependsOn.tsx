@@ -2,7 +2,10 @@ import styled from "@emotion/styled";
 import { Badge, Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import Calendar from "@via-ds/icons/Calendar";
+import Checkmark from "@via-ds/icons/Checkmark";
+import Refresh from "@via-ds/icons/Refresh";
+import X from "@via-ds/icons/X";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getTaskRoute } from "constants/routes";
@@ -62,10 +65,10 @@ const StyledBadge = styled(Badge)`
 const { gray, green, red, yellow } = palette;
 
 const metStatusToIcon = {
-  [MetStatus.Started]: <Icon fill={yellow.dark2} glyph="Refresh" />,
-  [MetStatus.Met]: <Icon fill={green.dark1} glyph="Checkmark" />,
-  [MetStatus.Unmet]: <Icon fill={red.base} glyph="X" />,
-  [MetStatus.Pending]: <Icon fill={gray.dark3} glyph="Calendar" />,
+  [MetStatus.Started]: <Refresh fill={yellow.dark2} />,
+  [MetStatus.Met]: <Checkmark fill={green.dark1} />,
+  [MetStatus.Unmet]: <X fill={red.base} />,
+  [MetStatus.Pending]: <Calendar fill={gray.dark3} />,
 };
 
 const requiredStatusToBadge = {

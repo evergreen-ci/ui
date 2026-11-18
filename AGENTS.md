@@ -120,16 +120,8 @@ interface ComponentNameProps {
 - Co-locate tests (`*.test.tsx`), stories (`*.stories.tsx`), and types
 - Use named exports (not default exports)
 
-### Styling with Emotion
-```typescript
-import styled from "@emotion/styled";
-import { size } from "constants/tokens";
-
-const StyledWrapper = styled.div`
-  padding: ${size.xs};
-  margin-bottom: ${size.s};
-`;
-```
+### Styling
+Use CSS Modules (`*.module.css`) for new components as the codebase is migrating away from Emotion.
 
 ### Naming Conventions
 - Components: PascalCase
@@ -200,6 +192,8 @@ pnpm test run <name>      # Run specific test
 ```
 
 Vitest globals (`describe`, `it`, `expect`, `vi`) do not need to be imported.
+
+- Prefer explicitly typed test fixtures over type assertions, especially `as unknown as ...`, when the fixture can be constructed to satisfy its target type.
 
 Use test utilities from `@evg-ui/lib/test_utils`:
 ```typescript

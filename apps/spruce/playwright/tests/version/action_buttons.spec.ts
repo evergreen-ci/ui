@@ -1,5 +1,9 @@
 import { expect, test } from "../../fixtures";
-import { mockGraphQLResponse, validateToast } from "../../helpers";
+import {
+  clickCheckbox,
+  mockGraphQLResponse,
+  validateToast,
+} from "../../helpers";
 
 const patch = "5ecedafb562343215a7ff297";
 const mainlineCommit = "5e4ff3abe3c3317e352062e4";
@@ -160,11 +164,15 @@ test.describe("Action Buttons", () => {
       await page.goto(versionPath(patch));
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
-      await page
+      const neverActivatedCheckbox = page
         .getByTestId("card-dropdown")
-        .getByText("Include never-activated tasks")
-        .click();
+        .getByRole("checkbox", {
+          name: "Include never-activated tasks",
+        });
+      await expect(neverActivatedCheckbox).not.toBeChecked();
+      await clickCheckbox(neverActivatedCheckbox);
       await expect(page).toHaveURL(/includeNeverActivatedTasks=true/);
+      await expect(neverActivatedCheckbox).toBeChecked();
 
       const cookies = await page.context().cookies();
       const cookie = cookies.find(

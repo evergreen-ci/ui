@@ -15,7 +15,7 @@ type BaseTabProps<T extends WritableDistroSettingsType> = {
   disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
   initialFormState: FormStateMap[T];
-  validate?: ValidateProps<FormStateMap[T]>;
+  customValidate?: ValidateProps<FormStateMap[T]>;
 };
 
 export const BaseTab = <T extends WritableDistroSettingsType>({

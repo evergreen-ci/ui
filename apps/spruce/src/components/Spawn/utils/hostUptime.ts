@@ -268,13 +268,48 @@ export const matchesDefaultUptimeSchedule = (
   return true;
 };
 
+export const getHostUptimeError = ({
+  hostUptime,
+  noExpiration,
+  permanentlyExempt,
+}: {
+  hostUptime?: HostUptime;
+  noExpiration?: boolean;
+  permanentlyExempt: boolean;
+}): string | undefined => {
+  if (!hostUptime || noExpiration === false) return undefined;
+
+  const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
+    hostUptime;
+  if (
+    !isSleepScheduleActive({
+      isTemporarilyExempt: !!temporarilyExemptUntil,
+      noExpiration: !!noExpiration,
+      permanentlyExempt,
+    }) ||
+    useDefaultUptimeSchedule
+  ) {
+    return undefined;
+  }
+
+  const { enabledHoursCount, enabledWeekdaysCount } =
+    getEnabledHoursCount(hostUptime);
+  if (enabledHoursCount <= maxUptimeHours) return undefined;
+
+  if (sleepSchedule?.timeSelection?.runContinuously) {
+    return "Please pause your host for at least 1 day per week.";
+  }
+
+  const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
+  return `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`;
+};
+
 export const validator = (permanentlyExempt: boolean) =>
   (({ expirationDetails }, errors) => {
     const { hostUptime, noExpiration } = expirationDetails ?? {};
     if (!hostUptime || noExpiration === false) return errors;
 
-    const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
-      hostUptime;
+    const { temporarilyExemptUntil } = hostUptime;
 
     if (temporarilyExemptUntil) {
       // LG Date Picker widget provides visual validation but doesn't provide a way to access its error state. Replicate its min/max validation here.
@@ -292,42 +327,16 @@ export const validator = (permanentlyExempt: boolean) =>
       }
     }
 
-    if (
-      !isSleepScheduleActive({
-        isTemporarilyExempt: !!temporarilyExemptUntil,
-        noExpiration: !!noExpiration,
-        permanentlyExempt,
-      })
-    ) {
-      return errors;
-    }
-
-    const { timeSelection } = sleepSchedule ?? {};
-
-    if (useDefaultUptimeSchedule) {
-      return errors;
-    }
-
-    const { enabledHoursCount, enabledWeekdaysCount } =
-      getEnabledHoursCount(hostUptime);
-
-    if (enabledHoursCount > maxUptimeHours) {
-      // Return error based on whether runContinously enabled
-      if (timeSelection?.runContinuously) {
-        // @ts-expect-error - It doesn't hugely matter where the error is appended
-        errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
-          "Please pause your host for at least 1 day per week.",
-        );
-        return errors;
-      }
-      const hourlyRequirement = Math.floor(
-        maxUptimeHours / enabledWeekdaysCount,
-      );
+    const hostUptimeError = getHostUptimeError({
+      hostUptime,
+      noExpiration,
+      permanentlyExempt,
+    });
+    if (hostUptimeError) {
       // @ts-expect-error - It doesn't hugely matter where the error is appended
       errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
-        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
+        hostUptimeError,
       );
-      return errors;
     }
 
     return errors;

@@ -55,9 +55,7 @@ export const TaskTimingMetadata: React.FC<TaskTimingProps> = ({
     <MetadataCard
       title={
         <CardHeader>
-          <MetadataCardTitle weight="medium">
-            Historical Task Timing
-          </MetadataCardTitle>
+          <MetadataCardTitle>Historical Task Timing</MetadataCardTitle>
           <TaskTimingConfigMenu
             configState={configState}
             setConfigState={setConfigState}

@@ -26,7 +26,6 @@ const AnnotationCreatedTickets: React.FC<AnnotationCreatedTicketProps> = ({
           {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
             <AnnotationTicketRow
               key={issueKey}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               confidenceScore={confidenceScore}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               issueKey={issueKey}

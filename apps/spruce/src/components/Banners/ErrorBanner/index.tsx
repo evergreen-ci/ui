@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Callout } from "@leafygreen-ui/callout";
-import Icon from "@evg-ui/lib/components/Icon";
+import Warning from "@via-ds/icons/Warning";
 import { DisplayModal } from "components/DisplayModal";
 import {
   BannerContainer,
@@ -44,7 +44,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
         setOpen={setShowModal}
         title={
           <TitleWrapper>
-            <Icon glyph="Warning" size="xlarge" />
+            <Warning size="xlarge" />
             <span>{errorTitle}</span>
           </TitleWrapper>
         }

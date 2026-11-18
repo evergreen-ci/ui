@@ -26,11 +26,13 @@ import { useProjectBuildBaronSettings } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { statuses } from "utils";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import BuildBaron from "./buildBaronAndAnnotations";
 import ExecutionTasksTable from "./ExecutionTasksTable";
 import ExecutionTasksTiming from "./ExecutionTasksTiming";
 import FileTable from "./FileTable";
 import Logs from "./logs";
+import { TaskConfigTab } from "./TaskConfig";
 import TaskHistory from "./TaskHistory";
 import { walkthroughHistoryTabProps } from "./TaskHistory/constants";
 import TestsTable from "./testsTable/TestsTable";
@@ -93,6 +95,7 @@ const useTabConfig = (
     [TaskTab.History]: true,
     [TaskTab.ExecutionTasksTiming]:
       isDisplayTask && !!executionTasksFull && executionTasksFull.length > 0,
+    [TaskTab.Config]: !isDisplayTask,
   };
 
   const tabMap: Record<TaskTab, React.JSX.Element> = {
@@ -100,6 +103,7 @@ const useTabConfig = (
       <Tab key="task-logs-tab" data-testid="task-logs-tab" name="Logs">
         <Logs
           execution={execution}
+          hideHostLogs={isPushCompletedVirtualTask(task)}
           isDisplayTask={isDisplayTask}
           logLinks={logLinks}
           taskId={id}
@@ -229,6 +233,15 @@ const useTabConfig = (
           executionTasksFull={executionTasksFull}
           taskName={displayName}
         />
+      </Tab>
+    ),
+    [TaskTab.Config]: (
+      <Tab
+        key="task-config-tab"
+        data-testid="task-config-tab"
+        name="Task Config"
+      >
+        <TaskConfigTab execution={execution} taskId={id} />
       </Tab>
     ),
   };

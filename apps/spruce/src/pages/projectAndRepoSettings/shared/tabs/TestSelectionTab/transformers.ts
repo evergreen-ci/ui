@@ -17,6 +17,9 @@ export const gqlToForm = ((data) => {
       defaultEnabled: testSelection?.defaultEnabled ?? null,
       mainlineDefaultEnabled: testSelection?.mainlineDefaultEnabled ?? null,
     },
+    quarantine: {
+      jiraTicketsRequired: testSelection?.quarantineJiraTicketsRequired ?? null,
+    },
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -28,6 +31,7 @@ export const formToGql = ((formState, isRepo, id) => ({
       allowed: formState.projectLevel.allowed,
       defaultEnabled: formState.taskLevel.defaultEnabled,
       mainlineDefaultEnabled: formState.taskLevel.mainlineDefaultEnabled,
+      quarantineJiraTicketsRequired: formState.quarantine.jiraTicketsRequired,
     },
   },
 })) satisfies FormToGqlFunction<Tab>;

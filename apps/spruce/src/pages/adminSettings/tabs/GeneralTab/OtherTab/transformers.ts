@@ -148,6 +148,9 @@ export const gqlToForm = ((data) => {
           buckets?.testResultsBucket?.testResultsPrefix ?? "",
         testResultsBucketType: buckets?.testResultsBucket?.type ?? "",
         testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
+        sourceCacheBucketName: buckets?.sourceCacheBucket?.name ?? "",
+        sourceCacheBucketRoleARN: buckets?.sourceCacheBucket?.roleARN ?? "",
+        sourceCacheOptOutProjects: buckets?.sourceCacheOptOutProjects ?? [],
         credentialsKey: buckets?.credentials?.key ?? "",
         credentialsSecret: buckets?.credentials?.secret ?? "",
         failedTasksLogBucketName: buckets?.logBucketFailedTasks?.name ?? "",
@@ -247,7 +250,6 @@ export const gqlToForm = ((data) => {
       },
 
       projectCreationSettings: {
-        totalProjectLimit: projectCreation?.totalProjectLimit ?? 0,
         repoProjectLimit: projectCreation?.repoProjectLimit ?? 0,
         repoExceptions:
           projectCreation?.repoExceptions?.map((exception) => ({
@@ -379,12 +381,23 @@ export const formToGql = ((form: OtherFormState) => {
         bucketConfig.longRetentionProjects.length > 0
           ? bucketConfig.longRetentionProjects
           : undefined,
+      sourceCacheOptOutProjects:
+        bucketConfig.sourceCacheOptOutProjects.length > 0
+          ? bucketConfig.sourceCacheOptOutProjects
+          : undefined,
       testResultsBucket: {
         name: bucketConfig.testResultsBucketName || undefined,
         testResultsPrefix:
           bucketConfig.testResultsBucketTestResultsPrefix || undefined,
         roleARN: bucketConfig.testResultsBucketRoleARN || undefined,
         type: bucketConfig.testResultsBucketType || undefined,
+      },
+      // These fields are always serialized, even when empty, so that clearing
+      // them in the form persists. The backend merge skips omitted (nil) fields,
+      // which would otherwise leave the previous values in place.
+      sourceCacheBucket: {
+        name: bucketConfig.sourceCacheBucketName,
+        roleARN: bucketConfig.sourceCacheBucketRoleARN,
       },
       credentials: {
         key: bucketConfig.credentialsKey || undefined,
@@ -465,7 +478,6 @@ export const formToGql = ((form: OtherFormState) => {
     },
 
     projectCreation: {
-      totalProjectLimit: projectCreationSettings.totalProjectLimit || undefined,
       repoProjectLimit: projectCreationSettings.repoProjectLimit || undefined,
       repoExceptions: projectCreationSettings.repoExceptions
         .filter((exception) => exception.owner && exception.repo)

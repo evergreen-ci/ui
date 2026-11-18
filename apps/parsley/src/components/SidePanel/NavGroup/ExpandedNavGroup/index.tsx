@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IconButton } from "@leafygreen-ui/icon-button";
 import { Overline } from "@leafygreen-ui/typography";
-import Icon from "@evg-ui/lib/components/Icon";
+import X from "@via-ds/icons/X";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { ExpandedLines } from "types/logs";
@@ -38,7 +38,7 @@ const ExpandedNavGroup: React.FC<ExpandedNavGroupProps> = ({
               collapseLines(idx);
             }}
           >
-            <Icon glyph="X" />
+            <X size="medium" />
           </IconButton>
           <Overline>
             Row {e[0]} to {e[1]}

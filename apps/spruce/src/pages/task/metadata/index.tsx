@@ -1,3 +1,4 @@
+import { Badge, Variant } from "@leafygreen-ui/badge";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useTaskAnalytics } from "analytics";
 import MetadataCard, {
@@ -10,8 +11,9 @@ import {
   getHostRoute,
   getImageRoute,
 } from "constants/routes";
-import { TaskQuery } from "gql/generated/types";
+import { ExecutionPlatform, TaskQuery } from "gql/generated/types";
 import { isFailedTaskStatus } from "utils/statuses";
+import { isPushCompletedVirtualTask } from "utils/tasks/virtualTasks";
 import { BuildVariantCard } from "./BuildVariant";
 import { DebugSpawnHostGuideCue } from "./DebugSpawnHostGuideCue";
 import { DependsOn } from "./DependsOn";
@@ -50,6 +52,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
     displayTask,
     distroId,
     execution,
+    executionPlatform,
     executionTasksFull,
     hostId,
     id: taskId,
@@ -60,6 +63,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
   } = task;
 
   const isDisplayTask = executionTasksFull != null;
+  const isPushCompleted = isPushCompletedVirtualTask(task);
   const { identifier: projectIdentifier } = project || {};
 
   return (
@@ -94,8 +98,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task }) => {
         />
       )}
 
-      {!isDisplayTask && (
+      {!isDisplayTask && !isPushCompleted && (
         <MetadataCard title="Host Information">
+          {executionPlatform === ExecutionPlatform.Container && (
+            <MetadataItem
+              data-testid="task-metadata-execution-platform"
+              elementType="div"
+            >
+              <Badge variant={Variant.Blue}>Container</Badge>
+            </MetadataItem>
+          )}
           {hostId && (
             <MetadataItem label="ID">
               <StyledLink

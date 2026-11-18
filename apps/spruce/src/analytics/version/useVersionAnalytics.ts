@@ -7,16 +7,17 @@ import {
   VersionQueryVariables,
 } from "gql/generated/types";
 import { VERSION } from "gql/queries";
+import {
+  CreatedNotificationAction,
+  ViewedNotificationModalAction,
+} from "types/subscription";
 
 type Action =
-  | {
-      name: "Created notification";
-      "subscription.type": string;
-      "subscription.trigger": string;
-    }
+  | CreatedNotificationAction
   | { name: "Changed page size"; "page.size": number }
   | { name: "Changed tab"; tab: string }
   | { name: "Clicked metadata base commit link" }
+  | { name: "Clicked metadata waterfall link" }
   | { name: "Filtered by build variant group" }
   | { name: "Clicked metadata github commit link" }
   | {
@@ -44,7 +45,7 @@ type Action =
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
   | { name: "Filtered task duration table"; "filter.by": string | string[] }
   | { name: "Sorted task duration table"; "sort.by": string | string[] }
-  | { name: "Viewed notification modal" }
+  | ViewedNotificationModalAction
   | { name: "Viewed schedule tasks modal" }
   | {
       name: "Toggled include never activated tasks";
@@ -96,7 +97,7 @@ export const useVersionAnalytics = (id: string) => {
     VERSION,
     id
       ? {
-          variables: { id, includeNeverActivatedTasks: false },
+          variables: { id },
           fetchPolicy: "cache-first",
         }
       : skipToken,

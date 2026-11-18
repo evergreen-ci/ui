@@ -682,9 +682,10 @@ test.describe("task history", () => {
         page.getByText("Introducing the Task History Tab"),
       ).toBeVisible();
 
-      const nextButton = page
-        .getByTestId("walkthrough-guide-cue")
-        .getByRole("button", { name: "Next" });
+      const nextButton = page.getByRole("button", {
+        name: "Next",
+        exact: true,
+      });
 
       await nextButton.click();
       await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();
@@ -753,7 +754,7 @@ test.describe("task history", () => {
         page.getByText("Introducing the Task History Tab"),
       ).toBeVisible();
 
-      const closeButton = page.getByLabel("Close Tooltip");
+      const closeButton = page.getByLabel("Close");
       await expect(closeButton).toBeVisible();
       await closeButton.click();
       await expect(page.getByTestId("walkthrough-guide-cue")).toBeHidden();

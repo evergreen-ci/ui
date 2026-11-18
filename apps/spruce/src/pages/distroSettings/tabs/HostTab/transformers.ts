@@ -1,7 +1,28 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { linuxArchitectures } from "./constants";
+import { HostFormState } from "./types";
 
 type Tab = DistroSettingsTabRoutes.Host;
+
+const emptyBootstrapSettings: NonNullable<HostFormState["bootstrapSettings"]> =
+  {
+    clientDir: "",
+    env: [],
+    homeVolumeFormatCommand: "",
+    jasperBinaryDir: "",
+    jasperCredentialsPath: "",
+    preconditionScripts: [],
+    resourceLimits: {
+      lockedMemoryKb: 0,
+      numFiles: 0,
+      numProcesses: 0,
+      numTasks: 0,
+      virtualMemoryKb: 0,
+    },
+    serviceUser: "",
+    shellPath: "",
+  };
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
@@ -12,6 +33,7 @@ export const gqlToForm = ((data) => {
     bootstrapSettings: {
       clientDir,
       communication,
+      containerIsolation,
       env,
       jasperBinaryDir,
       jasperCredentialsPath,
@@ -65,6 +87,7 @@ export const gqlToForm = ((data) => {
       env,
       preconditionScripts,
     },
+    containerIsolation,
     sshConfig: {
       user,
       execUser,
@@ -80,11 +103,26 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { allocation, bootstrapSettings, setup, sshConfig },
+  {
+    allocation,
+    bootstrapSettings = emptyBootstrapSettings,
+    containerIsolation,
+    setup,
+    sshConfig,
+  },
   distro,
 ) => {
   const { acceptableHostIdleTimeSeconds, ...hostAllocatorSettings } =
     allocation;
+  const containerIsolationInput = linuxArchitectures.includes(setup.arch)
+    ? containerIsolation
+    : {
+        cpus: 0,
+        enabled: false,
+        image: "",
+        memoryMb: 0,
+        requireIsolation: false,
+      };
   return {
     ...(distro as NonNullable<typeof distro>),
     arch: setup.arch,
@@ -92,6 +130,7 @@ export const formToGql = ((
     bootstrapSettings: {
       clientDir: bootstrapSettings.clientDir,
       communication: setup.communicationMethod,
+      containerIsolation: containerIsolationInput,
       env: bootstrapSettings.env,
       jasperBinaryDir: bootstrapSettings.jasperBinaryDir,
       jasperCredentialsPath: bootstrapSettings.jasperCredentialsPath,

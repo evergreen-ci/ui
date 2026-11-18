@@ -12,8 +12,12 @@ import {
   TaskQuarantinedTestsSampleQuery,
   TaskQuarantinedTestsSampleQueryVariables,
   VersionQuarantinedTasksQuery,
+  VersionQuarantinedTasksQueryVariables,
 } from "gql/generated/types";
-import { TASK_QUARANTINED_TESTS_SAMPLE } from "gql/queries";
+import {
+  TASK_QUARANTINED_TESTS_SAMPLE,
+  VERSION_QUARANTINED_TASKS,
+} from "gql/queries";
 import {
   FULL_LIST_LIMIT,
   MODAL_DISPLAY_LIMIT,
@@ -39,17 +43,32 @@ interface VersionSkippedTestRow {
 interface VersionSkippedTestsModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  skippedTestTasks: VersionSkippedTestTask[];
   totalCount: number;
   versionId: string;
 }
 
 export const VersionSkippedTestsModal: React.FC<
   VersionSkippedTestsModalProps
-> = ({ open, setOpen, skippedTestTasks, totalCount, versionId }) => {
+> = ({ open, setOpen, totalCount, versionId }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
 
+  const {
+    data: tasksData,
+    error: tasksError,
+    loading: tasksLoading,
+  } = useQuery<
+    VersionQuarantinedTasksQuery,
+    VersionQuarantinedTasksQueryVariables
+  >(VERSION_QUARANTINED_TASKS, { variables: { versionId } });
+
+  const skippedTestTasks = useMemo(
+    () =>
+      (tasksData?.version.tasks.data ?? []).filter(
+        (task) => task.quarantinedTestsSkippedCount > 0,
+      ),
+    [tasksData?.version.tasks.data],
+  );
   const taskIds = useMemo(
     () => skippedTestTasks.map((task) => task.id),
     [skippedTestTasks],
@@ -61,8 +80,8 @@ export const VersionSkippedTestsModal: React.FC<
 
   const {
     data: samplesData,
-    error,
-    loading,
+    error: samplesError,
+    loading: samplesLoading,
   } = useQuery<
     TaskQuarantinedTestsSampleQuery,
     TaskQuarantinedTestsSampleQueryVariables
@@ -83,6 +102,8 @@ export const VersionSkippedTestsModal: React.FC<
 
   const samples = samplesData?.version.taskQuarantinedTestsSample;
   const detailsAvailable = samples != null;
+  const error = tasksError ?? samplesError;
+  const loading = tasksLoading || samplesLoading;
 
   useEffect(() => {
     if (loading) {

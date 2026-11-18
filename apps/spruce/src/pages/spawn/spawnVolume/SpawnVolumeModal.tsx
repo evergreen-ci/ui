@@ -80,15 +80,13 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           formState?.requiredVolumeInformation?.availabilityZone &&
         (status === HostStatus.Running || status === HostStatus.Stopped),
     )
-    .map(({ displayName, id }) => ({ id, displayName }))
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    .map(({ displayName, id }) => ({ id, displayName: displayName || id }))
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   const { schema, uiSchema } = getFormSchema({
     maxSpawnableLimit,
     availabilityZones,
     types,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     hosts: availableHosts,
     disableExpirationCheckbox,
     // @ts-expect-error: FIXME. This comment was added by an automated script.

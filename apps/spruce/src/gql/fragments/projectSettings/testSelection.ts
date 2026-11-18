@@ -7,6 +7,7 @@ export const PROJECT_TEST_SELECTION_SETTINGS = gql`
       allowed
       defaultEnabled
       mainlineDefaultEnabled
+      quarantineJiraTicketsRequired
     }
   }
 `;
@@ -18,6 +19,7 @@ export const REPO_TEST_SELECTION_SETTINGS = gql`
       allowed
       defaultEnabled
       mainlineDefaultEnabled
+      quarantineJiraTicketsRequired
     }
   }
 `;

@@ -1,5 +1,6 @@
+import { cloneElement } from "react";
 import { css as registerEmotionCss } from "@emotion/css";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 
 /**
@@ -18,13 +19,8 @@ export const emotionCssToClassName = (
 // Modify a field such that its internal disabled prop is true.
 const disableField = (
   property: Unpacked<ObjectFieldTemplateProps["properties"]>,
-): Unpacked<ObjectFieldTemplateProps["properties"]>["content"] => ({
-  ...property.content,
-  props: {
-    ...property.content.props,
-    disabled: true,
-  },
-});
+): Unpacked<ObjectFieldTemplateProps["properties"]>["content"] =>
+  cloneElement(property.content, { disabled: true });
 
 // Return child fields to be rendered
 // Conditionally disable based on whether it has been flagged as such (i.e. is a private variable that has already been saved).

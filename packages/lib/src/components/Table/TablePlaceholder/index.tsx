@@ -1,10 +1,10 @@
 import { cx } from "../../../utils/css";
-import Icon, { glyphs } from "../../Icon";
+import Icon, { IconProps } from "../../Icon";
 import styles from "./index.module.css";
 
 interface Props {
   message: string | React.ReactNode;
-  glyph?: keyof typeof glyphs;
+  glyph?: IconProps["glyph"];
   spin?: boolean;
 }
 

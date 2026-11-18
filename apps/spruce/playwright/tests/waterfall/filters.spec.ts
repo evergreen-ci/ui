@@ -1,5 +1,9 @@
 import { expect, test } from "../../fixtures";
-import { selectDatePickerDate, validateDatePickerDate } from "../../helpers";
+import {
+  isGraphQLQuery,
+  selectDatePickerDate,
+  validateDatePickerDate,
+} from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
@@ -12,8 +16,19 @@ test.describe("status filtering", () => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
     ).toContainText("1");
+    const filteredRequest = page.waitForRequest((request) =>
+      isGraphQLQuery(request, "Waterfall"),
+    );
     await page.getByTestId("status-filter").click();
     await page.getByTestId("failed-option").click();
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: {
+        options: {
+          includeAllBuildsAndTasks: false,
+          statuses: expect.arrayContaining(["failed"]),
+        },
+      },
+    });
     await expect(page.locator("a[data-tooltip]")).toHaveCount(4);
     await expect(page.getByTestId("version-label-active")).toHaveCount(4);
     await expect(page.getByTestId("inactive-versions-button")).toHaveCount(3);
@@ -55,14 +70,35 @@ test.describe("requester filtering", () => {
   });
 
   test("clears requester filters", async ({ page }) => {
+    const versionRevisions = page
+      .getByTestId("version-label-active")
+      .locator("code");
+    const unfilteredRevisions = [
+      "b0c52a7",
+      "2c9056d",
+      "d54e2c6",
+      "d54e2c6",
+      "d950163",
+    ];
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
+
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("gitter_request-option").click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(4);
+    await expect(versionRevisions).toHaveText([
+      "2c9056d",
+      "d54e2c6",
+      "d950163",
+      "e391612",
+      "04a52b2",
+    ]);
+    await expect(page.getByTestId("inactive-versions-button")).toHaveCount(2);
+
     await page
       .getByTestId("requester-filter")
       .getByRole("button", { name: "Clear selection" })
       .click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(5);
+    await expect(page).not.toHaveURL(/requesters=/);
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
   });
 });
 
@@ -88,9 +124,10 @@ test.describe("build variant filtering", () => {
     await chipDismissButton.click();
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
 
-    await page.getByTestId("build-variant-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
     await page.getByTestId("build-variant-filter-input").fill("Ubuntu");
     await page.getByTestId("build-variant-filter-input").press("Enter");
@@ -104,6 +141,30 @@ test.describe("build variant filtering", () => {
     await page.getByTestId("build-variant-filter-input").fill("P");
     await page.getByTestId("build-variant-filter-input").press("Enter");
     await expect(page).toHaveURL(/buildVariants=Ubuntu,P/);
+  });
+
+  test("submitting a build variant tag filter uses variantTags", async ({
+    page,
+  }) => {
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.variantTags?.includes("ubuntu");
+    });
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Tag" })
+      .click();
+    await page.getByTestId("build-variant-filter-input").fill("ubuntu");
+    await page.getByTestId("build-variant-filter-input").press("Enter");
+
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: { options: { variantTags: ["ubuntu"] } },
+    });
+    await expect(page).toHaveURL(/variantTags=ubuntu/);
+    await expect(page.getByTestId("filter-chip")).toHaveText("Variant: ubuntu");
   });
 });
 
@@ -135,9 +196,10 @@ test.describe("task filtering", () => {
     page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
-    await page.getByTestId("task-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
     await page.getByTestId("task-filter-input").fill("agent");
     await page.getByTestId("task-filter-input").press("Enter");
@@ -162,13 +224,15 @@ test.describe("task filtering", () => {
   });
 
   test("correctly applies build variant and task filters", async ({ page }) => {
-    await page.getByTestId("build-variant-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
-    await page.getByTestId("task-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
     await page.getByTestId("build-variant-filter-input").fill("Ubuntu");
     await page.getByTestId("build-variant-filter-input").press("Enter");
@@ -179,6 +243,28 @@ test.describe("task filtering", () => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
     await expect(page.locator("a[data-tooltip]")).toHaveCount(1);
     await expect(page.getByTestId("filter-chip")).toHaveCount(2);
+  });
+
+  test("submitting a task tag filter uses taskTags", async ({ page }) => {
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.taskTags?.includes("lint");
+    });
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Tag" })
+      .click();
+    await page.getByTestId("task-filter-input").fill("lint");
+    await page.getByTestId("task-filter-input").press("Enter");
+
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: { options: { taskTags: ["lint"] } },
+    });
+    await expect(page).toHaveURL(/taskTags=lint/);
+    await expect(page.getByTestId("filter-chip")).toHaveText("Task: lint");
   });
 });
 
@@ -249,10 +335,14 @@ test.describe("revision filtering", () => {
   test("filters by git commit", async ({ page }) => {
     await page.getByTestId("waterfall-menu").click();
     await page.getByTestId("git-commit-search").click();
-    await expect(page.getByTestId("git-commit-search-modal")).toBeVisible();
-    await page.getByLabel("Git Commit Hash").fill("ab49443");
-    await page.getByLabel("Git Commit Hash").press("Enter");
-    await expect(page.getByTestId("git-commit-search-modal")).toBeHidden();
+    const modal = page.getByTestId("git-commit-search-modal");
+    await expect(modal).toBeVisible();
+    const commitHashInput = modal.getByRole("textbox", {
+      name: "Git Commit Hash",
+    });
+    await commitHashInput.fill("ab49443");
+    await commitHashInput.press("Enter");
+    await expect(modal).toBeHidden();
 
     const targetVersion = page.getByTestId("version-label-active").nth(1);
     await expect(targetVersion.getByText("ab49443")).toBeVisible();
@@ -276,11 +366,11 @@ test.describe("project selection", () => {
     await page.goto("/project/spruce/waterfall");
     await page.getByTestId("status-filter").click();
     await page.getByTestId("test-timed-out-option").click();
-    await page.locator("body").click();
+    await page.keyboard.press("Escape");
     await page.getByTestId("project-select").click();
     await page
-      .getByTestId("project-select-options")
-      .getByText("evergreen smoke test")
+      .getByTestId("project-display-name")
+      .getByText("evergreen smoke test", { exact: true })
       .click();
     await expect(page).toHaveURL(
       "/project/evergreen/waterfall?statuses=test-timed-out",
