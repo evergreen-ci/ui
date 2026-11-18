@@ -125,10 +125,7 @@ const renderCheckboxesHelper = ({
   rows.push(
     <div
       key={data.key}
-      className={cx(
-        styles.checkboxWrapper,
-        data.value === ALL_VALUE && styles.checkboxWrapperAll,
-      )}
+      className={cx(data.value === ALL_VALUE && styles.checkboxWrapperAll)}
     >
       <Checkbox isSelected={state.includes(data.value)} onChange={onChangeFn}>
         {data.title}
@@ -144,7 +141,6 @@ const renderCheckboxesHelper = ({
         <div
           key={`${data.key}-${child.key}`}
           className={cx(
-            styles.checkboxWrapper,
             styles.checkboxWrapperNested,
             child.value === ALL_VALUE && styles.checkboxWrapperAll,
           )}

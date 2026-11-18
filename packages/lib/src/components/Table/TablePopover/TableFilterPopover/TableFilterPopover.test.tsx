@@ -68,8 +68,7 @@ describe("table filter popover", () => {
       expect(screen.queryByTestId("test-popover-wrapper")).toBeVisible();
     });
 
-    const checkboxLabel = screen.getByText("Success");
-    await user.click(checkboxLabel);
+    await user.click(screen.getByRole("checkbox", { name: "Success" }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
     expect(onConfirm).toHaveBeenCalledWith(["success"]);
   });
