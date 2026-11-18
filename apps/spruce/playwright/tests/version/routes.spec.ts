@@ -16,7 +16,7 @@ test.describe("Version route", () => {
       await expect(page.getByTestId("parameters-modal")).toHaveCount(0);
       await page.getByTestId("parameters-link").click();
       await expect(page.getByTestId("parameters-modal")).toBeVisible();
-      await page.getByRole("button", { name: "Close modal" }).click();
+      await page.getByRole("button", { name: "Close dialog" }).click();
       await expect(page.getByTestId("parameters-modal")).toBeHidden();
     });
 

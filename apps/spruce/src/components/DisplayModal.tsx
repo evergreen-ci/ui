@@ -1,25 +1,37 @@
-import { Modal, ModalProps } from "@leafygreen-ui/modal";
-import { Body, H3 } from "@leafygreen-ui/typography";
-import styles from "./DisplayModal.module.css";
+import { Content, Dialog, DialogRoot, Header, Text } from "@via-ds/components";
 
-type DisplayModalProps = Omit<ModalProps, "title"> & {
-  title?: React.ReactNode | string;
+type DisplayModalProps = {
+  children: React.ReactNode;
+  "data-testid"?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  size?: "small" | "medium" | "large";
   subtitle?: string;
+  title: React.ReactNode;
 };
 
 export const DisplayModal: React.FC<DisplayModalProps> = ({
   children,
+  "data-testid": dataTestId,
+  open,
+  setOpen,
+  size,
   subtitle,
   title,
-  ...rest
 }) => (
-  <Modal {...rest}>
-    {title && <H3 data-testid="modal-title">{title}</H3>}
-    {subtitle && (
-      <Body className={styles.subtitle} data-testid="modal-subtitle">
-        {subtitle}
-      </Body>
-    )}
-    {children}
-  </Modal>
+  <DialogRoot isOpen={open} onOpenChange={setOpen}>
+    <Dialog data-testid={dataTestId} size={size}>
+      <Header>
+        <Text data-testid="modal-title" slot="title">
+          {title}
+        </Text>
+        {subtitle && (
+          <Text data-testid="modal-subtitle" slot="description">
+            {subtitle}
+          </Text>
+        )}
+      </Header>
+      <Content>{children}</Content>
+    </Dialog>
+  </DialogRoot>
 );
