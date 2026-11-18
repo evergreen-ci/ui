@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Banner } from "@leafygreen-ui/banner";
+import { Banner } from "@via-ds/components";
 import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
 import { DisplayModal } from "components/DisplayModal";
 import {
@@ -25,11 +25,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
 
   return showBanner ? (
     <BannerContainer data-testid="configuration-warnings-banner">
-      <Banner
-        dismissible
-        onClose={() => setShowBanner(false)}
-        variant="warning"
-      >
+      <Banner onClose={() => setShowBanner(false)} variant="warning">
         <b>{warningTitle}</b>
         <br />
         <span>

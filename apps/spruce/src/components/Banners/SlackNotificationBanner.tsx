@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
 import { TextInput } from "@leafygreen-ui/text-input";
+import { Banner } from "@via-ds/components";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
@@ -86,7 +86,6 @@ export const SlackNotificationBanner = () => {
   return shouldShowSlackBanner ? (
     <Banner
       data-testid="slack-notification-banner"
-      dismissible
       onClose={hideBanner}
       variant="info"
     >

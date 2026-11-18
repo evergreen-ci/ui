@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
 import { ConfirmationModal } from "@leafygreen-ui/confirmation-modal";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { Banner } from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   RepotrackerErrorQuery,
