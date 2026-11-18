@@ -6,14 +6,6 @@ import styles from "./Layout.module.css";
 
 export const navBarHeight = size.xl;
 
-export const SiteLayout = forwardRef<
-  HTMLDivElement,
-  ComponentPropsWithoutRef<"div">
->(({ className, ...rest }, ref) => (
-  <div ref={ref} className={cx(styles.siteLayout, className)} {...rest} />
-));
-SiteLayout.displayName = "SiteLayout";
-
 export const SideNavPageWrapper = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
