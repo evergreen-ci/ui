@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Banner } from "@via-ds/components";
+import { Banner, Text } from "@via-ds/components";
 import ImportantWithCircle from "@via-ds/icons/ImportantWithCircle";
 import { DisplayModal } from "components/DisplayModal";
 import {
@@ -26,9 +26,8 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
   return showBanner ? (
     <BannerContainer data-testid="configuration-warnings-banner">
       <Banner onClose={() => setShowBanner(false)} variant="warning">
-        <b>{warningTitle}</b>
-        <br />
-        <span>
+        <Text slot="title">{warningTitle}</Text>
+        <Text>
           See all warnings{" "}
           <ModalTriggerText
             data-testid="configuration-warnings-modal-trigger"
@@ -36,7 +35,7 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
           >
             here
           </ModalTriggerText>
-        </span>
+        </Text>
       </Banner>
       <DisplayModal
         data-testid="configuration-warnings-modal"

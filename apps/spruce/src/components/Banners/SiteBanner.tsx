@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Banner, BannerVariant } from "@via-ds/components";
+import { Banner, BannerVariant, Text } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
@@ -29,8 +29,10 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
       onClose={hideBanner}
       variant={variant}
     >
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {jiraLinkify(text, jiraHost)}
+      <Text>
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+        {jiraLinkify(text, jiraHost)}
+      </Text>
     </Banner>
   ) : null;
 };
