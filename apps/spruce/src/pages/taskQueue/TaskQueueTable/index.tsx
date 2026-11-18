@@ -55,14 +55,11 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   });
   const performedInitialScroll = useRef(false);
   useEffect(() => {
-    if (taskId !== undefined && !performedInitialScroll.current) {
-      const i = taskQueue.findIndex((t) => t.id === taskId);
-      table.virtual.scrollToIndex(i, { align: "center" });
-      setTimeout(() => {
-        performedInitialScroll.current = true;
-        table.virtual.scrollToIndex(i, { align: "center", behavior: "smooth" });
-      }, 500);
-    }
+    if (performedInitialScroll.current) return;
+    const i = taskQueue.findIndex((t) => t.id === taskId);
+    if (i === -1) return;
+    performedInitialScroll.current = true;
+    table.virtual.scrollToIndex(i, { align: "center" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskId, taskQueue]);
 
