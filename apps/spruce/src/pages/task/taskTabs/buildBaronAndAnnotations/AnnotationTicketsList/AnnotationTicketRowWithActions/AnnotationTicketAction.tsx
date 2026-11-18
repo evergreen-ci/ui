@@ -1,8 +1,7 @@
 import { Button, Size } from "@leafygreen-ui/button";
 import { Tooltip } from "@leafygreen-ui/tooltip";
-import { Side } from "@via-ds/components";
 import Icon, { IconProps } from "@evg-ui/lib/components/Icon";
-import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import Popconfirm, { Align } from "@evg-ui/lib/components/Popconfirm";
 
 interface AnnotationTicketActionProps {
   confirmMessage: string;
@@ -21,7 +20,7 @@ export const AnnotationTicketAction: React.FC<AnnotationTicketActionProps> = ({
 }) =>
   userCanModify ? (
     <Popconfirm
-      align={Side.Right}
+      align={Align.Right}
       onConfirm={onConfirm}
       trigger={
         <Button
