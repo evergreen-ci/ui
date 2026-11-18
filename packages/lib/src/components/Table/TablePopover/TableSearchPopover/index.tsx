@@ -52,6 +52,7 @@ const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
           ref={buttonRef}
           aria-label="Table Search Popover Icon"
           data-testid={dataTestId}
+          size="small"
           variant="tertiary"
         >
           <MagnifyingGlass
