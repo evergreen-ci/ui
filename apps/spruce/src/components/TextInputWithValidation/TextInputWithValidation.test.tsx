@@ -7,7 +7,6 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         label="textinput"
         onSubmit={onSubmit}
         validator={(v) => v.length > 5}
@@ -22,13 +21,7 @@ describe("textInputWithValidation", () => {
   it("should not validate without a validation function", async () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
-    render(
-      <TextInputWithValidation
-        aria-label="textinput"
-        label="textinput"
-        onSubmit={onSubmit}
-      />,
-    );
+    render(<TextInputWithValidation label="textinput" onSubmit={onSubmit} />);
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");
     await user.type(input, "{enter}");
@@ -39,7 +32,6 @@ describe("textInputWithValidation", () => {
     const onChange = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         label="textinput"
         onChange={onChange}
         validator={(v) => v.length >= 5}
@@ -57,7 +49,6 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         clearOnSubmit
         label="textinput"
         onChange={onChange}

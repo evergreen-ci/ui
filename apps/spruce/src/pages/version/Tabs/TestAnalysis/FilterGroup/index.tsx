@@ -63,8 +63,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
       <FilterContainer>
         <TextInputWithValidation
           aria-labelledby="test-failure-search-label"
-          disabled={!hasResults}
           id="test-failure-search-input"
+          isDisabled={!hasResults}
           label="Search Test Failures"
           onSubmit={(value) => {
             if (value === "") {

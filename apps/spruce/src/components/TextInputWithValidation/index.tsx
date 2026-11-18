@@ -1,11 +1,8 @@
 import { forwardRef, useEffect, useState } from "react";
 import { Button } from "@via-ds/components/button";
+import { TextField, TextFieldProps } from "@via-ds/components/text-field";
 import Plus from "@via-ds/icons/Plus";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
-import {
-  TextInputWithGlyph,
-  TextInputWithGlyphProps,
-} from "@evg-ui/lib/components/TextInputWithGlyph";
 
 type TextInputWithValidationProps = {
   /**
@@ -23,24 +20,25 @@ type TextInputWithValidationProps = {
    */
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
-  placeholder?: string;
   /** The controlled value that should be displayed within the text input */
   value?: string;
   /**
    * If true, the input will be cleared when the user submits a new input
    */
   clearOnSubmit?: boolean;
-} & Omit<TextInputWithGlyphProps, "icon" | "onSubmit" | "onChange">;
+  "data-testid"?: string;
+} & Omit<
+  TextFieldProps,
+  "children" | "defaultValue" | "onChange" | "onKeyDown" | "value"
+>;
 
 const TextInputWithValidation = forwardRef<
   HTMLInputElement,
   TextInputWithValidationProps
 >((props, ref) => {
   const {
-    "aria-label": ariaLabel,
     clearOnSubmit = false,
-    disabled,
-    label,
+    isDisabled,
     onChange = () => {},
     onSubmit = () => {},
     validator = () => true,
@@ -73,38 +71,33 @@ const TextInputWithValidation = forwardRef<
   };
 
   return (
-    <TextInputWithGlyph
+    <TextField
       ref={ref}
-      aria-label={ariaLabel ?? ""}
-      disabled={disabled}
-      icon={
-        isValid ? (
-          <Button
-            aria-label="Select plus button"
-            isDisabled={disabled}
-            onPress={handleOnSubmit}
-            variant="tertiary"
-          >
-            <Plus />
-          </Button>
-        ) : (
-          <IconWithTooltip
-            aria-label="validation error"
-            fill="var(--via-color-icon-warning)"
-            glyph="Warning"
-          >
-            {validatorErrorMessage}
-          </IconWithTooltip>
-        )
-      }
-      label={label}
-      onChange={(e) => handleOnChange(e.target.value)}
-      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-        e.key === "Enter" && handleOnSubmit()
-      }
+      isDisabled={isDisabled}
+      onChange={handleOnChange}
+      onKeyDown={(e) => e.key === "Enter" && handleOnSubmit()}
       value={input}
       {...rest}
-    />
+    >
+      {isValid ? (
+        <Button
+          aria-label="Select plus button"
+          onPress={handleOnSubmit}
+          slot="trailing"
+          variant="tertiary"
+        >
+          <Plus />
+        </Button>
+      ) : (
+        <IconWithTooltip
+          aria-label="validation error"
+          fill="var(--via-color-icon-warning)"
+          glyph="Warning"
+        >
+          {validatorErrorMessage}
+        </IconWithTooltip>
+      )}
+    </TextField>
   );
 });
 

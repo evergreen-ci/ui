@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, within } from "@evg-ui/lib/test_utils";
 import TextFilterInput from ".";
 
 const options = [
@@ -50,7 +50,9 @@ describe("TextFilterInput", () => {
   it("does not crash when onSubmit is not provided", async () => {
     const user = userEvent.setup();
     render(<TextFilterInput {...sharedProps} options={options} />);
-    const input = screen.getByTestId("text-filter-input-input");
+    const input = within(
+      screen.getByTestId("text-filter-input-input"),
+    ).getByRole("textbox");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
@@ -69,7 +71,9 @@ describe("TextFilterInput", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByTestId("text-filter-input-input");
+    const input = within(
+      screen.getByTestId("text-filter-input-input"),
+    ).getByRole("textbox");
     const segment = screen.getByRole("radio", { name: "Build Variant" });
     expect(segment).toBeInTheDocument();
     expect(input).toBeInTheDocument();
@@ -90,7 +94,9 @@ describe("TextFilterInput", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("text-filter-input-input");
+    const input = within(
+      screen.getByTestId("text-filter-input-input"),
+    ).getByRole("textbox");
     expect(input).toHaveValue("");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
@@ -111,7 +117,9 @@ describe("TextFilterInput", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("text-filter-input-input");
+    const input = within(
+      screen.getByTestId("text-filter-input-input"),
+    ).getByRole("textbox");
 
     expect(input).toHaveValue("");
     await user.type(input, "bad");
