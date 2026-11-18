@@ -1,21 +1,16 @@
-import styled from "@emotion/styled";
-import { Banner, Variant } from "@leafygreen-ui/banner";
+import { Banner, BannerVariant } from "@via-ds/components";
 import { StyledLink } from "@evg-ui/lib/components/styles";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { ignoredFilesDocumentationUrl } from "constants/externalResources";
+import styles from "./index.module.css";
 
 export const IgnoredBanner: React.FC = () => (
-  <BannerContainer data-testid="ignored-banner">
-    <Banner variant={Variant.Info}>
+  <div className={styles.bannerContainer} data-testid="ignored-banner">
+    <Banner variant={BannerVariant.Info}>
       This revision will not be automatically scheduled, because only{" "}
       <StyledLink href={ignoredFilesDocumentationUrl} target="_blank">
         ignored files
       </StyledLink>{" "}
       are changed. It may still be scheduled manually, or on failure stepback.
     </Banner>
-  </BannerContainer>
+  </div>
 );
-
-const BannerContainer = styled.div`
-  margin-bottom: ${size.s};
-`;
