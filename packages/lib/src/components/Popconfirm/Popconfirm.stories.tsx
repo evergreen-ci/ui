@@ -21,14 +21,14 @@ export const Default: CustomStoryObj<typeof Popconfirm> = {
     },
     justify: {
       control: { type: "select" },
-      options: ["start", "middle", "end"],
+      options: ["start", "center", "end"],
     },
   },
   args: {
     confirmText: "Confirm",
     confirmDisabled: false,
     align: "top",
-    justify: "middle",
+    justify: "center",
     children: "Are you sure you want to perform this action?",
     trigger: <Button size="small">Click to open popconfirm</Button>,
   },
@@ -54,7 +54,7 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       <div style={positionWrapperStyle}>
         <Popconfirm
           align="top"
-          justify="middle"
+          justify="center"
           trigger={<Button size="small">Top Middle</Button>}
         >
           Confirmation message
@@ -63,7 +63,7 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       <div style={positionWrapperStyle}>
         <Popconfirm
           align="bottom"
-          justify="middle"
+          justify="center"
           trigger={<Button size="small">Bottom Middle</Button>}
         >
           Confirmation message
@@ -72,7 +72,7 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       <div style={positionWrapperStyle}>
         <Popconfirm
           align="left"
-          justify="middle"
+          justify="center"
           trigger={<Button size="small">Left Middle</Button>}
         >
           Confirmation message
@@ -81,7 +81,7 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       <div style={positionWrapperStyle}>
         <Popconfirm
           align="right"
-          justify="middle"
+          justify="center"
           trigger={<Button size="small">Right Middle</Button>}
         >
           Confirmation message

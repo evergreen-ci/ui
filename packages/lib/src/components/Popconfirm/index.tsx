@@ -1,40 +1,18 @@
 import { useCallback, useRef, useState } from "react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { Button } from "@via-ds/components/button";
-import { Popover, PopoverRoot } from "@via-ds/components/popover";
+import { Align, Button, Popover, PopoverRoot, Side } from "@via-ds/components";
 import { cx } from "../../utils/css";
 import { PopoverContainer } from "../styles/Popover";
 import styles from "./index.module.css";
 
-export const Align = {
-  Top: "top",
-  Bottom: "bottom",
-  Left: "left",
-  Right: "right",
-} as const;
-export type Align = (typeof Align)[keyof typeof Align];
-
-export const Justify = {
-  Start: "start",
-  Middle: "middle",
-  End: "end",
-} as const;
-export type Justify = (typeof Justify)[keyof typeof Justify];
-
-const viaAlignByJustify = {
-  [Justify.Start]: "start",
-  [Justify.Middle]: "center",
-  [Justify.End]: "end",
-} as const;
-
 type PopconfirmProps = {
-  align?: Align;
+  align?: Side;
   children: React.ReactNode;
   className?: string;
   confirmDisabled?: boolean;
   confirmText?: string;
   "data-testid"?: string;
-  justify?: Justify;
+  justify?: Align;
   onClose?: () => void;
   onConfirm?: () => void;
   open?: boolean;
@@ -44,13 +22,13 @@ type PopconfirmProps = {
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
-  align = Align.Top,
+  align = Side.Top,
   children,
   className,
   confirmDisabled = false,
   confirmText = "Yes",
   "data-testid": dataTestId,
-  justify = Justify.Middle,
+  justify = Align.Center,
   onClose = () => {},
   onConfirm = () => {},
   open: controlledOpen,
@@ -84,7 +62,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
 
   return (
     <PopoverRoot
-      align={viaAlignByJustify[justify]}
+      align={justify}
       isDismissable
       isNonModal
       isOpen={open}
