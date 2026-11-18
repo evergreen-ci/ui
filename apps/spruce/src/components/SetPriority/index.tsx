@@ -32,16 +32,16 @@ type SetPriorityProps = (
   disabled?: boolean;
   initialPriority?: number;
   isButton?: boolean;
-  popconfirmAlign?: Side;
-  popconfirmJustify?: Align;
+  popconfirmSide?: Side;
+  popconfirmAlign?: Align;
 };
 
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   isButton = false,
-  popconfirmAlign = Side.Left,
-  popconfirmJustify = Align.Start,
+  popconfirmAlign = Align.Start,
+  popconfirmSide = Side.Left,
   taskIds,
   versionId,
 }) => {
@@ -146,11 +146,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         align={popconfirmAlign}
         confirmText="Set"
         data-testid={`set-${label}-priority-popconfirm`}
-        justify={popconfirmJustify}
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
+        side={popconfirmSide}
       >
         <NumberInput
           ref={(el) => setInputRef(el)}

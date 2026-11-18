@@ -181,7 +181,7 @@ export const Header: React.FC<HeaderProps> = ({
           disabled={!canSetPriority}
           initialPriority={priority ?? 0}
           isButton
-          popconfirmAlign={Side.Top}
+          popconfirmSide={Side.Top}
           taskIds={[taskId]}
         />
       </div>

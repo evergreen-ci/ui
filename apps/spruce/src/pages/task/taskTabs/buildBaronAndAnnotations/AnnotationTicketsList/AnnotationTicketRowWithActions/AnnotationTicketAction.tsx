@@ -21,8 +21,8 @@ export const AnnotationTicketAction: React.FC<AnnotationTicketActionProps> = ({
 }) =>
   userCanModify ? (
     <Popconfirm
-      align={Side.Right}
       onConfirm={onConfirm}
+      side={Side.Right}
       trigger={
         <Button
           data-testid={dataTestId}

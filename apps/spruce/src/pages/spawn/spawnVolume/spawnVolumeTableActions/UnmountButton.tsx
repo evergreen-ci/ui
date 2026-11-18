@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip, TriggerEvent } from "@leafygreen-ui/tooltip";
+import { Side } from "@via-ds/components";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
@@ -67,7 +68,6 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
     </Tooltip>
   ) : (
     <Popconfirm
-      align={Align.Left}
       data-testid="unmount-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
@@ -76,6 +76,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
         });
         detachVolume({ variables: { volumeId: volume.id } });
       }}
+      side={Side.Left}
       trigger={
         <Button
           as="button"

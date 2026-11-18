@@ -56,11 +56,11 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         visible={visible}
       />
       <Popconfirm
-        align="right"
         onConfirm={() => {
           sendEvent({ name: "Deleted public key" });
           removePublicKey({ variables: { keyName: publicKey.name } });
         }}
+        side="right"
         trigger={
           <Button
             data-testid="delete-btn"

@@ -75,6 +75,27 @@ describe("uncontrolled popconfirm", () => {
     expect(screen.getByText("hello")).not.toBeVisible();
   });
 
+  it("still calls the trigger's own onClick when it toggles", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Popconfirm
+        trigger={
+          <button onClick={onClick} type="button">
+            Open
+          </button>
+        }
+      >
+        <div>hello</div>
+      </Popconfirm>,
+    );
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    await waitFor(() => {
+      expect(screen.getByText("hello")).toBeVisible();
+    });
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   it("opens when the trigger stops click propagation", async () => {
     const user = userEvent.setup();
     render(

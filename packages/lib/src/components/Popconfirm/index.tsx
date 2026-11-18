@@ -1,87 +1,129 @@
-import { useCallback, useRef, useState } from "react";
+import { cloneElement, useContext, useRef } from "react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { Align, Button, Popover, PopoverRoot, Side } from "@via-ds/components";
+import {
+  Align,
+  Button,
+  Popover,
+  PopoverContext,
+  PopoverRoot,
+  PopoverRootProps,
+  Side,
+} from "@via-ds/components";
 import { cx } from "../../utils/css";
 import { PopoverContainer } from "../styles/Popover";
 import styles from "./index.module.css";
 
-type PopconfirmProps = {
-  align?: Side;
+type PopconfirmProps = Pick<PopoverRootProps, "align" | "side"> & {
   children: React.ReactNode;
   className?: string;
   confirmDisabled?: boolean;
   confirmText?: string;
   "data-testid"?: string;
-  justify?: Align;
   onClose?: () => void;
   onConfirm?: () => void;
   open?: boolean;
   refEl?: React.RefObject<HTMLElement | null>;
   setOpen?: (open: boolean) => void;
-  trigger?: React.ReactNode;
+  trigger?: React.ReactElement<{
+    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  }>;
+};
+
+// Clones the trigger instead of wrapping it so the popover can anchor to the
+// element itself. Toggling on the trigger's own click still runs when the
+// trigger stops propagation of the event, and recording the clicked element
+// avoids taking over a ref the consumer may have set on the trigger.
+const PopconfirmTrigger: React.FC<{
+  onAnchor: (element: HTMLElement) => void;
+  trigger: NonNullable<PopconfirmProps["trigger"]>;
+}> = ({ onAnchor, trigger }) => {
+  const state = useContext(PopoverContext)?.state;
+
+  return cloneElement(trigger, {
+    onClick: (e: React.MouseEvent<HTMLElement>) => {
+      onAnchor(e.currentTarget);
+      trigger.props.onClick?.(e);
+      state?.toggle();
+    },
+  });
+};
+
+const PopconfirmActions: React.FC<
+  Pick<PopconfirmProps, "confirmDisabled" | "confirmText" | "onConfirm">
+> = ({ confirmDisabled, confirmText, onConfirm }) => {
+  const state = useContext(PopoverContext)?.state;
+
+  return (
+    <div className={styles.buttonWrapper}>
+      <Button
+        data-testid="popconfirm-cancel-button"
+        onPress={() => state?.close()}
+        size="small"
+      >
+        Cancel
+      </Button>
+      <Button
+        data-testid="popconfirm-confirm-button"
+        isDisabled={confirmDisabled}
+        onPress={() => {
+          onConfirm?.();
+          state?.close();
+        }}
+        size="small"
+        variant="primary"
+      >
+        {confirmText}
+      </Button>
+    </div>
+  );
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
-  align = Side.Top,
+  align = Align.Center,
   children,
   className,
   confirmDisabled = false,
   confirmText = "Yes",
   "data-testid": dataTestId,
-  justify = Align.Center,
   onClose = () => {},
   onConfirm = () => {},
-  open: controlledOpen,
+  open,
   refEl,
-  setOpen: controlledSetOpen,
+  setOpen,
+  side = Side.Top,
   trigger,
 }) => {
-  const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
-  const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
-  const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
-
-  const triggerRef = useRef<HTMLSpanElement>(null);
-  const anchorRef = refEl ?? triggerRef;
-
-  const close = useCallback(() => {
-    onClose();
-    setOpen(false);
-  }, [onClose, setOpen]);
+  const isControlled = open !== undefined && !!setOpen;
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (nextOpen) {
-      setOpen(true);
-    } else {
-      close();
+    if (!nextOpen) {
+      onClose();
+    }
+    if (isControlled) {
+      setOpen(nextOpen);
     }
   };
 
-  const isOutsideAnchor = (element: Element) =>
-    !anchorRef.current?.contains(element);
-
   return (
     <PopoverRoot
-      align={justify}
+      align={align}
       isDismissable
       isNonModal
-      isOpen={open}
+      isOpen={isControlled ? open : undefined}
       onOpenChange={handleOpenChange}
-      referenceElement={anchorRef}
-      shouldCloseOnInteractOutside={isOutsideAnchor}
+      referenceElement={refEl ?? triggerRef}
       shouldToggleOnPress={false}
-      side={align}
+      side={side}
       triggerType="dialog"
     >
       {trigger && (
-        <span
-          ref={triggerRef}
-          className={styles.trigger}
-          onClickCapture={() => handleOpenChange(!open)}
-          role="presentation"
-        >
-          {trigger}
-        </span>
+        <PopconfirmTrigger
+          onAnchor={(element) => {
+            triggerRef.current = element;
+          }}
+          trigger={trigger}
+        />
       )}
       <Popover>
         <LeafyGreenProvider darkMode>
@@ -90,27 +132,11 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
             data-testid={dataTestId}
           >
             {children}
-            <div className={styles.buttonWrapper}>
-              <Button
-                data-testid="popconfirm-cancel-button"
-                onPress={close}
-                size="small"
-              >
-                Cancel
-              </Button>
-              <Button
-                data-testid="popconfirm-confirm-button"
-                isDisabled={confirmDisabled}
-                onPress={() => {
-                  onConfirm();
-                  setOpen(false);
-                }}
-                size="small"
-                variant="primary"
-              >
-                {confirmText}
-              </Button>
-            </div>
+            <PopconfirmActions
+              confirmDisabled={confirmDisabled}
+              confirmText={confirmText}
+              onConfirm={onConfirm}
+            />
           </PopoverContainer>
         </LeafyGreenProvider>
       </Popover>
