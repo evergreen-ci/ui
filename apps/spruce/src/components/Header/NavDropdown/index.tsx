@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { Fragment, useState } from "react";
+import { Menu, MenuGroup, MenuItem, MenuSeparator } from "@leafygreen-ui/menu";
 import { Link, To } from "react-router-dom";
 import { Icon } from "@evg-ui/lib/components/Icon";
 import styles from "./index.module.css";
@@ -10,10 +10,16 @@ const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
 
 export interface MenuItemType {
   "data-testid"?: string;
+  description?: string;
   text: string | React.ReactNode;
   href?: string;
   to?: To;
   onClick?: () => void;
+}
+
+export interface MenuGroupType {
+  text: string;
+  menuItems: MenuItemType[];
 }
 
 interface NavDropdownItemType extends MenuItemType {
@@ -26,11 +32,13 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   href,
   text,
   to,
+  ...rest
 }) => {
   const isInternalLink = to !== undefined;
 
   return isInternalLink ? (
     <MenuItem
+      {...rest}
       as={Link}
       data-testid={itemDataTestId}
       onClick={closeMenu}
@@ -40,6 +48,7 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
     </MenuItem>
   ) : (
     <MenuItem
+      {...rest}
       as="a"
       data-testid={itemDataTestId}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -53,7 +62,7 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
 
 interface NavDropdownProps {
   dataTestId?: string;
-  menuItems: MenuItemType[];
+  menuItems: (MenuItemType | MenuGroupType)[];
   title: string;
 }
 
@@ -66,6 +75,7 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
 
   return (
     <Menu
+      darkMode // This prop shouldn't be required, but otherwise MenuGroup is white
       justify="start"
       open={openMenu}
       setOpen={setOpenMenu}
@@ -77,14 +87,33 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
       }
     >
       {menuItems.map((menuItem) => (
-        <NavDropdownItem
-          key={`dropdown_${menuItem.text}`}
-          closeMenu={() => {
-            menuItem.onClick?.(); // call if exists
-            setOpenMenu(false);
-          }}
-          {...menuItem}
-        />
+        <Fragment key={`dropdown_${menuItem.text}`}>
+          {"menuItems" in menuItem ? (
+            <>
+              <MenuSeparator />
+              <MenuGroup>
+                {menuItem.menuItems.map((m) => (
+                  <NavDropdownItem
+                    key={`dropdown_${m.text}`}
+                    closeMenu={() => {
+                      m.onClick?.(); // call if exists
+                      setOpenMenu(false);
+                    }}
+                    {...m}
+                  />
+                ))}
+              </MenuGroup>
+            </>
+          ) : (
+            <NavDropdownItem
+              closeMenu={() => {
+                menuItem.onClick?.(); // call if exists
+                setOpenMenu(false);
+              }}
+              {...menuItem}
+            />
+          )}
+        </Fragment>
       ))}
     </Menu>
   );

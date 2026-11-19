@@ -1,6 +1,9 @@
-import { InMemoryCache } from "@apollo/client";
+import { InMemoryCache, Reference } from "@apollo/client";
 import { readTaskReviewed } from "components/TaskReview/caching";
-import { WaterfallOptions } from "gql/generated/types";
+import {
+  ProjectCommitHistoryQuery,
+  WaterfallOptions,
+} from "gql/generated/types";
 import { mergeTasks, readTasks } from "pages/task/taskTabs/TaskHistory/caching";
 import { mergeVersions, readVersions } from "pages/waterfall/caching";
 
@@ -14,6 +17,11 @@ const WATERFALL_FILTER_FIELDS: (keyof WaterfallOptions)[] = [
   "variantTags",
   "omitInactiveBuilds",
 ];
+
+type ProjectCommitsCache = Omit<
+  ProjectCommitHistoryQuery["project"]["commits"],
+  "versions"
+> & { versions: Reference[] };
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -55,6 +63,25 @@ export const cache = new InMemoryCache({
     },
     Project: {
       merge: true,
+      fields: {
+        commits: {
+          keyArgs: false,
+          merge(
+            existing: ProjectCommitsCache | undefined,
+            incoming: ProjectCommitsCache,
+            { args },
+          ) {
+            if (!existing || args?.options?.maxOrder == null) {
+              return incoming;
+            }
+
+            return {
+              ...incoming,
+              versions: [...existing.versions, ...incoming.versions],
+            };
+          },
+        },
+      },
     },
     ProjectAlias: {
       keyFields: false,

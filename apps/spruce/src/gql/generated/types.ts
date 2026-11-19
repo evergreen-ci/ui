@@ -9676,6 +9676,7 @@ export type ProjectCommitHistoryQuery = {
   project: {
     __typename?: "Project";
     id: string;
+    identifier: string;
     commits: {
       __typename?: "ProjectCommits";
       pagination: {

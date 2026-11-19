@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { skipToken, useQuery } from "@apollo/client/react";
 import { useParams } from "react-router-dom";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import { useProjectHistoryAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { LoadingButton } from "components/Buttons";
 import { ProjectSelect } from "components/ProjectSelect";
@@ -13,18 +14,24 @@ import {
 } from "gql/generated/types";
 import { PROJECT_COMMIT_HISTORY } from "gql/queries";
 import { HistoryTable } from "./HistoryTable";
+import styles from "./styles.module.css";
 
 const baseOptions = {
-  limit: 20,
+  limit: 50,
 };
 
 const ProjectCommits: React.FC = () => {
   const [loadingMore, setLoadingMore] = useState(false);
+
+  const { sendEvent } = useProjectHistoryAnalytics({
+    page: "Project commit history",
+  });
+
   const { [slugs.projectIdentifier]: projectIdentifier } =
     useParams() as Record<string, string>;
   usePageTitle(`${projectIdentifier} Commits`);
 
-  const { data, fetchMore } = useQuery<
+  const { data, dataState, fetchMore, loading } = useQuery<
     ProjectCommitHistoryQuery,
     ProjectCommitHistoryQueryVariables
   >(
@@ -57,53 +64,47 @@ const ProjectCommits: React.FC = () => {
             maxOrder: data?.project?.commits?.pagination?.nextPageOrder,
           },
         },
-        updateQuery(existing, { fetchMoreResult }) {
-          return {
-            ...existing,
-            project: {
-              ...existing.project,
-              commits: {
-                ...fetchMoreResult.project.commits,
-                versions: [
-                  ...existing.project.commits.versions,
-                  ...fetchMoreResult.project.commits.versions,
-                ],
-              },
-            },
-          };
-        },
       });
     } finally {
       setLoadingMore(false);
+      sendEvent({
+        name: "Clicked load more button",
+      });
     }
   };
-
-  if (!data) {
-    return null;
-  }
 
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
-      <PageButtonRow
-        style={{ justifyContent: "space-between", paddingBottom: "16px" }}
-      >
-        <PageTitle>Project Commits</PageTitle>
+      <PageButtonRow className={styles.pageButtonRow}>
+        <PageTitle className={styles.pageTitle}>Project Commits</PageTitle>
 
         <ProjectSelect
+          className={styles.projectSelect}
           getProjectRoute={getCommitsRoute}
+          onSubmit={(project: string) => {
+            sendEvent({
+              name: "Changed project",
+              project,
+            });
+          }}
           selectedProjectIdentifier={projectIdentifier}
         />
       </PageButtonRow>
-      <HistoryTable versions={data.project.commits.versions} />
-      {data.project.commits.pagination?.hasNextPage && (
-        <LoadingButton
-          loading={loadingMore}
-          onClick={handleFetchMore}
-          variant="primary"
-        >
-          Fetch more
-        </LoadingButton>
+      <HistoryTable
+        loading={dataState !== "complete" && loading} // Only show loading state initially
+        versions={data?.project?.commits?.versions}
+      />
+      {data?.project?.commits?.pagination?.hasNextPage && (
+        <div className={styles.loadMoreButton}>
+          <LoadingButton
+            loading={loadingMore}
+            onClick={handleFetchMore}
+            variant="primary"
+          >
+            Show more commits
+          </LoadingButton>
+        </div>
       )}
     </PageWrapper>
   );

@@ -30,6 +30,7 @@ export const PROJECT_COMMIT_HISTORY = gql`
           }
         }
       }
+      identifier
     }
   }
 `;

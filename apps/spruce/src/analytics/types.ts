@@ -11,6 +11,7 @@ export type AnalyticsIdentifier =
   | "Patch"
   | "Polling"
   | "PreferencesPages"
+  | "ProjectCommits"
   | "ProjectHealthPages"
   | "ProjectPatches"
   | "ProjectSettings"

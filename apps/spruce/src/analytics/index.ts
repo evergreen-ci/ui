@@ -13,6 +13,7 @@ export { useSpawnAnalytics } from "./spawn/useSpawnAnalytics";
 export { useTaskAnalytics } from "./task/useTaskAnalytics";
 export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useUserPatchesAnalytics } from "./patches/useUserPatchesAnalytics";
+export { useProjectHistoryAnalytics } from "./projectHistory/useProjectHistoryAnalytics";
 export { useProjectPatchesAnalytics } from "./patches/useProjectPatchesAnalytics";
 export { useVersionAnalytics } from "./version/useVersionAnalytics";
 export { useWaterfallAnalytics } from "./waterfall/useWaterfallAnalytics";

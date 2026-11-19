@@ -1,3 +1,22 @@
+.pageButtonRow {
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: var(--via-space-400);
+}
+
+.pageTitle {
+  flex-grow: 2;
+}
+
+.projectSelect {
+  flex-grow: 1;
+}
+
 .tabularNums {
   font-variant-numeric: tabular-nums;
+}
+
+.loadMoreButton {
+  margin: var(--via-space-600) auto;
+  width: fit-content;
 }
