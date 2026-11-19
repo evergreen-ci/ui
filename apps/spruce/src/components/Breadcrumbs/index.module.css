@@ -1,3 +1,8 @@
 .container {
   margin-bottom: var(--via-space-600);
 }
+
+/* TODO(UXE-1485): Remove once Via lets every crumb shrink instead of overflowing. */
+.container li {
+  flex-shrink: 1;
+}

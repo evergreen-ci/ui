@@ -37,4 +37,15 @@ describe("breadcrumbs", () => {
     await user.click(link);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
+  it("clicking on the current page breadcrumb should not call its event", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const breadcrumbs = [
+      { text: "parent", to: "/" },
+      { text: "here", onClick },
+    ];
+    render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
+    await user.click(screen.getByText("here"));
+    expect(onClick).not.toHaveBeenCalled();
+  });
 });
