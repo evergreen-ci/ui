@@ -37,7 +37,7 @@ test.describe("page tabs", () => {
   }) => {
     await page.goto(taskRoute(tasks.withTests));
     await expect(
-      page.getByRole("tab", { name: task.tests.tabName }),
+      page.getByRole("tab", { name: task.tests.tabName, exact: true }),
     ).toHaveAttribute("aria-selected", "true");
   });
 
@@ -46,7 +46,7 @@ test.describe("page tabs", () => {
   }) => {
     await page.goto(taskRoute(tasks.noTests));
     await expect(
-      page.getByRole("tab", { name: task.logs.tabName }),
+      page.getByRole("tab", { name: task.logs.tabName, exact: true }),
     ).toHaveAttribute("aria-selected", "true");
   });
 
@@ -57,11 +57,15 @@ test.describe("page tabs", () => {
     await expect(page).toHaveURL(
       `${task.tests.route}?execution=0&sorts=STATUS%3AASC`,
     );
-    await page.getByRole("tab", { name: task.logs.tabName }).click();
+    await page
+      .getByRole("tab", { name: task.logs.tabName, exact: true })
+      .click();
     await expect(page).toHaveURL(
       `${task.logs.route}?execution=0&sorts=STATUS%3AASC`,
     );
-    await page.getByRole("tab", { name: task.files.tabName }).click();
+    await page
+      .getByRole("tab", { name: task.files.tabName, exact: true })
+      .click();
     await expect(page).toHaveURL(
       `${task.files.route}?execution=0&sorts=STATUS%3AASC`,
     );
@@ -97,7 +101,7 @@ test.describe("page tabs", () => {
   }) => {
     await page.goto(taskRoute(tasks.displayTask));
     await expect(
-      page.getByRole("tab", { name: task.display.tabName }),
+      page.getByRole("tab", { name: task.display.tabName, exact: true }),
     ).toHaveAttribute("aria-selected", "true");
   });
 });

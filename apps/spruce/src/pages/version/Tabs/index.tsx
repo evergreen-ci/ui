@@ -227,7 +227,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({
         activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true)
       }
       tabs={activeTabs.map((t: VersionPageTabs) => allTabs[t])}
-      value={activeTabs.indexOf(selectedTab)}
+      value={Math.max(0, activeTabs.indexOf(selectedTab))}
     />
   ) : null;
 };
