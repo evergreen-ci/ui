@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components";
 import Trash from "@via-ds/icons/Trash";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -66,14 +66,12 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       Delete volume “{volumeName}”?
       {volume.host && (
         <Checkbox
-          checked={checkboxAcknowledged}
           data-testid="abort-checkbox"
-          label="I understand this volume is currently mounted to a host."
-          onChange={(e) => {
-            e.nativeEvent.stopPropagation();
-            setCheckboxAcknowledged(!checkboxAcknowledged);
-          }}
-        />
+          isSelected={checkboxAcknowledged}
+          onChange={setCheckboxAcknowledged}
+        >
+          I understand this volume is currently mounted to a host.
+        </Checkbox>
       )}
     </Popconfirm>
   );

@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -134,12 +135,15 @@ export const ActionButtons: React.FC<Props> = ({
     loadingScheduleTask ||
     loadingOverrideTaskDependencies;
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [priorityOpen, setPriorityOpen] = useState(false);
+
   const dropdownItems = [
     <DropdownItem
       key="unschedule"
       data-testid="unschedule-task"
-      disabled={disabled || !canUnschedule}
-      onClick={() => {
+      isDisabled={disabled || !canUnschedule}
+      onAction={() => {
         unscheduleTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked unschedule task button" });
       }}
@@ -149,8 +153,8 @@ export const ActionButtons: React.FC<Props> = ({
     <DropdownItem
       key="abort"
       data-testid="abort-task"
-      disabled={disabled || !canAbort}
-      onClick={() => {
+      isDisabled={disabled || !canAbort}
+      onAction={() => {
         abortTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked abort task button" });
       }}
@@ -160,8 +164,8 @@ export const ActionButtons: React.FC<Props> = ({
     <DropdownItem
       key="disable-task"
       data-testid="disable-enable"
-      disabled={disabled || !canDisable}
-      onClick={() => {
+      isDisabled={disabled || !canDisable}
+      onAction={() => {
         setTaskPriority({
           variables: {
             taskPriorities: [
@@ -176,25 +180,30 @@ export const ActionButtons: React.FC<Props> = ({
               : "Clicked disable task button",
         });
       }}
-      title={
-        initialPriority < 0
-          ? ""
-          : "Disabling a task prevents it from being run unless explicitly activated by a user."
-      }
     >
-      {initialPriority < 0 ? "Enable" : "Disable"}
+      <span
+        title={
+          initialPriority < 0
+            ? ""
+            : "Disabling a task prevents it from being run unless explicitly activated by a user."
+        }
+      >
+        {initialPriority < 0 ? "Enable" : "Disable"}
+      </span>
     </DropdownItem>,
-    <SetPriority
+    <DropdownItem
       key="set-task-priority"
-      disabled={disabled || !canSetPriority}
-      initialPriority={initialPriority}
-      taskIds={[taskId]}
-    />,
+      data-testid="set-priority-menu-item"
+      isDisabled={disabled || !canSetPriority}
+      onAction={() => setPriorityOpen(true)}
+    >
+      Set task priority
+    </DropdownItem>,
     <DropdownItem
       key="override-dependencies"
       data-testid="override-dependencies"
-      disabled={disabled || !canOverrideDependencies}
-      onClick={() => {
+      isDisabled={disabled || !canOverrideDependencies}
+      onAction={() => {
         overrideTaskDependencies({ variables: { taskId } });
         taskAnalytics.sendEvent({
           name: "Clicked override dependencies button",
@@ -230,6 +239,14 @@ export const ActionButtons: React.FC<Props> = ({
         loading={
           loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
         }
+        triggerRef={triggerRef}
+      />
+      <SetPriority
+        initialPriority={initialPriority}
+        onOpenChange={setPriorityOpen}
+        open={priorityOpen}
+        refEl={triggerRef}
+        taskIds={[taskId]}
       />
     </PageButtonRow>
   );

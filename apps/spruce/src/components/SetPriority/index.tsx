@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { MenuItem } from "@leafygreen-ui/menu";
-import { NumberInput } from "@leafygreen-ui/number-input";
-import { Align, Side } from "@via-ds/components";
+import { Align, Side, TextField } from "@via-ds/components";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -32,6 +30,9 @@ type SetPriorityProps = (
   disabled?: boolean;
   initialPriority?: number;
   isButton?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  open?: boolean;
+  refEl?: React.RefObject<HTMLElement | null>;
   popconfirmSide?: Side;
   popconfirmAlign?: Align;
 };
@@ -40,8 +41,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   isButton = false,
+  onOpenChange,
+  open: controlledOpen,
   popconfirmAlign = Align.Start,
   popconfirmSide = Side.Left,
+  refEl,
   taskIds,
   versionId,
 }) => {
@@ -51,9 +55,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const dispatchToast = useToastContext();
 
   const [priority, setPriority] = useState<number>(initialPriority);
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const menuItemRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = onOpenChange ?? setInternalOpen;
 
   const [setVersionPriority, { loading: loadingSetVersionPriority }] =
     useMutation<
@@ -120,9 +126,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
 
   return (
     <>
-      {isButton ? (
+      {isButton && (
         <Button
-          ref={menuItemRef}
+          ref={buttonRef}
           data-testid="set-priority-button"
           disabled={disableButton}
           onClick={() => setOpen(!open)}
@@ -130,17 +136,6 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         >
           Set priority
         </Button>
-      ) : (
-        <MenuItem
-          ref={menuItemRef}
-          active={open}
-          data-testid="set-priority-menu-item"
-          disabled={disableButton}
-          onClick={() => setOpen(!open)}
-        >
-          Set {label} priority
-          {(taskIds?.length ?? 0) > 1 && ` (${taskIds?.length})`}
-        </MenuItem>
       )}
       <Popconfirm
         align={popconfirmAlign}
@@ -148,25 +143,24 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         data-testid={`set-${label}-priority-popconfirm`}
         onConfirm={onConfirm}
         open={open}
-        refEl={menuItemRef}
+        refEl={isButton ? buttonRef : refEl}
         setOpen={setOpen}
         side={popconfirmSide}
       >
-        <NumberInput
+        <TextField
           ref={(el) => setInputRef(el)}
           className={styles.priorityInput}
           data-testid={`${label}-priority-input`}
-          inputClassName="priority-input"
+          inputMode="numeric"
           label="Set New Priority"
-          min={-1}
-          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          onChange={(value) => setPriority(parseInt(value, 10))}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               onConfirm();
               setOpen(false);
             }
           }}
-          value={priority.toString()}
+          value={Number.isNaN(priority) ? "" : priority.toString()}
         />
         {priority >= 0 && priority < 50 && (
           <div

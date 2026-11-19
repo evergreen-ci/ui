@@ -1,10 +1,11 @@
-import { Size as ButtonSize } from "@leafygreen-ui/button";
-import { Menu, MenuItem, MenuProps } from "@leafygreen-ui/menu";
-import Ellipsis from "@via-ds/icons/Ellipsis";
 import {
-  LoadingButton,
-  LoadingButtonProps,
-} from "components/Buttons/LoadingButton";
+  Button,
+  Menu,
+  MenuItem,
+  MenuPopover,
+  MenuRoot,
+} from "@via-ds/components";
+import Ellipsis from "@via-ds/icons/Ellipsis";
 
 type Props = {
   children?: React.ReactNode;
@@ -12,9 +13,10 @@ type Props = {
   "data-testid"?: string;
   dropdownItems?: React.ReactNode[];
   loading?: boolean;
-  size?: ButtonSize;
-  triggerProps?: LoadingButtonProps & Record<`data-${string}`, string>;
-} & Omit<MenuProps, "children" | "refEl" | "trigger">;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+  triggerRef?: React.Ref<HTMLButtonElement>;
+};
 
 export const ButtonDropdown: React.FC<Props> = ({
   children,
@@ -22,32 +24,24 @@ export const ButtonDropdown: React.FC<Props> = ({
   disabled = false,
   dropdownItems,
   loading = false,
-  open = undefined,
-  setOpen = undefined,
-  size = "small",
-  triggerProps,
-  ...menuProps
+  open,
+  setOpen,
+  triggerRef,
 }) => (
-  <Menu
-    adjustOnMutation
-    data-testid="card-dropdown"
-    open={open}
-    setOpen={setOpen}
-    {...menuProps}
-    trigger={
-      <LoadingButton
-        data-testid={dataTestId}
-        disabled={disabled}
-        loading={loading}
-        size={size}
-        {...triggerProps}
-      >
-        <Ellipsis />
-      </LoadingButton>
-    }
-  >
-    {dropdownItems ?? children}
-  </Menu>
+  <MenuRoot isOpen={open} onOpenChange={setOpen}>
+    <Button
+      ref={triggerRef}
+      aria-label="More actions"
+      data-testid={dataTestId}
+      isDisabled={disabled}
+      isPending={loading}
+    >
+      <Ellipsis />
+    </Button>
+    <MenuPopover>
+      <Menu data-testid="card-dropdown">{dropdownItems ?? children}</Menu>
+    </MenuPopover>
+  </MenuRoot>
 );
 
 export const DropdownItem = MenuItem;

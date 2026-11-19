@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { MenuItem } from "@leafygreen-ui/menu";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
@@ -10,17 +8,19 @@ import {
 import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
 
 interface Props {
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
   versionId: string;
-  disabled: boolean;
 }
 
-export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
-  disabled,
+export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
+  open,
+  refEl,
+  setOpen,
   versionId,
 }) => {
   const dispatchToast = useToastContext();
-  const [open, setOpen] = useState(false);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [scheduleBaseVersionTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
@@ -41,27 +41,16 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <div ref={menuItemRef}>
-        <MenuItem
-          active={open}
-          disabled={disabled}
-          onClick={() => setOpen(!open)}
-        >
-          Schedule failing base tasks
-        </MenuItem>
-      </div>
-      <Popconfirm
-        data-testid="schedule-undispatched-base-popconfirm"
-        onConfirm={onConfirm}
-        open={open}
-        refEl={menuItemRef}
-        setOpen={setOpen}
-        side="left"
-      >
-        Are you sure you want to schedule all the undispatched base tasks for
-        this patch&apos;s failing tasks?
-      </Popconfirm>
-    </>
+    <Popconfirm
+      data-testid="schedule-undispatched-base-popconfirm"
+      onConfirm={onConfirm}
+      open={open}
+      refEl={refEl}
+      setOpen={setOpen}
+      side="left"
+    >
+      Are you sure you want to schedule all the undispatched base tasks for this
+      patch&apos;s failing tasks?
+    </Popconfirm>
   );
 };

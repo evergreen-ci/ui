@@ -84,7 +84,9 @@ test.describe("Action Buttons", () => {
     }) => {
       const priority = "99";
       await page.getByRole("menuitem", { name: "Set patch priority" }).click();
-      const patchPriorityInput = page.getByTestId("patch-priority-input");
+      const patchPriorityInput = page.getByRole("textbox", {
+        name: "Set New Priority",
+      });
       await patchPriorityInput.fill(priority);
       await patchPriorityInput.press("Enter");
       await validateToast(page, "success", priority);
@@ -102,7 +104,9 @@ test.describe("Action Buttons", () => {
         ],
       });
       await page.getByRole("menuitem", { name: "Set patch priority" }).click();
-      const patchPriorityInput = page.getByTestId("patch-priority-input");
+      const patchPriorityInput = page.getByRole("textbox", {
+        name: "Set New Priority",
+      });
       await patchPriorityInput.fill("80");
       await patchPriorityInput.press("Enter");
       await validateToast(page, "error", "Error updating priority for patch");
@@ -124,7 +128,9 @@ test.describe("Action Buttons", () => {
         "Set task priority (2)",
       );
       await setTaskPriorityButton.click();
-      const taskPriorityInput = page.getByTestId("task-priority-input");
+      const taskPriorityInput = page.getByRole("textbox", {
+        name: "Set New Priority",
+      });
       await taskPriorityInput.fill("10");
       await taskPriorityInput.press("Enter");
       await validateToast(page, "success", "Priority updated for 2 tasks.");

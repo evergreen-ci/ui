@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { useRef, useState } from "react";
+import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
+import { useVersionAnalytics } from "analytics";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  RestartPatch,
-  ScheduleTasks,
   SetPatchVisibility,
-  UnscheduleTasks,
+  UnscheduleTasksPopconfirm,
 } from "components/PatchActionButtons";
+import { ScheduleTasksModal } from "components/ScheduleTasksModal";
+import { VersionRestartModal } from "components/VersionRestartModal";
 
 interface Props {
   hasVersion: boolean;
@@ -20,7 +22,18 @@ export const DropdownMenu: React.FC<Props> = ({
   isPatchHidden,
   patchId,
 }) => {
-  const restartModalVisibilityControl = useState(false);
+  const { sendEvent } = useVersionAnalytics(patchId);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [restartModalOpen, setRestartModalOpen] = useState(false);
+  const [unschedulePopconfirmOpen, setUnschedulePopconfirmOpen] =
+    useState(false);
+
+  const restartDisabled = !hasVersion || isMergeQueuePatch;
+  const restartMessage = isMergeQueuePatch
+    ? "GitHub merge queue patches cannot be restarted."
+    : "This patch cannot be restarted.";
+
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -28,21 +41,40 @@ export const DropdownMenu: React.FC<Props> = ({
       hasVersion={hasVersion}
       patchId={patchId}
     />,
-    <ScheduleTasks key="schedule" disabled={!hasVersion} versionId={patchId} />,
-    <UnscheduleTasks
+    <DropdownItem
+      key="schedule"
+      data-testid="schedule-patch"
+      isDisabled={!hasVersion}
+      onAction={() => {
+        sendEvent({ name: "Viewed schedule tasks modal" });
+        setScheduleModalOpen(true);
+      }}
+    >
+      Schedule
+    </DropdownItem>,
+    <DropdownItem
       key="unschedule"
-      disabled={!hasVersion}
-      refetchQueries={refetchQueries}
-      versionId={patchId}
-    />,
-    <RestartPatch
+      data-testid="unschedule-patch"
+      isDisabled={!hasVersion}
+      onAction={() => setUnschedulePopconfirmOpen(true)}
+    >
+      Unschedule all tasks
+    </DropdownItem>,
+    <DropdownItem
       key="restart"
-      disabled={!hasVersion || isMergeQueuePatch}
-      isMergeQueuePatch={isMergeQueuePatch}
-      patchId={patchId}
-      refetchQueries={refetchQueries}
-      visibilityControl={restartModalVisibilityControl}
-    />,
+      data-testid="restart-version"
+      isDisabled={restartDisabled}
+      onAction={() => setRestartModalOpen(true)}
+    >
+      <Tooltip
+        align={Align.Left}
+        enabled={restartDisabled}
+        justify={Justify.End}
+        trigger={<span>Restart</span>}
+      >
+        {restartMessage}
+      </Tooltip>
+    </DropdownItem>,
     <SetPatchVisibility
       key="hide"
       isPatchHidden={isPatchHidden}
@@ -52,10 +84,32 @@ export const DropdownMenu: React.FC<Props> = ({
   ];
 
   return (
-    <ButtonDropdown
-      data-testid="patch-card-dropdown"
-      dropdownItems={dropdownItems}
-    />
+    <>
+      <ButtonDropdown
+        data-testid="patch-card-dropdown"
+        dropdownItems={dropdownItems}
+        triggerRef={triggerRef}
+      />
+      <ScheduleTasksModal
+        open={scheduleModalOpen}
+        setOpen={setScheduleModalOpen}
+        versionId={patchId}
+      />
+      <UnscheduleTasksPopconfirm
+        open={unschedulePopconfirmOpen}
+        refEl={triggerRef}
+        refetchQueries={refetchQueries}
+        setOpen={setUnschedulePopconfirmOpen}
+        versionId={patchId}
+      />
+      <VersionRestartModal
+        onCancel={() => setRestartModalOpen(false)}
+        onOk={() => setRestartModalOpen(false)}
+        refetchQueries={refetchQueries}
+        versionId={patchId}
+        visible={restartModalOpen}
+      />
+    </>
   );
 };
 

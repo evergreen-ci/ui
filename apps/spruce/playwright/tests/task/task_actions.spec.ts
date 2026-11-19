@@ -88,8 +88,10 @@ test.describe("Task Action Buttons", () => {
       await page.getByTestId("ellipsis-btn").click();
       await expect(page.getByTestId("card-dropdown")).toBeVisible();
       await page.getByTestId("set-priority-menu-item").click();
-      await page.getByTestId("task-priority-input").fill("99");
-      await page.getByTestId("task-priority-input").press("Enter");
+      await page.getByRole("textbox", { name: "Set New Priority" }).fill("99");
+      await page
+        .getByRole("textbox", { name: "Set New Priority" })
+        .press("Enter");
       await validateToast(page, "success", prioritySuccessBannerText);
     });
 

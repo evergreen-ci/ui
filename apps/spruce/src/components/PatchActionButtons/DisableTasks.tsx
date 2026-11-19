@@ -1,7 +1,5 @@
-import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { MenuItem } from "@leafygreen-ui/menu";
-import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@via-ds/components";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
@@ -11,16 +9,20 @@ import {
 import { SET_VERSION_PRIORITY } from "gql/mutations";
 
 interface Props {
-  versionId: string;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
   refetchQueries?: string[];
+  setOpen: (open: boolean) => void;
+  versionId: string;
 }
-export const DisableTasks: React.FC<Props> = ({
+export const DisableTasksPopconfirm: React.FC<Props> = ({
+  open,
+  refEl,
   refetchQueries = [],
+  setOpen,
   versionId,
 }) => {
   const dispatchToast = useToastContext();
-  const [open, setOpen] = useState(false);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [disableVersion] = useMutation<
     SetVersionPriorityMutation,
@@ -36,33 +38,22 @@ export const DisableTasks: React.FC<Props> = ({
   });
 
   return (
-    <>
-      <div ref={menuItemRef}>
-        <MenuItem
-          active={open}
-          data-testid="disable"
-          onClick={() => setOpen(!open)}
-        >
-          Disable all tasks
-        </MenuItem>
-      </div>
-      <Popconfirm
-        onConfirm={() => {
-          disableVersion({
-            variables: { versionId, priority: -1 },
-          });
-        }}
-        open={open}
-        refEl={menuItemRef}
-        setOpen={setOpen}
-        side="left"
-      >
-        <Body weight="medium">Disable all tasks?</Body>
-        <Body>
-          Disabling tasks prevents them from running unless explicitly activated
-          by a user.
-        </Body>
-      </Popconfirm>
-    </>
+    <Popconfirm
+      onConfirm={() => {
+        disableVersion({
+          variables: { versionId, priority: -1 },
+        });
+      }}
+      open={open}
+      refEl={refEl}
+      setOpen={setOpen}
+      side="left"
+    >
+      <Body>Disable all tasks?</Body>
+      <Body>
+        Disabling tasks prevents them from running unless explicitly activated
+        by a user.
+      </Body>
+    </Popconfirm>
   );
 };
