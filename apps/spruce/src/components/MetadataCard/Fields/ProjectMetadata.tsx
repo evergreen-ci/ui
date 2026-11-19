@@ -11,7 +11,7 @@ import { Project } from "gql/generated/types";
 
 type ProjectProps = Pick<
   Project,
-  "enabled" | "id" | "identifier" | "owner" | "repo"
+  "enabled" | "identifier" | "owner" | "repo"
 > & {
   handleClick: () => void;
 };
@@ -19,16 +19,12 @@ type ProjectProps = Pick<
 export const ProjectMetadata: React.FC<ProjectProps> = ({
   enabled,
   handleClick,
-  id,
   identifier,
   owner,
   repo,
 }) => (
   <MetadataItem label="Project">
-    <StyledRouterLink
-      onClick={handleClick}
-      to={getWaterfallRoute(identifier || id || "")}
-    >
+    <StyledRouterLink onClick={handleClick} to={getWaterfallRoute(identifier)}>
       {identifier || `${owner}/${repo}`}
     </StyledRouterLink>{" "}
     {enabled ? null : (
