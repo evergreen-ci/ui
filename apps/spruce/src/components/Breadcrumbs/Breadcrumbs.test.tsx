@@ -3,6 +3,7 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { trimStringFromMiddle } from "@evg-ui/lib/utils/string";
 import Breadcrumbs from ".";
 
 describe("breadcrumbs", () => {
@@ -26,6 +27,31 @@ describe("breadcrumbs", () => {
       />,
     );
     expect(screen.getByTestId("bc-test")).toHaveTextContent("test");
+  });
+  it("breadcrumbs with long text should be collapsed and viewable with a tooltip", async () => {
+    const user = userEvent.setup();
+    const longMessage = "some really long string that could be a patch title";
+    const breadcrumbs = [{ text: longMessage }];
+    render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
+    expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
+
+    expect(
+      screen.getByText(trimStringFromMiddle(longMessage, 30)),
+    ).toBeInTheDocument();
+    await user.hover(document.body);
+    await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
+    expect(await screen.findByTestId("breadcrumb-tooltip")).toHaveTextContent(
+      longMessage,
+    );
+  });
+  it("should not display a tooltip if the text is short", async () => {
+    const user = userEvent.setup();
+    const shortMessage = "short";
+    const breadcrumbs = [{ text: shortMessage }];
+    render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
+    expect(screen.getByText(shortMessage)).toBeInTheDocument();
+    await user.hover(screen.getByText(shortMessage));
+    expect(screen.queryByTestId("breadcrumb-tooltip")).not.toBeInTheDocument();
   });
   it("clicking on a breadcrumb with a link and event handler should call the event", async () => {
     const user = userEvent.setup();
