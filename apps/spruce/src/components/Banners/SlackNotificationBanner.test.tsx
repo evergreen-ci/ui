@@ -27,7 +27,13 @@ describe("slackNotificationBanner", () => {
     const consoleError = vi.spyOn(console, "error");
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={[noSlackUserSettingsMock, updateUserSettingsMock]}>
+      <MockedProvider
+        mocks={[
+          noSlackUserSettingsMock,
+          updateUserSettingsMock,
+          getUserSettingsMock,
+        ]}
+      >
         <SlackNotificationBanner />
       </MockedProvider>,
     );
