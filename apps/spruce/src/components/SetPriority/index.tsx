@@ -3,9 +3,10 @@ import { useMutation } from "@apollo/client/react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
+import { Align, Side } from "@via-ds/components";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
-import Popconfirm, { Align, Justify } from "@evg-ui/lib/components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useTaskAnalytics, useVersionAnalytics } from "analytics";
@@ -17,8 +18,6 @@ import {
 } from "gql/generated/types";
 import { SET_TASK_PRIORITIES, SET_VERSION_PRIORITY } from "gql/mutations";
 import styles from "./index.module.css";
-
-export { Align, Justify };
 
 type SetPriorityProps = (
   | {
@@ -33,16 +32,16 @@ type SetPriorityProps = (
   disabled?: boolean;
   initialPriority?: number;
   isButton?: boolean;
+  popconfirmSide?: Side;
   popconfirmAlign?: Align;
-  popconfirmJustify?: Justify;
 };
 
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   isButton = false,
-  popconfirmAlign = Align.Left,
-  popconfirmJustify = Justify.Start,
+  popconfirmAlign = Align.Start,
+  popconfirmSide = Side.Left,
   taskIds,
   versionId,
 }) => {
@@ -147,11 +146,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         align={popconfirmAlign}
         confirmText="Set"
         data-testid={`set-${label}-priority-popconfirm`}
-        justify={popconfirmJustify}
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
+        side={popconfirmSide}
       >
         <NumberInput
           ref={(el) => setInputRef(el)}

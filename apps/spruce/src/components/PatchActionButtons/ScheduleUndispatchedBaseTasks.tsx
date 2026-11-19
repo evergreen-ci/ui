@@ -52,12 +52,12 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
         </MenuItem>
       </div>
       <Popconfirm
-        align="left"
         data-testid="schedule-undispatched-base-popconfirm"
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
+        side="left"
       >
         Are you sure you want to schedule all the undispatched base tasks for
         this patch&apos;s failing tasks?

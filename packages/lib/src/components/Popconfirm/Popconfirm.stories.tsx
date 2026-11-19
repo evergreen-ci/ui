@@ -1,4 +1,4 @@
-import { Button } from "@leafygreen-ui/button";
+import { Button } from "@via-ds/components";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { size } from "../../constants/tokens";
 import Popconfirm from ".";
@@ -15,20 +15,20 @@ export const Default: CustomStoryObj<typeof Popconfirm> = {
     confirmDisabled: {
       control: { type: "boolean" },
     },
-    align: {
+    side: {
       control: { type: "select" },
       options: ["top", "bottom", "left", "right"],
     },
-    justify: {
+    align: {
       control: { type: "select" },
-      options: ["start", "middle", "end"],
+      options: ["start", "center", "end"],
     },
   },
   args: {
     confirmText: "Confirm",
     confirmDisabled: false,
-    align: "top",
-    justify: "middle",
+    side: "top",
+    align: "center",
     children: "Are you sure you want to perform this action?",
     trigger: <Button size="small">Click to open popconfirm</Button>,
   },
@@ -53,8 +53,8 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
     <div style={positionsContainerStyle}>
       <div style={positionWrapperStyle}>
         <Popconfirm
-          align="top"
-          justify="middle"
+          align="center"
+          side="top"
           trigger={<Button size="small">Top Middle</Button>}
         >
           Confirmation message
@@ -62,8 +62,8 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       </div>
       <div style={positionWrapperStyle}>
         <Popconfirm
-          align="bottom"
-          justify="middle"
+          align="center"
+          side="bottom"
           trigger={<Button size="small">Bottom Middle</Button>}
         >
           Confirmation message
@@ -71,8 +71,8 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       </div>
       <div style={positionWrapperStyle}>
         <Popconfirm
-          align="left"
-          justify="middle"
+          align="center"
+          side="left"
           trigger={<Button size="small">Left Middle</Button>}
         >
           Confirmation message
@@ -80,8 +80,8 @@ export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
       </div>
       <div style={positionWrapperStyle}>
         <Popconfirm
-          align="right"
-          justify="middle"
+          align="center"
+          side="right"
           trigger={<Button size="small">Right Middle</Button>}
         >
           Confirmation message
