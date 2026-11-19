@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components/checkbox";
 import { cx } from "../../utils/css";
 import { FilterInputControls } from "./FilterInputControls";
 import styles from "./TreeSelect.module.css";
@@ -125,17 +125,11 @@ const renderCheckboxesHelper = ({
   rows.push(
     <div
       key={data.key}
-      className={cx(
-        styles.checkboxWrapper,
-        data.value === ALL_VALUE && styles.checkboxWrapperAll,
-      )}
+      className={cx(data.value === ALL_VALUE && styles.checkboxWrapperAll)}
     >
-      <Checkbox
-        bold={false}
-        checked={state.includes(data.value)}
-        label={data.title}
-        onChange={onChangeFn}
-      />
+      <Checkbox isSelected={state.includes(data.value)} onChange={onChangeFn}>
+        {data.title}
+      </Checkbox>
     </div>,
   );
   // then examine children
@@ -147,17 +141,16 @@ const renderCheckboxesHelper = ({
         <div
           key={`${data.key}-${child.key}`}
           className={cx(
-            styles.checkboxWrapper,
             styles.checkboxWrapperNested,
             child.value === ALL_VALUE && styles.checkboxWrapperAll,
           )}
         >
           <Checkbox
-            bold={false}
-            checked={state.includes(child.value)}
-            label={child.title}
+            isSelected={state.includes(child.value)}
             onChange={onChangeChildFn}
-          />
+          >
+            {child.title}
+          </Checkbox>
         </div>,
       );
     });
