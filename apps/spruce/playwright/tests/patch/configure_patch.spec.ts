@@ -37,7 +37,10 @@ test.describe("Configure Patch Page", () => {
         page,
       }) => {
         await page.goto(`/patch/${unactivatedPatchId}/configure`);
-        const tasksTab = page.getByTestId("tasks-tab");
+        const tasksTab = page.getByRole("tab", {
+          name: "Configure",
+          exact: true,
+        });
         await expect(tasksTab).toHaveAttribute("aria-selected", "true");
         await expect(tasksTab).toBeVisible();
       });
@@ -65,17 +68,26 @@ test.describe("Configure Patch Page", () => {
     });
 
     test("Should be able to switch between tabs", async ({ page }) => {
-      const changesTab = page.getByTestId("changes-tab");
+      const changesTab = page.getByRole("tab", {
+        name: "Changes",
+        exact: true,
+      });
       await changesTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/changes`,
       );
-      const parametersTab = page.getByTestId("parameters-tab");
+      const parametersTab = page.getByRole("tab", {
+        name: "Parameters",
+        exact: true,
+      });
       await parametersTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/parameters`,
       );
-      const tasksTab = page.getByTestId("tasks-tab");
+      const tasksTab = page.getByRole("tab", {
+        name: "Configure",
+        exact: true,
+      });
       await tasksTab.click();
       await expect(page).toHaveURL(
         `/patch/${unactivatedPatchId}/configure/tasks`,
@@ -85,7 +97,7 @@ test.describe("Configure Patch Page", () => {
     test("Navigating away from the configure tab should disable the build variant selector", async ({
       page,
     }) => {
-      await page.getByTestId("changes-tab").click();
+      await page.getByRole("tab", { name: "Changes", exact: true }).click();
       await expect(
         page.getByTestId("build-variant-select-wrapper"),
       ).toHaveAttribute("disabled", "");
@@ -100,7 +112,9 @@ test.describe("Configure Patch Page", () => {
     test.describe("Unactivated Patch", () => {
       test("Adding a parameter is reflected on the page", async ({ page }) => {
         await page.goto(`patch/${unactivatedPatchId}/configure/tasks`);
-        await page.getByTestId("parameters-tab").click();
+        await page
+          .getByRole("tab", { name: "Parameters", exact: true })
+          .click();
         await page.getByTestId("add-tag-button").click();
         await page.getByTestId("user-tag-key-field").fill("testKey");
         await page.getByTestId("user-tag-value-field").fill("testValue");
@@ -112,7 +126,9 @@ test.describe("Configure Patch Page", () => {
     test.describe("Activated Patch", () => {
       test("Parameters cannot be added once activated", async ({ page }) => {
         await page.goto("patch/5ecedafb562343215a7ff297/configure/tasks");
-        await page.getByTestId("parameters-tab").click();
+        await page
+          .getByRole("tab", { name: "Parameters", exact: true })
+          .click();
         await expect(page.getByTestId("add-tag-button")).toBeHidden();
         await expect(page.getByTestId("parameters-disclaimer")).toBeVisible();
         await expect(

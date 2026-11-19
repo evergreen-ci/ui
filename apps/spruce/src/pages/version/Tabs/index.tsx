@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { Tab } from "@leafygreen-ui/tabs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
-import { StyledTabs } from "components/styles/StyledTabs";
+import { StyledTab, StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
@@ -90,67 +89,46 @@ const tabMap = ({
   versionId: string;
   isVariantTimingView: boolean;
 }): {
-  [key in VersionPageTabs]: React.JSX.Element;
+  [key in VersionPageTabs]: StyledTab;
 } => ({
-  [VersionPageTabs.Tasks]: (
-    <Tab key="tasks-tab" data-testid="task-tab" id="task-tab" name="Tasks">
+  [VersionPageTabs.Tasks]: {
+    key: "tasks-tab",
+    name: "Tasks",
+    content: (
       <Tasks setActiveTaskIds={setActiveTaskIds} versionId={versionId} />
-    </Tab>
-  ),
-  [VersionPageTabs.TaskDuration]: (
-    <Tab
-      key="duration-tab"
-      data-testid="duration-tab"
-      id="duration-tab"
-      name="Task Duration"
-    >
-      <TaskDuration versionId={versionId} />
-    </Tab>
-  ),
-  [VersionPageTabs.Changes]: (
-    <Tab
-      key="changes-tab"
-      data-testid="changes-tab"
-      id="changes-tab"
-      name="Changes"
-    >
+    ),
+  },
+  [VersionPageTabs.TaskDuration]: {
+    key: "duration-tab",
+    name: "Task Duration",
+    content: <TaskDuration versionId={versionId} />,
+  },
+  [VersionPageTabs.Changes]: {
+    key: "changes-tab",
+    name: "Changes",
+    content: (
       <CodeChanges isMergeQueuePatch={isMergeQueuePatch} patchId={versionId} />
-    </Tab>
-  ),
-  [VersionPageTabs.Downstream]: (
-    <Tab
-      key="downstream-tab"
-      data-testid="downstream-tab"
-      id="downstream-tab"
-      name={getDownstreamTabName(
-        numFailedChildPatches,
-        numStartedChildPatches,
-        numSuccessChildPatches,
-      )}
-    >
-      <DownstreamTasks childVersions={childVersions ?? []} />
-    </Tab>
-  ),
-  [VersionPageTabs.TestAnalysis]: (
-    <Tab
-      key="test-analysis-tab"
-      data-testid="test-analysis-tab"
-      id="test-analysis-tab"
-      name="Test Analysis"
-    >
-      <TestAnalysis versionId={versionId} />
-    </Tab>
-  ),
-  [VersionPageTabs.VersionTiming]: (
-    <Tab
-      key="version-timing-tab"
-      data-testid="version-timing-tab"
-      id="version-timing-tab"
-      name={isVariantTimingView ? "Variant Timing" : "Version Timing"}
-    >
-      <VersionTiming versionId={versionId} />
-    </Tab>
-  ),
+    ),
+  },
+  [VersionPageTabs.Downstream]: {
+    key: "downstream-tab",
+    name: getDownstreamTabName(
+      numFailedChildPatches,
+      numStartedChildPatches,
+      numSuccessChildPatches,
+    ),
+    content: <DownstreamTasks childVersions={childVersions ?? []} />,
+  },
+  [VersionPageTabs.TestAnalysis]: {
+    key: "test-analysis-tab",
+    name: "Test Analysis",
+    content: <TestAnalysis versionId={versionId} />,
+  },
+  [VersionPageTabs.VersionTiming]: {
+    key: "version-timing-tab",
+    name: isVariantTimingView ? "Variant Timing" : "Version Timing",
+    content: <VersionTiming versionId={versionId} />,
+  },
 });
 
 const VersionTabs: React.FC<VersionTabProps> = ({
@@ -248,10 +226,9 @@ const VersionTabs: React.FC<VersionTabProps> = ({
       onValueChange={(tabIndex: number) =>
         activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true)
       }
+      tabs={activeTabs.map((t: VersionPageTabs) => allTabs[t])}
       value={activeTabs.indexOf(selectedTab)}
-    >
-      {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
-    </StyledTabs>
+    />
   ) : null;
 };
 

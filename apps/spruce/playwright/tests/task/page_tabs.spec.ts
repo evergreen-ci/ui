@@ -15,19 +15,19 @@ const taskRoute = (id: string) => `/task/${id}`;
 const task = {
   logs: {
     route: `${taskRoute(tasks.withTests)}/logs`,
-    btn: "task-logs-tab",
+    tabName: "Logs",
   },
   tests: {
     route: `${taskRoute(tasks.withTests)}/tests`,
-    btn: "task-tests-tab",
+    tabName: /^Tests/,
   },
   files: {
     route: `${taskRoute(tasks.withTests)}/files`,
-    btn: "task-files-tab",
+    tabName: /^Files/,
   },
   display: {
     route: `${taskRoute(tasks.displayTask)}/execution-tasks`,
-    btn: "task-execution-tab",
+    tabName: "Execution Tasks",
   },
 };
 
@@ -36,20 +36,18 @@ test.describe("page tabs", () => {
     page,
   }) => {
     await page.goto(taskRoute(tasks.withTests));
-    await expect(page.getByTestId(task.tests.btn)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: task.tests.tabName }),
+    ).toHaveAttribute("aria-selected", "true");
   });
 
   test("selects logs tab by default if there are no tests and no tab is provided in url", async ({
     page,
   }) => {
     await page.goto(taskRoute(tasks.noTests));
-    await expect(page.getByTestId(task.logs.btn)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: task.logs.tabName }),
+    ).toHaveAttribute("aria-selected", "true");
   });
 
   test("toggling between tabs updates the url with the selected tab name", async ({
@@ -59,11 +57,11 @@ test.describe("page tabs", () => {
     await expect(page).toHaveURL(
       `${task.tests.route}?execution=0&sorts=STATUS%3AASC`,
     );
-    await page.getByTestId(task.logs.btn).click();
+    await page.getByRole("tab", { name: task.logs.tabName }).click();
     await expect(page).toHaveURL(
       `${task.logs.route}?execution=0&sorts=STATUS%3AASC`,
     );
-    await page.getByTestId(task.files.btn).click();
+    await page.getByRole("tab", { name: task.files.tabName }).click();
     await expect(page).toHaveURL(
       `${task.files.route}?execution=0&sorts=STATUS%3AASC`,
     );
@@ -98,9 +96,8 @@ test.describe("page tabs", () => {
     page,
   }) => {
     await page.goto(taskRoute(tasks.displayTask));
-    await expect(page.getByTestId(task.display.btn)).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await expect(
+      page.getByRole("tab", { name: task.display.tabName }),
+    ).toHaveAttribute("aria-selected", "true");
   });
 });
