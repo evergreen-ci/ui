@@ -170,9 +170,6 @@ buildvariants:
   - name: generator
     display_name: Generator
     patch_only: true
-    # The generator only runs a plain node script, so skip installing node/pnpm to save time.
-    expansions:
-      skip_js_setup: "true"
     run_on:
       - ubuntu2204-small
     tasks:

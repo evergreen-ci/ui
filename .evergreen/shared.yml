@@ -130,10 +130,6 @@ functions:
           - "-c"
           - |
             ${PREPARE_SHELL}
-            if [ -n "${skip_js_setup|}" ]; then
-              echo "Skipping JS toolchain setup"
-              exit 0
-            fi
 
             { curl -fsSL https://get.pnpm.io/ -o /tmp/pnpm-install.sh \
             || curl -fsSL https://github.com/pnpm/get.pnpm.io/releases/latest/download/install.sh -o /tmp/pnpm-install.sh; } \
@@ -214,10 +210,6 @@ functions:
         - "-c"
         - |
           ${PREPARE_SHELL}
-          if [ -n "${skip_js_setup|}" ]; then
-            echo "Skipping JS toolchain setup"
-            exit 0
-          fi
           pnpm install
 
   pnpm-preview:
