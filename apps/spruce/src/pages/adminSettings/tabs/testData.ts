@@ -37,6 +37,7 @@ export const adminSettings: NonNullable<AdminSettingsQuery["adminSettings"]> = {
     expectedRuntimeFactor: 1,
     futureHostFraction: 1,
     generateTaskFactor: 1,
+    gitTagFactor: 1,
     groupVersions: false,
     hostAllocator: HostAllocatorVersion.Utilization,
     hostAllocatorFeedbackRule: FeedbackRule.NoFeedback,

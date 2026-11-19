@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, within } from "@evg-ui/lib/test_utils";
 import TupleSelect from ".";
 
 const options = [
@@ -47,7 +47,9 @@ describe("tupleSelect", () => {
   it("does not crash when onSubmit is not provided", async () => {
     const user = userEvent.setup();
     render(<TupleSelect {...sharedProps} options={options} />);
-    const input = screen.getByTestId("tuple-select-input");
+    const input = within(screen.getByTestId("tuple-select-input")).getByRole(
+      "textbox",
+    );
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
@@ -66,7 +68,9 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByTestId("tuple-select-input");
+    const input = within(screen.getByTestId("tuple-select-input")).getByRole(
+      "textbox",
+    );
     const dropdown = screen.queryByText("Build Variant");
     expect(dropdown).toBeInTheDocument();
     expect(input).toBeInTheDocument();
@@ -88,7 +92,9 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("tuple-select-input");
+    const input = within(screen.getByTestId("tuple-select-input")).getByRole(
+      "textbox",
+    );
     expect(input).toHaveValue("");
     await user.type(input, "some-filter");
     await user.type(input, "{enter}");
@@ -109,7 +115,9 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.getByTestId("tuple-select-input");
+    const input = within(screen.getByTestId("tuple-select-input")).getByRole(
+      "textbox",
+    );
 
     expect(input).toHaveValue("");
     await user.type(input, "bad");
