@@ -61,6 +61,7 @@ export const DropdownMenu: React.FC<Props> = ({
       data-testid="unschedule-patch"
       isDisabled={!hasVersion}
       {...getItemProps(
+        "unschedule",
         () => setUnschedulePopconfirmOpen(true),
         unschedulePopconfirmOpen,
       )}

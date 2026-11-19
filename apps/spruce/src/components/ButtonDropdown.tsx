@@ -51,11 +51,21 @@ export const DropdownItem = MenuItem;
 export const usePopconfirmAnchor = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const getItemProps = (onAction: () => void, isPopconfirmOpen: boolean) => ({
+  const getItemProps = (
+    id: string,
+    onAction: () => void,
+    isPopconfirmOpen: boolean,
+  ) => ({
     className: isPopconfirmOpen ? styles.openItem : undefined,
-    onAction,
-    onPress: (e: { target: Element }) =>
-      setAnchorEl(e.target.closest<HTMLElement>('[role="menuitem"]')),
+    id,
+    onAction: () => {
+      setAnchorEl(
+        document.querySelector<HTMLElement>(
+          `[role="menuitem"][data-key="${id}"]`,
+        ),
+      );
+      onAction();
+    },
     shouldCloseOnSelect: false,
   });
 

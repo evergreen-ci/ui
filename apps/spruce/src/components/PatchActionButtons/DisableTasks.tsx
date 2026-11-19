@@ -7,6 +7,7 @@ import {
   SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_VERSION_PRIORITY } from "gql/mutations";
+import styles from "./PopconfirmMessage.module.css";
 
 interface Props {
   open: boolean;
@@ -49,11 +50,13 @@ export const DisableTasksPopconfirm: React.FC<Props> = ({
       setOpen={setOpen}
       side="left"
     >
-      <Body>Disable all tasks?</Body>
-      <Body>
-        Disabling tasks prevents them from running unless explicitly activated
-        by a user.
-      </Body>
+      <div className={styles.message}>
+        <Body>Disable all tasks?</Body>
+        <Body>
+          Disabling tasks prevents them from running unless explicitly activated
+          by a user.
+        </Body>
+      </div>
     </Popconfirm>
   );
 };

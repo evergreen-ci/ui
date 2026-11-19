@@ -61,6 +61,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       key="unschedule-tasks"
       data-testid="unschedule-patch"
       {...getItemProps(
+        "unschedule",
         () => setPopconfirm("unschedule"),
         popconfirm === "unschedule",
       )}
@@ -71,6 +72,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       key="disable-tasks"
       data-testid="disable"
       {...getItemProps(
+        "disable",
         () => setPopconfirm("disable"),
         popconfirm === "disable",
       )}
@@ -81,6 +83,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       key="schedule-undispatched-base-tasks"
       isDisabled={!isPatch}
       {...getItemProps(
+        "scheduleBaseTasks",
         () => setPopconfirm("scheduleBaseTasks"),
         popconfirm === "scheduleBaseTasks",
       )}
@@ -91,6 +94,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       key="priority"
       data-testid="set-priority-menu-item"
       {...getItemProps(
+        "priority",
         () => setPopconfirm("priority"),
         popconfirm === "priority",
       )}

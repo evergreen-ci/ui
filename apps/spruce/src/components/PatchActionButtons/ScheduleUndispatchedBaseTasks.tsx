@@ -6,6 +6,7 @@ import {
   ScheduleUndispatchedBaseTasksMutationVariables,
 } from "gql/generated/types";
 import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
+import styles from "./PopconfirmMessage.module.css";
 
 interface Props {
   open: boolean;
@@ -49,8 +50,10 @@ export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
       setOpen={setOpen}
       side="left"
     >
-      Are you sure you want to schedule all the undispatched base tasks for this
-      patch&apos;s failing tasks?
+      <div className={styles.message}>
+        Are you sure you want to schedule all the undispatched base tasks for
+        this patch&apos;s failing tasks?
+      </div>
     </Popconfirm>
   );
 };
