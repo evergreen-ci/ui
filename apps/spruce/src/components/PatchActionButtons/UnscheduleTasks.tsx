@@ -10,52 +10,58 @@ import {
 } from "gql/generated/types";
 import { UNSCHEDULE_VERSION_TASKS } from "gql/mutations";
 
-interface props {
-  open: boolean;
-  refEl: React.RefObject<HTMLElement | null>;
-  refetchQueries?: string[];
-  setOpen: (open: boolean) => void;
-  versionId: string;
-}
-export const UnscheduleTasksPopconfirm: React.FC<props> = ({
-  open,
-  refEl,
-  refetchQueries = [],
-  setOpen,
-  versionId,
-}) => {
+export const useUnscheduleVersionTasks = (
+  versionId: string,
+  refetchQueries: string[] = [],
+) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
 
-  const [abort, setAbort] = useState(true);
-
-  const [unscheduleVersionTasks] = useMutation<
+  const [unscheduleVersionTasks, { loading }] = useMutation<
     UnscheduleVersionTasksMutation,
     UnscheduleVersionTasksMutationVariables
   >(UNSCHEDULE_VERSION_TASKS, {
-    onCompleted: () => {
-      dispatchToast.success(
-        `All tasks were unscheduled ${
-          abort ? "and tasks that already started were aborted" : ""
-        }`,
-      );
-      setAbort(false);
-    },
     onError: (err) => {
       dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
     },
     refetchQueries,
   });
 
-  const onConfirm = () => {
-    unscheduleVersionTasks({ variables: { versionId, abort } });
+  const unschedule = (abort: boolean) => {
+    unscheduleVersionTasks({
+      onCompleted: () => {
+        dispatchToast.success(
+          `All tasks were unscheduled ${
+            abort ? "and tasks that already started were aborted" : ""
+          }`,
+        );
+      },
+      variables: { versionId, abort },
+    });
     sendEvent({ name: "Clicked unschedule tasks button", abort });
   };
+
+  return { loading, unschedule };
+};
+
+interface props {
+  onConfirm: (abort: boolean) => void;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
+}
+export const UnscheduleTasksPopconfirm: React.FC<props> = ({
+  onConfirm,
+  open,
+  refEl,
+  setOpen,
+}) => {
+  const [abort, setAbort] = useState(true);
 
   return (
     <Popconfirm
       data-testid="unschedule-patch-popconfirm"
-      onConfirm={onConfirm}
+      onConfirm={() => onConfirm(abort)}
       open={open}
       refEl={refEl}
       setOpen={setOpen}

@@ -139,8 +139,11 @@ export const ActionButtons: React.FC<Props> = ({
     loadingScheduleTask ||
     loadingOverrideTaskDependencies;
 
-  const { anchorRef, getItemProps } = usePopconfirmAnchor();
   const [priorityOpen, setPriorityOpen] = useState(false);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor({
+    isOpen: priorityOpen,
+    onClose: () => setPriorityOpen(false),
+  });
 
   const dropdownItems = [
     <DropdownItem
@@ -243,6 +246,11 @@ export const ActionButtons: React.FC<Props> = ({
         loading={
           loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
         }
+        setOpen={(isOpen) => {
+          if (!isOpen) {
+            setPriorityOpen(false);
+          }
+        }}
       />
       {priorityOpen && (
         <SetPriority

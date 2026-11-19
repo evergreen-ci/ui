@@ -1,4 +1,7 @@
-export { UnscheduleTasksPopconfirm } from "./UnscheduleTasks";
+export {
+  UnscheduleTasksPopconfirm,
+  useUnscheduleVersionTasks,
+} from "./UnscheduleTasks";
 export { RestartPatch } from "./RestartPatch";
 export { RestartFailedTasks } from "./RestartFailedTasks";
 export { AddNotification } from "./AddNotification";

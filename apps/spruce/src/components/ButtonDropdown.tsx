@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Menu,
@@ -48,8 +48,28 @@ export const ButtonDropdown: React.FC<Props> = ({
 
 export const DropdownItem = MenuItem;
 
-export const usePopconfirmAnchor = () => {
+export const usePopconfirmAnchor = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+    const closeOnEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape, true);
+    return () => document.removeEventListener("keydown", closeOnEscape, true);
+  }, [isOpen, onClose]);
 
   const getItemProps = (
     id: string,

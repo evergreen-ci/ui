@@ -14,6 +14,7 @@ import {
   ScheduleTasks,
   ScheduleUndispatchedBaseTasksPopconfirm,
   UnscheduleTasksPopconfirm,
+  useUnscheduleVersionTasks,
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
@@ -38,8 +39,13 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   requester,
   versionId,
 }) => {
-  const { anchorRef, getItemProps } = usePopconfirmAnchor();
+  const { loading: unscheduling, unschedule } =
+    useUnscheduleVersionTasks(versionId);
   const [popconfirm, setPopconfirm] = useState<VersionPopconfirm | null>(null);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor({
+    isOpen: popconfirm !== null,
+    onClose: () => setPopconfirm(null),
+  });
   const setOpenFor = (name: VersionPopconfirm) => (open: boolean) =>
     setPopconfirm(open ? name : null);
   const priorityProps = activeTaskIds.length
@@ -60,6 +66,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <DropdownItem
       key="unschedule-tasks"
       data-testid="unschedule-patch"
+      isDisabled={unscheduling}
       {...getItemProps(
         "unschedule",
         () => setPopconfirm("unschedule"),
@@ -121,13 +128,21 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         refetchQueries={["VersionTasks"]}
       />
       <AddNotification patchId={versionId} />
-      <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
+      <ButtonDropdown
+        dropdownItems={dropdownItems}
+        loading={false}
+        setOpen={(isOpen) => {
+          if (!isOpen) {
+            setPopconfirm(null);
+          }
+        }}
+      />
       {popconfirm === "unschedule" && (
         <UnscheduleTasksPopconfirm
+          onConfirm={unschedule}
           open
           refEl={anchorRef}
           setOpen={setOpenFor("unschedule")}
-          versionId={versionId}
         />
       )}
       {popconfirm === "disable" && (

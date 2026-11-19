@@ -10,6 +10,7 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SetPatchVisibility,
   UnscheduleTasksPopconfirm,
+  useUnscheduleVersionTasks,
 } from "components/PatchActionButtons";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { VersionRestartModal } from "components/VersionRestartModal";
@@ -27,11 +28,18 @@ export const DropdownMenu: React.FC<Props> = ({
   patchId,
 }) => {
   const { sendEvent } = useVersionAnalytics(patchId);
-  const { anchorRef, getItemProps } = usePopconfirmAnchor();
+  const { loading: unscheduling, unschedule } = useUnscheduleVersionTasks(
+    patchId,
+    refetchQueries,
+  );
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
   const [restartModalOpen, setRestartModalOpen] = useState(false);
   const [unschedulePopconfirmOpen, setUnschedulePopconfirmOpen] =
     useState(false);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor({
+    isOpen: unschedulePopconfirmOpen,
+    onClose: () => setUnschedulePopconfirmOpen(false),
+  });
 
   const restartDisabled = !hasVersion || isMergeQueuePatch;
   const restartMessage = isMergeQueuePatch
@@ -59,7 +67,7 @@ export const DropdownMenu: React.FC<Props> = ({
     <DropdownItem
       key="unschedule"
       data-testid="unschedule-patch"
-      isDisabled={!hasVersion}
+      isDisabled={!hasVersion || unscheduling}
       {...getItemProps(
         "unschedule",
         () => setUnschedulePopconfirmOpen(true),
@@ -96,6 +104,11 @@ export const DropdownMenu: React.FC<Props> = ({
       <ButtonDropdown
         data-testid="patch-card-dropdown"
         dropdownItems={dropdownItems}
+        setOpen={(isOpen) => {
+          if (!isOpen) {
+            setUnschedulePopconfirmOpen(false);
+          }
+        }}
       />
       <ScheduleTasksModal
         open={scheduleModalOpen}
@@ -104,11 +117,10 @@ export const DropdownMenu: React.FC<Props> = ({
       />
       {unschedulePopconfirmOpen && (
         <UnscheduleTasksPopconfirm
+          onConfirm={unschedule}
           open
           refEl={anchorRef}
-          refetchQueries={refetchQueries}
           setOpen={setUnschedulePopconfirmOpen}
-          versionId={patchId}
         />
       )}
       <VersionRestartModal
