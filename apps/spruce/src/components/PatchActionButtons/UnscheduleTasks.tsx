@@ -66,12 +66,12 @@ export const UnscheduleTasks: React.FC<props> = ({
         </MenuItem>
       </div>
       <Popconfirm
-        align="left"
         data-testid="unschedule-patch-popconfirm"
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
+        side="left"
       >
         <Body weight="medium">Unschedule all tasks?</Body>
         <Checkbox

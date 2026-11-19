@@ -47,10 +47,10 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
   return (
     <Container>
       <Popconfirm
-        align="right"
         confirmDisabled={loadingFileJiraTicket}
         data-testid="file-ticket-popconfirm"
         onConfirm={onClickFile}
+        side="right"
         trigger={
           <ButtonWrapper>
             <Button

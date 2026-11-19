@@ -32,8 +32,14 @@ test.describe("Waterfall menu settings", () => {
   test("omits inactive build variants when filter is applied and setting is enabled", async ({
     page,
   }) => {
-    await page.getByTestId("build-variant-filter-input").fill("Lint");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("Lint");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
 
     await page.getByTestId("waterfall-menu").click();
@@ -44,9 +50,15 @@ test.describe("Waterfall menu settings", () => {
     await omitInactiveBuildsItem.click();
     await page.locator("body").click();
 
-    await page.getByTestId("build-variant-filter-input").clear();
-    await page.getByTestId("build-variant-filter-input").fill("ubuntu1604");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page.getByTestId("filter-chip").getByRole("button").click();
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("ubuntu1604");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
 
     await expect(
       page
