@@ -173,6 +173,7 @@ const useTabConfig = (
     },
     [TaskTab.History]: {
       key: "task-history-tab",
+      // TODO(UXE-1584): Move the guide attribute onto the Tab once Via forwards data-* attributes.
       name: <span {...walkthroughHistoryTabProps}>History</span>,
       content: baseTaskId ? (
         <TaskHistory baseTaskId={baseTaskId} task={task} />
