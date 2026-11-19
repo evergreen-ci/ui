@@ -58,7 +58,10 @@ export const validateToast = async (
 const clickHiddenElementByLabel = async (locator: Locator) => {
   await expect(locator).not.toHaveAttribute("id", /undefined/);
   const id = await locator.getAttribute("id");
-  await locator.page().locator(`label[for="${id}"]`).click();
+  const label = id
+    ? locator.page().locator(`label[for="${id}"]`)
+    : locator.locator("xpath=ancestor::label[1]");
+  await label.click();
 }
 
 /**

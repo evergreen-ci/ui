@@ -1,16 +1,10 @@
 import {
   ColumnFiltering,
-  ColumnFiltersState,
-  ExpandedState,
   LGColumnDef,
   LGRowData,
   LeafyGreenTable,
   LeafyGreenTableRow,
-  OnChangeFn,
-  PaginationState,
-  RowSelectionState,
   RowSorting,
-  SortingState,
   filterFns,
   getFacetedMinMaxValues,
   getFacetedUniqueValues,
@@ -20,6 +14,7 @@ import {
 } from "@leafygreen-ui/table";
 
 export { BaseTable } from "./BaseTable";
+export { ViaBaseTable } from "./ViaBaseTable";
 export { default as TableWrapper } from "./TableWrapper";
 export { onChangeHandler } from "./utils";
 export { default as TableControl } from "./TableControl";
@@ -34,15 +29,23 @@ export {
   getFacetedUniqueValues,
   useLeafyGreenVirtualTable,
 };
+export type { LGColumnDef, LGRowData, LeafyGreenTable, LeafyGreenTableRow };
 export type {
-  LGColumnDef,
-  LGRowData,
   ColumnFiltersState,
-  PaginationState,
-  OnChangeFn,
-  SortingState,
-  LeafyGreenTable,
-  RowSelectionState,
-  LeafyGreenTableRow,
   ExpandedState,
-};
+  OnChangeFn,
+  PaginationState,
+  RowSelectionState,
+  SortingState,
+} from "@tanstack/table-core";
+export { useTable, useVirtualTable } from "@via-ds/components/table";
+export type {
+  ViaColumnDef,
+  ViaRowData,
+  ViaTable,
+  ViaTableOptions,
+  ViaTableRow,
+  ViaVirtualItem,
+  ViaVirtualTable,
+  ViaVirtualTableOptions,
+} from "@via-ds/components/table";

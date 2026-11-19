@@ -87,10 +87,7 @@ test.describe("Version route", () => {
 
         await page.getByTestId("status-filter").click();
         await expect(page.getByTestId("status-filter-wrapper")).toBeVisible();
-        await expect(page.getByLabel("Succeeded")).toHaveAttribute(
-          "aria-checked",
-          "true",
-        );
+        await expect(page.getByLabel("Succeeded")).toBeChecked();
 
         await page.getByTestId("variant-filter").click();
         await expect(
