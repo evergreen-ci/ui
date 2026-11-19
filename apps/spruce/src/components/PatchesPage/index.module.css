@@ -1,7 +1,45 @@
-.filtersWrapperSpaceBetween {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
-  grid-column-gap: var(--via-space-400);
+.filterRow {
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--via-space-300) var(--via-space-400);
+  margin-bottom: var(--via-space-400);
+}
+
+.filters {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--via-space-400);
+}
+
+.filters > div {
+  flex: 1 1 0;
+  min-inline-size: 12rem;
+}
+
+.filters > label {
+  flex: none;
+  white-space: nowrap;
+}
+
+.topPagination {
+  margin-inline-start: auto;
+}
+
+@container (width < 1600px) {
+  .topPagination {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+}
+
+.bottomPagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--via-space-400);
 }
 
 .pageTitle {
@@ -9,10 +47,10 @@
 }
 
 .hiddenCheckbox {
-  justify-content: flex-end;
+  margin-inline-start: auto;
 }
 
-/* Via caps Field width; fill the grid track so filter spacing stays even.
+/* Via caps Field width; fill the flex item so filter spacing stays even.
    Doubled selector outranks Via's own class regardless of CSS chunk order. */
 .filterField.filterField {
   max-width: none;

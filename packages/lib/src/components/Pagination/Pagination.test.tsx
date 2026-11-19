@@ -6,9 +6,9 @@ describe("pagination", () => {
     const { rerender } = renderWithRouterMatch(
       <Pagination currentPage={0} pageSize={10} totalResults={50} />,
     );
-    expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+    expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
     rerender(<Pagination currentPage={1} pageSize={10} totalResults={50} />);
-    expect(screen.getByText(/11 - 20 of 50/)).toBeInTheDocument();
+    expect(screen.getByText("11–20 of 50 items")).toBeInTheDocument();
   });
 
   describe("buttons", () => {
@@ -16,36 +16,40 @@ describe("pagination", () => {
       renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
-      const prevButton = screen.getByRole("button", { name: "Previous page" });
-      expect(prevButton).toHaveAttribute("aria-disabled", "true");
+      expect(
+        screen.getByRole("button", { name: "Previous page" }),
+      ).toBeDisabled();
+      expect(screen.getByRole("button", { name: "Next page" })).toBeEnabled();
     });
 
     it("should disable the next button on the last page", () => {
       renderWithRouterMatch(
         <Pagination currentPage={4} pageSize={10} totalResults={50} />,
       );
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      expect(nextButton).toHaveAttribute("aria-disabled", "true");
+      expect(screen.getByRole("button", { name: "Next page" })).toBeDisabled();
+      expect(
+        screen.getByRole("button", { name: "Previous page" }),
+      ).toBeEnabled();
     });
 
     it("should disable buttons if there are no results", () => {
       renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={0} />,
       );
-      const prevButton = screen.getByRole("button", { name: "Previous page" });
-      expect(prevButton).toHaveAttribute("aria-disabled", "true");
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      expect(nextButton).toHaveAttribute("aria-disabled", "true");
+      expect(
+        screen.getByRole("button", { name: "Previous page" }),
+      ).toBeDisabled();
+      expect(screen.getByRole("button", { name: "Next page" })).toBeDisabled();
     });
 
     it("should disable buttons if there is only one page", () => {
       renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={10} />,
       );
-      const prevButton = screen.getByRole("button", { name: "Previous page" });
-      expect(prevButton).toHaveAttribute("aria-disabled", "true");
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      expect(nextButton).toHaveAttribute("aria-disabled", "true");
+      expect(
+        screen.getByRole("button", { name: "Previous page" }),
+      ).toBeDisabled();
+      expect(screen.getByRole("button", { name: "Next page" })).toBeDisabled();
     });
   });
 
@@ -56,8 +60,7 @@ describe("pagination", () => {
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
       expect(router.state.location.search).toBe("");
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      await user.click(nextButton);
+      await user.click(screen.getByRole("button", { name: "Next page" }));
       expect(router.state.location.search).toBe("?page=1");
     });
 
@@ -67,9 +70,25 @@ describe("pagination", () => {
         <Pagination currentPage={1} pageSize={10} totalResults={50} />,
       );
       expect(router.state.location.search).toBe("");
-      const prevButton = screen.getByRole("button", { name: "Previous page" });
-      await user.click(prevButton);
+      await user.click(screen.getByRole("button", { name: "Previous page" }));
       expect(router.state.location.search).toBe("?page=0");
+    });
+
+    it("changing the page size away from the first page should keep the new limit and reset the page", async () => {
+      const user = userEvent.setup();
+      const onPageChange = vi.fn();
+      const { router } = renderWithRouterMatch(
+        <Pagination
+          currentPage={2}
+          onPageChange={onPageChange}
+          pageSize={10}
+          totalResults={50}
+        />,
+      );
+      await user.click(screen.getByRole("button", { name: /Items per page/ }));
+      await user.click(screen.getByRole("option", { name: "20" }));
+      expect(router.state.location.search).toBe("?limit=20&page=0");
+      expect(onPageChange).not.toHaveBeenCalled();
     });
   });
 
@@ -85,8 +104,7 @@ describe("pagination", () => {
           totalResults={50}
         />,
       );
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      await user.click(nextButton);
+      await user.click(screen.getByRole("button", { name: "Next page" }));
       expect(onPageChange).toHaveBeenCalledWith(1);
     });
 
@@ -101,12 +119,8 @@ describe("pagination", () => {
           totalResults={50}
         />,
       );
-      const pageSizeSelect = screen.getByRole("button", {
-        name: /Items per page/,
-      });
-      await user.click(pageSizeSelect);
-      const option = screen.getByText(/20/);
-      await user.click(option);
+      await user.click(screen.getByRole("button", { name: /Items per page/ }));
+      await user.click(screen.getByRole("option", { name: "20" }));
       expect(onPageSizeChange).toHaveBeenCalledWith(20);
     });
   });
@@ -116,18 +130,18 @@ describe("pagination", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
       rerender(
         <Pagination currentPage={0} loading pageSize={10} totalResults={0} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
     });
 
     it("should update the page count to 0 when not loading", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
       rerender(
         <Pagination
           currentPage={0}
@@ -136,33 +150,29 @@ describe("pagination", () => {
           totalResults={0}
         />,
       );
-      expect(screen.getByText(/0 - 0 of 0 items/)).toBeInTheDocument();
+      expect(screen.getByText("0 of 0 items")).toBeInTheDocument();
     });
 
     it("should update the page count when totalResults changes to a new value", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
       rerender(<Pagination currentPage={0} pageSize={10} totalResults={30} />);
-      expect(screen.getByText(/1 - 10 of 30/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 30 items")).toBeInTheDocument();
     });
 
     it("should update the page count after loading completes", () => {
       const { rerender } = renderWithRouterMatch(
         <Pagination currentPage={0} pageSize={10} totalResults={50} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
-
-      // Start loading — count should be preserved.
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
       rerender(
         <Pagination currentPage={0} loading pageSize={10} totalResults={0} />,
       );
-      expect(screen.getByText(/1 - 10 of 50/)).toBeInTheDocument();
-
-      // Loading completes with new results.
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
       rerender(<Pagination currentPage={0} pageSize={10} totalResults={20} />);
-      expect(screen.getByText(/1 - 10 of 20/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 20 items")).toBeInTheDocument();
     });
   });
 
@@ -176,7 +186,9 @@ describe("pagination", () => {
           totalResults={100}
         />,
       );
-      expect(screen.getByText(/1 - 10 of many/)).toBeInTheDocument();
+      expect(screen.getByText("1 of many")).toBeInTheDocument();
+      expect(screen.queryByText(/100 items/)).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Next page" })).toBeEnabled();
     });
 
     it("should display the normal item count when totalResults < countLimit", () => {
@@ -188,7 +200,7 @@ describe("pagination", () => {
           totalResults={50}
         />,
       );
-      expect(screen.getByText(/50/)).toBeInTheDocument();
+      expect(screen.getByText("1–10 of 50 items")).toBeInTheDocument();
     });
   });
 });

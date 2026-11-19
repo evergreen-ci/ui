@@ -195,10 +195,8 @@ test.describe("Tests Table", () => {
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10`);
       const topPagination = page.getByTestId("pagination").first();
-      const pageSelect = topPagination.getByRole("button", {
-        name: /current page/,
-      });
-      await expect(pageSelect).toHaveText("1");
+      const pageField = topPagination.getByLabel("Page number");
+      await expect(pageField).toHaveValue("1");
 
       const nextPageButton = topPagination.getByRole("button", {
         name: "Next page",
@@ -215,10 +213,8 @@ test.describe("Tests Table", () => {
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
       const topPagination = page.getByTestId("pagination").first();
-      const pageSelect = topPagination.getByRole("button", {
-        name: /current page/,
-      });
-      await expect(pageSelect).toHaveText("2");
+      const pageField = topPagination.getByLabel("Page number");
+      await expect(pageField).toHaveValue("2");
 
       const nextPageButton = topPagination.getByRole("button", {
         name: "Next page",
@@ -236,10 +232,8 @@ test.describe("Tests Table", () => {
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=1`);
       const topPagination = page.getByTestId("pagination").first();
-      const pageSelect = topPagination.getByRole("button", {
-        name: /current page/,
-      });
-      await expect(pageSelect).toHaveText("2");
+      const pageField = topPagination.getByLabel("Page number");
+      await expect(pageField).toHaveValue("2");
 
       const prevPageButton = topPagination.getByRole("button", {
         name: "Previous page",
@@ -257,10 +251,8 @@ test.describe("Tests Table", () => {
     }) => {
       await visitAndWait(page, `${TESTS_ROUTE}?limit=10&page=0`);
       const topPagination = page.getByTestId("pagination").first();
-      const pageSelect = topPagination.getByRole("button", {
-        name: /current page/,
-      });
-      await expect(pageSelect).toHaveText("1");
+      const pageField = topPagination.getByLabel("Page number");
+      await expect(pageField).toHaveValue("1");
 
       const prevPageButton = topPagination.getByRole("button", {
         name: "Previous page",
