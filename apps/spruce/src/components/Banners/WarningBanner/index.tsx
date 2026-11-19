@@ -9,6 +9,7 @@ import {
   OrderedList,
   TitleWrapper,
 } from "../styles";
+import bannerStyles from "../styles.module.css";
 
 interface WarningBannerProps {
   warnings: string[];
@@ -25,7 +26,11 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
 
   return showBanner ? (
     <BannerContainer data-testid="configuration-warnings-banner">
-      <Banner onClose={() => setShowBanner(false)} variant="warning">
+      <Banner
+        className={bannerStyles.alignedDismiss}
+        onClose={() => setShowBanner(false)}
+        variant="warning"
+      >
         <Text slot="title">{warningTitle}</Text>
         <Text>
           See all warnings{" "}

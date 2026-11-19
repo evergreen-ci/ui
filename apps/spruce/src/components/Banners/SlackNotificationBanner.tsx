@@ -14,6 +14,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 import styles from "./SlackNotificationBanner.module.css";
+import bannerStyles from "./styles.module.css";
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
@@ -85,6 +86,7 @@ export const SlackNotificationBanner = () => {
 
   return shouldShowSlackBanner ? (
     <Banner
+      className={bannerStyles.alignedDismiss}
       data-testid="slack-notification-banner"
       onClose={hideBanner}
       variant="info"

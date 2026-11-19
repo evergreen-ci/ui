@@ -36,3 +36,9 @@
   text-decoration-thickness: auto;
   text-underline-offset: auto;
 }
+
+/* TODO(UXE-1580): Remove after UXE-690 moves the Via Banner dismiss button to Via Button. */
+.alignedDismiss > button:last-child {
+  line-height: inherit;
+  margin-block: calc((1lh - 24px) / 2);
+}
