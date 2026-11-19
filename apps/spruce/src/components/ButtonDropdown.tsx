@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Menu,
@@ -45,3 +46,16 @@ export const ButtonDropdown: React.FC<Props> = ({
 );
 
 export const DropdownItem = MenuItem;
+
+export const usePopconfirmAnchor = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const getItemProps = (onAction: () => void) => ({
+    onAction,
+    onPress: (e: { target: Element }) =>
+      setAnchorEl(e.target.closest<HTMLElement>('[role="menuitem"]')),
+    shouldCloseOnSelect: false,
+  });
+
+  return { anchorRef: { current: anchorEl }, getItemProps };
+};

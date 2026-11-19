@@ -1,5 +1,9 @@
-import { useRef, useState } from "react";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { useState } from "react";
+import {
+  ButtonDropdown,
+  DropdownItem,
+  usePopconfirmAnchor,
+} from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   AddNotification,
@@ -34,11 +38,10 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   requester,
   versionId,
 }) => {
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor();
   const [popconfirm, setPopconfirm] = useState<VersionPopconfirm | null>(null);
   const setOpenFor = (name: VersionPopconfirm) => (open: boolean) =>
     setPopconfirm(open ? name : null);
-
   const priorityProps = activeTaskIds.length
     ? { taskIds: activeTaskIds }
     : { versionId };
@@ -57,28 +60,28 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <DropdownItem
       key="unschedule-tasks"
       data-testid="unschedule-patch"
-      onAction={() => setPopconfirm("unschedule")}
+      {...getItemProps(() => setPopconfirm("unschedule"))}
     >
       Unschedule all tasks
     </DropdownItem>,
     <DropdownItem
       key="disable-tasks"
       data-testid="disable"
-      onAction={() => setPopconfirm("disable")}
+      {...getItemProps(() => setPopconfirm("disable"))}
     >
       Disable all tasks
     </DropdownItem>,
     <DropdownItem
       key="schedule-undispatched-base-tasks"
       isDisabled={!isPatch}
-      onAction={() => setPopconfirm("scheduleBaseTasks")}
+      {...getItemProps(() => setPopconfirm("scheduleBaseTasks"))}
     >
       Schedule failing base tasks
     </DropdownItem>,
     <DropdownItem
       key="priority"
       data-testid="set-priority-menu-item"
-      onAction={() => setPopconfirm("priority")}
+      {...getItemProps(() => setPopconfirm("priority"))}
     >
       Set {priorityLabel} priority
       {activeTaskIds.length > 1 && ` (${activeTaskIds.length})`}
@@ -102,35 +105,39 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         refetchQueries={["VersionTasks"]}
       />
       <AddNotification patchId={versionId} />
-      <ButtonDropdown
-        dropdownItems={dropdownItems}
-        loading={false}
-        triggerRef={triggerRef}
-      />
-      <UnscheduleTasksPopconfirm
-        open={popconfirm === "unschedule"}
-        refEl={triggerRef}
-        setOpen={setOpenFor("unschedule")}
-        versionId={versionId}
-      />
-      <DisableTasksPopconfirm
-        open={popconfirm === "disable"}
-        refEl={triggerRef}
-        setOpen={setOpenFor("disable")}
-        versionId={versionId}
-      />
-      <ScheduleUndispatchedBaseTasksPopconfirm
-        open={popconfirm === "scheduleBaseTasks"}
-        refEl={triggerRef}
-        setOpen={setOpenFor("scheduleBaseTasks")}
-        versionId={versionId}
-      />
-      <SetPriority
-        {...priorityProps}
-        onOpenChange={setOpenFor("priority")}
-        open={popconfirm === "priority"}
-        refEl={triggerRef}
-      />
+      <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
+      {popconfirm === "unschedule" && (
+        <UnscheduleTasksPopconfirm
+          open
+          refEl={anchorRef}
+          setOpen={setOpenFor("unschedule")}
+          versionId={versionId}
+        />
+      )}
+      {popconfirm === "disable" && (
+        <DisableTasksPopconfirm
+          open
+          refEl={anchorRef}
+          setOpen={setOpenFor("disable")}
+          versionId={versionId}
+        />
+      )}
+      {popconfirm === "scheduleBaseTasks" && (
+        <ScheduleUndispatchedBaseTasksPopconfirm
+          open
+          refEl={anchorRef}
+          setOpen={setOpenFor("scheduleBaseTasks")}
+          versionId={versionId}
+        />
+      )}
+      {popconfirm === "priority" && (
+        <SetPriority
+          {...priorityProps}
+          onOpenChange={setOpenFor("priority")}
+          open
+          refEl={anchorRef}
+        />
+      )}
     </PageButtonRow>
   );
 };

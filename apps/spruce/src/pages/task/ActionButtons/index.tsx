@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import {
+  ButtonDropdown,
+  DropdownItem,
+  usePopconfirmAnchor,
+} from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
@@ -135,7 +139,7 @@ export const ActionButtons: React.FC<Props> = ({
     loadingScheduleTask ||
     loadingOverrideTaskDependencies;
 
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor();
   const [priorityOpen, setPriorityOpen] = useState(false);
 
   const dropdownItems = [
@@ -195,7 +199,7 @@ export const ActionButtons: React.FC<Props> = ({
       key="set-task-priority"
       data-testid="set-priority-menu-item"
       isDisabled={disabled || !canSetPriority}
-      onAction={() => setPriorityOpen(true)}
+      {...getItemProps(() => setPriorityOpen(true))}
     >
       Set task priority
     </DropdownItem>,
@@ -239,15 +243,16 @@ export const ActionButtons: React.FC<Props> = ({
         loading={
           loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
         }
-        triggerRef={triggerRef}
       />
-      <SetPriority
-        initialPriority={initialPriority}
-        onOpenChange={setPriorityOpen}
-        open={priorityOpen}
-        refEl={triggerRef}
-        taskIds={[taskId]}
-      />
+      {priorityOpen && (
+        <SetPriority
+          initialPriority={initialPriority}
+          onOpenChange={setPriorityOpen}
+          open
+          refEl={anchorRef}
+          taskIds={[taskId]}
+        />
+      )}
     </PageButtonRow>
   );
 };

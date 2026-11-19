@@ -1,7 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { useVersionAnalytics } from "analytics";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import {
+  ButtonDropdown,
+  DropdownItem,
+  usePopconfirmAnchor,
+} from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SetPatchVisibility,
@@ -23,7 +27,7 @@ export const DropdownMenu: React.FC<Props> = ({
   patchId,
 }) => {
   const { sendEvent } = useVersionAnalytics(patchId);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor();
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
   const [restartModalOpen, setRestartModalOpen] = useState(false);
   const [unschedulePopconfirmOpen, setUnschedulePopconfirmOpen] =
@@ -56,7 +60,7 @@ export const DropdownMenu: React.FC<Props> = ({
       key="unschedule"
       data-testid="unschedule-patch"
       isDisabled={!hasVersion}
-      onAction={() => setUnschedulePopconfirmOpen(true)}
+      {...getItemProps(() => setUnschedulePopconfirmOpen(true))}
     >
       Unschedule all tasks
     </DropdownItem>,
@@ -88,20 +92,21 @@ export const DropdownMenu: React.FC<Props> = ({
       <ButtonDropdown
         data-testid="patch-card-dropdown"
         dropdownItems={dropdownItems}
-        triggerRef={triggerRef}
       />
       <ScheduleTasksModal
         open={scheduleModalOpen}
         setOpen={setScheduleModalOpen}
         versionId={patchId}
       />
-      <UnscheduleTasksPopconfirm
-        open={unschedulePopconfirmOpen}
-        refEl={triggerRef}
-        refetchQueries={refetchQueries}
-        setOpen={setUnschedulePopconfirmOpen}
-        versionId={patchId}
-      />
+      {unschedulePopconfirmOpen && (
+        <UnscheduleTasksPopconfirm
+          open
+          refEl={anchorRef}
+          refetchQueries={refetchQueries}
+          setOpen={setUnschedulePopconfirmOpen}
+          versionId={patchId}
+        />
+      )}
       <VersionRestartModal
         onCancel={() => setRestartModalOpen(false)}
         onOk={() => setRestartModalOpen(false)}
