@@ -14,7 +14,7 @@ const { blue } = palette;
 const DEFAULT_MAX_CHAR = 250;
 
 interface CommitDescriptionProps {
-  author: string;
+  author?: string;
   className?: string;
   inline?: boolean;
   lineClamp?: 2 | 3;
@@ -68,7 +68,7 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
       data-line-clamp={lineClamp}
       title={title}
     >
-      <AuthorLabel>{author} &middot; </AuthorLabel>
+      {author ? <AuthorLabel>{author} &middot; </AuthorLabel> : null}
       <WordBreak>
         {linkedMessage}
         {shouldTruncate ? (

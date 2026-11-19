@@ -2,12 +2,14 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Body, Disclaimer } from "@via-ds/components/typography";
 import { BaseTable, useLeafyGreenTable } from "@evg-ui/lib/components/Table";
 import { TaskStatus } from "@evg-ui/lib/types/task";
+import { CommitDescription } from "components/CommitLabel";
 import { RevisionLink } from "components/RevisionLink";
 import { getVersionRoute } from "constants/routes";
 import { finishedTaskStatuses } from "constants/task";
 import { ProjectCommitHistoryQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { numbers } from "utils";
+import styles from "./styles.module.css";
 
 const { roundDecimal, toPercent } = numbers;
 
@@ -19,15 +21,12 @@ const columnHelper = createColumnHelper<Version>();
 export const HistoryTable: React.FC<{
   versions: ProjectCommitHistoryQuery["project"]["commits"]["versions"];
 }> = ({ versions }) => {
-  const table = useLeafyGreenTable({
+  const table = useLeafyGreenTable<Version>({
     columns,
     data: versions,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
-      // Handle bug in sorting order
-      // https://github.com/TanStack/table/issues/4289
-      sortDescFirst: false,
     },
     initialState: {
       columnVisibility: {
@@ -58,15 +57,19 @@ const columns = [
       />
     ),
   }),
+  columnHelper.accessor("createTime", {
+    header: "Created",
+    cell: ({ getValue }) => <CreatedCell date={getValue()} />,
+  }),
   columnHelper.accessor("user.displayName", {
     header: "Author",
   }),
   columnHelper.accessor("message", {
     header: "Message",
-  }),
-  columnHelper.accessor("createTime", {
-    header: "Created",
-    cell: ({ getValue }) => <CreatedCell date={getValue()} />,
+    cell: ({ getValue }) => (
+      <CommitDescription inline lineClamp={3} message={getValue()} />
+    ),
+    size: 500,
   }),
   columnHelper.accessor(
     ({ taskStatusStats }) =>
@@ -120,7 +123,11 @@ const columns = [
 const CreatedCell: React.FC<{ date: Date }> = ({ date }) => {
   const getDateCopy = useDateFormat();
 
-  return <>{getDateCopy(date, { omitSeconds: true, omitTimezone: true })}</>;
+  return (
+    <span className={styles.tabularNums}>
+      {getDateCopy(date, { omitSeconds: true, omitTimezone: true })}
+    </span>
+  );
 };
 
 const Percentage: React.FC<{ numerator: number; denominator: number }> = ({
@@ -128,8 +135,10 @@ const Percentage: React.FC<{ numerator: number; denominator: number }> = ({
   numerator,
 }) => (
   <>
-    <Body>{roundDecimal(toPercent(numerator / denominator), 2)}%</Body>
-    <Disclaimer>
+    <Body className={styles.tabularNums}>
+      {roundDecimal(toPercent(numerator / denominator), 2)}%
+    </Body>
+    <Disclaimer className={styles.tabularNums}>
       ({numerator}/{denominator})
     </Disclaimer>
   </>
