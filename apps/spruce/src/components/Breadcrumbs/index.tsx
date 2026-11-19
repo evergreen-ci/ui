@@ -1,7 +1,7 @@
 import {
   Breadcrumb as ViaBreadcrumb,
   Breadcrumbs as ViaBreadcrumbs,
-} from "@via-ds/components";
+} from "@via-ds/components/breadcrumbs";
 import styles from "./index.module.css";
 
 export interface Breadcrumb {
