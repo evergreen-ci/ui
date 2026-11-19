@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client/react";
+import { AppLayout } from "@via-ds/components/app-layout";
 import { Outlet } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
-import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
@@ -27,14 +27,16 @@ export const Layout: React.FC = () => {
   }
 
   return (
-    <SiteLayout>
-      <Header />
-      <Outlet />
-      <div className={styles.floatingContent}>
-        <WaterfallScrollToTop />
-        <TaskStatusIconLegend />
-        <Feedback />
+    <AppLayout className={styles.appLayout}>
+      <div className={styles.content} slot="content">
+        <Header />
+        <Outlet />
+        <div className={styles.floatingContent}>
+          <WaterfallScrollToTop />
+          <TaskStatusIconLegend />
+          <Feedback />
+        </div>
       </div>
-    </SiteLayout>
+    </AppLayout>
   );
 };

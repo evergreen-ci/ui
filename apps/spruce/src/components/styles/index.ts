@@ -13,7 +13,6 @@ import {
   SettingsPageContent,
   SideNavPageContent,
   SideNavPageWrapper,
-  SiteLayout,
 } from "./Layout";
 import { ShortenedRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
@@ -28,7 +27,6 @@ export {
   InputLabel,
   PageButtonRow,
   PageContent,
-  SiteLayout,
   PageLayout,
   PageSider,
   PageTitle,
