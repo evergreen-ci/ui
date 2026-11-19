@@ -107,8 +107,8 @@ export const CostModal: React.FC<CostModalProps> = ({
   return (
     <DisplayModal
       data-testid="cost-modal"
-      open={open}
-      setOpen={setOpen}
+      isOpen={open}
+      onOpenChange={setOpen}
       title={`Cost breakdown for ${name}`}
     >
       <div className={styles.content}>

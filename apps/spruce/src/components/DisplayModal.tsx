@@ -1,25 +1,29 @@
-import { Dialog, DialogProps, DialogRoot } from "@via-ds/components/dialog";
+import {
+  Dialog,
+  DialogProps,
+  DialogRoot,
+  DialogRootProps,
+} from "@via-ds/components/dialog";
 import { Content, Header } from "@via-ds/components/structure";
 import { Text } from "@via-ds/components/typography";
 
-type DisplayModalProps = Pick<DialogProps, "children" | "size"> & {
-  "data-testid"?: string;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  subtitle?: string;
-  title: React.ReactNode;
-};
+type DisplayModalProps = Pick<DialogProps, "children" | "size"> &
+  Pick<DialogRootProps, "isOpen" | "onOpenChange"> & {
+    "data-testid"?: string;
+    subtitle?: string;
+    title: React.ReactNode;
+  };
 
 export const DisplayModal: React.FC<DisplayModalProps> = ({
   children,
   "data-testid": dataTestId,
-  open,
-  setOpen,
+  isOpen,
+  onOpenChange,
   size,
   subtitle,
   title,
 }) => (
-  <DialogRoot isOpen={open} onOpenChange={setOpen}>
+  <DialogRoot isOpen={isOpen} onOpenChange={onOpenChange}>
     <Dialog data-testid={dataTestId} size={size}>
       <Header>
         <Text data-testid="modal-title" slot="title">
