@@ -7,7 +7,6 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         label="textinput"
         onSubmit={onSubmit}
         validator={(v) => v.length > 5}
@@ -22,13 +21,7 @@ describe("textInputWithValidation", () => {
   it("should not validate without a validation function", async () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
-    render(
-      <TextInputWithValidation
-        aria-label="textinput"
-        label="textinput"
-        onSubmit={onSubmit}
-      />,
-    );
+    render(<TextInputWithValidation label="textinput" onSubmit={onSubmit} />);
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");
     await user.type(input, "{enter}");
@@ -39,7 +32,6 @@ describe("textInputWithValidation", () => {
     const onChange = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         label="textinput"
         onChange={onChange}
         validator={(v) => v.length >= 5}
@@ -57,7 +49,6 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        aria-label="textinput"
         clearOnSubmit
         label="textinput"
         onChange={onChange}
@@ -103,5 +94,21 @@ describe("textInputWithValidation", () => {
     );
 
     expect(input).toHaveValue("reset value");
+  });
+  it("should disable the plus button when the input is disabled", async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+    render(
+      <TextInputWithValidation
+        isDisabled
+        label="textinput"
+        onSubmit={onSubmit}
+        value="test"
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Select plus button" });
+    expect(button).toBeDisabled();
+    await user.click(button);
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 });

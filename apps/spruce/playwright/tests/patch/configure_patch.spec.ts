@@ -231,7 +231,10 @@ test.describe("Configure Patch Page", () => {
         await expect(
           page.getByTestId("selected-task-disclaimer"),
         ).toContainText("0 tasks across 0 build variants");
-        await page.getByTestId("task-filter-input").fill("^dist");
+        await page
+          .getByTestId("task-filter-input")
+          .getByRole("textbox")
+          .fill("^dist");
         await expect(page.getByTestId("task-checkbox")).toHaveCount(2);
         await page.getByText("Select all tasks in view").click();
         await expect(
@@ -257,13 +260,19 @@ test.describe("Configure Patch Page", () => {
         await expect(
           page.getByTestId("selected-task-disclaimer"),
         ).toContainText("0 tasks across 0 build variants");
-        await page.getByTestId("task-filter-input").fill("dist");
+        await page
+          .getByTestId("task-filter-input")
+          .getByRole("textbox")
+          .fill("dist");
         await expect(page.getByTestId("task-checkbox")).toHaveCount(2);
         await page.getByText("Select all tasks in view").click();
         await expect(
           page.getByTestId("selected-task-disclaimer"),
         ).toContainText("4 tasks across 2 build variants");
-        await page.getByTestId("task-filter-input").clear();
+        await page
+          .getByTestId("task-filter-input")
+          .getByRole("textbox")
+          .clear();
       });
     });
 
