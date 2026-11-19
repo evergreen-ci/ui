@@ -10,6 +10,7 @@
   justify-content: flex-end;
 }
 
+/* TODO(UXE-1581) */
 .pagination [aria-haspopup="listbox"] {
   min-inline-size: calc(var(--via-space-1600) + var(--via-space-400));
 }
