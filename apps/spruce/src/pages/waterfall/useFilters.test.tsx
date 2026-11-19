@@ -1,35 +1,17 @@
-import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { buildVariants, groupedVersions, versions } from "./testData";
 import { useFilters } from "./useFilters";
 
-type WrapperProps = {
-  initialEntry?: string;
-};
-
-const createWrapper = (props = {}) => {
-  const { initialEntry = "/project/spruce/waterfall" }: WrapperProps = props;
-  return function CreateWrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <MemoryRouter initialEntries={[initialEntry]}>{children}</MemoryRouter>
-    );
-  };
-};
-
 describe("useFilters", () => {
   describe("requester filters", () => {
     it("should not make any versions inactive when no filters are applied", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper(),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
       expect(result.current).toStrictEqual({
         buildVariants,
@@ -39,20 +21,14 @@ describe("useFilters", () => {
     });
 
     it("should move version into inactive versions list and drop build variant when filter is applied", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry:
-              "/project/spruce/waterfall?requesters=git_tag_request",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { requesters: ["git_tag_request"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -72,19 +48,13 @@ describe("useFilters", () => {
 
   describe("pinned build variants", () => {
     it("should push pins to the top of list of build variants and preserve their original order", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: ["3", "2"],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: ["3", "2"],
+        }),
       );
 
       const pinnedWaterfall = {
@@ -99,19 +69,14 @@ describe("useFilters", () => {
 
   describe("build variant filters", () => {
     it("should filter build variant list when filter is applied", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?buildVariants=yooo",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { variants: ["yooo"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -129,19 +94,14 @@ describe("useFilters", () => {
     });
 
     it("build variant filters are added together with inactive builds included", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?buildVariants=yooo,bv",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { variants: ["yooo", "bv"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -163,19 +123,14 @@ describe("useFilters", () => {
     });
 
     it("build variant filters omit inactive builds when setting is enabled", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: true,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?buildVariants=yooo,bv",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { variants: ["yooo", "bv"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: true,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -202,19 +157,14 @@ describe("useFilters", () => {
 
   describe("task filters", () => {
     it("should filter build variant list and tasks when filter is applied", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?tasks=15",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { tasks: ["15"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -249,19 +199,14 @@ describe("useFilters", () => {
     });
 
     it("should match on multiple tasks and build variants", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?tasks=1",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { tasks: ["1"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       const filteredWaterfall = {
@@ -302,19 +247,14 @@ describe("useFilters", () => {
     });
 
     it("applies task and build variant filters", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?tasks=1&buildVariants=foo",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { tasks: ["1"], variants: ["foo"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       expect(result.current).toStrictEqual({
@@ -332,19 +272,14 @@ describe("useFilters", () => {
 
   describe("status filter", () => {
     it("matches on statuses", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry: "/project/spruce/waterfall?statuses=started",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { statuses: ["started"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       expect(result.current).toStrictEqual({
@@ -379,20 +314,14 @@ describe("useFilters", () => {
     });
 
     it("applies task name and status filter", () => {
-      const { result } = renderHook(
-        () =>
-          useFilters({
-            activeVersionIds: ["b", "c", "f"],
-            flattenedVersions: versions,
-            omitInactiveBuilds: false,
-            pins: [],
-          }),
-        {
-          wrapper: createWrapper({
-            initialEntry:
-              "/project/spruce/waterfall?statuses=success&tasks=foo",
-          }),
-        },
+      const { result } = renderHook(() =>
+        useFilters({
+          filters: { statuses: ["success"], tasks: ["foo"] },
+          activeVersionIds: ["b", "c", "f"],
+          flattenedVersions: versions,
+          omitInactiveBuilds: false,
+          pins: [],
+        }),
       );
 
       expect(result.current).toStrictEqual({
@@ -406,5 +335,41 @@ describe("useFilters", () => {
         buildVariants: [],
       });
     });
+  });
+
+  it("does not reapply any content filters to server-filtered results", () => {
+    const { result } = renderHook(() =>
+      useFilters({
+        activeVersionIds: ["b", "c", "f"],
+        flattenedVersions: versions,
+        filters: {
+          requesters: ["not-returned"],
+          variants: ["not-returned"],
+          tasks: ["not-returned"],
+          statuses: ["not-returned"],
+        },
+        omitInactiveBuilds: true,
+        pins: ["3"],
+        serverFiltered: true,
+      }),
+    );
+    expect(result.current).toEqual({
+      activeVersionIds: ["b", "c", "f"],
+      buildVariants: [buildVariants[2], buildVariants[0], buildVariants[1]],
+      versions: groupedVersions,
+    });
+  });
+
+  it("preserves case-insensitive local previews", () => {
+    const { result } = renderHook(() =>
+      useFilters({
+        activeVersionIds: ["b", "c", "f"],
+        flattenedVersions: versions,
+        filters: { variants: ["BV"] },
+        omitInactiveBuilds: false,
+        pins: [],
+      }),
+    );
+    expect(result.current.buildVariants).toEqual(buildVariants);
   });
 });

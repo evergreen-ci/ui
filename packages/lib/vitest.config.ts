@@ -10,6 +10,14 @@ const vitestConfig = defineTestConfig({
     setupFiles: "./config/vitest/setupTests.ts",
     globalSetup: "./config/vitest/global-setup.ts",
     include: ["src/**/*.test.{ts,tsx}"],
+    server: {
+      deps: {
+        // TODO(UXE-1082): drop @via-ds/components once its root entry stops
+        // pulling graphqlHighlight and its graphql-language-service imports
+        // carry file extensions, which Node's resolver requires.
+        inline: ["@via-ds/components"],
+      },
+    },
   },
   resolve: {
     tsconfigPaths: true,

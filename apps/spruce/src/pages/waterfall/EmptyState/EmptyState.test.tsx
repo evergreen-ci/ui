@@ -84,18 +84,16 @@ describe("EmptyState", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("does not offer to search older commits when only filters that search the full history are applied", () => {
+  it("offers to search older commits when another page exists", () => {
     renderEmptyState(
       basePagination,
       "/project/spruce/waterfall?requesters=ad_hoc",
     );
     expect(
       screen.getByText(
-        "Evergreen found no builds matching the applied filters.",
+        /Evergreen found no builds matching the applied filters in the 300 commits searched/,
       ),
     ).toBeVisible();
-    expect(
-      screen.queryByTestId("search-older-commits-button"),
-    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("search-older-commits-button")).toBeVisible();
   });
 });

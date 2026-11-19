@@ -4,8 +4,10 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@via-ds/components";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { cx } from "@evg-ui/lib/utils/css";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+import styles from "./CommitDescription.module.css";
 
 const { blue } = palette;
 
@@ -13,20 +15,26 @@ const DEFAULT_MAX_CHAR = 250;
 
 interface CommitDescriptionProps {
   author: string;
+  className?: string;
   inline?: boolean;
+  lineClamp?: 2 | 3;
   maxLength?: number;
   message: string;
   onJiraLinkClick?: () => void;
   onToggle?: (expanded: boolean) => void;
+  title?: string;
 }
 
 export const CommitDescription: React.FC<CommitDescriptionProps> = ({
   author,
+  className,
   inline = false,
+  lineClamp,
   maxLength = DEFAULT_MAX_CHAR,
   message,
   onJiraLinkClick,
   onToggle,
+  title,
 }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
@@ -55,8 +63,12 @@ export const CommitDescription: React.FC<CommitDescriptionProps> = ({
   const Wrapper = inline ? Body : BottomLabel;
 
   return (
-    <Wrapper>
-      <AuthorLabel>{author} • </AuthorLabel>
+    <Wrapper
+      className={cx(className, lineClamp && styles.clamped)}
+      data-line-clamp={lineClamp}
+      title={title}
+    >
+      <AuthorLabel>{author} &middot; </AuthorLabel>
       <WordBreak>
         {linkedMessage}
         {shouldTruncate ? (

@@ -1,5 +1,6 @@
 .description {
   margin-bottom: var(--via-space-200);
+  overflow-wrap: anywhere;
 }
 
 .field {

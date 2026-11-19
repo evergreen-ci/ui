@@ -47,7 +47,6 @@ export const DisableTasks: React.FC<Props> = ({
         </MenuItem>
       </div>
       <Popconfirm
-        align="left"
         onConfirm={() => {
           disableVersion({
             variables: { versionId, priority: -1 },
@@ -56,6 +55,7 @@ export const DisableTasks: React.FC<Props> = ({
         open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
+        side="left"
       >
         <Body weight="medium">Disable all tasks?</Body>
         <Body>

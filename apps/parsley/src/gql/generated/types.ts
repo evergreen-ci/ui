@@ -700,6 +700,7 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEngFlowCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -1038,14 +1039,6 @@ export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
 }
-
-/**
- * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
- * It's used to filter a display task's execution tasks.
- */
-export type ExecutionTasksFilterOptions = {
-  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-};
 
 export type Expansion = {
   __typename?: "Expansion";
@@ -2767,6 +2760,7 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2809,6 +2803,7 @@ export type Project = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
@@ -2817,6 +2812,11 @@ export type Project = {
   virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
+};
+
+/** Project models single repository on GitHub. */
+export type ProjectCommitsArgs = {
+  options: ProjectCommitsOptions;
 };
 
 /** Project models single repository on GitHub. */
@@ -2869,6 +2869,23 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCommits = {
+  __typename?: "ProjectCommits";
+  pagination: ProjectCommitsPagination;
+  versions: Array<Version>;
+};
+
+export type ProjectCommitsOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ProjectCommitsPagination = {
+  __typename?: "ProjectCommitsPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -2963,6 +2980,7 @@ export type ProjectInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3012,6 +3030,7 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3470,6 +3489,7 @@ export type RepoRef = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
+  stepbackPushTriggers: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
@@ -3522,6 +3542,7 @@ export type RepoRefInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3786,6 +3807,7 @@ export type SchedulerConfig = {
   expectedRuntimeFactor?: Maybe<Scalars["Int"]["output"]>;
   futureHostFraction?: Maybe<Scalars["Float"]["output"]>;
   generateTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  gitTagFactor?: Maybe<Scalars["Int"]["output"]>;
   groupVersions: Scalars["Boolean"]["output"];
   hostAllocator?: Maybe<HostAllocatorVersion>;
   hostAllocatorFeedbackRule?: Maybe<FeedbackRule>;
@@ -3811,6 +3833,7 @@ export type SchedulerConfigInput = {
   expectedRuntimeFactor: Scalars["Int"]["input"];
   futureHostFraction: Scalars["Float"]["input"];
   generateTaskFactor: Scalars["Int"]["input"];
+  gitTagFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   hostAllocator: HostAllocatorVersion;
   hostAllocatorFeedbackRule: FeedbackRule;
@@ -4261,11 +4284,6 @@ export type Task = {
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
-export type TaskExecutionTasksFullArgs = {
-  options?: InputMaybe<ExecutionTasksFilterOptions>;
-};
-
-/** Task models a task, the simplest unit of execution for Evergreen. */
 export type TaskPrevTaskCompletedArgs = {
   prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
@@ -4323,6 +4341,7 @@ export type TaskEndDetail = {
   oomTracker: OomTrackerInfo;
   otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
+  systemFailureReason?: Maybe<Scalars["String"]["output"]>;
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
   traceID?: Maybe<Scalars["String"]["output"]>;
@@ -4918,6 +4937,7 @@ export type UpdateVolumeInput = {
 
 export type UpstreamProject = {
   __typename?: "UpstreamProject";
+  baseVersion?: Maybe<Version>;
   owner: Scalars["String"]["output"];
   project: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -5043,6 +5063,11 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
+  /**
+   * The mainline version this version is based on. If repotrackerOnly is true, only a version created by the
+   * repotracker (gitter_request) is returned. Otherwise, the base version can have any mainline requester:
+   * gitter_request, trigger_request, ad_hoc, or git_tag_request.
+   */
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -5086,6 +5111,11 @@ export type Version = {
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
+};
+
+/** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Version models a commit within a project. */
@@ -5185,6 +5215,8 @@ export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Max active versions to return to the client, between 1 and 300. Mostly used to allow smaller tests. */
+  maxVersions?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -5194,9 +5226,11 @@ export type WaterfallOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
   taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
   variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 

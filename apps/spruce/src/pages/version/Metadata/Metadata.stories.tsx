@@ -65,7 +65,6 @@ const version: Version = {
   revision: "abc123def456",
   startTime: new Date("2024-01-01T15:05:00Z"),
   status: PatchStatus.Success,
-  taskCount: null,
   upstreamProject: null,
   user: {
     __typename: "User",
@@ -83,7 +82,7 @@ const version: Version = {
 const versionMock: ApolloMock<VersionQuery, VersionQueryVariables> = {
   request: {
     query: VERSION,
-    variables: { id: version.id, includeNeverActivatedTasks: false },
+    variables: { id: version.id },
   },
   result: {
     data: { version },

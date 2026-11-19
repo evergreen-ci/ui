@@ -50,7 +50,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
 
   return (
     <MetadataSection title="Execution">
-      {details?.description || details?.failingCommand ? (
+      {details?.description ||
+      details?.failingCommand ||
+      details?.systemFailureReason ? (
         <DetailsDescription
           details={details}
           isPushCompleted={isPushCompleted}

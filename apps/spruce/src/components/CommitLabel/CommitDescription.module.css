@@ -1,0 +1,15 @@
+.clamped {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.clamped[data-line-clamp="2"] {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+}
+
+.clamped[data-line-clamp="3"] {
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+}

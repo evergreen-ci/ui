@@ -50,6 +50,7 @@ describe("useQueryVariables", () => {
     });
     expect(result.current).toStrictEqual({
       versionId,
+      includeNeverActivatedTasks: false,
       taskFilterOptions: {
         taskName: "generate",
         includeNeverActivatedTasks: false,
@@ -77,6 +78,7 @@ describe("useQueryVariables", () => {
     });
     expect(result.current).toStrictEqual({
       versionId,
+      includeNeverActivatedTasks: false,
       taskFilterOptions: {
         taskName: "generate",
         includeNeverActivatedTasks: false,
@@ -100,6 +102,7 @@ describe("useQueryVariables", () => {
     });
     expect(result.current).toStrictEqual({
       versionId,
+      includeNeverActivatedTasks: true,
       taskFilterOptions: {
         baseStatuses: [],
         statuses: [],
@@ -157,6 +160,7 @@ describe("useQueryVariables", () => {
     });
     expect(result.current).toStrictEqual({
       versionId,
+      includeNeverActivatedTasks: true,
       taskFilterOptions: {
         taskName: "",
         includeNeverActivatedTasks: true,

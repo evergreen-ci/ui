@@ -1,5 +1,9 @@
 import { expect, test } from "../../fixtures";
-import { selectDatePickerDate, validateDatePickerDate } from "../../helpers";
+import {
+  isGraphQLQuery,
+  selectDatePickerDate,
+  validateDatePickerDate,
+} from "../../helpers";
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
@@ -12,8 +16,19 @@ test.describe("status filtering", () => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
     ).toContainText("1");
+    const filteredRequest = page.waitForRequest((request) =>
+      isGraphQLQuery(request, "Waterfall"),
+    );
     await page.getByTestId("status-filter").click();
     await page.getByTestId("failed-option").click();
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: {
+        options: {
+          includeAllBuildsAndTasks: false,
+          statuses: expect.arrayContaining(["failed"]),
+        },
+      },
+    });
     await expect(page.locator("a[data-tooltip]")).toHaveCount(4);
     await expect(page.getByTestId("version-label-active")).toHaveCount(4);
     await expect(page.getByTestId("inactive-versions-button")).toHaveCount(3);
@@ -55,14 +70,35 @@ test.describe("requester filtering", () => {
   });
 
   test("clears requester filters", async ({ page }) => {
+    const versionRevisions = page
+      .getByTestId("version-label-active")
+      .locator("code");
+    const unfilteredRevisions = [
+      "b0c52a7",
+      "2c9056d",
+      "d54e2c6",
+      "d54e2c6",
+      "d950163",
+    ];
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
+
     await page.getByTestId("requester-filter").click();
     await page.getByTestId("gitter_request-option").click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(4);
+    await expect(versionRevisions).toHaveText([
+      "2c9056d",
+      "d54e2c6",
+      "d950163",
+      "e391612",
+      "04a52b2",
+    ]);
+    await expect(page.getByTestId("inactive-versions-button")).toHaveCount(2);
+
     await page
       .getByTestId("requester-filter")
       .getByRole("button", { name: "Clear selection" })
       .click();
-    await expect(page.getByTestId("version-label-active")).toHaveCount(5);
+    await expect(page).not.toHaveURL(/requesters=/);
+    await expect(versionRevisions).toHaveText(unfilteredRevisions);
   });
 });
 
@@ -75,8 +111,14 @@ test.describe("build variant filtering", () => {
     page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
-    await page.getByTestId("build-variant-filter-input").fill("P");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("P");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
 
     const filterChip = page.getByTestId("filter-chip");
     await expect(filterChip).toHaveText("Variant: ^P$");
@@ -88,12 +130,19 @@ test.describe("build variant filtering", () => {
     await chipDismissButton.click();
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
 
-    await page.getByTestId("build-variant-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
-    await page.getByTestId("build-variant-filter-input").fill("Ubuntu");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("Ubuntu");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page).toHaveURL(/buildVariants=Ubuntu/);
     await expect(filterChip).toHaveText("Variant: Ubuntu");
 
@@ -101,9 +150,45 @@ test.describe("build variant filtering", () => {
     await expect(page.getByTestId("build-variant-label")).toHaveText(
       "Ubuntu 16.04",
     );
-    await page.getByTestId("build-variant-filter-input").fill("P");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("P");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page).toHaveURL(/buildVariants=Ubuntu,P/);
+  });
+
+  test("submitting a build variant tag filter uses variantTags", async ({
+    page,
+  }) => {
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.variantTags?.includes("ubuntu");
+    });
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Tag" })
+      .click();
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("ubuntu");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
+
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: { options: { variantTags: ["ubuntu"] } },
+    });
+    await expect(page).toHaveURL(/variantTags=ubuntu/);
+    await expect(page.getByTestId("filter-chip")).toHaveText("Variant: ubuntu");
   });
 });
 
@@ -116,8 +201,14 @@ test.describe("task filtering", () => {
     page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
-    await page.getByTestId("task-filter-input").fill("js-test");
-    await page.getByTestId("task-filter-input").press("Enter");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .fill("js-test");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
 
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
     await expect(page).toHaveURL(/tasks=%5Ejs%5C-test%24/);
@@ -135,12 +226,19 @@ test.describe("task filtering", () => {
     page,
   }) => {
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
-    await page.getByTestId("task-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
-    await page.getByTestId("task-filter-input").fill("agent");
-    await page.getByTestId("task-filter-input").press("Enter");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .fill("agent");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
 
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
     await expect(page).toHaveURL(/tasks=agent/);
@@ -153,8 +251,14 @@ test.describe("task filtering", () => {
       "test-agent - Succeeded",
     );
 
-    await page.getByTestId("task-filter-input").fill("lint");
-    await page.getByTestId("task-filter-input").press("Enter");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .fill("lint");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page).toHaveURL(/tasks=agent,lint/);
     await expect(page.getByTestId("build-variant-label")).toHaveCount(2);
     await expect(filterChips.nth(1)).toHaveText("Task: lint");
@@ -162,23 +266,65 @@ test.describe("task filtering", () => {
   });
 
   test("correctly applies build variant and task filters", async ({ page }) => {
-    await page.getByTestId("build-variant-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Build Variant Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
-    await page.getByTestId("task-filter-select").click();
-    await expect(page.locator('[role="listbox"]')).toHaveCount(1);
-    await page.locator('[role="listbox"]').getByText("Regex").click();
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Regex" })
+      .click();
 
-    await page.getByTestId("build-variant-filter-input").fill("Ubuntu");
-    await page.getByTestId("build-variant-filter-input").press("Enter");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .fill("Ubuntu");
+    await page
+      .getByTestId("build-variant-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
     await expect(page.locator("a[data-tooltip]")).toHaveCount(45);
-    await page.getByTestId("task-filter-input").fill("agent");
-    await page.getByTestId("task-filter-input").press("Enter");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .fill("agent");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
     await expect(page.getByTestId("build-variant-label")).toHaveCount(1);
     await expect(page.locator("a[data-tooltip]")).toHaveCount(1);
     await expect(page.getByTestId("filter-chip")).toHaveCount(2);
+  });
+
+  test("submitting a task tag filter uses taskTags", async ({ page }) => {
+    const filteredRequest = page.waitForRequest((request) => {
+      if (!isGraphQLQuery(request, "Waterfall")) {
+        return false;
+      }
+      const { options } = request.postDataJSON().variables;
+      return !!options.taskTags?.includes("lint");
+    });
+    await page
+      .getByRole("radiogroup", { name: "Task Filter Filter Type" })
+      .getByRole("radio", { name: "Tag" })
+      .click();
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .fill("lint");
+    await page
+      .getByTestId("task-filter-input")
+      .getByRole("textbox")
+      .press("Enter");
+
+    expect((await filteredRequest).postDataJSON()).toMatchObject({
+      variables: { options: { taskTags: ["lint"] } },
+    });
+    await expect(page).toHaveURL(/taskTags=lint/);
+    await expect(page.getByTestId("filter-chip")).toHaveText("Task: lint");
   });
 });
 
