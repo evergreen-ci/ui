@@ -86,42 +86,48 @@ export const PatchesPage: React.FC<Props> = ({
       >
         {pageTitle}
       </Text>
-      <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
-        <SearchField
-          aria-label="Search patch descriptions"
-          data-testid="patch-description-input"
-          errorMessage="Invalid regex"
-          isInvalid={!validateRegexp(patchNameInput)}
-          onChange={handleInputChange}
-          placeholder="Patch description regex"
-          value={patchNameInput}
-        />
-        <StatusSelector />
-        {filterComp}
-        <Checkbox
-          className={styles.hiddenCheckbox}
-          data-testid="include-hidden-checkbox"
-          isSelected={includeHiddenCheckboxChecked}
-          onChange={includeHiddenCheckboxOnChange}
-        >
-          Include hidden
-        </Checkbox>
-      </FiltersWrapper>
-      <PaginationButtons
-        filteredPatchCount={filteredCount}
-        loading={loading}
-        pageType={pageType}
-      />
+      <div className={styles.filterRow}>
+        <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
+          <SearchField
+            aria-label="Search patch descriptions"
+            data-testid="patch-description-input"
+            errorMessage="Invalid regex"
+            isInvalid={!validateRegexp(patchNameInput)}
+            onChange={handleInputChange}
+            placeholder="Patch description regex"
+            value={patchNameInput}
+          />
+          <StatusSelector />
+          {filterComp}
+          <Checkbox
+            className={styles.hiddenCheckbox}
+            data-testid="include-hidden-checkbox"
+            isSelected={includeHiddenCheckboxChecked}
+            onChange={includeHiddenCheckboxOnChange}
+          >
+            Include hidden
+          </Checkbox>
+        </FiltersWrapper>
+        <div className={styles.topPagination}>
+          <PaginationButtons
+            filteredPatchCount={filteredCount}
+            loading={loading}
+            pageType={pageType}
+          />
+        </div>
+      </div>
       <ListArea
         loading={loading}
         pageType={pageType}
         patches={patches?.patches || []}
       />
       {!loading && filteredCount > 10 ? (
-        <PaginationButtons
-          filteredPatchCount={filteredCount}
-          pageType={pageType}
-        />
+        <div className={styles.bottomPagination}>
+          <PaginationButtons
+            filteredPatchCount={filteredCount}
+            pageType={pageType}
+          />
+        </div>
       ) : null}
     </PageWrapper>
   );
