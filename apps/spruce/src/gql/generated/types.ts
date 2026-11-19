@@ -2757,7 +2757,6 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
-  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2812,11 +2811,6 @@ export type Project = {
 };
 
 /** Project models single repository on GitHub. */
-export type ProjectCommitsArgs = {
-  options: ProjectCommitsOptions;
-};
-
-/** Project models single repository on GitHub. */
 export type ProjectPatchesArgs = {
   patchesInput: PatchesInput;
 };
@@ -2866,23 +2860,6 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
-};
-
-export type ProjectCommits = {
-  __typename?: "ProjectCommits";
-  pagination: ProjectCommitsPagination;
-  versions: Array<Version>;
-};
-
-export type ProjectCommitsOptions = {
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
-};
-
-export type ProjectCommitsPagination = {
-  __typename?: "ProjectCommitsPagination";
-  hasNextPage: Scalars["Boolean"]["output"];
-  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -12163,6 +12140,7 @@ export type TaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;
@@ -12828,6 +12806,7 @@ export type VersionQuery = {
       __typename?: "Project";
       id: string;
       branch: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;

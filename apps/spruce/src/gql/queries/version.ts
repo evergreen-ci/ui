@@ -88,6 +88,7 @@ export const VERSION = gql`
       projectMetadata {
         id
         branch
+        enabled
         identifier
         owner
         repo
