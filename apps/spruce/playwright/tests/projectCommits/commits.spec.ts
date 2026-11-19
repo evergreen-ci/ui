@@ -85,8 +85,10 @@ test.describe("project commit history", () => {
     await expect(page.getByRole("link", { name: "abcdef1" })).toBeVisible();
     await page.getByTestId("project-select").click();
     await page
+      .getByTestId("project-select-options")
       .getByTestId("project-display-name")
-      .getByText("Spruce", { exact: true })
+      .filter({ hasText: /^Spruce$/ })
+      .first()
       .click();
 
     await expect(page).toHaveURL("/project/spruce/commits");

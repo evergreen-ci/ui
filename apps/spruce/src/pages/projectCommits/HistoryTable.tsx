@@ -18,6 +18,7 @@ type Version =
   ProjectCommitHistoryQuery["project"]["commits"]["versions"][number];
 
 const columnHelper = createColumnHelper<Version>();
+const EMPTY_VERSIONS: Version[] = [];
 
 export const HistoryTable: React.FC<{
   loading: boolean;
@@ -25,7 +26,7 @@ export const HistoryTable: React.FC<{
 }> = ({ loading, versions }) => {
   const table = useLeafyGreenTable({
     columns,
-    data: versions ?? [],
+    data: versions ?? EMPTY_VERSIONS,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,

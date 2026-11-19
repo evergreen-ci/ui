@@ -1,5 +1,6 @@
 import {
   MockedProvider,
+  act,
   renderWithRouterMatch,
   screen,
   userEvent,
@@ -118,6 +119,33 @@ describe("ProjectCommits", () => {
         screen.queryByRole("button", { name: "Show more commits" }),
       ).not.toBeInTheDocument();
     });
+  });
+
+  it("loads a different project without hanging or retaining the previous project's rows", async () => {
+    const otherProjectMock: HistoryMock = {
+      request: {
+        query: PROJECT_COMMIT_HISTORY,
+        variables: { ...initialVariables, projectIdentifier: "spruce" },
+      },
+      result: { data: makeCommitHistoryData([secondVersion], false, "spruce") },
+      delay: 100,
+    };
+    const { router } = renderPage([firstPageMock, otherProjectMock]);
+    expect(await screen.findByRole("link", { name: "abcdef1" })).toBeVisible();
+
+    await act(async () => {
+      await router.navigate(getProjectCommitsRoute("spruce"));
+    });
+
+    expect(
+      screen.queryByRole("link", { name: "abcdef1" }),
+    ).not.toBeInTheDocument();
+    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(
+      51,
+    );
+    expect(await screen.findByRole("link", { name: "123456a" })).toBeVisible();
+    expect(screen.getAllByTestId("leafygreen-table-row")).toHaveLength(1);
+    expect(document.title).toContain("spruce Commits");
   });
 
   it("shows loading rows until the first page arrives", async () => {
