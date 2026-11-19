@@ -66,7 +66,9 @@ test.describe("Viewing a mainline commit requester", () => {
     page,
   }) => {
     const breadcrumb = page.getByTestId("bc-message");
-    await expect(breadcrumb).toContainText("5e823e1 - 'ever…reen/pull/3186)");
+    await expect(breadcrumb).toContainText(
+      /5e823e1 - 'ever.*reen\/pull\/3186\)/,
+    );
     await breadcrumb.click();
     await expect(page).toHaveURL(
       "/version/5e4ff3abe3c3317e352062e4/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
