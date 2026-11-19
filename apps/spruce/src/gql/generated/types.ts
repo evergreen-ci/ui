@@ -12163,6 +12163,7 @@ export type TaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;
@@ -12828,6 +12829,7 @@ export type VersionQuery = {
       __typename?: "Project";
       id: string;
       branch: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;
