@@ -26,3 +26,13 @@
     cursor: pointer;
   }
 }
+
+/* TODO(UXE-1516): Remove once StyledLink and StyledRouterLink migrate to Via Link. */
+.legacyLinks a,
+.legacyLinks a:hover,
+.legacyLinks a:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: currentcolor;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+}

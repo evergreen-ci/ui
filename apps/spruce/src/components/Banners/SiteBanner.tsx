@@ -3,6 +3,7 @@ import { Banner, BannerVariant, Text } from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+import styles from "./styles.module.css";
 
 export interface SiteBannerProps {
   text: string;
@@ -25,6 +26,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   const variant = mapThemeToVariant[theme?.toLowerCase()] ?? BannerVariant.Info;
   return showBanner ? (
     <Banner
+      className={styles.legacyLinks}
       data-testid={`sitewide-banner-${variant}`}
       onClose={hideBanner}
       variant={variant}
