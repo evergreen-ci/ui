@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
-import { FiltersWrapper, PageWrapper } from "components/styles";
+import { PageWrapper } from "components/styles";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
@@ -87,7 +87,7 @@ export const PatchesPage: React.FC<Props> = ({
         {pageTitle}
       </Text>
       <div className={styles.filterRow}>
-        <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
+        <div className={styles.filters}>
           <SearchField
             aria-label="Search patch descriptions"
             data-testid="patch-description-input"
@@ -107,7 +107,7 @@ export const PatchesPage: React.FC<Props> = ({
           >
             Include hidden
           </Checkbox>
-        </FiltersWrapper>
+        </div>
         <div className={styles.topPagination}>
           <PaginationButtons
             filteredPatchCount={filteredCount}
