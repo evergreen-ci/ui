@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import {
   Dialog,
   DialogProps,
@@ -10,8 +11,8 @@ import { Text } from "@via-ds/components/typography";
 type DisplayModalProps = Pick<DialogProps, "children" | "size"> &
   Pick<DialogRootProps, "isOpen" | "onOpenChange"> & {
     "data-testid"?: string;
-    subtitle?: string;
-    title: React.ReactNode;
+    subtitle?: ReactNode;
+    title: ReactNode;
   };
 
 export const DisplayModal: React.FC<DisplayModalProps> = ({
