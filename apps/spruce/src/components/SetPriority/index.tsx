@@ -37,6 +37,9 @@ type SetPriorityProps = (
   popconfirmAlign?: Align;
 };
 
+const INTEGER_PATTERN = /^-?\d+$/;
+const PARTIAL_INTEGER_PATTERN = /^-?\d*$/;
+
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
@@ -54,7 +57,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const { sendEvent: sendTaskEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
-  const [priority, setPriority] = useState<number>(initialPriority);
+  const [input, setInput] = useState(initialPriority.toString());
+  const isValidPriority = INTEGER_PATTERN.test(input);
+  const priority = isValidPriority ? parseInt(input, 10) : NaN;
   const [internalOpen, setInternalOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -139,6 +144,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       )}
       <Popconfirm
         align={popconfirmAlign ?? (refEl ? Align.Center : Align.Start)}
+        confirmDisabled={!isValidPriority}
         confirmText="Set"
         data-testid={`set-${label}-priority-popconfirm`}
         onConfirm={onConfirm}
@@ -153,14 +159,18 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           data-testid={`${label}-priority-input`}
           inputMode="numeric"
           label="Set New Priority"
-          onChange={(value) => setPriority(parseInt(value, 10))}
+          onChange={(value) => {
+            if (PARTIAL_INTEGER_PATTERN.test(value)) {
+              setInput(value);
+            }
+          }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && isValidPriority) {
               onConfirm();
               setOpen(false);
             }
           }}
-          value={Number.isNaN(priority) ? "" : priority.toString()}
+          value={input}
         />
         <div className={styles.messageSlot}>
           {priority >= 0 && priority < 50 && (

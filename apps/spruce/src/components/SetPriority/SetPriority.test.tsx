@@ -132,6 +132,58 @@ describe("setPriority", () => {
     });
   });
 
+  describe("input validation", () => {
+    it("accepts a negative priority", async () => {
+      const user = userEvent.setup();
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      await user.type(input, "-1");
+      expect(input).toHaveValue("-1");
+      expect(screen.getByRole("button", { name: "Set" })).toBeEnabled();
+    });
+
+    it("disables Set and ignores Enter when the input is not a number", async () => {
+      const user = userEvent.setup();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      expect(screen.getByRole("button", { name: "Set" })).toBeDisabled();
+      await user.type(input, "{Enter}");
+      expect(dispatchToast.success).not.toHaveBeenCalled();
+      await user.type(input, "-");
+      expect(input).toHaveValue("-");
+      expect(screen.getByRole("button", { name: "Set" })).toBeDisabled();
+    });
+
+    it("ignores non-numeric characters", async () => {
+      const user = userEvent.setup();
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      await user.type(input, "1a2");
+      expect(input).toHaveValue("12");
+    });
+  });
+
   describe("task priority", () => {
     it("shows correct initial priority", async () => {
       const { Component } = RenderFakeToastContext(
