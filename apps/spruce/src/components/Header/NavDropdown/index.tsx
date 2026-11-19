@@ -91,7 +91,7 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
           {"menuItems" in menuItem ? (
             <>
               <MenuSeparator />
-              <MenuGroup>
+              <MenuGroup title={menuItem.text}>
                 {menuItem.menuItems.map((m) => (
                   <NavDropdownItem
                     key={`dropdown_${m.text}`}
