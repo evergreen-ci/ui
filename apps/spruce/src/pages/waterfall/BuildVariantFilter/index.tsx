@@ -1,30 +1,27 @@
 import { useCallback } from "react";
-import styled from "@emotion/styled";
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { setLocalStorageString } from "@evg-ui/lib/utils/localStorage";
 import { useWaterfallAnalytics } from "analytics";
-import TupleSelect from "components/TupleSelect";
 import { useUpsertQueryParams } from "hooks";
-import {
-  VARIANT_FILTER_SETTING_KEY,
-  stringFilterTooltipText,
-  tupleSelectOptions,
-} from "../constants";
+import { VARIANT_FILTER_SETTING_KEY, tupleSelectOptions } from "../constants";
+import TextFilterInput from "../TextFilterInput";
 import { FilterType, WaterfallFilterOptions } from "../types";
 import { getFilterType, makeExactFilter } from "../utils";
 
 export const BuildVariantFilter = () => {
-  const onSubmit = useUpsertQueryParams();
+  const updateURL = useUpsertQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
 
-  const onSubmitTupleSelect = useCallback(
+  const onSubmit = useCallback(
     ({ category, value }: { category: string; value: string }) => {
       const filterType = category as FilterType;
-      const isRegex = filterType === FilterType.Regex;
-      const filterValue = isRegex ? value : makeExactFilter(value);
-      onSubmit({
-        category: WaterfallFilterOptions.BuildVariant,
+      const filterValue =
+        filterType === FilterType.Exact ? makeExactFilter(value) : value;
+      const param =
+        filterType === FilterType.Tag
+          ? WaterfallFilterOptions.VariantTags
+          : WaterfallFilterOptions.BuildVariant;
+      updateURL({
+        category: param,
         value: filterValue,
       });
       sendEvent({
@@ -33,7 +30,7 @@ export const BuildVariantFilter = () => {
         "filter.value": filterValue,
       });
     },
-    [onSubmit, sendEvent],
+    [updateURL, sendEvent],
   );
 
   const defaultFilterType = getFilterType(VARIANT_FILTER_SETTING_KEY);
@@ -43,18 +40,13 @@ export const BuildVariantFilter = () => {
   }, []);
 
   return (
-    <TupleSelect
+    <TextFilterInput
       ariaLabel="Build Variant Filter"
       data-testid="build-variant-filter"
       defaultOption={defaultFilterType}
       id="build-variant-filter"
-      label={
-        <LabelContainer>
-          <span>Build Variant</span>
-          <InfoSprinkle>{stringFilterTooltipText}</InfoSprinkle>
-        </LabelContainer>
-      }
-      onSubmit={onSubmitTupleSelect}
+      label="Build Variant"
+      onSubmit={onSubmit}
       onToggleOption={handleToggleOption}
       options={tupleSelectOptions}
       placeholder="Search"
@@ -62,9 +54,3 @@ export const BuildVariantFilter = () => {
     />
   );
 };
-
-const LabelContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xxs};
-`;

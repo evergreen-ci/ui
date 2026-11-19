@@ -92,7 +92,7 @@ test.describe("Dropdown Menu of Patch Actions", () => {
     await expect(
       page
         .getByRole("region", { name: "Notifications" })
-        .getByRole("status")
+        .getByRole("listitem")
         .filter({ hasText: "Successfully restarted tasks!" }),
     ).toBeVisible();
   });

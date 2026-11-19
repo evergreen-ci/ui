@@ -8,6 +8,7 @@ import {
   Label,
   LabeledValue,
   Link,
+  Orientation,
   Skeleton,
   TextAliasProps,
 } from "@via-ds/components";
@@ -86,6 +87,7 @@ interface ItemProps {
   elementType?: "p" | "div";
   label?: string;
   labelColor?: string;
+  orientation?: Orientation;
   tooltipDescription?: string;
 }
 
@@ -95,6 +97,7 @@ export const MetadataItem: React.FC<ItemProps> = ({
   elementType = "p",
   label,
   labelColor,
+  orientation = Orientation.Horizontal,
   tooltipDescription,
 }) => (
   <div className={styles.itemWrapper}>
@@ -102,10 +105,11 @@ export const MetadataItem: React.FC<ItemProps> = ({
       <LabeledValue
         className={styles.item}
         data-testid={dataTestId}
-        orientation="horizontal"
+        orientation={orientation}
       >
         <Label style={labelColor ? { color: labelColor } : undefined}>
-          {label}:
+          {label}
+          {orientation === Orientation.Horizontal ? ":" : null}
         </Label>
         <Body elementType={elementType === "div" ? "div" : "span"}>
           {children}

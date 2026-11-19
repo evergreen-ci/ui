@@ -697,6 +697,7 @@ export type Cost = {
   adjustedEBSStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEBSThroughputCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedEC2Cost?: Maybe<Scalars["Float"]["output"]>;
+  adjustedEngFlowCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactPutCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3ArtifactStorageCost?: Maybe<Scalars["Float"]["output"]>;
   adjustedS3LogPutCost?: Maybe<Scalars["Float"]["output"]>;
@@ -1035,14 +1036,6 @@ export enum ExecutionPlatform {
   Container = "CONTAINER",
   Host = "HOST",
 }
-
-/**
- * ExecutionTasksFilterOptions is an input for the task.executionTasksFull field.
- * It's used to filter a display task's execution tasks.
- */
-export type ExecutionTasksFilterOptions = {
-  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-};
 
 export type Expansion = {
   __typename?: "Expansion";
@@ -2764,6 +2757,7 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2806,6 +2800,7 @@ export type Project = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<TaskOwnershipSettings>;
   testSelection?: Maybe<TestSelectionSettings>;
@@ -2814,6 +2809,11 @@ export type Project = {
   virtualTasksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   workstationConfig: WorkstationConfig;
+};
+
+/** Project models single repository on GitHub. */
+export type ProjectCommitsArgs = {
+  options: ProjectCommitsOptions;
 };
 
 /** Project models single repository on GitHub. */
@@ -2866,6 +2866,23 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCommits = {
+  __typename?: "ProjectCommits";
+  pagination: ProjectCommitsPagination;
+  versions: Array<Version>;
+};
+
+export type ProjectCommitsOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ProjectCommitsPagination = {
+  __typename?: "ProjectCommitsPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -2960,6 +2977,7 @@ export type ProjectInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3009,6 +3027,7 @@ export type ProjectLite = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  stepbackPushTriggers?: Maybe<Scalars["Boolean"]["output"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   waterfallDisabled?: Maybe<Scalars["Boolean"]["output"]>;
 };
@@ -3467,6 +3486,7 @@ export type RepoRef = {
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
+  stepbackPushTriggers: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskOwnership?: Maybe<RepoTaskOwnershipSettings>;
   testSelection?: Maybe<RepoTestSelectionSettings>;
@@ -3519,6 +3539,7 @@ export type RepoRefInput = {
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  stepbackPushTriggers?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskOwnership?: InputMaybe<TaskOwnershipSettingsInput>;
   testSelection?: InputMaybe<TestSelectionSettingsInput>;
@@ -3783,6 +3804,7 @@ export type SchedulerConfig = {
   expectedRuntimeFactor?: Maybe<Scalars["Int"]["output"]>;
   futureHostFraction?: Maybe<Scalars["Float"]["output"]>;
   generateTaskFactor?: Maybe<Scalars["Int"]["output"]>;
+  gitTagFactor?: Maybe<Scalars["Int"]["output"]>;
   groupVersions: Scalars["Boolean"]["output"];
   hostAllocator?: Maybe<HostAllocatorVersion>;
   hostAllocatorFeedbackRule?: Maybe<FeedbackRule>;
@@ -3808,6 +3830,7 @@ export type SchedulerConfigInput = {
   expectedRuntimeFactor: Scalars["Int"]["input"];
   futureHostFraction: Scalars["Float"]["input"];
   generateTaskFactor: Scalars["Int"]["input"];
+  gitTagFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   hostAllocator: HostAllocatorVersion;
   hostAllocatorFeedbackRule: FeedbackRule;
@@ -4259,11 +4282,6 @@ export type Task = {
 };
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
-export type TaskExecutionTasksFullArgs = {
-  options?: InputMaybe<ExecutionTasksFilterOptions>;
-};
-
-/** Task models a task, the simplest unit of execution for Evergreen. */
 export type TaskPrevTaskCompletedArgs = {
   prevTaskOptions?: InputMaybe<PrevTaskOptions>;
 };
@@ -4321,6 +4339,7 @@ export type TaskEndDetail = {
   oomTracker: OomTrackerInfo;
   otherFailingCommands: Array<FailingCommand>;
   status: Scalars["String"]["output"];
+  systemFailureReason?: Maybe<Scalars["String"]["output"]>;
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
   timeoutType?: Maybe<Scalars["String"]["output"]>;
   traceID?: Maybe<Scalars["String"]["output"]>;
@@ -4916,6 +4935,7 @@ export type UpdateVolumeInput = {
 
 export type UpstreamProject = {
   __typename?: "UpstreamProject";
+  baseVersion?: Maybe<Version>;
   owner: Scalars["String"]["output"];
   project: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -5041,6 +5061,11 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
   authorEmail: Scalars["String"]["output"];
+  /**
+   * The mainline version this version is based on. If repotrackerOnly is true, only a version created by the
+   * repotracker (gitter_request) is returned. Otherwise, the base version can have any mainline requester:
+   * gitter_request, trigger_request, ad_hoc, or git_tag_request.
+   */
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
@@ -5084,6 +5109,11 @@ export type Version = {
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
   waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
+};
+
+/** Version models a commit within a project. */
+export type VersionBaseVersionArgs = {
+  repotrackerOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Version models a commit within a project. */
@@ -5183,6 +5213,8 @@ export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Max active versions to return to the client, between 1 and 300. Mostly used to allow smaller tests. */
+  maxVersions?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order greater than minOrder. Used for paginating backward. */
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   omitInactiveBuilds?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -5192,9 +5224,11 @@ export type WaterfallOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on task names. Note that if false, performance will be slower. */
   taskCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   /** Toggle case sensitivity when matching on variant names. Note that if false, performance will be slower. */
   variantCaseSensitive?: InputMaybe<Scalars["Boolean"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
@@ -5589,6 +5623,7 @@ export type ProjectGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
+  stepbackPushTriggers?: boolean | null;
   versionControlEnabled?: boolean | null;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled?: boolean | null;
@@ -5613,6 +5648,7 @@ export type RepoGeneralSettingsFragment = {
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
+  stepbackPushTriggers: boolean;
   versionControlEnabled: boolean;
   virtualTasksEnabled?: boolean | null;
   waterfallDisabled: boolean;
@@ -5793,6 +5829,7 @@ export type ProjectSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -6015,6 +6052,7 @@ export type RepoSettingsFieldsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
+    stepbackPushTriggers: boolean;
     versionControlEnabled: boolean;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled: boolean;
@@ -6432,6 +6470,7 @@ export type ProjectEventSettingsFragment = {
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
+    stepbackPushTriggers?: boolean | null;
     versionControlEnabled?: boolean | null;
     virtualTasksEnabled?: boolean | null;
     waterfallDisabled?: boolean | null;
@@ -6785,7 +6824,53 @@ export type UpstreamProjectFragment = {
     revision: string;
     triggerID: string;
     triggerType: string;
-    task?: { __typename?: "Task"; id: string; execution: number } | null;
+    task?: {
+      __typename?: "Task";
+      id: string;
+      displayName: string;
+      execution: number;
+    } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
+export type UpstreamProjectHashFragment = {
+  __typename?: "Version";
+  id: string;
+  upstreamProject?: { __typename?: "UpstreamProject"; revision: string } | null;
+};
+
+export type VersionTriggerInfoFragment = {
+  __typename?: "Version";
+  id: string;
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    baseVersion?: {
+      __typename?: "Version";
+      id: string;
+      createTime: Date;
+      message: string;
+      revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      user: { __typename?: "User"; id: string; displayName?: string | null };
+    } | null;
+    task?: {
+      __typename?: "Task";
+      id: string;
+      displayName: string;
+      execution: number;
+    } | null;
     version?: { __typename?: "Version"; id: string } | null;
   } | null;
 };
@@ -7369,6 +7454,7 @@ export type SaveAdminSettingsMutation = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
@@ -8171,6 +8257,7 @@ export type AdminSettingsQuery = {
       expectedRuntimeFactor?: number | null;
       futureHostFraction?: number | null;
       generateTaskFactor?: number | null;
+      gitTagFactor?: number | null;
       groupVersions: boolean;
       hostAllocator?: HostAllocatorVersion | null;
       hostAllocatorFeedbackRule?: FeedbackRule | null;
@@ -9234,6 +9321,40 @@ export type MainlineCommitsForHistoryQuery = {
           displayName?: string | null;
           userId: string;
         };
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -9272,7 +9393,30 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
-          task?: { __typename?: "Task"; id: string; execution: number } | null;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
           version?: { __typename?: "Version"; id: string } | null;
         } | null;
       } | null;
@@ -9584,6 +9728,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -9820,6 +9965,7 @@ export type ProjectEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10121,6 +10267,7 @@ export type ProjectSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
+      stepbackPushTriggers?: boolean | null;
       versionControlEnabled?: boolean | null;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled?: boolean | null;
@@ -10405,6 +10552,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10641,6 +10789,7 @@ export type RepoEventLogsQuery = {
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
+          stepbackPushTriggers?: boolean | null;
           versionControlEnabled?: boolean | null;
           virtualTasksEnabled?: boolean | null;
           waterfallDisabled?: boolean | null;
@@ -10883,6 +11032,7 @@ export type RepoSettingsQuery = {
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
+      stepbackPushTriggers: boolean;
       versionControlEnabled: boolean;
       virtualTasksEnabled?: boolean | null;
       waterfallDisabled: boolean;
@@ -11471,7 +11621,48 @@ export type TaskHistoryQuery = {
         __typename?: "Version";
         id: string;
         message: string;
+        revision: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          owner: string;
+          repo: string;
+        } | null;
         user: { __typename?: "User"; id: string; displayName?: string | null };
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          baseVersion?: {
+            __typename?: "Version";
+            id: string;
+            createTime: Date;
+            message: string;
+            revision: string;
+            projectMetadata?: {
+              __typename?: "Project";
+              id: string;
+              owner: string;
+              repo: string;
+            } | null;
+            user: {
+              __typename?: "User";
+              id: string;
+              displayName?: string | null;
+            };
+          } | null;
+          task?: {
+            __typename?: "Task";
+            id: string;
+            displayName: string;
+            execution: number;
+          } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
       };
     }>;
   };
@@ -11896,7 +12087,15 @@ export type TaskQuery = {
       revision?: string | null;
       status: string;
       timeTaken?: number | null;
-      versionMetadata: { __typename?: "Version"; id: string; revision: string };
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        revision: string;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          revision: string;
+        } | null;
+      };
     } | null;
     dependsOn?: Array<{
       __typename?: "Dependency";
@@ -11913,6 +12112,7 @@ export type TaskQuery = {
       failingCommand?: string | null;
       failureMetadataTags: Array<string>;
       status: string;
+      systemFailureReason?: string | null;
       timedOut?: boolean | null;
       timeoutType?: string | null;
       traceID?: string | null;
@@ -12007,6 +12207,10 @@ export type TaskQuery = {
         displayName?: string | null;
         userId: string;
       };
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        revision: string;
+      } | null;
     };
   } | null;
 };
@@ -12342,6 +12546,7 @@ export type VersionQuarantinedTasksQuery = {
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionTaskDurationsQuery = {
@@ -12350,6 +12555,7 @@ export type VersionTaskDurationsQuery = {
     __typename?: "Version";
     id: string;
     isPatch: boolean;
+    taskCount?: number | null;
     childVersions?: Array<{
       __typename?: "Version";
       id: string;
@@ -12410,6 +12616,7 @@ export type VersionTaskDurationsQuery = {
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionTasksQuery = {
@@ -12418,6 +12625,7 @@ export type VersionTasksQuery = {
     __typename?: "Version";
     id: string;
     isPatch: boolean;
+    taskCount?: number | null;
     tasks: {
       __typename?: "VersionTasks";
       count: number;
@@ -12504,7 +12712,12 @@ export type VersionUpstreamProjectQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; id: string; execution: number } | null;
+      task?: {
+        __typename?: "Task";
+        id: string;
+        displayName: string;
+        execution: number;
+      } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };
@@ -12512,7 +12725,6 @@ export type VersionUpstreamProjectQuery = {
 
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
-  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
 }>;
 
 export type VersionQuery = {
@@ -12534,7 +12746,6 @@ export type VersionQuery = {
     revision: string;
     startTime?: Date | null;
     status: string;
-    taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
     childVersions?: Array<{
@@ -12608,6 +12819,10 @@ export type VersionQuery = {
       __typename?: "Version";
       id: string;
       revision: string;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        revision: string;
+      } | null;
     } | null;
     projectMetadata?: {
       __typename?: "Project";
@@ -12635,7 +12850,12 @@ export type VersionQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; id: string; execution: number } | null;
+      task?: {
+        __typename?: "Task";
+        id: string;
+        displayName: string;
+        execution: number;
+      } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };
@@ -12710,6 +12930,12 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
       user: {
         __typename?: "User";
         displayName?: string | null;
@@ -12729,6 +12955,40 @@ export type WaterfallQuery = {
           execution: number;
         }>;
       }> | null;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        owner: string;
+        project: string;
+        repo: string;
+        revision: string;
+        triggerID: string;
+        triggerType: string;
+        baseVersion?: {
+          __typename?: "Version";
+          id: string;
+          createTime: Date;
+          message: string;
+          revision: string;
+          projectMetadata?: {
+            __typename?: "Project";
+            id: string;
+            owner: string;
+            repo: string;
+          } | null;
+          user: {
+            __typename?: "User";
+            id: string;
+            displayName?: string | null;
+          };
+        } | null;
+        task?: {
+          __typename?: "Task";
+          id: string;
+          displayName: string;
+          execution: number;
+        } | null;
+        version?: { __typename?: "Version"; id: string } | null;
+      } | null;
     }>;
   };
 };

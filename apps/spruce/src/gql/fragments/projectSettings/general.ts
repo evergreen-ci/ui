@@ -22,6 +22,7 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
+    stepbackPushTriggers
     versionControlEnabled
     virtualTasksEnabled
     waterfallDisabled
@@ -47,6 +48,7 @@ export const REPO_GENERAL_SETTINGS = gql`
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
+    stepbackPushTriggers
     versionControlEnabled
     virtualTasksEnabled
     waterfallDisabled

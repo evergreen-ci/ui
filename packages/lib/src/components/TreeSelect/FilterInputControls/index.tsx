@@ -1,8 +1,5 @@
-import {
-  Button,
-  Size as ButtonSize,
-  Variant as ButtonVariant,
-} from "@leafygreen-ui/button";
+import { Button, ButtonVariant } from "@via-ds/components/button";
+import { Size } from "@via-ds/components/types";
 import styles from "./index.module.css";
 
 interface Props {
@@ -18,13 +15,13 @@ export const FilterInputControls: React.FC<Props> = ({
 }) => (
   <div className={styles.buttonsWrapper}>
     <div className={styles.buttonWrapper}>
-      <Button onClick={onClickReset} size={ButtonSize.Small}>
+      <Button onPress={onClickReset} size={Size.Small}>
         Reset
       </Button>
     </div>
     <Button
-      onClick={onClickSubmit}
-      size={ButtonSize.Small}
+      onPress={onClickSubmit}
+      size={Size.Small}
       variant={ButtonVariant.Primary}
     >
       {submitButtonCopy}

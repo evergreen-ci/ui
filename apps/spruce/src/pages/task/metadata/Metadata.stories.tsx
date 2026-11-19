@@ -143,6 +143,33 @@ export const OOMTracker: CustomStoryObj<typeof Metadata> = {
   ),
 };
 
+export const SystemFailure: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          details: {
+            failingCommand: "",
+            description: "stranded",
+            diskDevices: [],
+            oomTracker: {
+              detected: false,
+            },
+            status: TaskStatus.Failed,
+            systemFailureReason:
+              "host was found in state 'stopped' (reason: Client.UserInitiatedShutdown: User initiated shutdown)",
+            type: "system",
+            failureMetadataTags: [],
+            otherFailingCommands: [],
+          },
+        }}
+      />
+    </Container>
+  ),
+};
+
 const taskOwnerTeamMock: ApolloMock<
   TaskOwnerTeamsForTaskQuery,
   TaskOwnerTeamsForTaskQueryVariables

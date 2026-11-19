@@ -4,6 +4,7 @@ export const VERSION_TASK_DURATIONS = gql`
   query VersionTaskDurations(
     $versionId: String!
     $taskFilterOptions: TaskFilterOptions!
+    $includeNeverActivatedTasks: Boolean
   ) {
     version(versionId: $versionId) {
       id
@@ -17,6 +18,9 @@ export const VERSION_TASK_DURATIONS = gql`
         startTime
       }
       isPatch
+      taskCount(
+        options: { includeNeverActivatedTasks: $includeNeverActivatedTasks }
+      )
       tasks(options: $taskFilterOptions) {
         count
         data {

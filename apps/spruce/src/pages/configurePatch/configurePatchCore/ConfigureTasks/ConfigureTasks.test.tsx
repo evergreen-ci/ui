@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, within } from "@evg-ui/lib/test_utils";
 import ConfigureTasks from ".";
 
 describe("configureTasks", () => {
@@ -221,7 +221,10 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      await user.type(screen.getByTestId("task-filter-input"), "^c");
+      await user.type(
+        within(screen.getByTestId("task-filter-input")).getByRole("textbox"),
+        "^c",
+      );
       await user.click(screen.getByText("Select all tasks in view"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: false },
@@ -248,7 +251,10 @@ describe("configureTasks", () => {
           totalSelectedTaskCount={0}
         />,
       );
-      await user.type(screen.getByTestId("task-filter-input"), "compile");
+      await user.type(
+        within(screen.getByTestId("task-filter-input")).getByRole("textbox"),
+        "compile",
+      );
       expect(screen.queryAllByTestId("task-checkbox")).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();

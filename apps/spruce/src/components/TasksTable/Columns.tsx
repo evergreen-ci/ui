@@ -1,6 +1,6 @@
-import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { palette } from "@leafygreen-ui/palette";
 import { Justify, Tooltip } from "@leafygreen-ui/tooltip";
+import { Align, InfoSprinkle, Side } from "@via-ds/components";
 import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
@@ -8,20 +8,22 @@ import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TreeDataEntry } from "@evg-ui/lib/components/TreeSelect";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { AnnouncementPopover } from "components/TaskReview/AnnouncementPopover";
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
-import { getVariantHistoryRoute } from "constants/routes";
+import {
+  PreferencesTabRoutes,
+  getPreferencesRoute,
+  getVariantHistoryRoute,
+} from "constants/routes";
 import { TaskSortCategory } from "gql/generated/types";
 import { TaskTab } from "types/task";
 import styles from "./Columns.module.css";
-import { ReviewedCheckbox } from "./ReviewedCheckbox";
+import { ReviewedToggle } from "./ReviewedToggle";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
 
 export const getColumnsTemplate = ({
   baseStatusOptions = [],
   isPatch = false,
-  loading = false,
   onClickTaskLink = () => {},
   onClickTaskStatusBadge = () => {},
   showTaskExecutionLabel = false,
@@ -29,7 +31,6 @@ export const getColumnsTemplate = ({
 }: {
   baseStatusOptions?: TreeDataEntry[];
   isPatch?: boolean;
-  loading?: boolean;
   onClickTaskLink?: (taskId: string, status?: string) => void;
   onClickTaskStatusBadge?: (
     taskId: string,
@@ -39,17 +40,6 @@ export const getColumnsTemplate = ({
   showTaskExecutionLabel?: boolean;
   statusOptions?: TreeDataEntry[];
 }): LGColumnDef<TaskTableInfo>[] => [
-  {
-    header: () => (
-      <>
-        Reviewed <AnnouncementPopover loading={loading} />
-      </>
-    ),
-    accessorKey: "reviewed",
-    enableColumnFilter: false,
-    size: 0,
-    cell: ({ row }) => <ReviewedCheckbox row={row} />,
-  } as LGColumnDef<TaskTableInfo>,
   {
     header: "Name",
     accessorKey: "displayName",
@@ -176,7 +166,7 @@ export const getColumnsTemplate = ({
     header: () => (
       <div className={styles.flexWrapper}>
         Last Run Status
-        <InfoSprinkle>
+        <InfoSprinkle align={Align.End} side={Side.Top}>
           For {isPatch ? "base" : "previous"} tasks that have not finished
           running, this column links to the most recent completed commit.
         </InfoSprinkle>
@@ -245,4 +235,27 @@ export const getColumnsTemplate = ({
     enableSorting: true,
     size: 250,
   },
+  {
+    header: () => (
+      <div className={styles.flexWrapper}>
+        Reviewed
+        <InfoSprinkle align={Align.End} side={Side.Top}>
+          <span>
+            Mark unsuccessful tasks as reviewed. This is saved only on this
+            machine and can be turned off in{" "}
+            <StyledRouterLink
+              to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
+            >
+              UI Settings
+            </StyledRouterLink>
+            .
+          </span>
+        </InfoSprinkle>
+      </div>
+    ),
+    accessorKey: "reviewed",
+    enableColumnFilter: false,
+    size: 0,
+    cell: ({ row }) => <ReviewedToggle row={row} />,
+  } as LGColumnDef<TaskTableInfo>,
 ];

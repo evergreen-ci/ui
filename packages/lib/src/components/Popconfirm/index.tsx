@@ -1,100 +1,147 @@
-import { useEffect, useRef, useState } from "react";
-import { Button, Size, Variant } from "@leafygreen-ui/button";
-import { Align, Justify, Tooltip, TooltipProps } from "@leafygreen-ui/tooltip";
+import { cloneElement, useContext, useRef } from "react";
+import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
+import {
+  Align,
+  Button,
+  Popover,
+  PopoverContext,
+  PopoverFrameWithArrow,
+  PopoverRoot,
+  PopoverRootProps,
+  Side,
+} from "@via-ds/components";
+import { cx } from "../../utils/css";
 import styles from "./index.module.css";
 
-export { Align, Justify };
-
-type PopconfirmProps = Omit<
-  TooltipProps,
-  "onEnter" | "onEntering" | "onEntered" | "onExit" | "onExited" | "onExiting"
-> & {
+type PopconfirmProps = Pick<PopoverRootProps, "align" | "side"> & {
+  children: React.ReactNode;
+  className?: string;
   confirmDisabled?: boolean;
   confirmText?: string;
-  onConfirm?: (e?: React.MouseEvent) => void;
-  children: React.ReactNode;
+  "data-testid"?: string;
+  onClose?: () => void;
+  onConfirm?: () => void;
+  open?: boolean;
+  refEl?: React.RefObject<HTMLElement | null>;
+  setOpen?: (open: boolean) => void;
+  trigger?: React.ReactElement<{
+    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  }>;
+};
+
+// Clones the trigger instead of wrapping it so the popover can anchor to the
+// element itself. Toggling on the trigger's own click still runs when the
+// trigger stops propagation of the event, and recording the clicked element
+// avoids taking over a ref the consumer may have set on the trigger.
+const PopconfirmTrigger: React.FC<{
+  onAnchor: (element: HTMLElement) => void;
+  trigger: NonNullable<PopconfirmProps["trigger"]>;
+}> = ({ onAnchor, trigger }) => {
+  const state = useContext(PopoverContext)?.state;
+
+  return cloneElement(trigger, {
+    onClick: (e: React.MouseEvent<HTMLElement>) => {
+      onAnchor(e.currentTarget);
+      trigger.props.onClick?.(e);
+      state?.toggle();
+    },
+  });
+};
+
+const PopconfirmActions: React.FC<
+  Pick<PopconfirmProps, "confirmDisabled" | "confirmText" | "onConfirm">
+> = ({ confirmDisabled, confirmText, onConfirm }) => {
+  const state = useContext(PopoverContext)?.state;
+
+  return (
+    <div className={styles.buttonWrapper}>
+      <Button
+        data-testid="popconfirm-cancel-button"
+        onPress={() => state?.close()}
+        size="small"
+      >
+        Cancel
+      </Button>
+      <Button
+        data-testid="popconfirm-confirm-button"
+        isDisabled={confirmDisabled}
+        onPress={() => {
+          onConfirm?.();
+          state?.close();
+        }}
+        size="small"
+        variant="primary"
+      >
+        {confirmText}
+      </Button>
+    </div>
+  );
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
+  align = Align.Center,
   children,
+  className,
   confirmDisabled = false,
   confirmText = "Yes",
+  "data-testid": dataTestId,
   onClose = () => {},
   onConfirm = () => {},
-  open: controlledOpen,
+  open,
   refEl,
-  setOpen: controlledSetOpen,
-  ...props
+  setOpen,
+  side = Side.Top,
+  trigger,
 }) => {
-  const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
-  const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
-  const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
+  const isControlled = open !== undefined && !!setOpen;
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const arrowRef = useRef<SVGSVGElement | null>(null);
 
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(event.target as Node) &&
-        (!refEl ||
-          (refEl &&
-            refEl instanceof HTMLElement &&
-            refEl.contains(event.target as Node)))
-      ) {
-        onClose();
-        setOpen(false);
-      }
-    };
-
-    if (typeof window !== "undefined" && open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) {
+      onClose();
     }
-  }, [open, onClose, setOpen, refEl]);
+    if (isControlled) {
+      setOpen(nextOpen);
+    }
+  };
 
   return (
-    <Tooltip
-      onClose={onClose}
-      open={open}
-      refEl={refEl}
-      setOpen={setOpen}
-      triggerEvent="click"
-      {...props}
+    <PopoverRoot
+      align={align}
+      arrowRef={arrowRef}
+      isDismissable
+      isNonModal
+      isOpen={isControlled ? open : undefined}
+      onOpenChange={handleOpenChange}
+      referenceElement={refEl ?? triggerRef}
+      shouldToggleOnPress={false}
+      side={side}
+      triggerType="dialog"
     >
-      <div ref={popoverRef} className={styles.contentWrapper}>
-        {children}
-        <div className={styles.buttonWrapper}>
-          <Button
-            as="button"
-            data-testid="popconfirm-cancel-button"
-            onClick={() => {
-              onClose();
-              setOpen(false);
-            }}
-            size={Size.Small}
-          >
-            Cancel
-          </Button>
-          <Button
-            as="button"
-            data-testid="popconfirm-confirm-button"
-            disabled={confirmDisabled}
-            onClick={(e) => {
-              onConfirm(e);
-              setOpen(false);
-            }}
-            size={Size.Small}
-            variant={Variant.Primary}
-          >
-            {confirmText}
-          </Button>
-        </div>
-      </div>
-    </Tooltip>
+      {trigger && (
+        <PopconfirmTrigger
+          onAnchor={(element) => {
+            triggerRef.current = element;
+          }}
+          trigger={trigger}
+        />
+      )}
+      <Popover>
+        <LeafyGreenProvider darkMode>
+          <PopoverFrameWithArrow className={cx(styles.frame, className)}>
+            <div className={styles.contentWrapper} data-testid={dataTestId}>
+              {children}
+              <PopconfirmActions
+                confirmDisabled={confirmDisabled}
+                confirmText={confirmText}
+                onConfirm={onConfirm}
+              />
+            </div>
+          </PopoverFrameWithArrow>
+        </LeafyGreenProvider>
+      </Popover>
+    </PopoverRoot>
   );
 };
 

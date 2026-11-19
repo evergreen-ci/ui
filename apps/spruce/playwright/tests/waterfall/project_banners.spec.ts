@@ -12,6 +12,9 @@ test.describe("project banners", () => {
     test("should be able to clear the repotracker error", async ({ page }) => {
       await expect(page.getByTestId("repotracker-error-banner")).toBeVisible();
       await expect(page.getByTestId("repotracker-error-trigger")).toBeVisible();
+      await validateToast(page, "error", "Unable to load waterfall");
+      await page.getByTestId("lg-toast-dismiss-button").click();
+
       await page.getByTestId("repotracker-error-trigger").click();
       await expect(page.getByTestId("repotracker-error-modal")).toBeVisible();
       await page

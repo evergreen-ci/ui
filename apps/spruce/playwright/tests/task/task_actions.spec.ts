@@ -39,7 +39,7 @@ test.describe("Task Action Buttons", () => {
       await expect(
         page
           .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
+          .getByRole("listitem")
           .filter({ hasText: restartSuccessBannerText }),
       ).toBeVisible();
       const subscriptionRequest = page.waitForRequest(
@@ -126,7 +126,7 @@ test.describe("Task Action Buttons", () => {
       await expect(
         page
           .getByRole("region", { name: "Notifications" })
-          .getByRole("status")
+          .getByRole("listitem")
           .filter({ hasText: restartSuccessBannerText }),
       ).toBeVisible();
     });

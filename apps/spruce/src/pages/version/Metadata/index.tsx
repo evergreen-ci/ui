@@ -7,6 +7,7 @@ import { ExecutionSection } from "./ExecutionSection";
 import { GeneralSection } from "./GeneralSection";
 import { LinksSection } from "./LinksSection";
 import { TimelineSection } from "./TimelineSection";
+import { UpstreamProjectSection } from "./UpstreamProjectSection";
 
 interface MetadataProps {
   version: NonNullable<VersionQuery["version"]>;
@@ -25,6 +26,7 @@ export const Metadata: React.FC<MetadataProps> = ({ version }) => {
       }
     >
       <GeneralSection version={version} />
+      <UpstreamProjectSection version={version} />
       <TimelineSection version={version} />
       <ExecutionSection version={version} />
       <LinksSection version={version} />

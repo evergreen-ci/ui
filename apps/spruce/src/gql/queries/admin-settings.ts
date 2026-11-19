@@ -339,6 +339,7 @@ export const ADMIN_SETTINGS = gql`
         expectedRuntimeFactor
         futureHostFraction
         generateTaskFactor
+        gitTagFactor
         groupVersions
         hostAllocator
         hostAllocatorFeedbackRule

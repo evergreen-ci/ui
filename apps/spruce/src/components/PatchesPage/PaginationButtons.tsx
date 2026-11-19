@@ -70,7 +70,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         page={page + 1}
         pageSize={limit}
         pageSizeOptions={PAGE_SIZES}
-        showGoToPage={false}
         totalItems={totalItems}
       />
     </div>

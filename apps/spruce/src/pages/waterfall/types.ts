@@ -5,13 +5,18 @@ export type Pagination = WaterfallQuery["waterfall"]["pagination"];
 
 export type ServerFilters = Pick<
   WaterfallOptions,
-  "requesters" | "statuses" | "tasks" | "variants"
+  "requesters" | "statuses" | "tasks" | "taskTags" | "variants" | "variantTags"
 >;
 
 export type Version = Omit<
   Unpacked<WaterfallQuery["waterfall"]["versions"]>,
   "buildVariants"
 >;
+
+export type ModuleGroup = {
+  isModule: boolean;
+  versions: Version[];
+};
 
 export type GroupedVersion = {
   inactiveVersions: Version[] | null;
@@ -38,16 +43,19 @@ export type BuildVariant = {
 
 export enum WaterfallFilterOptions {
   BuildVariant = "buildVariants",
+  VariantTags = "variantTags",
   MaxOrder = "maxOrder",
   MinOrder = "minOrder",
   Requesters = "requesters",
   Revision = "revision",
   Statuses = "statuses",
   Task = "tasks",
+  TaskTags = "taskTags",
   Date = "date",
 }
 
 export enum FilterType {
   Exact = "exact",
   Regex = "regex",
+  Tag = "tag",
 }

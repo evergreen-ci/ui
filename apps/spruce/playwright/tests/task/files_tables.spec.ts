@@ -11,7 +11,10 @@ test.describe("files table", () => {
     page,
   }) => {
     await page.goto(FILES_ROUTE);
-    await page.getByTestId("file-search-input").fill("Hello world");
+    await page
+      .getByTestId("file-search-input")
+      .getByRole("textbox")
+      .fill("Hello world");
     await expect(page.getByTestId("files-table")).toBeHidden();
     await expect(page.getByTestId("file-link")).toBeHidden();
     await expect(page.getByText("No files found")).toBeVisible();
@@ -21,7 +24,10 @@ test.describe("files table", () => {
     page,
   }) => {
     await page.goto(FILES_ROUTE);
-    await page.getByTestId("file-search-input").fill("458");
+    await page
+      .getByTestId("file-search-input")
+      .getByRole("textbox")
+      .fill("458");
     await expect(page.getByTestId("file-link")).toHaveCount(4);
   });
 

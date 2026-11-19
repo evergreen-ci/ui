@@ -19,10 +19,9 @@ import { useQueryVariables } from "../useQueryVariables";
 import TaskDurationTable from "./TaskDurationTable";
 
 interface Props {
-  taskCount: number;
   versionId: string;
 }
-const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
+const TaskDuration: React.FC<Props> = ({ versionId }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useQueryVariables(versionId);
@@ -74,7 +73,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
     refetch,
   });
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { taskCount, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};
   const shouldShowBottomTableControl = tasksData.length > 10;
 
@@ -95,7 +94,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
           }}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           page={page}
-          totalCount={taskCount}
+          totalCount={taskCount ?? 0}
         />
       }
       shouldShowBottomTableControl={shouldShowBottomTableControl}
