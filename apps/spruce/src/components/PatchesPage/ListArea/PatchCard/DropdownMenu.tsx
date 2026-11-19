@@ -60,7 +60,10 @@ export const DropdownMenu: React.FC<Props> = ({
       key="unschedule"
       data-testid="unschedule-patch"
       isDisabled={!hasVersion}
-      {...getItemProps(() => setUnschedulePopconfirmOpen(true))}
+      {...getItemProps(
+        () => setUnschedulePopconfirmOpen(true),
+        unschedulePopconfirmOpen,
+      )}
     >
       Unschedule all tasks
     </DropdownItem>,

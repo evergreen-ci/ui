@@ -43,7 +43,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   isButton = false,
   onOpenChange,
   open: controlledOpen,
-  popconfirmAlign = Align.Start,
+  popconfirmAlign,
   popconfirmSide = Side.Left,
   refEl,
   taskIds,
@@ -138,7 +138,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         </Button>
       )}
       <Popconfirm
-        align={popconfirmAlign}
+        align={popconfirmAlign ?? (refEl ? Align.Center : Align.Start)}
         confirmText="Set"
         data-testid={`set-${label}-priority-popconfirm`}
         onConfirm={onConfirm}
@@ -162,37 +162,39 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           }}
           value={Number.isNaN(priority) ? "" : priority.toString()}
         />
-        {priority >= 0 && priority < 50 && (
-          <div
-            className={cx(styles.message, styles.messageDefault)}
-            data-testid="priority-default-message"
-          >
-            <Icon className={styles.icon} glyph="InfoWithCircle" />
-            <span>
-              Use with discretion for tasks you&apos;re actively waiting on.
-            </span>
-          </div>
-        )}
-        {priority >= 50 && priority < 100 && (
-          <div
-            className={cx(styles.message, styles.messageWarning)}
-            data-testid="priority-warning-message"
-          >
-            <Icon className={styles.icon} glyph="ImportantWithCircle" />
-            <span>Please ensure that this is a high priority change.</span>
-          </div>
-        )}
-        {priority >= 100 && (
-          <div
-            className={cx(styles.message, styles.messageAdmin)}
-            data-testid="priority-admin-message"
-          >
-            <Icon className={styles.icon} glyph="Warning" />
-            <span>
-              This is admin-restricted and should only be used in emergencies.
-            </span>
-          </div>
-        )}
+        <div className={styles.messageSlot}>
+          {priority >= 0 && priority < 50 && (
+            <div
+              className={cx(styles.message, styles.messageDefault)}
+              data-testid="priority-default-message"
+            >
+              <Icon className={styles.icon} glyph="InfoWithCircle" />
+              <span>
+                Use with discretion for tasks you&apos;re actively waiting on.
+              </span>
+            </div>
+          )}
+          {priority >= 50 && priority < 100 && (
+            <div
+              className={cx(styles.message, styles.messageWarning)}
+              data-testid="priority-warning-message"
+            >
+              <Icon className={styles.icon} glyph="ImportantWithCircle" />
+              <span>Please ensure that this is a high priority change.</span>
+            </div>
+          )}
+          {priority >= 100 && (
+            <div
+              className={cx(styles.message, styles.messageAdmin)}
+              data-testid="priority-admin-message"
+            >
+              <Icon className={styles.icon} glyph="Warning" />
+              <span>
+                This is admin-restricted and should only be used in emergencies.
+              </span>
+            </div>
+          )}
+        </div>
       </Popconfirm>
     </>
   );

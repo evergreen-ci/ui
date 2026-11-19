@@ -2,6 +2,11 @@
   width: 200px;
 }
 
+.messageSlot {
+  min-block-size: calc(3lh + var(--via-space-100));
+  inline-size: 200px;
+}
+
 .message {
   width: 200px;
   display: flex;

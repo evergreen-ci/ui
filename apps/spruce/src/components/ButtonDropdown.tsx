@@ -7,6 +7,7 @@ import {
   MenuRoot,
 } from "@via-ds/components";
 import Ellipsis from "@via-ds/icons/Ellipsis";
+import styles from "./ButtonDropdown.module.css";
 
 type Props = {
   children?: React.ReactNode;
@@ -50,7 +51,8 @@ export const DropdownItem = MenuItem;
 export const usePopconfirmAnchor = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const getItemProps = (onAction: () => void) => ({
+  const getItemProps = (onAction: () => void, isPopconfirmOpen: boolean) => ({
+    className: isPopconfirmOpen ? styles.openItem : undefined,
     onAction,
     onPress: (e: { target: Element }) =>
       setAnchorEl(e.target.closest<HTMLElement>('[role="menuitem"]')),

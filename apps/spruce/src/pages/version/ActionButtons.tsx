@@ -60,28 +60,40 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <DropdownItem
       key="unschedule-tasks"
       data-testid="unschedule-patch"
-      {...getItemProps(() => setPopconfirm("unschedule"))}
+      {...getItemProps(
+        () => setPopconfirm("unschedule"),
+        popconfirm === "unschedule",
+      )}
     >
       Unschedule all tasks
     </DropdownItem>,
     <DropdownItem
       key="disable-tasks"
       data-testid="disable"
-      {...getItemProps(() => setPopconfirm("disable"))}
+      {...getItemProps(
+        () => setPopconfirm("disable"),
+        popconfirm === "disable",
+      )}
     >
       Disable all tasks
     </DropdownItem>,
     <DropdownItem
       key="schedule-undispatched-base-tasks"
       isDisabled={!isPatch}
-      {...getItemProps(() => setPopconfirm("scheduleBaseTasks"))}
+      {...getItemProps(
+        () => setPopconfirm("scheduleBaseTasks"),
+        popconfirm === "scheduleBaseTasks",
+      )}
     >
       Schedule failing base tasks
     </DropdownItem>,
     <DropdownItem
       key="priority"
       data-testid="set-priority-menu-item"
-      {...getItemProps(() => setPopconfirm("priority"))}
+      {...getItemProps(
+        () => setPopconfirm("priority"),
+        popconfirm === "priority",
+      )}
     >
       Set {priorityLabel} priority
       {activeTaskIds.length > 1 && ` (${activeTaskIds.length})`}

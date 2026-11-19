@@ -199,7 +199,7 @@ export const ActionButtons: React.FC<Props> = ({
       key="set-task-priority"
       data-testid="set-priority-menu-item"
       isDisabled={disabled || !canSetPriority}
-      {...getItemProps(() => setPriorityOpen(true))}
+      {...getItemProps(() => setPriorityOpen(true), priorityOpen)}
     >
       Set task priority
     </DropdownItem>,
