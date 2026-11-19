@@ -1,11 +1,11 @@
-import { Content, Dialog, DialogRoot, Header, Text } from "@via-ds/components";
+import { Dialog, DialogProps, DialogRoot } from "@via-ds/components/dialog";
+import { Content, Header } from "@via-ds/components/structure";
+import { Text } from "@via-ds/components/typography";
 
-type DisplayModalProps = {
-  children: React.ReactNode;
+type DisplayModalProps = Pick<DialogProps, "children" | "size"> & {
   "data-testid"?: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-  size?: "small" | "medium" | "large";
   subtitle?: string;
   title: React.ReactNode;
 };
