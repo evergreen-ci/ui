@@ -37,6 +37,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({
     <DatePicker
       aria-label="Go to date"
       data-testid="date-picker"
+      firstDayOfWeek="mon"
       label={showLabel ? "Go to Date" : undefined}
       maxValue={maxDate}
       minValue={

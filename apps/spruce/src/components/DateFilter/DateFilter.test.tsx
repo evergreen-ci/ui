@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, within } from "@evg-ui/lib/test_utils";
 import { DateFilter } from ".";
 
 const getSegment = (name: string) =>
@@ -20,6 +20,16 @@ describe("date filter", () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith("2023-12-28");
+  });
+
+  it("starts the calendar week on Monday", async () => {
+    const user = userEvent.setup();
+    render(<DateFilter onChange={vi.fn()} value="2023-12-25" />);
+
+    await user.click(screen.getByRole("button", { name: "Open calendar" }));
+    const [firstRow] = screen.getAllByRole("row");
+    const firstCell = within(firstRow).getAllByRole("gridcell")[0];
+    expect(firstCell).toHaveTextContent("27");
   });
 
   it("renders value", () => {
