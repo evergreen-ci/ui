@@ -2,9 +2,9 @@ import { palette } from "@leafygreen-ui/palette";
 import { SEEN_TASK_HISTORY_ONBOARDING_TUTORIAL } from "constants/cookies";
 import { expect, test } from "../../fixtures";
 import {
-  selectDatePickerDate,
-  validateDatePickerDate,
+  typeViaDatePickerDate,
   validateToast,
+  validateViaDatePickerDate,
 } from "../../helpers";
 
 const { green, gray, blue } = palette;
@@ -438,13 +438,13 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await selectDatePickerDate(page, {
+      await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "Feb",
-        isoDate: "2025-02-28",
+        month: "02",
+        day: "28",
       });
       await expect(page).toHaveURL(/2025-02-28/);
-      await validateDatePickerDate(page, "date-picker", {
+      await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
         month: "02",
         day: "28",
@@ -470,13 +470,13 @@ test.describe("task history", () => {
       await page.goto(mciTaskHistoryLink);
       await page.getByTestId("expanded-option").click();
 
-      await selectDatePickerDate(page, {
+      await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "Feb",
-        isoDate: "2025-02-28",
+        month: "02",
+        day: "28",
       });
       await expect(page).toHaveURL(/2025-02-28/);
-      await validateDatePickerDate(page, "date-picker", {
+      await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
         month: "02",
         day: "28",
@@ -492,7 +492,7 @@ test.describe("task history", () => {
     test("date is cleared when paginating", async ({ page }) => {
       await page.goto(`${mciTaskHistoryLink}&date=2025-02-28`);
       await page.getByTestId("expanded-option").click();
-      await validateDatePickerDate(page, "date-picker", {
+      await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
         month: "02",
         day: "28",
@@ -515,7 +515,7 @@ test.describe("task history", () => {
           .nth(0)
           .getByText("Remove userSettings query"),
       ).toBeHidden();
-      await validateDatePickerDate(page, "date-picker");
+      await validateViaDatePickerDate(page, "date-picker");
       await expect(page).not.toHaveURL(/date/);
     });
   });
@@ -544,10 +544,10 @@ test.describe("task history", () => {
       const firstTaskCard = page.getByTestId("commit-details-card").nth(0);
       await expect(firstTaskCard.getByText("Order: 12306")).toBeVisible();
 
-      await selectDatePickerDate(page, {
+      await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "Feb",
-        isoDate: "2025-02-28",
+        month: "02",
+        day: "28",
       });
       await expect(firstTaskCard.getByText("Order: 12306")).toBeHidden();
 

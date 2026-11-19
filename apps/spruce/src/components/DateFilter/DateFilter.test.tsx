@@ -1,35 +1,37 @@
 import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { DateFilter } from ".";
 
+const getSegment = (name: string) =>
+  screen.getByRole("spinbutton", { name: new RegExp(`^${name},`) });
+
 describe("date filter", () => {
   it("calls onChange when date is clicked", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     render(<DateFilter onChange={onChange} value="2023-12-25" />);
 
-    const calendarButton = screen.getByRole("button", {
-      name: "Open calendar menu",
-    });
-    await user.click(calendarButton);
+    await user.click(screen.getByRole("button", { name: "Open calendar" }));
+    expect(screen.getByRole("grid")).toBeInTheDocument();
 
-    const popover = screen.getByRole("listbox");
-    expect(popover).toBeInTheDocument();
-
-    const cell = screen.getByRole("gridcell", {
+    const cell = screen.getByRole("button", {
       name: "Thursday, December 28, 2023",
     });
-    expect(cell).toBeInTheDocument();
-    expect(cell).toHaveAttribute("aria-disabled", "false");
     await user.click(cell);
 
     expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith("2023-12-28");
   });
 
   it("renders value", () => {
     render(<DateFilter onChange={vi.fn()} value="2023-12-23" />);
-    expect(screen.getByLabelText("year")).toHaveValue("2023");
-    expect(screen.getByLabelText("month")).toHaveValue("12");
-    expect(screen.getByLabelText("day")).toHaveValue("23");
+    expect(getSegment("year")).toHaveTextContent("2023");
+    expect(getSegment("month")).toHaveTextContent("12");
+    expect(getSegment("day")).toHaveTextContent("23");
+  });
+
+  it("renders an empty field when value is empty", () => {
+    render(<DateFilter onChange={vi.fn()} value="" />);
+    expect(getSegment("year")).not.toHaveAttribute("aria-valuenow");
   });
 
   it("only shows label if showLabel is specified", () => {

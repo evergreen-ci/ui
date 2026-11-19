@@ -1,7 +1,12 @@
-import { DatePicker } from "@leafygreen-ui/date-picker";
-import { DateType } from "@leafygreen-ui/date-utils";
-import { Size } from "@leafygreen-ui/tokens";
-import { subDays, subYears } from "date-fns";
+import {
+  CalendarDate,
+  DateValue,
+  getLocalTimeZone,
+  parseDate,
+  today,
+} from "@internationalized/date";
+import { DatePicker } from "@via-ds/components";
+import { Size } from "@via-ds/components/types";
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
 
@@ -17,17 +22,14 @@ export const DateFilter: React.FC<DateFilterProps> = ({
   dataProps,
   onChange,
   showLabel = false,
-  size = Size.Default,
+  size,
   value,
 }) => {
-  const handleChange = (updatedValue?: DateType) => {
+  const maxDate = today(getLocalTimeZone());
+
+  const handleChange = (updatedValue: DateValue | null) => {
     if (updatedValue) {
-      // Dates do not store timezone information; all dates should be represented in UTC.
-      const year = updatedValue.getUTCFullYear();
-      const month = updatedValue.getUTCMonth() + 1;
-      const day = updatedValue.getUTCDate();
-      const utcDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-      onChange(utcDate);
+      onChange(updatedValue.toString());
     }
   };
 
@@ -35,16 +37,23 @@ export const DateFilter: React.FC<DateFilterProps> = ({
     <DatePicker
       aria-label="Go to date"
       data-testid="date-picker"
-      label={showLabel ? "Go to Date" : ""}
-      max={today}
-      // Testing environments should not have a minimum date restriction due to static test data.
-      min={isProduction() ? subDays(subYears(today, 1), 1) : undefined}
-      onDateChange={handleChange}
+      label={showLabel ? "Go to Date" : undefined}
+      maxValue={maxDate}
+      minValue={
+        isProduction() ? maxDate.subtract({ years: 1, days: 1 }) : undefined
+      }
+      onChange={handleChange}
       size={size}
-      value={value.length ? new Date(value) : undefined}
+      value={toCalendarDate(value)}
       {...dataProps}
     />
   );
 };
 
-const today = new Date();
+const toCalendarDate = (value: string): CalendarDate | null => {
+  try {
+    return parseDate(value);
+  } catch {
+    return null;
+  }
+};
