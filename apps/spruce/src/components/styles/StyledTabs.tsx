@@ -1,4 +1,10 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@via-ds/components";
+import {
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@via-ds/components/tabs";
 import styles from "./StyledTabs.module.css";
 
 export interface StyledTab {
