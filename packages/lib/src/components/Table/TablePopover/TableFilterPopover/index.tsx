@@ -1,15 +1,13 @@
 import { useRef, useState } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
-import { Align, Justify, Popover } from "@leafygreen-ui/popover";
-import { Body } from "@leafygreen-ui/typography";
+import { Button } from "@via-ds/components/button";
+import { Popover, PopoverRoot } from "@via-ds/components/popover";
+import { Body } from "@via-ds/components/typography";
 import Filter from "@via-ds/icons/Filter";
 import { useOnClickOutside } from "../../../../hooks";
 import { PopoverContainer } from "../../../styles/Popover";
 import { TreeDataEntry, TreeSelect } from "../../../TreeSelect";
-import { DEFAULT_SPACING, FilterWrapper } from "../constants";
-
-const { blue, gray } = palette;
+import { FilterWrapper } from "../constants";
+import styles from "../constants.module.css";
 
 interface TableFilterPopoverProps {
   "data-testid"?: string;
@@ -26,48 +24,44 @@ const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
 }) => {
   const [active, setActive] = useState(false);
   const hasFilters = value.length > 0;
-  const iconColor = hasFilters ? blue.base : gray.dark2;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
-
-  // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
-
-  const onChange = (newFilters: string[]) => {
-    onConfirm(newFilters);
-  };
 
   return (
     <FilterWrapper>
-      <IconButton
-        ref={buttonRef}
-        active={active}
-        aria-label="Table Filter Popover Icon"
-        data-highlighted={hasFilters}
-        data-testid={dataTestId}
-        onClick={() => setActive(!active)}
+      <PopoverRoot
+        isNonModal
+        isOpen={active}
+        onOpenChange={setActive}
+        triggerType="dialog"
       >
-        <Filter fill={iconColor} size="medium" />
-      </IconButton>
-      <Popover
-        active={active}
-        align={Align.Bottom}
-        justify={Justify.Middle}
-        refEl={buttonRef}
-        spacing={DEFAULT_SPACING}
-      >
-        <PopoverContainer
-          ref={popoverRef}
-          data-testid={`${dataTestId}-wrapper`}
+        <Button
+          ref={buttonRef}
+          aria-label="Table Filter Popover Icon"
+          data-highlighted={hasFilters}
+          data-testid={dataTestId}
+          size="small"
+          variant="tertiary"
         >
-          {options.length > 0 ? (
-            <TreeSelect onChange={onChange} state={value} tData={options} />
-          ) : (
-            <Body>No filters available.</Body>
-          )}
-        </PopoverContainer>
-      </Popover>
+          <Filter
+            className={hasFilters ? styles.activeIcon : styles.inactiveIcon}
+          />
+        </Button>
+        <Popover>
+          <PopoverContainer
+            ref={popoverRef}
+            data-testid={`${dataTestId}-wrapper`}
+          >
+            {options.length > 0 ? (
+              <TreeSelect onChange={onConfirm} state={value} tData={options} />
+            ) : (
+              <Body>No filters available.</Body>
+            )}
+          </PopoverContainer>
+        </Popover>
+      </PopoverRoot>
     </FilterWrapper>
   );
 };

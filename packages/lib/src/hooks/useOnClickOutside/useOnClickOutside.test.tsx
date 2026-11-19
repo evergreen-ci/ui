@@ -1,4 +1,5 @@
 import { createRef } from "react";
+import { Button } from "@via-ds/components/button";
 import { render, renderHook, screen, userEvent } from "../../test_utils";
 import { useOnClickOutside } from ".";
 
@@ -24,6 +25,21 @@ describe("useOnClickOutside", () => {
       renderHook(() => useOnClickOutside([ref], callback));
       await user.click(screen.getByText("Test ref"));
       expect(callback).not.toHaveBeenCalled();
+    });
+    it("executes callback when pressing a Via button outside element", async () => {
+      const user = userEvent.setup();
+      const callback = vi.fn();
+      const ref = createRef<HTMLDivElement>();
+      render(
+        <>
+          <div ref={ref}> Test ref </div>
+          <Button>Outside</Button>
+        </>,
+      );
+
+      renderHook(() => useOnClickOutside([ref], callback));
+      await user.click(screen.getByRole("button", { name: "Outside" }));
+      expect(callback).toHaveBeenCalledTimes(1);
     });
   });
   describe("useOnClickOutside with multiple refs", () => {

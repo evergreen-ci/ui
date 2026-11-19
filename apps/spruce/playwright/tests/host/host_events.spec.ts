@@ -314,10 +314,10 @@ test.describe("Host events", () => {
       await page.getByTestId("event-type-filter").click();
       await expect(
         page.getByRole("checkbox", { name: "Agent deployed" }),
-      ).toHaveAttribute("aria-checked", "true");
+      ).toBeChecked();
       await expect(
         page.getByRole("checkbox", { name: "Agent deploy failed" }),
-      ).toHaveAttribute("aria-checked", "true");
+      ).toBeChecked();
       await expect(page.getByTestId("host-events-table-row")).toHaveCount(3);
     });
   });
