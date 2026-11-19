@@ -30,7 +30,7 @@ export const ProjectMetadata: React.FC<ProjectProps> = ({
     {enabled ? null : (
       <TooltipRoot>
         <TooltipTrigger>
-          <Badge variant={BadgeVariant.Error}>Disabled</Badge>
+          <Badge variant={BadgeVariant.Status}>Disabled</Badge>
         </TooltipTrigger>
         <Tooltip>Disabled projects are unable to run tasks.</Tooltip>
       </TooltipRoot>
