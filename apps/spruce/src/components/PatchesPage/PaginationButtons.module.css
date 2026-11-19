@@ -10,6 +10,7 @@
   padding-block: var(--via-space-100);
 }
 
+/* TODO(UXE-1579) */
 .pagination.pagination > * {
   max-inline-size: none;
 }
