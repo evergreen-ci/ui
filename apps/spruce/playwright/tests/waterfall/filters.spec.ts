@@ -5,6 +5,32 @@ import {
   validateDatePickerDate,
 } from "../../helpers";
 
+test.describe("commit navigation", () => {
+  test("carries task filters onto the commit page without requester or navigation parameters", async ({
+    page,
+  }) => {
+    await page.goto(
+      "/project/evergreen/waterfall?tasks=lint,agent&buildVariants=Ubuntu,Lint&statuses=succeeded&taskTags=lint&variantTags=ubuntu&requesters=gitter_request&date=2026-11-20&maxOrder=0&minOrder=0&page=2&limit=5",
+    );
+
+    const commitLink = page
+      .getByTestId("version-label-active")
+      .locator('a[href^="/version/"]')
+      .first();
+    await expect(commitLink).toBeVisible();
+    await commitLink.click();
+    await expect(page).toHaveURL(/\/version\/[^/]+\/tasks\?/);
+
+    expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({
+      taskName: "lint|agent",
+      variant: "Ubuntu|Lint",
+      statuses: "succeeded",
+      taskTags: "lint",
+      variantTags: "ubuntu",
+    });
+  });
+});
+
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/project/spruce/waterfall");
