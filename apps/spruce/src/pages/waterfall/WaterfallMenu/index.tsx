@@ -4,7 +4,6 @@ import {
   Header,
   Menu,
   MenuItem,
-  MenuItemProps,
   MenuPopover,
   MenuRoot,
   MenuSection,
@@ -16,7 +15,6 @@ import Bulb from "@via-ds/icons/Bulb";
 import Code from "@via-ds/icons/Code";
 import Ellipsis from "@via-ds/icons/Ellipsis";
 import NumberedList from "@via-ds/icons/NumberedList";
-import { Link } from "react-router-dom";
 import { useWaterfallAnalytics } from "analytics";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
 import { getProjectCommitsRoute } from "constants/routes";
@@ -96,7 +94,6 @@ export const WaterfallMenu: React.FC<Props> = ({
               onAction={() => {
                 setMenuOpen(false);
               }}
-              render={LinkMenuItem}
               textValue="Add notification"
             >
               <NumberedList slot="icon" />
@@ -160,10 +157,3 @@ export const WaterfallMenu: React.FC<Props> = ({
     </>
   );
 };
-
-const LinkMenuItem = ((props) =>
-  "href" in props ? (
-    <Link {...props} to={props.href} />
-  ) : (
-    <div {...props} />
-  )) satisfies MenuItemProps<object>["render"];
