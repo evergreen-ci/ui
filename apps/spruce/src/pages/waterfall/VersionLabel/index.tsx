@@ -1,5 +1,4 @@
 import { Badge, BadgeVariant, Body } from "@via-ds/components";
-import { useQueryParam } from "@evg-ui/lib/hooks";
 import { cx } from "@evg-ui/lib/utils/css";
 import { useWaterfallAnalytics } from "analytics";
 import {
@@ -15,7 +14,8 @@ import { useDateFormat } from "hooks";
 import { getDisplayRevision } from "utils/string";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
-import { Version, WaterfallFilterOptions } from "../types";
+import { Version } from "../types";
+import { useWaterfallFilters } from "../useWaterfallFilters";
 import styles from "./index.module.css";
 
 const MODAL_MAX_MESSAGE_LENGTH = 150;
@@ -54,23 +54,8 @@ export const VersionLabel: React.FC<Props> = ({
     user,
   } = version;
   const getDateCopy = useDateFormat();
-  const [statuses] = useQueryParam<string[]>(
-    WaterfallFilterOptions.Statuses,
-    [],
-  );
-  const [tasks] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
-  const [variants] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-  const [taskTags] = useQueryParam<string[]>(
-    WaterfallFilterOptions.TaskTags,
-    [],
-  );
-  const [variantTags] = useQueryParam<string[]>(
-    WaterfallFilterOptions.VariantTags,
-    [],
-  );
+  const { statuses, taskTags, tasks, variantTags, variants } =
+    useWaterfallFilters();
   const createDate = new Date(createTime);
 
   const { sendEvent } = useWaterfallAnalytics();
