@@ -182,9 +182,9 @@ test.describe("Hosts page sorting", () => {
     page,
   }) => {
     await page.goto(hostsRoute);
-    const sortAscendingIcon = page.locator(
-      "svg[aria-label='Sort Ascending Icon']",
-    );
+    const sortAscendingIcon = page
+      .getByRole("button", { name: "Sort by Status" })
+      .locator("svg[aria-label='Svg Sort Ascending Icon']");
     await expect(sortAscendingIcon).toBeVisible();
   });
 
@@ -192,16 +192,16 @@ test.describe("Hosts page sorting", () => {
     page,
   }) => {
     await page.goto(`${hostsRoute}?page=0&sorts=DISTRO%3ADESC`);
-    const sortDescendingIcon = page.locator(
-      "svg[aria-label='Sort Descending Icon']",
-    );
+    const sortDescendingIcon = page
+      .getByRole("button", { name: "Sort by Distro" })
+      .locator("svg[aria-label='Svg Sort Descending Icon']");
     await expect(sortDescendingIcon).toBeVisible();
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
     test(`Sorts by ${sorterName} when sorts = ${sortBy}`, async ({ page }) => {
       await page.goto(`${hostsRoute}?sorts=${sortBy}%3AASC&limit=10`);
-      const rows = page.getByTestId("leafygreen-table-row");
+      const rows = page.getByTestId("via-table-row");
       for (let i = 0; i < expectedIds.length; i++) {
         await expect(rows.nth(i)).toContainText(expectedIds[i]);
       }
@@ -215,7 +215,7 @@ test.describe("Hosts page sorting", () => {
       await page.goto(
         `${hostsRoute}?page=0&sorts=CURRENT_TASK%3A${sortDir}&limit=10`,
       );
-      const rows = page.getByTestId("leafygreen-table-row");
+      const rows = page.getByTestId("via-table-row");
       for (let i = 0; i < expectedIds.length; i++) {
         await expect(rows.nth(i)).toContainText(expectedIds[i]);
       }
@@ -236,7 +236,7 @@ test.describe("Hosts page sorting", () => {
       "macos-1014-68.macstadium.build.10gen.cc",
       "ubuntu1804-ppc-3.pic.build.10gen",
     ];
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     for (let i = 0; i < expectedIds.length; i++) {
       await expect(rows.nth(i)).toContainText(expectedIds[i]);
     }
