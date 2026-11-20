@@ -153,7 +153,7 @@ describe("SkippedTestsDetails", () => {
     render(<Component />, routerOptions);
 
     expect(await screen.findByText("Display One")).toBeVisible();
-    await user.click(screen.getByRole("button", { name: "Close modal" }));
+    await user.click(screen.getByRole("button", { name: "Close dialog" }));
     expect(setOpen).toHaveBeenCalledWith(false);
   });
 

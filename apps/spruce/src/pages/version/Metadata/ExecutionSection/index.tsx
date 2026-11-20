@@ -46,6 +46,9 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({
           onClickDetailsButton={() =>
             sendEvent({ name: "Clicked version cost details button" })
           }
+          onClickHoneycombLink={() =>
+            sendEvent({ name: "Clicked version honeycomb cost link" })
+          }
           totalCost={totalCost}
           type="version"
           version={version}
