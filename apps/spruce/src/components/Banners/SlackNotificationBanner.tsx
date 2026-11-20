@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Banner } from "@leafygreen-ui/banner";
 import { TextInput } from "@leafygreen-ui/text-input";
+import { Banner, Text } from "@via-ds/components";
 import Cookies from "js-cookie";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { CharKey } from "@evg-ui/lib/constants/keys";
@@ -14,6 +14,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 import styles from "./SlackNotificationBanner.module.css";
+import bannerStyles from "./styles.module.css";
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
@@ -85,37 +86,39 @@ export const SlackNotificationBanner = () => {
 
   return shouldShowSlackBanner ? (
     <Banner
+      className={bannerStyles.alignedDismiss}
       data-testid="slack-notification-banner"
-      dismissible
       onClose={hideBanner}
       variant="info"
     >
-      You can receive a Slack notification when your patch is ready.{" "}
-      <Popconfirm
-        confirmDisabled={!slackUsername || loadingUpdateUserSettings}
-        confirmText="Save"
-        onConfirm={() => saveNotificationSettings()}
-        trigger={
-          <span
-            className={styles.subscribeButton}
-            data-testid="subscribe-to-notifications"
-          >
-            Subscribe
-          </span>
-        }
-      >
-        <TextInput
-          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-          data-testid="slack-username-input"
-          label="Slack Username"
-          onChange={(e) => setSlackUsername(e.target.value)}
-          onKeyDown={(e) =>
-            e.key === CharKey.Enter && saveNotificationSettings()
+      <Text elementType="span">
+        You can receive a Slack notification when your patch is ready.{" "}
+        <Popconfirm
+          confirmDisabled={!slackUsername || loadingUpdateUserSettings}
+          confirmText="Save"
+          onConfirm={() => saveNotificationSettings()}
+          trigger={
+            <span
+              className={styles.subscribeButton}
+              data-testid="subscribe-to-notifications"
+            >
+              Subscribe
+            </span>
           }
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={slackUsername}
-        />
-      </Popconfirm>
+        >
+          <TextInput
+            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+            data-testid="slack-username-input"
+            label="Slack Username"
+            onChange={(e) => setSlackUsername(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === CharKey.Enter && saveNotificationSettings()
+            }
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            value={slackUsername}
+          />
+        </Popconfirm>
+      </Text>
     </Banner>
   ) : null;
 };

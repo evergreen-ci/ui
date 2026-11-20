@@ -36,7 +36,7 @@ describe("warningBanner", () => {
     expect(
       screen.getByTestId("configuration-warnings-banner"),
     ).toBeInTheDocument();
-    await user.click(screen.getByLabelText("X Icon"));
+    await user.click(screen.getByRole("button", { name: "Dismiss" }));
     expect(screen.queryByTestId("configuration-warnings-banner")).toBeNull();
   });
 });
