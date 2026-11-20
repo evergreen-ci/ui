@@ -41,6 +41,7 @@ export const TASK = gql`
       canDisable
       canModifyAnnotation
       canOverrideDependencies
+      canQuarantine
       canRestart
       canSchedule
       canSetPriority
