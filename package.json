@@ -3,7 +3,6 @@
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "check-types": "pnpm -r check-types",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
@@ -22,5 +21,17 @@
     "lint-staged": "16.4.0",
     "storybook": "^10.6.2",
     "vitest": "^4.1.11"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^12.0.0",
+      "onFail": "download"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "^22.18.0",
+      "onFail": "download"
+    }
   }
 }
