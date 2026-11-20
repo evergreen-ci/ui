@@ -22,14 +22,14 @@ describe("date filter", () => {
     expect(onChange).toHaveBeenCalledWith("2023-12-28");
   });
 
-  it("starts the calendar week on Monday", async () => {
+  it("starts the calendar week on Sunday for the en-US locale", async () => {
     const user = userEvent.setup();
     render(<DateFilter onChange={vi.fn()} value="2023-12-25" />);
 
     await user.click(screen.getByRole("button", { name: "Open calendar" }));
     const [firstRow] = screen.getAllByRole("row");
     const firstCell = within(firstRow).getAllByRole("gridcell")[0];
-    expect(firstCell).toHaveTextContent("27");
+    expect(firstCell).toHaveTextContent("26");
   });
 
   it("renders value", () => {
