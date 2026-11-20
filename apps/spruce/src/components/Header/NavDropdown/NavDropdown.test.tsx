@@ -2,6 +2,7 @@ import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
+  waitFor,
 } from "@evg-ui/lib/test_utils";
 import { NavDropdown } from ".";
 
@@ -43,6 +44,21 @@ describe("navDropdown", () => {
       "href",
       "/item2",
     );
+    expect(screen.getByTestId("item-1")).toHaveAttribute("href", "/item1");
+  });
+  it("closes the menu after an item is selected", async () => {
+    const user = userEvent.setup();
+    render(
+      <NavDropdown
+        menuItems={[{ text: "Log out", onClick: vi.fn() }]}
+        title="Dropdown"
+      />,
+    );
+    await user.click(screen.getByText("Dropdown"));
+    await user.click(screen.getByText("Log out"));
+    await waitFor(() => {
+      expect(screen.queryByText("Log out")).not.toBeInTheDocument();
+    });
   });
   it("clicking on a link triggers a callback", async () => {
     const user = userEvent.setup();
