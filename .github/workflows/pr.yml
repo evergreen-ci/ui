@@ -23,13 +23,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: Use Node 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.17.0
-
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/setup@v3
 
       - name: Install dependencies
         run: pnpm install
