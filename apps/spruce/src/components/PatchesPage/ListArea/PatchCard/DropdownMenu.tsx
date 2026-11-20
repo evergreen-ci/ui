@@ -32,8 +32,12 @@ export const DropdownMenu: React.FC<Props> = ({
     patchId,
     refetchQueries,
   );
+  // Modals mount on first open and then stay, so their mutation callbacks still
+  // run after they close while patch cards that were never opened carry no dialog.
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [scheduleModalMounted, setScheduleModalMounted] = useState(false);
   const [restartModalOpen, setRestartModalOpen] = useState(false);
+  const [restartModalMounted, setRestartModalMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [unschedulePopconfirmOpen, setUnschedulePopconfirmOpen] =
     useState(false);
@@ -60,6 +64,7 @@ export const DropdownMenu: React.FC<Props> = ({
       isDisabled={!hasVersion}
       onAction={() => {
         sendEvent({ name: "Viewed schedule tasks modal" });
+        setScheduleModalMounted(true);
         setScheduleModalOpen(true);
       }}
     >
@@ -81,7 +86,10 @@ export const DropdownMenu: React.FC<Props> = ({
       key="restart"
       data-testid="restart-version"
       isDisabled={restartDisabled}
-      onAction={() => setRestartModalOpen(true)}
+      onAction={() => {
+        setRestartModalMounted(true);
+        setRestartModalOpen(true);
+      }}
     >
       <Tooltip
         align={Align.Left}
@@ -113,11 +121,13 @@ export const DropdownMenu: React.FC<Props> = ({
           }
         }}
       />
-      <ScheduleTasksModal
-        open={scheduleModalOpen}
-        setOpen={setScheduleModalOpen}
-        versionId={patchId}
-      />
+      {scheduleModalMounted && (
+        <ScheduleTasksModal
+          open={scheduleModalOpen}
+          setOpen={setScheduleModalOpen}
+          versionId={patchId}
+        />
+      )}
       {unschedulePopconfirmOpen && (
         <UnscheduleTasksPopconfirm
           onConfirm={(abort) => {
@@ -130,13 +140,15 @@ export const DropdownMenu: React.FC<Props> = ({
           setOpen={setUnschedulePopconfirmOpen}
         />
       )}
-      <VersionRestartModal
-        onCancel={() => setRestartModalOpen(false)}
-        onOk={() => setRestartModalOpen(false)}
-        refetchQueries={refetchQueries}
-        versionId={patchId}
-        visible={restartModalOpen}
-      />
+      {restartModalMounted && (
+        <VersionRestartModal
+          onCancel={() => setRestartModalOpen(false)}
+          onOk={() => setRestartModalOpen(false)}
+          refetchQueries={refetchQueries}
+          versionId={patchId}
+          visible={restartModalOpen}
+        />
+      )}
     </>
   );
 };

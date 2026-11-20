@@ -39,7 +39,9 @@ test.describe("Slack notification banner", () => {
     await page.goto("/version/5ecedafb562343215a7ff297/tasks");
     await expect(banner).toBeVisible();
     await page.getByTestId("subscribe-to-notifications").click();
-    await page.getByTestId("slack-username-input").fill(slackUsername);
+    await page
+      .getByRole("textbox", { name: "Slack Username" })
+      .fill(slackUsername);
     await page.getByRole("button", { name: "Save" }).click();
     await expect(banner).toBeHidden();
     await validateToast(

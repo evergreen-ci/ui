@@ -1,9 +1,5 @@
 import { expect, test } from "../../fixtures";
-import {
-  clickCheckbox,
-  mockGraphQLResponse,
-  validateToast,
-} from "../../helpers";
+import { mockGraphQLResponse, validateToast } from "../../helpers";
 
 const patch = "5ecedafb562343215a7ff297";
 const mainlineCommit = "5e4ff3abe3c3317e352062e4";
@@ -176,7 +172,7 @@ test.describe("Action Buttons", () => {
           name: "Include never-activated tasks",
         });
       await expect(neverActivatedCheckbox).not.toBeChecked();
-      await clickCheckbox(neverActivatedCheckbox);
+      await page.getByTestId("include-never-activated-tasks").click();
       await expect(page).toHaveURL(/includeNeverActivatedTasks=true/);
       await expect(neverActivatedCheckbox).toBeChecked();
 
