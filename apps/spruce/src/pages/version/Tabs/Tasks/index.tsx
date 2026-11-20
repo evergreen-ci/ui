@@ -14,6 +14,7 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
+import { useTaskSelectionContext } from "../../TaskSelection";
 import { useQueryVariables } from "../useQueryVariables";
 import { VersionTasksTable } from "./VersionTasksTable";
 
@@ -27,6 +28,8 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   const versionAnalytics = useVersionAnalytics(versionId || "");
   const queryVariables = useQueryVariables(versionId || "");
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const { clearSelection, isSelected, selectedCount, toggleAll, toggleRows } =
+    useTaskSelectionContext();
 
   useEffect(() => {
     const hasValidSortsForTab =
@@ -41,6 +44,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
+    clearSelection();
     updateQueryParams({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.TaskName]: undefined,
@@ -101,9 +105,14 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
       clearQueryParams={clearQueryParams}
       filteredCount={count}
       isPatch={isPatch ?? false}
+      isRowSelected={isSelected}
       limit={limit ?? 0}
       loading={tasksData.length === 0 && loading}
+      onFilterChange={clearSelection}
+      onToggleAll={() => toggleAll(count)}
+      onToggleRows={(taskIds) => toggleRows(taskIds, count)}
       page={page ?? 0}
+      selectedCount={selectedCount}
       tasks={tasksData}
       totalCount={taskCount ?? 0}
       versionId={versionId}

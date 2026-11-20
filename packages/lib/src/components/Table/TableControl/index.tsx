@@ -14,6 +14,7 @@ interface Props {
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
   page: number;
+  selectedCount?: number;
 }
 
 const TableControl: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const TableControl: React.FC<Props> = ({
   onPageChange,
   onPageSizeChange,
   page,
+  selectedCount,
   totalCount,
 }) => {
   const handlePageSizeChange = (pageSize: number) => {
@@ -47,6 +49,13 @@ const TableControl: React.FC<Props> = ({
           label={`Total count: ${totalCount}`}
           variant={ChipVariant.Gray}
         />
+        {selectedCount !== undefined && (
+          <Chip
+            data-testid="selected-count"
+            label={`Selected: ${selectedCount}`}
+            variant={ChipVariant.Gray}
+          />
+        )}
         <Button
           data-testid="clear-all-filters"
           disabled={disabled}

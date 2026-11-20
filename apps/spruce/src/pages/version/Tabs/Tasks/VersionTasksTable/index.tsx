@@ -3,6 +3,8 @@ import {
   BaseTable,
   ColumnFiltersState,
   LeafyGreenTable,
+  OnChangeFn,
+  RowSelectionState,
   SortingState,
   TableControl,
   TablePlaceholder,
@@ -14,8 +16,10 @@ import { useQueryParams } from "@evg-ui/lib/hooks";
 import { getLocalStorageBoolean } from "@evg-ui/lib/utils/localStorage";
 import { useVersionAnalytics } from "analytics";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { getSelectColumn } from "components/TasksTable/SelectColumn";
 import { TaskTableInfo } from "components/TasksTable/types";
 import { DISABLE_TASK_REVIEW } from "constants/cookies";
+import { showSelectableTaskRows } from "constants/featureFlags";
 import { TableQueryParams } from "constants/queryParams";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTableSort, useTaskStatuses } from "hooks";
@@ -26,6 +30,10 @@ import {
   emptyFilterQueryParams,
   mapIdToFilterParam,
 } from "./constants";
+import styles from "./VersionTasksTable.module.css";
+
+const getTaskRowId = (taskId: string, parentRowId?: string) =>
+  parentRowId ? `${parentRowId}.${taskId}` : taskId;
 
 // Create a more specific enum because duration is not a valid category to sort / filter by in the tasks table.
 enum VersionTaskCategory {
@@ -47,9 +55,14 @@ interface VersionTasksTableProps {
   clearQueryParams: () => void;
   filteredCount: number;
   isPatch: boolean;
+  isRowSelected: (taskId: string) => boolean;
   limit: number;
   loading: boolean;
+  onFilterChange: () => void;
+  onToggleAll: () => void;
+  onToggleRows: (taskIds: string[]) => void;
   page: number;
+  selectedCount: number;
   tasks: TaskTableInfo[];
   totalCount: number;
   versionId: string;
@@ -59,9 +72,14 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   clearQueryParams,
   filteredCount,
   isPatch,
+  isRowSelected,
   limit,
   loading,
+  onFilterChange,
+  onToggleAll,
+  onToggleRows,
   page,
+  selectedCount,
   tasks,
   totalCount,
   versionId,
@@ -75,9 +93,15 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
 
   const { initialFilters, initialSorting } = getInitialState(queryParams);
 
+  const allSelected = filteredCount > 0 && selectedCount === filteredCount;
+  const someSelected = selectedCount > 0;
+
   const columns = useMemo(
-    () =>
-      getColumnsTemplate({
+    () => [
+      ...(showSelectableTaskRows
+        ? [getSelectColumn({ allSelected, onToggleAll, someSelected })]
+        : []),
+      ...getColumnsTemplate({
         baseStatusOptions,
         statusOptions,
         isPatch,
@@ -99,7 +123,16 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             column: column,
           }),
       }),
-    [baseStatusOptions, statusOptions, isPatch, sendEvent],
+    ],
+    [
+      allSelected,
+      baseStatusOptions,
+      isPatch,
+      onToggleAll,
+      sendEvent,
+      someSelected,
+      statusOptions,
+    ],
   );
 
   const [columnFilters, setColumnFilters] =
@@ -108,6 +141,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
   const [sorting, setSorting] = useState<SortingState>(initialSorting);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
+    onFilterChange();
     const updatedParams: Record<string, unknown> = {
       ...queryParams,
       page: "0",
@@ -132,6 +166,43 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       }),
   });
 
+  const rowSelection = useMemo(() => {
+    const selectedRows: RowSelectionState = {};
+    tasks.forEach((task) => {
+      if (isRowSelected(task.id)) {
+        selectedRows[getTaskRowId(task.id)] = true;
+      }
+      task.executionTasksFull?.forEach((executionTask) => {
+        if (isRowSelected(executionTask.id)) {
+          selectedRows[getTaskRowId(executionTask.id, task.id)] = true;
+        }
+      });
+    });
+    return selectedRows;
+  }, [isRowSelected, tasks]);
+
+  const updateSelection: OnChangeFn<RowSelectionState> = (updater) => {
+    const nextRowSelection =
+      typeof updater === "function" ? updater(rowSelection) : updater;
+
+    const addIfChanged = (taskId: string, rowId: string) => {
+      const isNowSelected = Boolean(nextRowSelection[rowId]);
+      if (isNowSelected !== isRowSelected(taskId)) {
+        changedTaskIds.add(taskId);
+      }
+    };
+
+    const changedTaskIds = new Set<string>();
+    tasks.forEach((task) => {
+      addIfChanged(task.id, getTaskRowId(task.id));
+      task.executionTasksFull?.forEach((executionTask) => {
+        addIfChanged(executionTask.id, getTaskRowId(executionTask.id, task.id));
+      });
+    });
+
+    onToggleRows([...changedTaskIds]);
+  };
+
   const table: LeafyGreenTable<TaskTableInfo> =
     useLeafyGreenTable<TaskTableInfo>({
       columns,
@@ -142,13 +213,14 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         sortDescFirst: false,
       },
       getRowId: (originalRow, _index, parentRow) =>
-        parentRow ? `${parentRow.id}.${originalRow.id}` : originalRow.id,
+        getTaskRowId(originalRow.id, parentRow?.id),
       initialState: {
         columnVisibility: { reviewed: taskReviewEnabled },
       },
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       state: {
         columnFilters,
+        rowSelection,
         sorting,
       },
       maxMultiSortColCount: 2,
@@ -159,6 +231,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         setColumnFilters,
         (updatedState) => updateFilters(updatedState),
       ),
+      onRowSelectionChange: updateSelection,
       onSortingChange: onChangeHandler<SortingState>(setSorting, updateSorting),
       getSubRows: (row) => row.executionTasksFull || [],
     });
@@ -179,6 +252,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
             sendEvent({ name: "Changed page size", "page.size": size })
           }
           page={page}
+          selectedCount={showSelectableTaskRows ? selectedCount : undefined}
           totalCount={totalCount}
         />
       }
@@ -191,6 +265,7 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         loadingRows={limit}
+        rowClassName={showSelectableTaskRows ? styles.row : undefined}
         shouldAlternateRowColor
         table={table}
       />
