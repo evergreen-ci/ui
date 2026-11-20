@@ -30,7 +30,9 @@ type SetPriorityProps = (
   disabled?: boolean;
   initialPriority?: number;
   isButton?: boolean;
+  onLoadingChange?: (loading: boolean) => void;
   onOpenChange?: (open: boolean) => void;
+  onSubmit?: () => void;
   open?: boolean;
   refEl?: React.RefObject<HTMLElement | null>;
   popconfirmSide?: Side;
@@ -44,7 +46,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   isButton = false,
+  onLoadingChange,
   onOpenChange,
+  onSubmit,
   open: controlledOpen,
   popconfirmAlign,
   popconfirmSide = Side.Left,
@@ -65,6 +69,15 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const open = controlledOpen ?? internalOpen;
   const setOpen = onOpenChange ?? setInternalOpen;
+
+  // Start each open from the current priority, not what was typed last time.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setInput(initialPriority.toString());
+    }
+  }
 
   const [setVersionPriority, { loading: loadingSetVersionPriority }] =
     useMutation<
@@ -101,6 +114,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     );
 
   const onConfirm = () => {
+    onSubmit?.();
     if (taskIds) {
       setTaskPriorities({
         variables: {
@@ -119,6 +133,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       });
     }
   };
+
+  const loading = loadingSetVersionPriority || loadingSetTaskPriorities;
+  useEffect(() => {
+    onLoadingChange?.(loading);
+  }, [loading, onLoadingChange]);
 
   useEffect(() => {
     inputRef?.focus();
@@ -142,70 +161,73 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           Set priority
         </Button>
       )}
-      <Popconfirm
-        align={popconfirmAlign ?? (refEl ? Align.Center : Align.Start)}
-        confirmDisabled={!isValidPriority}
-        confirmText="Set"
-        data-testid={`set-${label}-priority-popconfirm`}
-        onConfirm={onConfirm}
-        open={open}
-        refEl={isButton ? buttonRef : refEl}
-        setOpen={setOpen}
-        side={popconfirmSide}
-      >
-        <TextField
-          ref={(el) => setInputRef(el)}
-          className={styles.priorityInput}
-          data-testid={`${label}-priority-input`}
-          inputMode="numeric"
-          label="Set New Priority"
-          onChange={(value) => {
-            if (PARTIAL_INTEGER_PATTERN.test(value)) {
-              setInput(value);
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && isValidPriority) {
-              onConfirm();
-              setOpen(false);
-            }
-          }}
-          value={input}
-        />
-        <div className={styles.messageSlot}>
-          {priority >= 0 && priority < 50 && (
-            <div
-              className={cx(styles.message, styles.messageDefault)}
-              data-testid="priority-default-message"
-            >
-              <Icon className={styles.icon} glyph="InfoWithCircle" />
-              <span>
-                Use with discretion for tasks you&apos;re actively waiting on.
-              </span>
-            </div>
-          )}
-          {priority >= 50 && priority < 100 && (
-            <div
-              className={cx(styles.message, styles.messageWarning)}
-              data-testid="priority-warning-message"
-            >
-              <Icon className={styles.icon} glyph="ImportantWithCircle" />
-              <span>Please ensure that this is a high priority change.</span>
-            </div>
-          )}
-          {priority >= 100 && (
-            <div
-              className={cx(styles.message, styles.messageAdmin)}
-              data-testid="priority-admin-message"
-            >
-              <Icon className={styles.icon} glyph="Warning" />
-              <span>
-                This is admin-restricted and should only be used in emergencies.
-              </span>
-            </div>
-          )}
-        </div>
-      </Popconfirm>
+      {open && (
+        <Popconfirm
+          align={popconfirmAlign ?? (refEl ? Align.Center : Align.Start)}
+          confirmDisabled={!isValidPriority}
+          confirmText="Set"
+          data-testid={`set-${label}-priority-popconfirm`}
+          onConfirm={onConfirm}
+          open={open}
+          refEl={isButton ? buttonRef : refEl}
+          setOpen={setOpen}
+          side={popconfirmSide}
+        >
+          <TextField
+            ref={(el) => setInputRef(el)}
+            className={styles.priorityInput}
+            data-testid={`${label}-priority-input`}
+            inputMode="numeric"
+            label="Set New Priority"
+            onChange={(value) => {
+              if (PARTIAL_INTEGER_PATTERN.test(value)) {
+                setInput(value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && isValidPriority) {
+                onConfirm();
+                setOpen(false);
+              }
+            }}
+            value={input}
+          />
+          <div className={styles.messageSlot}>
+            {priority >= 0 && priority < 50 && (
+              <div
+                className={cx(styles.message, styles.messageDefault)}
+                data-testid="priority-default-message"
+              >
+                <Icon className={styles.icon} glyph="InfoWithCircle" />
+                <span>
+                  Use with discretion for tasks you&apos;re actively waiting on.
+                </span>
+              </div>
+            )}
+            {priority >= 50 && priority < 100 && (
+              <div
+                className={cx(styles.message, styles.messageWarning)}
+                data-testid="priority-warning-message"
+              >
+                <Icon className={styles.icon} glyph="ImportantWithCircle" />
+                <span>Please ensure that this is a high priority change.</span>
+              </div>
+            )}
+            {priority >= 100 && (
+              <div
+                className={cx(styles.message, styles.messageAdmin)}
+                data-testid="priority-admin-message"
+              >
+                <Icon className={styles.icon} glyph="Warning" />
+                <span>
+                  This is admin-restricted and should only be used in
+                  emergencies.
+                </span>
+              </div>
+            )}
+          </div>
+        </Popconfirm>
+      )}
     </>
   );
 };

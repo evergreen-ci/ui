@@ -34,6 +34,7 @@ export const DropdownMenu: React.FC<Props> = ({
   );
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
   const [restartModalOpen, setRestartModalOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [unschedulePopconfirmOpen, setUnschedulePopconfirmOpen] =
     useState(false);
   const { anchorRef, getItemProps } = usePopconfirmAnchor({
@@ -104,7 +105,9 @@ export const DropdownMenu: React.FC<Props> = ({
       <ButtonDropdown
         data-testid="patch-card-dropdown"
         dropdownItems={dropdownItems}
+        open={menuOpen}
         setOpen={(isOpen) => {
+          setMenuOpen(isOpen);
           if (!isOpen) {
             setUnschedulePopconfirmOpen(false);
           }
@@ -117,7 +120,11 @@ export const DropdownMenu: React.FC<Props> = ({
       />
       {unschedulePopconfirmOpen && (
         <UnscheduleTasksPopconfirm
-          onConfirm={unschedule}
+          onConfirm={(abort) => {
+            unschedule(abort);
+            setUnschedulePopconfirmOpen(false);
+            setMenuOpen(false);
+          }}
           open
           refEl={anchorRef}
           setOpen={setUnschedulePopconfirmOpen}

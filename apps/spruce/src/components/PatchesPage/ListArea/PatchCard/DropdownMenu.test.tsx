@@ -92,4 +92,16 @@ describe("patch card dropdown menu", () => {
       );
     });
   });
+
+  it("closes the menu once the popconfirm is confirmed", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+    await openUnschedulePopconfirm(user);
+
+    await user.click(screen.getByTestId("popconfirm-confirm-button"));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
 });

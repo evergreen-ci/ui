@@ -8,22 +8,12 @@ import {
 import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
 import styles from "./PopconfirmMessage.module.css";
 
-interface Props {
-  open: boolean;
-  refEl: React.RefObject<HTMLElement | null>;
-  setOpen: (open: boolean) => void;
-  versionId: string;
-}
-
-export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
-  open,
-  refEl,
-  setOpen,
-  versionId,
-}) => {
+// The mutation lives in a hook so its callbacks survive the popconfirm
+// unmounting on confirm.
+export const useScheduleUndispatchedBaseTasks = (versionId: string) => {
   const dispatchToast = useToastContext();
 
-  const [scheduleBaseVersionTasks] = useMutation<
+  const [scheduleBaseVersionTasks, { loading }] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
     ScheduleUndispatchedBaseTasksMutationVariables
   >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
@@ -37,23 +27,37 @@ export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
     },
   });
 
-  const onConfirm = () => {
+  const schedule = () => {
     scheduleBaseVersionTasks({ variables: { versionId } });
   };
 
-  return (
-    <Popconfirm
-      data-testid="schedule-undispatched-base-popconfirm"
-      onConfirm={onConfirm}
-      open={open}
-      refEl={refEl}
-      setOpen={setOpen}
-      side="left"
-    >
-      <div className={styles.message}>
-        Are you sure you want to schedule all the undispatched base tasks for
-        this patch&apos;s failing tasks?
-      </div>
-    </Popconfirm>
-  );
+  return { loading, schedule };
 };
+
+interface Props {
+  onConfirm: () => void;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
+}
+
+export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
+  onConfirm,
+  open,
+  refEl,
+  setOpen,
+}) => (
+  <Popconfirm
+    data-testid="schedule-undispatched-base-popconfirm"
+    onConfirm={onConfirm}
+    open={open}
+    refEl={refEl}
+    setOpen={setOpen}
+    side="left"
+  >
+    <div className={styles.message}>
+      Are you sure you want to schedule all the undispatched base tasks for this
+      patch&apos;s failing tasks?
+    </div>
+  </Popconfirm>
+);

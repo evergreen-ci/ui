@@ -9,23 +9,15 @@ import {
 import { SET_VERSION_PRIORITY } from "gql/mutations";
 import styles from "./PopconfirmMessage.module.css";
 
-interface Props {
-  open: boolean;
-  refEl: React.RefObject<HTMLElement | null>;
-  refetchQueries?: string[];
-  setOpen: (open: boolean) => void;
-  versionId: string;
-}
-export const DisableTasksPopconfirm: React.FC<Props> = ({
-  open,
-  refEl,
-  refetchQueries = [],
-  setOpen,
-  versionId,
-}) => {
+// The mutation lives in a hook so its callbacks survive the popconfirm
+// unmounting on confirm.
+export const useDisableVersionTasks = (
+  versionId: string,
+  refetchQueries: string[] = [],
+) => {
   const dispatchToast = useToastContext();
 
-  const [disableVersion] = useMutation<
+  const [disableVersion, { loading }] = useMutation<
     SetVersionPriorityMutation,
     SetVersionPriorityMutationVariables
   >(SET_VERSION_PRIORITY, {
@@ -38,25 +30,38 @@ export const DisableTasksPopconfirm: React.FC<Props> = ({
     refetchQueries,
   });
 
-  return (
-    <Popconfirm
-      onConfirm={() => {
-        disableVersion({
-          variables: { versionId, priority: -1 },
-        });
-      }}
-      open={open}
-      refEl={refEl}
-      setOpen={setOpen}
-      side="left"
-    >
-      <div className={styles.message}>
-        <Body>Disable all tasks?</Body>
-        <Body>
-          Disabling tasks prevents them from running unless explicitly activated
-          by a user.
-        </Body>
-      </div>
-    </Popconfirm>
-  );
+  const disable = () => {
+    disableVersion({ variables: { versionId, priority: -1 } });
+  };
+
+  return { disable, loading };
 };
+
+interface Props {
+  onConfirm: () => void;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
+}
+export const DisableTasksPopconfirm: React.FC<Props> = ({
+  onConfirm,
+  open,
+  refEl,
+  setOpen,
+}) => (
+  <Popconfirm
+    onConfirm={onConfirm}
+    open={open}
+    refEl={refEl}
+    setOpen={setOpen}
+    side="left"
+  >
+    <div className={styles.message}>
+      <Body>Disable all tasks?</Body>
+      <Body>
+        Disabling tasks prevents them from running unless explicitly activated
+        by a user.
+      </Body>
+    </div>
+  </Popconfirm>
+);

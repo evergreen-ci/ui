@@ -140,6 +140,8 @@ export const ActionButtons: React.FC<Props> = ({
     loadingOverrideTaskDependencies;
 
   const [priorityOpen, setPriorityOpen] = useState(false);
+  const [priorityLoading, setPriorityLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { anchorRef, getItemProps } = usePopconfirmAnchor({
     isOpen: priorityOpen,
     onClose: () => setPriorityOpen(false),
@@ -201,7 +203,7 @@ export const ActionButtons: React.FC<Props> = ({
     <DropdownItem
       key="set-task-priority"
       data-testid="set-priority-menu-item"
-      isDisabled={disabled || !canSetPriority}
+      isDisabled={disabled || !canSetPriority || priorityLoading}
       {...getItemProps("priority", () => setPriorityOpen(true), priorityOpen)}
     >
       Set task priority
@@ -246,21 +248,26 @@ export const ActionButtons: React.FC<Props> = ({
         loading={
           loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
         }
+        open={menuOpen}
         setOpen={(isOpen) => {
+          setMenuOpen(isOpen);
           if (!isOpen) {
             setPriorityOpen(false);
           }
         }}
       />
-      {priorityOpen && (
-        <SetPriority
-          initialPriority={initialPriority}
-          onOpenChange={setPriorityOpen}
-          open
-          refEl={anchorRef}
-          taskIds={[taskId]}
-        />
-      )}
+      <SetPriority
+        initialPriority={initialPriority}
+        onLoadingChange={setPriorityLoading}
+        onOpenChange={setPriorityOpen}
+        onSubmit={() => {
+          setPriorityOpen(false);
+          setMenuOpen(false);
+        }}
+        open={priorityOpen}
+        refEl={anchorRef}
+        taskIds={[taskId]}
+      />
     </PageButtonRow>
   );
 };

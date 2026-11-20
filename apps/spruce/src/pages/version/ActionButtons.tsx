@@ -14,6 +14,8 @@ import {
   ScheduleTasks,
   ScheduleUndispatchedBaseTasksPopconfirm,
   UnscheduleTasksPopconfirm,
+  useDisableVersionTasks,
+  useScheduleUndispatchedBaseTasks,
   useUnscheduleVersionTasks,
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
@@ -41,7 +43,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
 }) => {
   const { loading: unscheduling, unschedule } =
     useUnscheduleVersionTasks(versionId);
+  const { disable, loading: disabling } = useDisableVersionTasks(versionId);
+  const { loading: schedulingBaseTasks, schedule: scheduleBaseTasks } =
+    useScheduleUndispatchedBaseTasks(versionId);
+  const [priorityLoading, setPriorityLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [popconfirm, setPopconfirm] = useState<VersionPopconfirm | null>(null);
+  const closeMenu = () => {
+    setPopconfirm(null);
+    setMenuOpen(false);
+  };
   const { anchorRef, getItemProps } = usePopconfirmAnchor({
     isOpen: popconfirm !== null,
     onClose: () => setPopconfirm(null),
@@ -78,6 +89,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <DropdownItem
       key="disable-tasks"
       data-testid="disable"
+      isDisabled={disabling}
       {...getItemProps(
         "disable",
         () => setPopconfirm("disable"),
@@ -88,7 +100,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     </DropdownItem>,
     <DropdownItem
       key="schedule-undispatched-base-tasks"
-      isDisabled={!isPatch}
+      isDisabled={!isPatch || schedulingBaseTasks}
       {...getItemProps(
         "scheduleBaseTasks",
         () => setPopconfirm("scheduleBaseTasks"),
@@ -100,6 +112,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <DropdownItem
       key="priority"
       data-testid="set-priority-menu-item"
+      isDisabled={priorityLoading}
       {...getItemProps(
         "priority",
         () => setPopconfirm("priority"),
@@ -131,7 +144,9 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       <ButtonDropdown
         dropdownItems={dropdownItems}
         loading={false}
+        open={menuOpen}
         setOpen={(isOpen) => {
+          setMenuOpen(isOpen);
           if (!isOpen) {
             setPopconfirm(null);
           }
@@ -139,7 +154,10 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       />
       {popconfirm === "unschedule" && (
         <UnscheduleTasksPopconfirm
-          onConfirm={unschedule}
+          onConfirm={(abort) => {
+            unschedule(abort);
+            closeMenu();
+          }}
           open
           refEl={anchorRef}
           setOpen={setOpenFor("unschedule")}
@@ -147,28 +165,34 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       )}
       {popconfirm === "disable" && (
         <DisableTasksPopconfirm
+          onConfirm={() => {
+            disable();
+            closeMenu();
+          }}
           open
           refEl={anchorRef}
           setOpen={setOpenFor("disable")}
-          versionId={versionId}
         />
       )}
       {popconfirm === "scheduleBaseTasks" && (
         <ScheduleUndispatchedBaseTasksPopconfirm
+          onConfirm={() => {
+            scheduleBaseTasks();
+            closeMenu();
+          }}
           open
           refEl={anchorRef}
           setOpen={setOpenFor("scheduleBaseTasks")}
-          versionId={versionId}
         />
       )}
-      {popconfirm === "priority" && (
-        <SetPriority
-          {...priorityProps}
-          onOpenChange={setOpenFor("priority")}
-          open
-          refEl={anchorRef}
-        />
-      )}
+      <SetPriority
+        {...priorityProps}
+        onLoadingChange={setPriorityLoading}
+        onOpenChange={setOpenFor("priority")}
+        onSubmit={closeMenu}
+        open={popconfirm === "priority"}
+        refEl={anchorRef}
+      />
     </PageButtonRow>
   );
 };
