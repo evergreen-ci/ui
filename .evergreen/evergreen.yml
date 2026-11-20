@@ -32,7 +32,6 @@ post:
 include:
   - filename: .evergreen/attach.yml
   - filename: .evergreen/deploy.yml
-  - filename: .evergreen/generate.yml
   - filename: .evergreen/shared.yml
 
 buildvariants:
@@ -56,8 +55,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e
-        patchable: false
+      - name: ".spruce-e2e-shard"
       - name: lint
       - name: storybook
       - name: test
@@ -66,6 +64,13 @@ buildvariants:
         git_tag_only: true
         patchable: false
         priority: 100
+    display_tasks:
+      - name: e2e_parallel
+        execution_tasks:
+          - e2e_spruce_1
+          - e2e_spruce_2
+          - e2e_spruce_3
+          - e2e_spruce_4
 
   - name: parsley
     display_name: Parsley
@@ -167,14 +172,6 @@ buildvariants:
       - name: test
       - name: type_check
 
-  - name: generator
-    display_name: Generator
-    patch_only: true
-    run_on:
-      - ubuntu2204-small
-    tasks:
-      - generate-spruce-e2e
-
   - name: deploy
     display_name: Deploys
     activate: false
@@ -190,4 +187,4 @@ buildvariants:
 parameters:
   - key: playwright_spec
     value: ""
-    description: Specify the Playwright spec files to run for user submitted patches running the e2e task.
+    description: Specify Playwright spec files to run in E2E tasks.

@@ -3,15 +3,15 @@ import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
 import { CopyableID } from "components/CopyableID";
 import { GithubCommitLink } from "components/GithubCommitLink";
-import { MetadataItem, MetadataSection } from "components/MetadataCard";
+import {
+  MetadataItem,
+  MetadataSection,
+  ProjectMetadata,
+} from "components/MetadataCard";
 import { RevisionLink } from "components/RevisionLink";
 import { getGithubMergeQueueUrl } from "constants/externalResources";
 import { Requester } from "constants/requesters";
-import {
-  getUserPatchesRoute,
-  getVersionRoute,
-  getWaterfallRoute,
-} from "constants/routes";
+import { getUserPatchesRoute, getVersionRoute } from "constants/routes";
 import { Version } from "pages/version/Metadata/types";
 import { getDisplayRevision } from "utils/string";
 import BaseCommitMetadata from "./BaseCommitMetadata";
@@ -40,13 +40,7 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
   const { githubPatchData, includedLocalModules } = patch || {};
   const { headHash, prNumber } = githubPatchData || {};
 
-  const {
-    branch,
-    id: projectID,
-    identifier: projectIdentifier,
-    owner,
-    repo,
-  } = projectMetadata || {};
+  const { branch, owner, repo } = projectMetadata || {};
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
   const isGitHubPullRequest = requester === Requester.GitHubPR;
@@ -92,14 +86,15 @@ export const GeneralSection: React.FC<GeneralSectionProps> = ({ version }) => {
         </MetadataItem>
       )}
 
-      <MetadataItem label="Project">
-        <StyledRouterLink
-          onClick={() => sendEvent({ name: "Clicked metadata waterfall link" })}
-          to={getWaterfallRoute(projectIdentifier || projectID || "")}
-        >
-          {projectIdentifier || `${owner}/${repo}`}
-        </StyledRouterLink>
-      </MetadataItem>
+      {projectMetadata && (
+        <ProjectMetadata
+          handleClick={() =>
+            sendEvent({ name: "Clicked metadata waterfall link" })
+          }
+          {...projectMetadata}
+        />
+      )}
+
       {hasCommitLink && (
         <MetadataItem>
           <GithubCommitLink

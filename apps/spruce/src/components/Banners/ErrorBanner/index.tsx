@@ -40,8 +40,8 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
       </Callout>
       <DisplayModal
         data-testid="configuration-errors-modal"
-        open={showModal}
-        setOpen={setShowModal}
+        isOpen={showModal}
+        onOpenChange={setShowModal}
         title={
           <TitleWrapper>
             <Warning size="xlarge" />

@@ -183,9 +183,20 @@ functions:
           # Install Chromium browser to use with Playwright tests.
           pnpm exec playwright install chromium
 
-          # Allow spec filtering for an intentional patch.
-          if [[ "${playwright_spec}" != "" ]]; then
+          task_name_value="${task_name}"
+          playwright_shard=""
+          if [[ "$task_name_value" == *e2e_spruce_[1-4]* ]]; then
+            playwright_shard="$(sed -E 's/.*e2e_spruce_([1-4]).*/\1/' <<< "$task_name_value")/4"
+          fi
+
+          # Allow spec filtering for an intentional patch, supplying the shard flag when present.
+          # Four tasks will still be created, but that's okay.
+          if [[ "${playwright_spec}" != "" && "$playwright_shard" != "" ]]; then
+            pnpm playwright:test ${playwright_spec} --shard="$playwright_shard"
+          elif [[ "${playwright_spec}" != "" ]]; then
             pnpm playwright:test ${playwright_spec}
+          elif [[ "$playwright_shard" != "" ]]; then
+            pnpm playwright:test --shard="$playwright_shard"
           else
             pnpm playwright:test
           fi
@@ -287,7 +298,8 @@ tasks:
       - func: symlink
       - func: pnpm-build
 
-  - name: e2e
+  - &run-e2e-task
+    name: e2e
     commands:
       - func: setup-mongodb
       - func: generate-token
@@ -301,6 +313,22 @@ tasks:
       - func: wait-for-evergreen
       - func: pnpm-verify-backend
       - func: pnpm-playwright
+
+  - <<: *run-e2e-task
+    name: e2e_spruce_1
+    tags: ["spruce-e2e-shard"]
+
+  - <<: *run-e2e-task
+    name: e2e_spruce_2
+    tags: ["spruce-e2e-shard"]
+
+  - <<: *run-e2e-task
+    name: e2e_spruce_3
+    tags: ["spruce-e2e-shard"]
+
+  - <<: *run-e2e-task
+    name: e2e_spruce_4
+    tags: ["spruce-e2e-shard"]
 
   - name: lint
     commands:

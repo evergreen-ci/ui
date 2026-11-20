@@ -38,8 +38,8 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
       )}
       <DisplayModal
         data-testid="parameters-modal"
-        open={showModal}
-        setOpen={setShowModal}
+        isOpen={showModal}
+        onOpenChange={setShowModal}
         size="large"
         title="Patch Parameters"
       >
