@@ -14,8 +14,10 @@ import Bell from "@via-ds/icons/Bell";
 import Bulb from "@via-ds/icons/Bulb";
 import Code from "@via-ds/icons/Code";
 import Ellipsis from "@via-ds/icons/Ellipsis";
+import NumberedList from "@via-ds/icons/NumberedList";
 import { useWaterfallAnalytics } from "analytics";
 import { OMIT_INACTIVE_WATERFALL_BUILDS } from "constants/cookies";
+import { getProjectCommitsRoute } from "constants/routes";
 import { NotificationModalSource } from "types/subscription";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
@@ -85,6 +87,17 @@ export const WaterfallMenu: React.FC<Props> = ({
             >
               <Bell slot="icon" />
               <Text>Add notification</Text>
+            </MenuItem>
+            <MenuItem
+              data-testid="commit history"
+              href={getProjectCommitsRoute(projectIdentifier)}
+              onAction={() => {
+                setMenuOpen(false);
+              }}
+              textValue="Add notification"
+            >
+              <NumberedList slot="icon" />
+              <Text>Commit history</Text>
             </MenuItem>
             <MenuItem
               data-testid="restart-walkthrough"

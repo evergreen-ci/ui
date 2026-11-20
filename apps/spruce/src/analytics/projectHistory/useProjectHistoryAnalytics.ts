@@ -2,7 +2,7 @@ import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 
 // The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
-type pageType = "Variant history";
+type pageType = "Variant history" | "Project commit history";
 type Action =
   | { name: "Clicked column header" }
   | { name: "Clicked task cell"; "task.status": string }
@@ -19,7 +19,9 @@ type Action =
   | { name: "Filtered failed tests" }
   | { name: "Filtered by task"; "filter.type"?: string }
   | { name: "Toggled folded commit"; toggle: "open" | "close" }
-  | { name: "Toggled task icon legend"; open: boolean };
+  | { name: "Toggled task icon legend"; open: boolean }
+  | { name: "Changed project"; project: string }
+  | { name: "Clicked load more button" };
 
 /**
  * `useProjectHistoryAnalytics` is a custom hook that provides analytics tracking for project history pages.

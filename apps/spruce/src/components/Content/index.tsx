@@ -8,6 +8,7 @@ import {
   WaterfallCommitsRedirect,
 } from "components/Redirects";
 import {
+  getProjectCommitsRoute,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getVariantHistoryRoute,
@@ -26,6 +27,7 @@ import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
 import { PageDoesNotExist } from "pages/NotFound";
 import { Preferences } from "pages/Preferences";
+import { ProjectCommits } from "pages/ProjectCommits";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
 import { RepoSettings } from "pages/RepoSettings";
@@ -135,6 +137,14 @@ export const Content: React.FC = () => (
           </ProjectRedirect>
         }
         path={routes.waterfall}
+      />
+      <Route
+        element={
+          <ProjectRedirect getRedirectRoute={getProjectCommitsRoute}>
+            <ProjectCommits />
+          </ProjectRedirect>
+        }
+        path={routes.projectCommits}
       />
       <Route element={<PageDoesNotExist />} path="*" />
       <Route element={<AdminSettings />} path={routes.adminSettings}>

@@ -10,6 +10,7 @@ type Action =
   | { name: "Clicked my hosts link" }
   | { name: "Clicked all hosts link" }
   | { name: "Clicked distro settings link" }
+  | { name: "Clicked project commits link" }
   | { name: "Clicked project settings link" }
   | { name: "Clicked project patches link" }
   | { name: "Clicked merge queue link" }
