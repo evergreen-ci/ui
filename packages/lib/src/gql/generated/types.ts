@@ -170,6 +170,7 @@ export type AdminSettings = {
   githubCheckRun?: Maybe<GitHubCheckRunConfig>;
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
+  githubRecoveryApp?: Maybe<GitHubRecoveryAppConfig>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
   graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
@@ -229,6 +230,7 @@ export type AdminSettingsInput = {
   githubCheckRun?: InputMaybe<GitHubCheckRunConfigInput>;
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
+  githubRecoveryApp?: InputMaybe<GitHubRecoveryAppConfigInput>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
   graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
@@ -1184,6 +1186,17 @@ export type GitHubDynamicTokenPermissionGroup = {
 export type GitHubDynamicTokenPermissionGroupInput = {
   name: Scalars["String"]["input"];
   permissions: Scalars["StringMap"]["input"];
+};
+
+export type GitHubRecoveryAppConfig = {
+  __typename?: "GitHubRecoveryAppConfig";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GitHubRecoveryAppConfigInput = {
+  appId?: InputMaybe<Scalars["Int"]["input"]>;
+  privateKey?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GitTag = {
