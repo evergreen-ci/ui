@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
-import { Align, Justify, Popover } from "@leafygreen-ui/popover";
-import { Body, Overline } from "@leafygreen-ui/typography";
+import { useState } from "react";
+import { Button, ButtonVariant } from "@via-ds/components/button";
+import { Popover, PopoverRoot } from "@via-ds/components/popover";
+import { Body, H6 } from "@via-ds/components/typography";
 import QuestionMarkWithCircle from "@via-ds/icons/QuestionMarkWithCircle";
 import X from "@via-ds/icons/X";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { useOnClickOutside } from "@evg-ui/lib/hooks";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { PopoverContainer } from "components/styles/Popover";
@@ -78,52 +77,45 @@ export const TaskStatusIconLegend: React.FC = () => {
 
   const [open, setOpen] = useState(false);
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
+  const handleOpenChange = (isOpen: boolean) => {
+    sendEvent({
+      name: "Toggled task icon legend",
+      open: isOpen,
+    });
+    setOpen(isOpen);
+  };
 
   return (
     <div {...legendProps}>
-      <IconButton
-        ref={buttonRef}
-        aria-label="Task status icon legend"
-        onClick={() => {
-          sendEvent({
-            name: "Toggled task icon legend",
-            open: !open,
-          });
-          setOpen(!open);
-        }}
+      <PopoverRoot
+        align="end"
+        isOpen={open}
+        onOpenChange={handleOpenChange}
+        side="top"
+        triggerType="dialog"
       >
-        <QuestionMarkWithCircle size="medium" />
-      </IconButton>
-      <Popover
-        ref={popoverRef}
-        active={open}
-        align={Align.Top}
-        justify={Justify.End}
-        refEl={buttonRef}
-      >
-        <PopoverContainer className={styles.legendPopover}>
-          <div className={styles.titleContainer}>
-            <Overline>Icon Legend</Overline>
-            <IconButton
-              aria-label="Close task status icon legend"
-              onClick={() => {
-                sendEvent({
-                  name: "Toggled task icon legend",
-                  open: false,
-                });
-                setOpen(false);
-              }}
-            >
-              <X size="medium" />
-            </IconButton>
-          </div>
-          <LegendContent />
-        </PopoverContainer>
-      </Popover>
+        <Button
+          aria-label="Task status icon legend"
+          variant={ButtonVariant.Tertiary}
+        >
+          <QuestionMarkWithCircle size="medium" />
+        </Button>
+        <Popover>
+          <PopoverContainer className={styles.legendPopover}>
+            <div className={styles.titleContainer}>
+              <H6>Icon Legend</H6>
+              <Button
+                aria-label="Close task status icon legend"
+                onPress={() => handleOpenChange(false)}
+                variant={ButtonVariant.Tertiary}
+              >
+                <X size="medium" />
+              </Button>
+            </div>
+            <LegendContent />
+          </PopoverContainer>
+        </Popover>
+      </PopoverRoot>
     </div>
   );
 };
