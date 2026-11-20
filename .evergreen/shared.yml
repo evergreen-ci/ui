@@ -187,14 +187,23 @@ functions:
           # Install Chromium browser to use with Playwright tests.
           pnpm exec playwright install chromium
 
-          playwright_args=()
-          if [[ "${task_name}" =~ e2e_spruce_([1-4]) ]]; then
-            playwright_args+=(--shard="${BASH_REMATCH[1]}/4")
+          task_name_value="${task_name}"
+          playwright_shard=""
+          if [[ "$task_name_value" == *e2e_spruce_[1-4]* ]]; then
+            playwright_shard="$(sed -E 's/.*e2e_spruce_([1-4]).*/\1/' <<< "$task_name_value")/4"
           fi
 
           # Allow spec filtering for an intentional patch, supplying the shard flag when present.
           # Four tasks will still be created, but that's okay.
-          pnpm playwright:test ${playwright_spec} "${playwright_args[@]}"
+          if [[ "${playwright_spec}" != "" && "$playwright_shard" != "" ]]; then
+            pnpm playwright:test ${playwright_spec} --shard="$playwright_shard"
+          elif [[ "${playwright_spec}" != "" ]]; then
+            pnpm playwright:test ${playwright_spec}
+          elif [[ "$playwright_shard" != "" ]]; then
+            pnpm playwright:test --shard="$playwright_shard"
+          else
+            pnpm playwright:test
+          fi
 
   pnpm-eslint:
     command: subprocess.exec
