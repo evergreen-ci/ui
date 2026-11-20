@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Checkbox } from "@via-ds/components";
+import { Checkbox } from "@via-ds/components/checkbox";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox } from "components/TaskBox";
 import styles from "./TaskStatusCheckbox.module.css";

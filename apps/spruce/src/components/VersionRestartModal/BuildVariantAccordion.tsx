@@ -1,4 +1,5 @@
-import { Badge, Checkbox } from "@via-ds/components";
+import { Badge } from "@via-ds/components/badge";
+import { Checkbox } from "@via-ds/components/checkbox";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import styles from "./BuildVariantAccordion.module.css";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";

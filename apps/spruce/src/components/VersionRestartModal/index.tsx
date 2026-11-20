@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { skipToken, useMutation, useQuery } from "@apollo/client/react";
-import {
-  Body,
-  Button,
-  Checkbox,
-  Content,
-  Dialog,
-  DialogRoot,
-  Footer,
-  Header,
-  Skeleton,
-  Text,
-} from "@via-ds/components";
+import { Button } from "@via-ds/components/button";
+import { Checkbox } from "@via-ds/components/checkbox";
+import { Dialog, DialogRoot } from "@via-ds/components/dialog";
+import { Skeleton } from "@via-ds/components/skeleton";
+import { Content, Footer, Header } from "@via-ds/components/structure";
+import { Body, Text } from "@via-ds/components/typography";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
