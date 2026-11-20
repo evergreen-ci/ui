@@ -89,10 +89,10 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   };
 
   let dropdownItems: React.ReactNode[];
-  if (!task.testSelectionEnabled) {
+  if (!test.canQuarantine) {
     dropdownItems = [
       <DropdownItem key="disabled" disabled>
-        Test selection did not run for this task, so its tests cannot be
+        Test selection did not check this test in this task run, so it cannot be
         quarantined.
       </DropdownItem>,
     ];

@@ -278,6 +278,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
             {
               id: "test-1",
               baseStatus: null,
+              canQuarantine: false,
               duration: 1234,
               isManuallyQuarantined: false,
               logs: {
@@ -293,6 +294,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
             {
               id: "test-2",
               baseStatus: null,
+              canQuarantine: false,
               duration: 890,
               isManuallyQuarantined: false,
               logs: {
@@ -309,6 +311,7 @@ const failingTestsMock: ApolloMock<TaskTestsQuery, TaskTestsQueryVariables> = {
             {
               id: "test-3",
               baseStatus: null,
+              canQuarantine: false,
               duration: 2345,
               isManuallyQuarantined: false,
               logs: {
