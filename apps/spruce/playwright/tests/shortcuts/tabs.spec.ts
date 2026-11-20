@@ -6,12 +6,23 @@ test.describe("Tab shortcut", () => {
   }) => {
     await page.goto("/version/5f74d99ab2373627c047c5e5/");
 
-    const taskTab = page.getByTestId("task-tab");
-    const durationTab = page.getByTestId("duration-tab");
-    const changesTab = page.getByTestId("changes-tab");
-    const downstreamTab = page.getByTestId("downstream-tab");
-    const testAnalysisTab = page.getByTestId("test-analysis-tab");
-    const versionTimingTab = page.getByTestId("version-timing-tab");
+    const taskTab = page.getByRole("tab", { name: "Tasks", exact: true });
+    const durationTab = page.getByRole("tab", {
+      name: "Task Duration",
+      exact: true,
+    });
+    const changesTab = page.getByRole("tab", { name: "Changes", exact: true });
+    const downstreamTab = page.getByRole("tab", {
+      name: /^Downstream Projects/,
+    });
+    const testAnalysisTab = page.getByRole("tab", {
+      name: "Test Analysis",
+      exact: true,
+    });
+    const versionTimingTab = page.getByRole("tab", {
+      name: "Version Timing",
+      exact: true,
+    });
 
     await expect(taskTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");
@@ -57,9 +68,12 @@ test.describe("Tab shortcut", () => {
   }) => {
     await page.goto("/patch/5f74d99ab2373627c047c5e5/configure");
 
-    const tasksTab = page.getByTestId("tasks-tab");
-    const changesTab = page.getByTestId("changes-tab");
-    const parametersTab = page.getByTestId("parameters-tab");
+    const tasksTab = page.getByRole("tab", { name: "Configure", exact: true });
+    const changesTab = page.getByRole("tab", { name: "Changes", exact: true });
+    const parametersTab = page.getByRole("tab", {
+      name: "Parameters",
+      exact: true,
+    });
 
     await expect(tasksTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");
@@ -89,14 +103,21 @@ test.describe("Tab shortcut", () => {
       "/task/mci_ubuntu1604_display_asdf_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47/execution-tasks",
     );
 
-    const taskLogsTab = page.getByTestId("task-logs-tab");
-    const taskExecutionTab = page.getByTestId("task-execution-tab");
-    const taskTestsTab = page.getByTestId("task-tests-tab");
-    const taskFilesTab = page.getByTestId("task-files-tab");
-    const taskHistoryTab = page.getByTestId("task-history-tab");
-    const executionTasksTimingTab = page.getByTestId(
-      "execution-tasks-timing-tab",
-    );
+    const taskLogsTab = page.getByRole("tab", { name: "Logs", exact: true });
+    const taskExecutionTab = page.getByRole("tab", {
+      name: "Execution Tasks",
+      exact: true,
+    });
+    const taskTestsTab = page.getByRole("tab", { name: /^Tests/ });
+    const taskFilesTab = page.getByRole("tab", { name: /^Files/ });
+    const taskHistoryTab = page.getByRole("tab", {
+      name: "History",
+      exact: true,
+    });
+    const executionTasksTimingTab = page.getByRole("tab", {
+      name: "Execution Tasks Timing",
+      exact: true,
+    });
 
     await expect(taskExecutionTab).toHaveAttribute("aria-selected", "true");
     await page.locator("body").press("j");

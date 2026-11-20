@@ -27,10 +27,9 @@ test.describe("task history", () => {
   test.describe("navigation", () => {
     test("can view the task history tab", async ({ page }) => {
       await page.goto(spruceTaskHistoryLink);
-      await expect(page.getByTestId("task-history-tab")).toHaveAttribute(
-        "aria-selected",
-        "true",
-      );
+      await expect(
+        page.getByRole("tab", { name: "History", exact: true }),
+      ).toHaveAttribute("aria-selected", "true");
       await expect(page.getByTestId("task-history")).toBeVisible();
     });
   });

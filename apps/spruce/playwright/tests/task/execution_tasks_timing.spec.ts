@@ -10,7 +10,9 @@ test.describe("Execution Tasks Timing", () => {
       page,
     }) => {
       await page.goto(taskRoute);
-      await page.getByTestId("execution-tasks-timing-tab").click();
+      await page
+        .getByRole("tab", { name: "Execution Tasks Timing", exact: true })
+        .click();
       await expect(page).toHaveURL(
         `${executionTasksTimingRoute}?execution=0&sorts=STATUS%3AASC`,
       );
@@ -60,7 +62,9 @@ test.describe("Execution Tasks Timing", () => {
       await page.goto(regularTaskRoute);
 
       // The execution tasks timing tab should not be visible
-      await expect(page.getByTestId("execution-tasks-timing-tab")).toBeHidden();
+      await expect(
+        page.getByRole("tab", { name: "Execution Tasks Timing", exact: true }),
+      ).toBeHidden();
     });
   });
 

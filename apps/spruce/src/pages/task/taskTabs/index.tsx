@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/badge";
-import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
@@ -10,7 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
-import { StyledTabs } from "components/styles/StyledTabs";
+import { StyledTab, StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getHoneycombHistoryUrl } from "constants/externalResources/honeycomb";
 import { GetTaskRouteOptions, getTaskRoute, slugs } from "constants/routes";
@@ -98,9 +97,11 @@ const useTabConfig = (
     [TaskTab.Config]: !isDisplayTask,
   };
 
-  const tabMap: Record<TaskTab, React.JSX.Element> = {
-    [TaskTab.Logs]: (
-      <Tab key="task-logs-tab" data-testid="task-logs-tab" name="Logs">
+  const tabMap: Record<TaskTab, StyledTab> = {
+    [TaskTab.Logs]: {
+      key: "task-logs-tab",
+      name: "Logs",
+      content: (
         <Logs
           execution={execution}
           hideHostLogs={isPushCompletedVirtualTask(task)}
@@ -108,67 +109,52 @@ const useTabConfig = (
           logLinks={logLinks}
           taskId={id}
         />
-      </Tab>
-    ),
-    [TaskTab.Tests]: (
-      <Tab
-        key="task-tests-tab"
-        data-testid="task-tests-tab"
-        name={
-          failedTestCount ? (
-            <TabLabelWithBadge
-              badgeText={failedTestCount}
-              badgeVariant={Variant.Red}
-              dataTestIdBadge="tests-tab-badge"
-              tabLabel="Tests"
-            />
-          ) : (
-            "Tests"
-          )
-        }
-      >
-        <TestsTable task={task} />
-      </Tab>
-    ),
-    [TaskTab.ExecutionTasks]: (
-      <Tab
-        key="execution-tasks-tab"
-        data-testid="task-execution-tab"
-        name="Execution Tasks"
-      >
+      ),
+    },
+    [TaskTab.Tests]: {
+      key: "task-tests-tab",
+      name: failedTestCount ? (
+        <TabLabelWithBadge
+          badgeText={failedTestCount}
+          badgeVariant={Variant.Red}
+          dataTestIdBadge="tests-tab-badge"
+          tabLabel="Tests"
+        />
+      ) : (
+        "Tests"
+      ),
+      content: <TestsTable task={task} />,
+    },
+    [TaskTab.ExecutionTasks]: {
+      key: "execution-tasks-tab",
+      name: "Execution Tasks",
+      content: (
         <ExecutionTasksTable
           execution={execution}
           executionTasksFull={executionTasksFull}
           isPatch={versionMetadata?.isPatch}
         />
-      </Tab>
-    ),
-    [TaskTab.Files]: (
-      <Tab
-        key="task-files-tab"
-        data-testid="task-files-tab"
-        name={
-          fileCount !== undefined ? (
-            <TabLabelWithBadge
-              badgeText={fileCount}
-              badgeVariant={Variant.LightGray}
-              dataTestIdBadge="files-tab-badge"
-              tabLabel="Files"
-            />
-          ) : (
-            "Files"
-          )
-        }
-      >
-        <FileTable execution={execution} taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.Annotations]: (
-      <Tab
-        key="task-build-baron-tab"
-        data-testid="task-build-baron-tab"
-        name="Failure Details"
-      >
+      ),
+    },
+    [TaskTab.Files]: {
+      key: "task-files-tab",
+      name:
+        fileCount !== undefined ? (
+          <TabLabelWithBadge
+            badgeText={fileCount}
+            badgeVariant={Variant.LightGray}
+            dataTestIdBadge="files-tab-badge"
+            tabLabel="Files"
+          />
+        ) : (
+          "Files"
+        ),
+      content: <FileTable execution={execution} taskId={id} />,
+    },
+    [TaskTab.Annotations]: {
+      key: "task-build-baron-tab",
+      name: "Failure Details",
+      content: (
         <BuildBaron
           /* @ts-expect-error: FIXME. This comment was added by an automated script. */
           annotation={annotation}
@@ -178,72 +164,58 @@ const useTabConfig = (
           taskId={id}
           userCanModify={canModifyAnnotation}
         />
-      </Tab>
-    ),
-    [TaskTab.TrendCharts]: (
-      <Tab
-        key="trend-charts-tab"
-        data-testid="trend-charts-tab"
-        name="Trend Charts"
-      >
-        <TrendChartsPlugin taskId={id} />
-      </Tab>
-    ),
-    [TaskTab.History]: (
-      <Tab
-        key="task-history-tab"
-        data-testid="task-history-tab"
-        name="History"
-        {...walkthroughHistoryTabProps}
-      >
-        {baseTaskId ? (
-          <TaskHistory baseTaskId={baseTaskId} task={task} />
-        ) : (
-          <TaskHistoryDisclaimer>
-            <Body>
-              Evergreen cannot show history for this task; try viewing the{" "}
-              <StyledLink
-                href={getHoneycombHistoryUrl({
-                  bvName: buildVariant,
-                  projectId: projectId ?? "",
-                  taskName: displayName,
-                  requester,
-                  isDisplayTask,
-                })}
-              >
-                history in Honeycomb
-              </StyledLink>{" "}
-              instead.
-            </Body>
-            <Body>
-              (Note that if this is a merge queue task, history may become
-              available upon task completion.)
-            </Body>
-          </TaskHistoryDisclaimer>
-        )}
-      </Tab>
-    ),
-    [TaskTab.ExecutionTasksTiming]: (
-      <Tab
-        key="execution-tasks-timing-tab"
-        data-testid="execution-tasks-timing-tab"
-        name="Execution Tasks Timing"
-      >
+      ),
+    },
+    [TaskTab.TrendCharts]: {
+      key: "trend-charts-tab",
+      name: "Trend Charts",
+      content: <TrendChartsPlugin taskId={id} />,
+    },
+    [TaskTab.History]: {
+      key: "task-history-tab",
+      // TODO(UXE-1584): Move the guide attribute onto the Tab once Via forwards data-* attributes.
+      name: <span {...walkthroughHistoryTabProps}>History</span>,
+      content: baseTaskId ? (
+        <TaskHistory baseTaskId={baseTaskId} task={task} />
+      ) : (
+        <TaskHistoryDisclaimer>
+          <Body>
+            Evergreen cannot show history for this task; try viewing the{" "}
+            <StyledLink
+              href={getHoneycombHistoryUrl({
+                bvName: buildVariant,
+                projectId: projectId ?? "",
+                taskName: displayName,
+                requester,
+                isDisplayTask,
+              })}
+            >
+              history in Honeycomb
+            </StyledLink>{" "}
+            instead.
+          </Body>
+          <Body>
+            (Note that if this is a merge queue task, history may become
+            available upon task completion.)
+          </Body>
+        </TaskHistoryDisclaimer>
+      ),
+    },
+    [TaskTab.ExecutionTasksTiming]: {
+      key: "execution-tasks-timing-tab",
+      name: "Execution Tasks Timing",
+      content: (
         <ExecutionTasksTiming
           executionTasksFull={executionTasksFull}
           taskName={displayName}
         />
-      </Tab>
-    ),
-    [TaskTab.Config]: (
-      <Tab
-        key="task-config-tab"
-        data-testid="task-config-tab"
-        name="Task Config"
-      >
-        <TaskConfigTab execution={execution} taskId={id} />
-      </Tab>
-    ),
+      ),
+    },
+    [TaskTab.Config]: {
+      key: "task-config-tab",
+      name: "Task Config",
+      content: <TaskConfigTab execution={execution} taskId={id} />,
+    },
   };
 
   const activeTabs = Object.keys(tabIsActive).filter(
@@ -357,10 +329,9 @@ const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     <StyledTabs
       aria-label="Task Page Tabs"
       onValueChange={handleTabChange}
+      tabs={activeTabs.map((tab) => tabMap[tab])}
       value={tabIndex}
-    >
-      {activeTabs.map((tab) => tabMap[tab])}
-    </StyledTabs>
+    />
   );
 };
 
