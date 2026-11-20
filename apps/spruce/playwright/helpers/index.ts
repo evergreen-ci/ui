@@ -118,6 +118,62 @@ export const typeDatePickerDate = async (
   await dayInput.fill(day);
 };
 
+const getViaDateSegment = (
+  page: Page | Locator,
+  testId: string,
+  segment: "year" | "month" | "day",
+) =>
+  page
+    .getByTestId(testId)
+    .getByRole("spinbutton", { name: new RegExp(`^${segment},`) });
+
+/**
+ * Validates the values in a Via date picker component
+ * @param page - The Playwright page object
+ * @param testId - The data-testid attribute value of the date picker
+ * @param opts - The expected date values; omit all three to expect an empty picker
+ * @param opts.year - The expected year value (e.g., "2025")
+ * @param opts.month - The expected zero-padded month value (e.g., "02")
+ * @param opts.day - The expected zero-padded day value (e.g., "28")
+ */
+export const validateViaDatePickerDate = async (
+  page: Page | Locator,
+  testId: string,
+  { year = "", month = "", day = "" } = {},
+): Promise<void> => {
+  const expected = { year, month, day };
+  for (const segment of ["year", "month", "day"] as const) {
+    const locator = getViaDateSegment(page, testId, segment);
+    if (expected[segment]) {
+      await expect(locator).toHaveAttribute(
+        "aria-valuenow",
+        String(Number(expected[segment])),
+      );
+    } else {
+      await expect(locator).not.toHaveAttribute("aria-valuenow");
+    }
+  }
+};
+
+/**
+ * Types a date into a Via date picker's day, year, and month segments.
+ * @param page - The Playwright page object
+ * @param opts - The date to enter
+ * @param opts.year - The year to enter (e.g., "2025")
+ * @param opts.month - The zero-padded month to enter (e.g., "02")
+ * @param opts.day - The zero-padded day to enter (e.g., "28")
+ * @param testId - The data-testid attribute value of the date picker (default: "date-picker")
+ */
+export const typeViaDatePickerDate = async (
+  page: Page | Locator,
+  { year = "", month = "", day = "" } = {},
+  testId = "date-picker",
+): Promise<void> => {
+  await getViaDateSegment(page, testId, "day").pressSequentially(day);
+  await getViaDateSegment(page, testId, "year").pressSequentially(year);
+  await getViaDateSegment(page, testId, "month").pressSequentially(month);
+};
+
 /**
  * Selects page size from the Via Pagination component.
  * @param page - Playwright page object

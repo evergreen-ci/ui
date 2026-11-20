@@ -1,8 +1,8 @@
 import { expect, test } from "../../fixtures";
 import {
   isGraphQLQuery,
-  selectDatePickerDate,
-  validateDatePickerDate,
+  typeViaDatePickerDate,
+  validateViaDatePickerDate,
 } from "../../helpers";
 
 test.describe("status filtering", () => {
@@ -336,13 +336,13 @@ test.describe("date filter", () => {
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page).toHaveURL("/project/spruce/waterfall");
 
-    await selectDatePickerDate(page, {
+    await typeViaDatePickerDate(page, {
       year: "2022",
-      month: "Feb",
-      isoDate: "2022-02-28",
+      month: "02",
+      day: "28",
     });
     await expect(page).toHaveURL(/date=2022-02-28/);
-    await validateDatePickerDate(page, "date-picker", {
+    await validateViaDatePickerDate(page, "date-picker", {
       year: "2022",
       month: "02",
       day: "28",
@@ -355,7 +355,7 @@ test.describe("date filter", () => {
 
   test("date is cleared when paginating", async ({ page }) => {
     await page.goto("/project/spruce/waterfall?date=2022-02-28");
-    await validateDatePickerDate(page, "date-picker", {
+    await validateViaDatePickerDate(page, "date-picker", {
       year: "2022",
       month: "02",
       day: "28",
@@ -363,7 +363,7 @@ test.describe("date filter", () => {
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();
     await expect(page.getByTestId("prev-page-button")).toBeEnabled();
     await page.getByTestId("prev-page-button").click();
-    await validateDatePickerDate(page, "date-picker");
+    await validateViaDatePickerDate(page, "date-picker");
     await expect(page).not.toHaveURL(/date/);
   });
 

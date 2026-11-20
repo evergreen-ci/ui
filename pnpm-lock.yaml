@@ -365,6 +365,9 @@ importers:
       '@evg-ui/lib':
         specifier: workspace:*
         version: link:../../packages/lib
+      '@internationalized/date':
+        specifier: 3.12.4
+        version: 3.12.4
       '@leafygreen-ui/badge':
         specifier: ^10.2.3
         version: 10.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
