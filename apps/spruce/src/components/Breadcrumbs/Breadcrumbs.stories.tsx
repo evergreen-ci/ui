@@ -1,4 +1,4 @@
-import { actions } from "storybook/actions";
+import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import Breadcrumbs from ".";
 
@@ -13,7 +13,7 @@ export const Default: CustomStoryObj<typeof Breadcrumbs> = {
         {
           text: "spruce",
           to: "/project/spruce/waterfall",
-          onClick: () => actions("Clicked first link"),
+          onClick: action("Clicked first link"),
         },
         { text: "511232" },
       ]}
