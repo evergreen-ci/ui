@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Size as ButtonSize } from "@leafygreen-ui/button";
+import { Text } from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
@@ -91,7 +91,7 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
   let dropdownItems: React.ReactNode[];
   if (!task.testSelectionEnabled) {
     dropdownItems = [
-      <DropdownItem key="disabled" disabled>
+      <DropdownItem key="disabled" isDisabled>
         Test selection did not run for this task, so its tests cannot be
         quarantined.
       </DropdownItem>,
@@ -101,10 +101,12 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       <DropdownItem
         key="unquarantine"
         data-testid="unquarantine-test"
-        description="Allow this test to run in future task runs."
-        onClick={onUnquarantineTest}
+        onAction={onUnquarantineTest}
       >
         Unquarantine
+        <Text slot="description">
+          Allow this test to run in future task runs.
+        </Text>
       </DropdownItem>,
     ];
   } else {
@@ -112,13 +114,14 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
       <DropdownItem
         key="quarantine"
         data-testid="quarantine-test"
-        description="Quarantine test so that it does not run in future task runs."
-        onClick={() => {
-          setOpen(false);
+        onAction={() => {
           setIsQuarantineModalOpen(true);
         }}
       >
         Quarantine
+        <Text slot="description">
+          Quarantine test so that it does not run in future task runs.
+        </Text>
       </DropdownItem>,
     ];
   }
@@ -129,7 +132,6 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({ task, test }) => {
         dropdownItems={dropdownItems}
         open={open}
         setOpen={setOpen}
-        size={ButtonSize.XSmall}
       />
       <QuarantineTestModal
         isOpen={isQuarantineModalOpen}

@@ -140,7 +140,10 @@ test.describe("Spawn volume page", () => {
     const yesButton = popconfirm.getByRole("button", { name: "Yes" });
     await expect(confirmCheckbox).not.toBeChecked();
     await expect(yesButton).toBeDisabled();
-    await clickCheckbox(confirmCheckbox);
+    await popconfirm
+      .getByText("I understand this volume is currently mounted to a host.")
+      .click();
+    await expect(confirmCheckbox).toBeChecked();
     await expect(yesButton).toBeEnabled();
     await yesButton.click();
 

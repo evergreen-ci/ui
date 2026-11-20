@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client/react";
-import { MenuItem } from "@leafygreen-ui/menu";
+import { MenuItem } from "@via-ds/components";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePatchAnalytics } from "analytics";
 import {
@@ -36,7 +36,7 @@ export const SetPatchVisibility: React.FC<Props> = ({
 
   return (
     <MenuItem
-      onClick={() => {
+      onAction={() => {
         sendEvent({
           name: "Toggled patch visibility",
           "patch.hidden": !isPatchHidden,

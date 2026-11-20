@@ -1,0 +1,12 @@
+.openItem[role="menuitem"] {
+  background-color: light-dark(
+    var(--via-color-green-100),
+    var(--via-color-green-700)
+  );
+  color: var(--via-color-text-success);
+  font-weight: 600;
+}
+
+.openItem[role="menuitem"]::before {
+  background-color: var(--via-color-icon-success);
+}

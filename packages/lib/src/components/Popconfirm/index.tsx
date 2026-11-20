@@ -1,5 +1,4 @@
 import { cloneElement, useContext, useRef } from "react";
-import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import {
   Align,
   Button,
@@ -128,18 +127,21 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         />
       )}
       <Popover>
-        <LeafyGreenProvider darkMode>
-          <PopoverFrameWithArrow className={cx(styles.frame, className)}>
-            <div className={styles.contentWrapper} data-testid={dataTestId}>
-              {children}
-              <PopconfirmActions
-                confirmDisabled={confirmDisabled}
-                confirmText={confirmText}
-                onConfirm={onConfirm}
-              />
-            </div>
-          </PopoverFrameWithArrow>
-        </LeafyGreenProvider>
+        <PopoverFrameWithArrow className={cx(styles.frame, className)}>
+          <div
+            className={styles.contentWrapper}
+            data-testid={dataTestId}
+            onClick={(e) => e.stopPropagation()}
+            role="presentation"
+          >
+            {children}
+            <PopconfirmActions
+              confirmDisabled={confirmDisabled}
+              confirmText={confirmText}
+              onConfirm={onConfirm}
+            />
+          </div>
+        </PopoverFrameWithArrow>
       </Popover>
     </PopoverRoot>
   );
