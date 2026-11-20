@@ -20,15 +20,23 @@ test.describe("commit navigation", () => {
       )
       .first();
     await expect(commitLink).toBeVisible();
-    await commitLink.click();
-    await expect(page).toHaveURL(/\/version\/[^/]+\/tasks\?/);
-
-    expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({
+    const expectedFilters = {
       taskName: "agent|annotation",
       variant: "ubuntu1604|Lint",
       statuses: "success",
       taskTags: "db,agent",
-    });
+    };
+    const href = await commitLink.getAttribute("href");
+    expect(href).not.toBeNull();
+    expect(
+      Object.fromEntries(new URL(href ?? "", page.url()).searchParams),
+    ).toEqual(expectedFilters);
+
+    await commitLink.click();
+    await expect(page).toHaveURL(/\/version\/[^/]+\/tasks\?/);
+
+    const params = new URL(page.url()).searchParams;
+    expect(Object.fromEntries(params)).toMatchObject(expectedFilters);
   });
 });
 
