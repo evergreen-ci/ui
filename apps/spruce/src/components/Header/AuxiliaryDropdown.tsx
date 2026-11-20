@@ -56,7 +56,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
           onClick: () => sendEvent({ name: "Clicked merge queue link" }),
         },
         {
-          "data-testid": "auxiliary-dropdown-project-settings",
+          "data-testid": "auxiliary-dropdown-project-commits",
           text: (
             <span style={{ display: "flex", justifyContent: "space-between" }}>
               Commit History<Badge>New</Badge>

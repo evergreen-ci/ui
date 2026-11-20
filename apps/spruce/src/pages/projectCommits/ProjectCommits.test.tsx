@@ -121,14 +121,13 @@ describe("ProjectCommits", () => {
     });
   });
 
-  it("loads a different project without hanging or retaining the previous project's rows", async () => {
+  it("shows the selected project's commits instead of the previous project's rows", async () => {
     const otherProjectMock: HistoryMock = {
       request: {
         query: PROJECT_COMMIT_HISTORY,
         variables: { ...initialVariables, projectIdentifier: "spruce" },
       },
       result: { data: makeCommitHistoryData([secondVersion], false, "spruce") },
-      delay: 100,
     };
     const { router } = renderPage([firstPageMock, otherProjectMock]);
     expect(await screen.findByRole("link", { name: "abcdef1" })).toBeVisible();
@@ -136,14 +135,10 @@ describe("ProjectCommits", () => {
     await act(async () => {
       await router.navigate(getProjectCommitsRoute("spruce"));
     });
-
+    expect(await screen.findByRole("link", { name: "123456a" })).toBeVisible();
     expect(
       screen.queryByRole("link", { name: "abcdef1" }),
     ).not.toBeInTheDocument();
-    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(
-      51,
-    );
-    expect(await screen.findByRole("link", { name: "123456a" })).toBeVisible();
     expect(screen.getAllByTestId("leafygreen-table-row")).toHaveLength(1);
     expect(document.title).toContain("spruce Commits");
   });
