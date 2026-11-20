@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Checkbox } from "@via-ds/components";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskBox } from "components/TaskBox";
 import styles from "./TaskStatusCheckbox.module.css";
@@ -22,26 +22,21 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   taskId,
 }) => (
   <Checkbox
-    bold={false}
-    checked={checked}
     data-testid="task-status-checkbox"
-    label={
-      <div className={styles.stateItemWrapper}>
-        <TaskBox className={styles.taskBox} status={status as TaskStatus} />
-        {baseStatus ? (
-          <TaskBox
-            className={styles.taskBox}
-            status={baseStatus as TaskStatus}
-          />
-        ) : (
-          <span className={styles.emptyCell} />
-        )}
-        <div>{displayName}</div>
-      </div>
-    }
+    isSelected={checked}
     name={taskId}
-    onClick={onClick}
-  />
+    onChange={onClick}
+  >
+    <div className={styles.stateItemWrapper}>
+      <TaskBox className={styles.taskBox} status={status as TaskStatus} />
+      {baseStatus ? (
+        <TaskBox className={styles.taskBox} status={baseStatus as TaskStatus} />
+      ) : (
+        <span className={styles.emptyCell} />
+      )}
+      <div>{displayName}</div>
+    </div>
+  </Checkbox>
 );
 
 export const TaskStatusCheckbox = memo(CheckboxComponent);

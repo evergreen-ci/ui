@@ -1,5 +1,4 @@
-import { Badge } from "@leafygreen-ui/badge";
-import { Checkbox } from "@leafygreen-ui/checkbox";
+import { Badge, Checkbox } from "@via-ds/components";
 import Accordion from "@evg-ui/lib/components/Accordion";
 import styles from "./BuildVariantAccordion.module.css";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
@@ -26,18 +25,18 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
   const variantTitle = (
     <>
       <Checkbox
-        bold
-        checked={matchingTasks === taskLength}
         data-testid="variant-checkbox-select-all"
-        indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
-        label={displayName}
+        isIndeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
+        isSelected={matchingTasks === taskLength}
         onChange={() =>
           toggleSelectedTask(
             tasks.map((task) => task.id),
             true,
           )
         }
-      />
+      >
+        {displayName}
+      </Checkbox>
       <div className={styles.badgeWrapper}>
         <Badge data-testid="task-status-badge">
           {matchingTasks} of {taskLength} Selected

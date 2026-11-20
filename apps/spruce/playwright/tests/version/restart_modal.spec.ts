@@ -153,7 +153,7 @@ test.describe("version/restart_modal", () => {
       });
       await clickCheckbox(taskCheckbox);
       const confirmButton = modal.getByRole("button", { name: "Restart" });
-      await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+      await expect(confirmButton).toBeEnabled();
       await confirmButton.click();
       await expect(
         page
