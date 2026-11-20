@@ -38,6 +38,7 @@ interface CostModalProps extends CostFields {
   endTs?: Date;
   /** Display name shown in the modal title, e.g. task display name */
   name: string;
+  onClickHoneycombLink?: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
   /** Start timestamp used to bound the Honeycomb cost query time range. */
@@ -76,6 +77,7 @@ export const CostModal: React.FC<CostModalProps> = ({
   childPatchesTotalCost,
   endTs,
   name,
+  onClickHoneycombLink,
   open,
   setOpen,
   startTs,
@@ -107,8 +109,8 @@ export const CostModal: React.FC<CostModalProps> = ({
   return (
     <DisplayModal
       data-testid="cost-modal"
-      open={open}
-      setOpen={setOpen}
+      isOpen={open}
+      onOpenChange={setOpen}
       title={`Cost breakdown for ${name}`}
     >
       <div className={styles.content}>
@@ -130,6 +132,7 @@ export const CostModal: React.FC<CostModalProps> = ({
             data-testid="version-cost-link"
             hideExternalIcon={false}
             href={getHoneycombVersionCostUrl(versionId, startTs, endTs)}
+            onClick={onClickHoneycombLink}
           >
             Cost breakdown in Honeycomb
           </StyledLink>

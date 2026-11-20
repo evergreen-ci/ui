@@ -165,3 +165,5 @@ export const MetadataCardTitle: React.FC<TextAliasProps> = (props) => (
 );
 
 export default MetadataCard;
+
+export { ProjectMetadata } from "./Fields/ProjectMetadata";

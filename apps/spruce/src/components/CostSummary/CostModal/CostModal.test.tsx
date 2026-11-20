@@ -1,6 +1,7 @@
 import {
   renderWithRouterMatch as render,
   screen,
+  userEvent,
 } from "@evg-ui/lib/test_utils";
 import { CostModal } from ".";
 
@@ -60,5 +61,23 @@ describe("CostModal", () => {
     );
     const naCells = screen.getAllByText("N/A");
     expect(naCells.length).toBe(8);
+  });
+
+  it("calls onClickHoneycombLink when the version cost link is clicked", async () => {
+    const user = userEvent.setup();
+    const onClickHoneycombLink = vi.fn();
+    render(
+      <CostModal
+        endTs={new Date("2023-07-07T20:00:00")}
+        name="my-version"
+        onClickHoneycombLink={onClickHoneycombLink}
+        open
+        setOpen={() => {}}
+        startTs={new Date("2023-07-07T19:08:41")}
+        versionId="version_12345"
+      />,
+    );
+    await user.click(screen.getByTestId("version-cost-link"));
+    expect(onClickHoneycombLink).toHaveBeenCalledTimes(1);
   });
 });

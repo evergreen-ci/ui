@@ -124,6 +124,7 @@ export const TASK = gql`
       priority
       project {
         id
+        enabled
         identifier
         owner
         repo

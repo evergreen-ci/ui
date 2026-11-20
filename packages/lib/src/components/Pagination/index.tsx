@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Pagination as LGPagination } from "@leafygreen-ui/pagination";
+import { useRef, useState } from "react";
+import { Pagination as ViaPagination } from "@via-ds/components/pagination";
 import { PAGE_SIZES } from "../../constants/pagination";
 import usePagination from "../../hooks/usePagination";
 import styles from "./index.module.css";
@@ -36,6 +36,7 @@ export const Pagination: React.FC<Props> = ({
   totalResults,
 }) => {
   const { setLimit, setPage } = usePagination();
+  const pageSizeResetPending = useRef(false);
 
   const [prevTotalResults, setPrevTotalResults] = useState(totalResults);
   if (!loading && totalResults !== prevTotalResults) {
@@ -43,43 +44,35 @@ export const Pagination: React.FC<Props> = ({
   }
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    onPageChange?.(newPage);
+    if (pageSizeResetPending.current && newPage === 1) {
+      pageSizeResetPending.current = false;
+      return;
+    }
+    setPage(newPage - 1);
+    onPageChange?.(newPage - 1);
   };
 
   const handlePageSizeChange = (newPageSize: number) => {
+    pageSizeResetPending.current = currentPage > 0;
     setLimit(newPageSize);
     onPageSizeChange?.(newPageSize);
   };
 
-  const handlePrevClick = () => {
-    handlePageChange(currentPage - 1);
-  };
-  const handleNextClick = () => {
-    handlePageChange(currentPage + 1);
-  };
-
-  const numTotalItems =
+  const totalItems =
     countLimit !== undefined && prevTotalResults >= countLimit
       ? undefined
       : prevTotalResults;
 
   return (
-    <LGPagination
+    <ViaPagination
       className={styles.pagination}
-      currentPage={currentPage + 1}
       data-testid="pagination"
-      itemsPerPage={pageSize || PAGE_SIZES[0]}
-      itemsPerPageOptions={PAGE_SIZES}
-      numTotalItems={numTotalItems}
-      onBackArrowClick={handlePrevClick}
-      onCurrentPageOptionChange={(value: string) => {
-        handlePageChange(parseInt(value, 10) - 1);
-      }}
-      onForwardArrowClick={handleNextClick}
-      onItemsPerPageOptionChange={(value: string) => {
-        handlePageSizeChange(parseInt(value, 10));
-      }}
+      onPageChange={handlePageChange}
+      onPageSizeChange={handlePageSizeChange}
+      page={currentPage + 1}
+      pageSize={pageSize || PAGE_SIZES[0]}
+      pageSizeOptions={PAGE_SIZES}
+      totalItems={totalItems}
     />
   );
 };

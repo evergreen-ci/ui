@@ -1,5 +1,4 @@
 import { Divider } from "./Divider";
-import { FiltersWrapper } from "./Filters";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
@@ -22,7 +21,6 @@ export {
   ShortenedRouterLink,
   Divider,
   ErrorMessage,
-  FiltersWrapper,
   inactiveElementStyle,
   InputLabel,
   PageButtonRow,
