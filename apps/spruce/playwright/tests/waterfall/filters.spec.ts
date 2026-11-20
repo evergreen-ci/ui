@@ -10,23 +10,24 @@ test.describe("commit navigation", () => {
     page,
   }) => {
     await page.goto(
-      "/project/evergreen/waterfall?tasks=lint,agent&buildVariants=Ubuntu,Lint&statuses=succeeded&taskTags=lint&variantTags=ubuntu&requesters=gitter_request&date=2026-11-20&maxOrder=0&minOrder=0&page=2&limit=5",
+      "/project/evergreen/waterfall?tasks=agent,annotation&buildVariants=ubuntu1604,Lint&statuses=success&taskTags=db,agent&requesters=gitter_request&revision=33016573166a36bd5f46b4111151899d5c4e95b1&page=2&limit=5",
     );
 
     const commitLink = page
       .getByTestId("version-label-active")
-      .locator('a[href^="/version/"]')
+      .locator(
+        'a[href^="/version/evergreen_33016573166a36bd5f46b4111151899d5c4e95b1/"]',
+      )
       .first();
     await expect(commitLink).toBeVisible();
     await commitLink.click();
     await expect(page).toHaveURL(/\/version\/[^/]+\/tasks\?/);
 
     expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({
-      taskName: "lint|agent",
-      variant: "Ubuntu|Lint",
-      statuses: "succeeded",
-      taskTags: "lint",
-      variantTags: "ubuntu",
+      taskName: "agent|annotation",
+      variant: "ubuntu1604|Lint",
+      statuses: "success",
+      taskTags: "db,agent",
     });
   });
 });
