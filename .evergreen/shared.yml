@@ -188,8 +188,8 @@ functions:
           pnpm exec playwright install chromium
 
           playwright_args=()
-          if [[ "${task_name}" == e2e_spruce_* ]]; then
-            playwright_args+=(--shard="$(sed 's/.*_//' <<< "${task_name}")/4")
+          if [[ "${task_name}" =~ e2e_spruce_([1-4]) ]]; then
+            playwright_args+=(--shard="${BASH_REMATCH[1]}/4")
           fi
 
           # Allow spec filtering for an intentional patch, supplying the shard flag when present.
