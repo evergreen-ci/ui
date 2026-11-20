@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { Link, To } from "react-router-dom";
+import { Button, ButtonVariant } from "@via-ds/components/button";
+import { Menu, MenuItem, MenuPopover, MenuRoot } from "@via-ds/components/menu";
+import { To, createPath } from "react-router-dom";
 import { Icon } from "@evg-ui/lib/components/Icon";
 import styles from "./index.module.css";
 
@@ -16,39 +17,11 @@ export interface MenuItemType {
   onClick?: () => void;
 }
 
-interface NavDropdownItemType extends MenuItemType {
-  closeMenu: () => void;
-}
-
-const NavDropdownItem: React.FC<NavDropdownItemType> = ({
-  closeMenu,
-  "data-testid": itemDataTestId,
-  href,
-  text,
-  to,
-}) => {
-  const isInternalLink = to !== undefined;
-
-  return isInternalLink ? (
-    <MenuItem
-      as={Link}
-      data-testid={itemDataTestId}
-      onClick={closeMenu}
-      to={to}
-    >
-      {text}
-    </MenuItem>
-  ) : (
-    <MenuItem
-      as="a"
-      data-testid={itemDataTestId}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      href={href}
-      onClick={closeMenu}
-    >
-      {text}
-    </MenuItem>
-  );
+const getItemHref = ({ href, to }: MenuItemType) => {
+  if (to === undefined) {
+    return href;
+  }
+  return typeof to === "string" ? to : createPath(to);
 };
 
 interface NavDropdownProps {
@@ -65,27 +38,33 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <Menu
-      justify="start"
-      open={openMenu}
-      setOpen={setOpenMenu}
-      trigger={
-        <span className={styles.navDropdownTitle} data-testid={dataTestId}>
-          {title}
-          <NavDropdownMenuIcon open={openMenu} />
-        </span>
-      }
-    >
-      {menuItems.map((menuItem) => (
-        <NavDropdownItem
-          key={`dropdown_${menuItem.text}`}
-          closeMenu={() => {
-            menuItem.onClick?.(); // call if exists
-            setOpenMenu(false);
-          }}
-          {...menuItem}
-        />
-      ))}
-    </Menu>
+    <MenuRoot isOpen={openMenu} onOpenChange={setOpenMenu}>
+      <Button
+        className={styles.navDropdownTitle}
+        data-testid={dataTestId}
+        variant={ButtonVariant.Tertiary}
+      >
+        {title}
+        <NavDropdownMenuIcon open={openMenu} />
+      </Button>
+      <MenuPopover>
+        <Menu aria-label={title}>
+          {menuItems.map((menuItem) => (
+            <MenuItem
+              key={`dropdown_${menuItem.text}`}
+              data-testid={menuItem["data-testid"]}
+              href={getItemHref(menuItem)}
+              id={`dropdown_${menuItem.text}`}
+              onAction={menuItem.onClick}
+              textValue={
+                typeof menuItem.text === "string" ? menuItem.text : undefined
+              }
+            >
+              {menuItem.text}
+            </MenuItem>
+          ))}
+        </Menu>
+      </MenuPopover>
+    </MenuRoot>
   );
 };
