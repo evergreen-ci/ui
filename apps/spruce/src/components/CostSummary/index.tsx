@@ -12,6 +12,7 @@ type Version = NonNullable<VersionQuery["version"]>;
 type CostSummaryProps =
   | {
       onClickDetailsButton: () => void;
+      onClickHoneycombLink?: never;
       task: Task;
       totalCost: number;
       type: "task";
@@ -19,6 +20,7 @@ type CostSummaryProps =
     }
   | {
       onClickDetailsButton: () => void;
+      onClickHoneycombLink: () => void;
       task?: never;
       totalCost: number;
       type: "version";
@@ -27,6 +29,7 @@ type CostSummaryProps =
 
 export const CostSummary: React.FC<CostSummaryProps> = ({
   onClickDetailsButton,
+  onClickHoneycombLink,
   task,
   totalCost,
   type,
@@ -60,6 +63,7 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
       {showDetails && costModalOpen && (
         <CostModal
           {...modalProps}
+          onClickHoneycombLink={onClickHoneycombLink}
           open={costModalOpen}
           setOpen={setCostModalOpen}
         />
@@ -70,7 +74,7 @@ export const CostSummary: React.FC<CostSummaryProps> = ({
 
 type CostModalProps = Omit<
   ComponentProps<typeof CostModal>,
-  "open" | "setOpen"
+  "onClickHoneycombLink" | "open" | "setOpen"
 >;
 
 interface CostConfig {

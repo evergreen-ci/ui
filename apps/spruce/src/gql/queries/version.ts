@@ -32,6 +32,7 @@ export const VERSION = gql`
         adjustedEBSStorageCost
         adjustedEBSThroughputCost
         adjustedEC2Cost
+        adjustedEngFlowCost
         adjustedS3ArtifactPutCost
         adjustedS3ArtifactStorageCost
         adjustedS3LogPutCost
@@ -88,6 +89,7 @@ export const VERSION = gql`
       projectMetadata {
         id
         branch
+        enabled
         identifier
         owner
         repo

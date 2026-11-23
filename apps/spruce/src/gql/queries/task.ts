@@ -124,6 +124,7 @@ export const TASK = gql`
       priority
       project {
         id
+        enabled
         identifier
         owner
         repo
@@ -150,6 +151,7 @@ export const TASK = gql`
         adjustedEBSStorageCost
         adjustedEBSThroughputCost
         adjustedEC2Cost
+        adjustedEngFlowCost
         adjustedS3ArtifactPutCost
         adjustedS3ArtifactStorageCost
         adjustedS3LogPutCost

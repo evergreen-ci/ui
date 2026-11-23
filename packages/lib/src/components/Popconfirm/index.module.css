@@ -1,3 +1,4 @@
+
 .contentWrapper {
   display: flex;
   flex-direction: column;
@@ -8,6 +9,14 @@
   hyphens: auto;
   word-break: normal;
   overflow-wrap: anywhere;
+
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* TODO(UXE-1551): remove the darkMode LeafyGreenProvider in index.tsx once Menu moves to Via. Via's frame already supplies the inverse (dark) surface; the provider only keeps LeafyGreen children readable on it. */
+.frame {
+  max-inline-size: none;
 }
 
 .buttonWrapper {

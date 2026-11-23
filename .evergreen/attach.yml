@@ -254,14 +254,3 @@ functions:
       bucket: evg-bucket-evergreen-ui
       content_type: text/plain
       permissions: public-read
-
-  attach-e2e-generated:
-    command: s3.put
-    type: system
-    params:
-      role_arn: ${ASSUME_ROLE_ARN}
-      local_files_include_filter: ["ui/.evergreen/generate-parallel-e2e-tasks.json"]
-      remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-e2e-tasks.json
-      bucket: evg-bucket-evergreen-ui
-      content_type: text/plain
-      permissions: public-read

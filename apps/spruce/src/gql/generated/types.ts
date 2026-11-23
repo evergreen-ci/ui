@@ -167,6 +167,7 @@ export type AdminSettings = {
   githubCheckRun?: Maybe<GitHubCheckRunConfig>;
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
+  githubRecoveryApp?: Maybe<GitHubRecoveryAppConfig>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
   graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
@@ -226,6 +227,7 @@ export type AdminSettingsInput = {
   githubCheckRun?: InputMaybe<GitHubCheckRunConfigInput>;
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
+  githubRecoveryApp?: InputMaybe<GitHubRecoveryAppConfigInput>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
   graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
@@ -554,6 +556,16 @@ export type BuildVariantTuple = {
   __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
+};
+
+/**
+ * BulkTaskOperationResult is the result of an operation applied to a set of tasks. Tasks that could not be modified are
+ * reported in taskErrors rather than failing the whole operation.
+ */
+export type BulkTaskOperationResult = {
+  __typename?: "BulkTaskOperationResult";
+  modifiedTasks: Array<Task>;
+  taskErrors: Array<TaskError>;
 };
 
 export type CedarConfig = {
@@ -1181,6 +1193,17 @@ export type GitHubDynamicTokenPermissionGroup = {
 export type GitHubDynamicTokenPermissionGroupInput = {
   name: Scalars["String"]["input"];
   permissions: Scalars["StringMap"]["input"];
+};
+
+export type GitHubRecoveryAppConfig = {
+  __typename?: "GitHubRecoveryAppConfig";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GitHubRecoveryAppConfigInput = {
+  appId?: InputMaybe<Scalars["Int"]["input"]>;
+  privateKey?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GitTag = {
@@ -1989,6 +2012,8 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
   scheduleTasks: Array<Task>;
+  scheduleTasksByFilter: BulkTaskOperationResult;
+  scheduleTasksByIds: BulkTaskOperationResult;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
@@ -2221,6 +2246,15 @@ export type MutationSchedulePatchArgs = {
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByFilterArgs = {
+  filter: TaskFilterOptions;
+  versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByIdsArgs = {
+  taskIds: Array<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -2757,6 +2791,7 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2811,6 +2846,11 @@ export type Project = {
 };
 
 /** Project models single repository on GitHub. */
+export type ProjectCommitsArgs = {
+  options: ProjectCommitsOptions;
+};
+
+/** Project models single repository on GitHub. */
 export type ProjectPatchesArgs = {
   patchesInput: PatchesInput;
 };
@@ -2860,6 +2900,23 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCommits = {
+  __typename?: "ProjectCommits";
+  pagination: ProjectCommitsPagination;
+  versions: Array<Version>;
+};
+
+export type ProjectCommitsOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ProjectCommitsPagination = {
+  __typename?: "ProjectCommitsPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -4323,6 +4380,12 @@ export type TaskEndDetail = {
   type: Scalars["String"]["output"];
 };
 
+export type TaskError = {
+  __typename?: "TaskError";
+  reason: Scalars["String"]["output"];
+  taskId: Scalars["String"]["output"];
+};
+
 export type TaskEventLogData = {
   __typename?: "TaskEventLogData";
   blockedOn?: Maybe<Scalars["String"]["output"]>;
@@ -4371,6 +4434,7 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  excludeTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
@@ -12140,6 +12204,7 @@ export type TaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;
@@ -12161,6 +12226,7 @@ export type TaskQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
@@ -12748,6 +12814,7 @@ export type VersionQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
@@ -12805,6 +12872,7 @@ export type VersionQuery = {
       __typename?: "Project";
       id: string;
       branch: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;

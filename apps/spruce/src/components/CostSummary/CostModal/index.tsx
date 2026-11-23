@@ -1,4 +1,5 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
+import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
   BaseTable,
@@ -18,6 +19,7 @@ import styles from "./index.module.css";
 interface CostRow {
   category: string;
   cost: number | null | undefined;
+  tooltip?: string;
 }
 
 type CostFields = Pick<
@@ -25,6 +27,7 @@ type CostFields = Pick<
   | "adjustedEC2Cost"
   | "adjustedEBSStorageCost"
   | "adjustedEBSThroughputCost"
+  | "adjustedEngFlowCost"
   | "adjustedS3ArtifactPutCost"
   | "adjustedS3ArtifactStorageCost"
   | "adjustedS3LogPutCost"
@@ -38,6 +41,7 @@ interface CostModalProps extends CostFields {
   endTs?: Date;
   /** Display name shown in the modal title, e.g. task display name */
   name: string;
+  onClickHoneycombLink?: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
   /** Start timestamp used to bound the Honeycomb cost query time range. */
@@ -50,6 +54,25 @@ const columns: LGColumnDef<CostRow>[] = [
   {
     accessorKey: "category",
     header: "Category",
+    cell: ({ getValue, row }) => {
+      const category = getValue() as string;
+      const { tooltip } = row.original;
+      if (!tooltip) {
+        return category;
+      }
+      return (
+        <div className={styles.categoryWithTooltip}>
+          {category}
+          <IconWithTooltip
+            data-testid="engflow-tooltip-trigger"
+            glyph="InfoWithCircle"
+            size="small"
+          >
+            {tooltip}
+          </IconWithTooltip>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "cost",
@@ -69,6 +92,7 @@ export const CostModal: React.FC<CostModalProps> = ({
   adjustedEBSStorageCost,
   adjustedEBSThroughputCost,
   adjustedEC2Cost,
+  adjustedEngFlowCost,
   adjustedS3ArtifactPutCost,
   adjustedS3ArtifactStorageCost,
   adjustedS3LogPutCost,
@@ -76,6 +100,7 @@ export const CostModal: React.FC<CostModalProps> = ({
   childPatchesTotalCost,
   endTs,
   name,
+  onClickHoneycombLink,
   open,
   setOpen,
   startTs,
@@ -88,6 +113,12 @@ export const CostModal: React.FC<CostModalProps> = ({
     { category: "EC2", cost: adjustedEC2Cost },
     { category: "EBS Throughput", cost: adjustedEBSThroughputCost },
     { category: "EBS Storage", cost: adjustedEBSStorageCost },
+    {
+      category: "EngFlow",
+      cost: adjustedEngFlowCost,
+      tooltip:
+        "EngFlow remote execution costs are only included for tasks completed after November 24, 2026.",
+    },
     { category: "S3 Artifact Put", cost: adjustedS3ArtifactPutCost },
     { category: "S3 Artifact Storage", cost: adjustedS3ArtifactStorageCost },
     { category: "S3 Log Put", cost: adjustedS3LogPutCost },
@@ -107,8 +138,8 @@ export const CostModal: React.FC<CostModalProps> = ({
   return (
     <DisplayModal
       data-testid="cost-modal"
-      open={open}
-      setOpen={setOpen}
+      isOpen={open}
+      onOpenChange={setOpen}
       title={`Cost breakdown for ${name}`}
     >
       <div className={styles.content}>
@@ -130,6 +161,7 @@ export const CostModal: React.FC<CostModalProps> = ({
             data-testid="version-cost-link"
             hideExternalIcon={false}
             href={getHoneycombVersionCostUrl(versionId, startTs, endTs)}
+            onClick={onClickHoneycombLink}
           >
             Cost breakdown in Honeycomb
           </StyledLink>

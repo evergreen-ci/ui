@@ -40,8 +40,8 @@ const IncludedLocalModules: React.FC<Props> = ({ includedLocalModules }) => {
         )}
       <DisplayModal
         data-testid="included-local-modules-modal"
-        open={showModal}
-        setOpen={setShowModal}
+        isOpen={showModal}
+        onOpenChange={setShowModal}
         size="large"
         title="Included Local Modules"
       >

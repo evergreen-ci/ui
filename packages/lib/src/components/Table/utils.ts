@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { OnChangeFn } from "@leafygreen-ui/table";
+import type { OnChangeFn } from "@tanstack/table-core";
 
 /**
  * `onChangeHandler` simplifies applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).

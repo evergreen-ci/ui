@@ -5,3 +5,9 @@
 .tabularNum {
   font-variant-numeric: tabular-nums;
 }
+
+.categoryWithTooltip {
+  align-items: center;
+  display: flex;
+  gap: var(--via-space-100);
+}
