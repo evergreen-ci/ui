@@ -1,12 +1,12 @@
 import { diff } from "deep-object-diff";
-import isEqual from "lodash.isequal";
+import { deepEqual } from "fast-equals";
 import { EditSpawnHostMutationVariables } from "gql/generated/types";
 
 export const computeDiff = (
   initialState: EditSpawnHostMutationVariables,
   currEditState: EditSpawnHostMutationVariables,
 ): [boolean, EditSpawnHostMutationVariables] => {
-  const hasChanges = !isEqual(initialState, currEditState);
+  const hasChanges = !deepEqual(initialState, currEditState);
 
   const mutationParams = diff(
     initialState,
