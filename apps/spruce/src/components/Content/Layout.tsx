@@ -1,5 +1,10 @@
 import { useQuery } from "@apollo/client/react";
 import { AppLayout } from "@via-ds/components/app-layout";
+import { BottomPanelGroup } from "@via-ds/components/bottom-panel";
+import {
+  TableDetailsPanel,
+  TableDetailsProvider,
+} from "@via-ds/components/table";
 import { Outlet } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
@@ -28,15 +33,20 @@ export const Layout: React.FC = () => {
 
   return (
     <AppLayout className={styles.appLayout}>
-      <div className={styles.content} slot="content">
-        <Header />
-        <Outlet />
-        <div className={styles.floatingContent}>
-          <WaterfallScrollToTop />
-          <TaskStatusIconLegend />
-          <Feedback />
+      <TableDetailsProvider placement="bottom">
+        <div className={styles.content} slot="content">
+          <Header />
+          <Outlet />
+          <div className={styles.floatingContent}>
+            <WaterfallScrollToTop />
+            <TaskStatusIconLegend />
+            <Feedback />
+          </div>
         </div>
-      </div>
+        <BottomPanelGroup aria-label="Details" slot="bottompanel">
+          <TableDetailsPanel />
+        </BottomPanelGroup>
+      </TableDetailsProvider>
     </AppLayout>
   );
 };
