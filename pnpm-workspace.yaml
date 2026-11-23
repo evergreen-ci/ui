@@ -19,7 +19,7 @@ minimumReleaseAgeExclude:
 # Should be removed once the fix is released and we can verify in pnpm.lock that
 # we're using the fixed version.
 overrides:
-  '@opentelemetry/instrumentation-user-interaction': '<0.65.0 || >0.65.0'
+  'minimatch': '>=3.1.3'
 allowBuilds:
   '@sentry/cli': false
   core-js-pure: false
