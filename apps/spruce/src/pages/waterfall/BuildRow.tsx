@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { IconButton } from "@leafygreen-ui/icon-button";
+import { Button } from "@via-ds/components/button";
 import Pin from "@via-ds/icons/Pin";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { cx } from "@evg-ui/lib/utils/css";
@@ -134,16 +134,18 @@ const BuildRowInner: React.FC<Props> = ({
         className={sharedStyles.buildVariantTitle}
         data-testid="build-variant-label"
       >
-        <IconButton
-          active={pinned}
+        <Button
           aria-label="Pin build variant"
+          aria-pressed={pinned}
           className={cx(styles.pinButton, pinned && styles.pinButtonActive)}
           data-testid="pin-button"
-          onClick={handlePinClick}
+          onPress={handlePinClick}
+          size="small"
+          variant="tertiary"
           {...iconButtonProps}
         >
-          <Pin size="medium" />
-        </IconButton>
+          <Pin />
+        </Button>
         <StyledLink
           data-testid="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}

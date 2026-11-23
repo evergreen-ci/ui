@@ -26,7 +26,9 @@ describe("tupleSelect", () => {
     render(
       <TupleSelect {...sharedProps} defaultOption="task" options={options} />,
     );
-    expect(screen.getByText("Task")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /task/i })).toHaveTextContent(
+      "Task",
+    );
   });
 
   it("calls onToggleOption when the dropdown selection changes", async () => {
@@ -71,7 +73,7 @@ describe("tupleSelect", () => {
     const input = within(screen.getByTestId("tuple-select-input")).getByRole(
       "textbox",
     );
-    const dropdown = screen.queryByText("Build Variant");
+    const dropdown = screen.getByRole("button", { name: /build variant/i });
     expect(dropdown).toBeInTheDocument();
     expect(input).toBeInTheDocument();
     expect(dropdown).toHaveTextContent("Build Variant");

@@ -1,4 +1,4 @@
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { Combobox, ComboboxItem } from "@via-ds/components/combobox";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { SortedTaskStatus } from "@evg-ui/lib/types/task";
@@ -12,28 +12,32 @@ export const StatusFilter = () => {
     [],
   );
 
-  const handleChange = (value: string[]) => {
+  const handleChange = (keys: React.Key[]) => {
+    const value = keys.map(String);
     setStatuses(value);
     sendEvent({ name: "Filtered by task status", statuses: value });
   };
 
   return (
-    <Combobox
+    <Combobox<object, "multiple">
       data-testid="status-filter"
-      initialValue={statuses}
       label="Task Status"
-      multiselect
+      menuTriggerAriaLabel="Task Status"
       onChange={handleChange}
-      overflow="scroll-x"
       placeholder="All"
+      selectionMode="multiple"
+      showChips={false}
+      value={statuses}
     >
       {SortedTaskStatus.map((ts) => (
-        <ComboboxOption
+        <ComboboxItem
           key={`${ts}-option`}
           data-testid={`${ts}-option`}
-          displayName={taskStatusToCopy[ts]}
-          value={ts}
-        />
+          id={ts}
+          textValue={taskStatusToCopy[ts]}
+        >
+          {taskStatusToCopy[ts]}
+        </ComboboxItem>
       ))}
     </Combobox>
   );

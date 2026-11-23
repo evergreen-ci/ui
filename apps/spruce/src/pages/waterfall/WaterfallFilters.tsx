@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useApolloClient } from "@apollo/client/react";
-import styled from "@emotion/styled";
 import { useQueryParam, useQueryParams } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { DateFilter } from "components/DateFilter";
@@ -15,6 +14,7 @@ import { StatusFilter } from "./StatusFilter";
 import { TaskFilter } from "./TaskFilter";
 import { TextFilterChips } from "./TextFilterChips";
 import { Pagination, WaterfallFilterOptions } from "./types";
+import styles from "./WaterfallFilters.module.css";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
@@ -50,20 +50,20 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <>
-      <Container>
-        <BVTaskFilterItem>
+      <div className={styles.container}>
+        <div className={styles.buildVariantTaskFilterItem}>
           <BuildVariantFilter />
-        </BVTaskFilterItem>
-        <BVTaskFilterItem>
+        </div>
+        <div className={styles.buildVariantTaskFilterItem}>
           <TaskFilter />
-        </BVTaskFilterItem>
-        <StatusFilterItem>
+        </div>
+        <div className={styles.statusFilterItem}>
           <StatusFilter />
-        </StatusFilterItem>
-        <RequesterFilterItem>
+        </div>
+        <div className={styles.requesterFilterItem}>
           <RequesterFilter />
-        </RequesterFilterItem>
-        <DateFilterItem>
+        </div>
+        <div className={styles.dateFilterItem}>
           <DateFilter
             dataProps={{ [waterfallGuideId]: walkthroughSteps[3].targetId }}
             onChange={(newDate) => {
@@ -78,8 +78,8 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
             showLabel
             value={date}
           />
-        </DateFilterItem>
-        <ProjectFilterItem>
+        </div>
+        <div className={styles.projectFilterItem}>
           <ProjectSelect
             getProjectRoute={projectSelectRoute}
             onSubmit={(project: string) => {
@@ -92,7 +92,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
             }}
             selectedProjectIdentifier={projectIdentifier}
           />
-        </ProjectFilterItem>
+        </div>
         <WaterfallMenu
           omitInactiveBuilds={omitInactiveBuilds}
           projectIdentifier={projectIdentifier}
@@ -100,40 +100,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           setOmitInactiveBuilds={setOmitInactiveBuilds}
         />
         <PaginationButtons pagination={pagination} />
-      </Container>
+      </div>
 
       <TextFilterChips />
     </>
   );
 };
-
-const BVTaskFilterItem = styled.div`
-  flex-basis: 25%;
-`;
-
-// Combobox's overflow handling requires a fixed width
-const StatusFilterItem = styled.div`
-  min-width: 185px;
-  flex-shrink: 0;
-  flex-basis: 12%;
-`;
-
-const RequesterFilterItem = styled.div`
-  min-width: 120px;
-  flex-basis: 12%;
-`;
-
-const DateFilterItem = styled.div`
-  flex-basis: content;
-`;
-
-const ProjectFilterItem = styled.div`
-  flex-basis: 20%;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 12px;
-`;

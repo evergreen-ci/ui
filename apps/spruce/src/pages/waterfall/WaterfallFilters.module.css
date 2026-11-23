@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--via-space-300);
+}
+
+.buildVariantTaskFilterItem {
+  flex-basis: 25%;
+}
+
+.statusFilterItem {
+  min-width: 185px;
+  flex-shrink: 0;
+  flex-basis: 12%;
+}
+
+.requesterFilterItem {
+  min-width: 120px;
+  flex-basis: 12%;
+}
+
+.dateFilterItem {
+  flex-basis: content;
+}
+
+.projectFilterItem {
+  flex-basis: 20%;
+}

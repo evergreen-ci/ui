@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
-import { Option, Select } from "@leafygreen-ui/select";
-import { Label } from "@leafygreen-ui/typography";
+import { Select, SelectItem } from "@via-ds/components/select";
+import { Label } from "@via-ds/components/typography";
 import TextInput from "components/TextInputWithValidation";
 import styles from "./index.module.css";
 
-type Option<T extends string = string> = {
+type TupleSelectOption<T extends string = string> = {
   value: T;
   displayName: string;
   placeholderText?: string;
@@ -17,7 +17,7 @@ interface TupleSelectProps<T extends string = string> {
   defaultOption?: T;
   id: string;
   label: React.ReactNode;
-  options: Option[];
+  options: TupleSelectOption[];
   placeholder?: string;
   onSubmit?: ({ category, value }: { category: string; value: string }) => void;
   onToggleOption?: (newOption: string) => void;
@@ -48,37 +48,38 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
     options.find((o) => o.value === selected) ?? options[0];
 
   const handleChange = useCallback(
-    (v: string) => {
-      setSelected(v);
-      onToggleOption?.(v);
+    (key: React.Key | null) => {
+      if (key === null) return;
+      const value = String(key);
+      setSelected(value);
+      onToggleOption?.(value);
     },
     [onToggleOption],
   );
 
   return (
     <div className={styles.container}>
-      <Label htmlFor={id}>
-        <div className={styles.labelContainer}>{label}</div>
+      <Label className={styles.labelContainer} htmlFor={id}>
+        {label}
       </Label>
       <div className={styles.inputGroup}>
         <Select
-          allowDeselect={false}
-          aria-labelledby={`${ariaLabel} Select`}
+          aria-label={`${ariaLabel} Select`}
           className={styles.groupedSelect}
           data-testid={`${dataTestId}-select`}
           dropdownWidthBasis="option"
           onChange={handleChange}
+          selectionMode="single"
           value={selected}
         >
           {options.map((o) => (
-            <Option key={o.value} value={o.value}>
+            <SelectItem key={o.value} id={o.value} textValue={o.displayName}>
               {o.displayName}
-            </Option>
+            </SelectItem>
           ))}
         </Select>
         <TextInput
           aria-label={`${ariaLabel} Input`}
-          aria-labelledby={`${ariaLabel} Input`}
           className={styles.groupedTextInput}
           clearOnSubmit
           data-testid={`${dataTestId}-input`}
