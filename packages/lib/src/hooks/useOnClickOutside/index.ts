@@ -14,7 +14,7 @@ export const useOnClickOutside = (
      * `handleClickOutside` executes the callback if a mouse click is detected outside of the target elements.
      * @param event - the event that is being listened to
      */
-    function handleClickOutside(event: MouseEvent): void {
+    function handleClickOutside(event: PointerEvent): void {
       const isNotFocused = refs.every(
         (ref) => ref.current && !ref.current.contains(event.target as Node),
       );
@@ -22,9 +22,9 @@ export const useOnClickOutside = (
         cb();
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleClickOutside, true);
     return (): void => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("pointerdown", handleClickOutside, true);
     };
   }, [cb, refs]);
 };
