@@ -1,4 +1,11 @@
 .filterWrapper {
-  margin-top: var(--via-space-100);
   margin-left: var(--via-space-100);
+}
+
+.activeIcon {
+  color: var(--via-color-blue-400);
+}
+
+.inactiveIcon {
+  color: var(--via-color-neutral-500);
 }
