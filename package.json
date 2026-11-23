@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "check-types": "pnpm -r check-types",
-    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
     "codegen": "pnpm -r codegen",
     "eslint:strict": "pnpm -r eslint:strict",
     "eslint:fix": "pnpm -r eslint:fix",
