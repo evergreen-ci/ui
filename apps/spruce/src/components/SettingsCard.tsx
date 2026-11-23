@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef } from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import { Card, CardProps } from "@via-ds/components/card";
 import { H3 } from "@via-ds/components/typography";
 import { cx } from "@evg-ui/lib/utils/css";
@@ -6,7 +6,7 @@ import styles from "./SettingsCard.module.css";
 
 export const SettingsCardTitle = forwardRef<
   HTMLElement,
-  ComponentProps<typeof H3>
+  ComponentPropsWithoutRef<typeof H3>
 >(({ className, ...rest }, ref) => (
   <H3 ref={ref} className={cx(styles.settingsCardTitle, className)} {...rest} />
 ));
