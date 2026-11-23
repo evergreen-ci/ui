@@ -44,6 +44,7 @@ functions:
 
   run-make-background:
     command: subprocess.exec
+    retry_on_failure: true
     params:
       working_dir: ui/evergreen
       binary: make
