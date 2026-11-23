@@ -9,17 +9,12 @@ minimumReleaseAgeExclude:
   - '@via-ds/eslint-plugin'
   - '@via-ds/icons'
   - '@via-ds/tokens'
-# Fix from DEVPROD-41675. A regression in @opentelemetry/instrumentation-user-interaction
-# 0.65.0 was crashing the Honeycomb SDK on startup in Spruce and Parsley, silently
-# disabling all telemetry.
-# We don't depend on this package directly, it's pulled in transitively by
-# @opentelemetry/auto-instrumentations-web. Only version 0.65.0 itself is broken;
-# already fixed upstream, not yet released:
-# https://github.com/open-telemetry/opentelemetry-js-contrib/issues/3639#issuecomment-5180625704
-# Should be removed once the fix is released and we can verify in pnpm.lock that
-# we're using the fixed version.
 overrides:
-  'minimatch': '>=3.1.3'
+  # Legacy ESLint plugins require minimatch v3
+  'minimatch@^3.0.0': '^3.1.5'
+  'minimatch@>=7 <11': '^11.0.9'
+  'brace-expansion@^1.0.0': '^1.1.21'
+  'brace-expansion@^5.0.0': '^5.0.13'
 allowBuilds:
   '@sentry/cli': false
   core-js-pure: false
