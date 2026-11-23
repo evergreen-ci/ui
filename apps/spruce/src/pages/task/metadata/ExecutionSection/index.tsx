@@ -46,7 +46,8 @@ export const ExecutionSection: React.FC<ExecutionSectionProps> = ({ task }) => {
 
   const isPushCompleted = isPushCompletedVirtualTask(task);
   const totalCost = task.taskCost?.total ?? 0;
-  const hasCost = !isPushCompleted && totalCost > 0;
+  // A push-completed virtual task's entire cost is its EngFlow cost.
+  const hasCost = totalCost > 0;
 
   return (
     <MetadataSection title="Execution">
