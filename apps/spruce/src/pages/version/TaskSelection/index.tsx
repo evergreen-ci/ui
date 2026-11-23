@@ -36,13 +36,7 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
   children,
   versionId,
 }) => {
-  const {
-    baseStatuses,
-    includeNeverActivatedTasks,
-    statuses,
-    taskName,
-    variant,
-  } = useQueryVariables(versionId).taskFilterOptions;
+  const { taskFilterOptions } = useQueryVariables(versionId);
 
   const [state, setState] = useState({
     selectedCount: 0,
@@ -96,25 +90,12 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
           selectionState: {
             mode: SelectedMode.All,
             excludedIds: new Set(),
-            filter: {
-              baseStatuses,
-              includeNeverActivatedTasks,
-              statuses,
-              taskName: taskName || undefined,
-              variant: variant || undefined,
-            },
+            filter: taskFilterOptions,
           },
         });
       }
     },
-    [
-      baseStatuses,
-      includeNeverActivatedTasks,
-      state.selectionState,
-      statuses,
-      taskName,
-      variant,
-    ],
+    [taskFilterOptions, state.selectionState],
   );
 
   const taskSelection = selectedCount === 0 ? null : selectionState;

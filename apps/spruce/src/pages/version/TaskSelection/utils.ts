@@ -1,18 +1,9 @@
-import { VersionTasksQueryVariables } from "gql/generated/types";
+import { TaskFilterOptions } from "gql/generated/types";
 
 export enum SelectedMode {
   Include = "include",
   All = "all",
 }
-
-export type SelectionFilter = Pick<
-  VersionTasksQueryVariables["taskFilterOptions"],
-  | "baseStatuses"
-  | "includeNeverActivatedTasks"
-  | "statuses"
-  | "taskName"
-  | "variant"
->;
 
 /**
  * "include" (SelectedMode.Include) tracks hand-picked task IDs.
@@ -23,7 +14,7 @@ export type SelectionState =
   | {
       mode: SelectedMode.All;
       excludedIds: ReadonlySet<string>;
-      filter: SelectionFilter;
+      filter: TaskFilterOptions;
     };
 
 export const EMPTY_SELECTION: SelectionState = {
