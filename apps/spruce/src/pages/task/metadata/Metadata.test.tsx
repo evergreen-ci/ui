@@ -145,7 +145,7 @@ describe("metadata", () => {
     });
     await user.click(screen.getByTestId("cost-details-button"));
     expect(screen.getByTestId("cost-modal")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Close modal" }));
+    await user.click(screen.getByRole("button", { name: "Close dialog" }));
     expect(screen.queryByTestId("cost-modal")).not.toBeInTheDocument();
     await user.click(screen.getByTestId("cost-details-button"));
     expect(screen.getByTestId("cost-modal")).toBeInTheDocument();

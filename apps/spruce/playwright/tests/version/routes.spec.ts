@@ -16,7 +16,7 @@ test.describe("Version route", () => {
       await expect(page.getByTestId("parameters-modal")).toHaveCount(0);
       await page.getByTestId("parameters-link").click();
       await expect(page.getByTestId("parameters-modal")).toBeVisible();
-      await page.getByRole("button", { name: "Close modal" }).click();
+      await page.getByRole("button", { name: "Close dialog" }).click();
       await expect(page.getByTestId("parameters-modal")).toBeHidden();
     });
 
@@ -87,10 +87,7 @@ test.describe("Version route", () => {
 
         await page.getByTestId("status-filter").click();
         await expect(page.getByTestId("status-filter-wrapper")).toBeVisible();
-        await expect(page.getByLabel("Succeeded")).toHaveAttribute(
-          "aria-checked",
-          "true",
-        );
+        await expect(page.getByLabel("Succeeded")).toBeChecked();
 
         await page.getByTestId("variant-filter").click();
         await expect(

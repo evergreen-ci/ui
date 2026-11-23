@@ -1,3 +1,13 @@
+.appLayout {
+  overflow: visible;
+}
+
+.content {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
 .floatingContent {
   display: flex;
   flex-direction: column;

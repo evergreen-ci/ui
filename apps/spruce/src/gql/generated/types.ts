@@ -167,6 +167,7 @@ export type AdminSettings = {
   githubCheckRun?: Maybe<GitHubCheckRunConfig>;
   githubOrgs?: Maybe<Array<Scalars["String"]["output"]>>;
   githubPRCreatorOrg?: Maybe<Scalars["String"]["output"]>;
+  githubRecoveryApp?: Maybe<GitHubRecoveryAppConfig>;
   githubWebhookSecret?: Maybe<Scalars["String"]["output"]>;
   graphite?: Maybe<GraphiteConfig>;
   hostInit?: Maybe<HostInitConfig>;
@@ -226,6 +227,7 @@ export type AdminSettingsInput = {
   githubCheckRun?: InputMaybe<GitHubCheckRunConfigInput>;
   githubOrgs?: InputMaybe<Array<Scalars["String"]["input"]>>;
   githubPRCreatorOrg?: InputMaybe<Scalars["String"]["input"]>;
+  githubRecoveryApp?: InputMaybe<GitHubRecoveryAppConfigInput>;
   githubWebhookSecret?: InputMaybe<Scalars["String"]["input"]>;
   graphite?: InputMaybe<GraphiteConfigInput>;
   hostInit?: InputMaybe<HostInitConfigInput>;
@@ -1181,6 +1183,17 @@ export type GitHubDynamicTokenPermissionGroup = {
 export type GitHubDynamicTokenPermissionGroupInput = {
   name: Scalars["String"]["input"];
   permissions: Scalars["StringMap"]["input"];
+};
+
+export type GitHubRecoveryAppConfig = {
+  __typename?: "GitHubRecoveryAppConfig";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GitHubRecoveryAppConfigInput = {
+  appId?: InputMaybe<Scalars["Int"]["input"]>;
+  privateKey?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type GitTag = {
@@ -2757,6 +2770,7 @@ export type Project = {
   branch: Scalars["String"]["output"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  commits: ProjectCommits;
   deactivatePrevious?: Maybe<Scalars["Boolean"]["output"]>;
   debugSpawnHostsDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2811,6 +2825,11 @@ export type Project = {
 };
 
 /** Project models single repository on GitHub. */
+export type ProjectCommitsArgs = {
+  options: ProjectCommitsOptions;
+};
+
+/** Project models single repository on GitHub. */
 export type ProjectPatchesArgs = {
   patchesInput: PatchesInput;
 };
@@ -2860,6 +2879,23 @@ export type ProjectBuildVariant = {
   displayName: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
+};
+
+export type ProjectCommits = {
+  __typename?: "ProjectCommits";
+  pagination: ProjectCommitsPagination;
+  versions: Array<Version>;
+};
+
+export type ProjectCommitsOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type ProjectCommitsPagination = {
+  __typename?: "ProjectCommitsPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
 };
 
 export type ProjectCreationConfig = {
@@ -12140,6 +12176,7 @@ export type TaskQuery = {
     project?: {
       __typename?: "Project";
       id: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;
@@ -12805,6 +12842,7 @@ export type VersionQuery = {
       __typename?: "Project";
       id: string;
       branch: string;
+      enabled?: boolean | null;
       identifier: string;
       owner: string;
       repo: string;

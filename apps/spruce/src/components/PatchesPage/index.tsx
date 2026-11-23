@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
-import { FiltersWrapper, PageWrapper } from "components/styles";
+import { PageWrapper } from "components/styles";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchPageQueryParams } from "types/patch";
@@ -86,42 +86,48 @@ export const PatchesPage: React.FC<Props> = ({
       >
         {pageTitle}
       </Text>
-      <FiltersWrapper className={styles.filtersWrapperSpaceBetween}>
-        <SearchField
-          aria-label="Search patch descriptions"
-          data-testid="patch-description-input"
-          errorMessage="Invalid regex"
-          isInvalid={!validateRegexp(patchNameInput)}
-          onChange={handleInputChange}
-          placeholder="Patch description regex"
-          value={patchNameInput}
-        />
-        <StatusSelector />
-        {filterComp}
-        <Checkbox
-          className={styles.hiddenCheckbox}
-          data-testid="include-hidden-checkbox"
-          isSelected={includeHiddenCheckboxChecked}
-          onChange={includeHiddenCheckboxOnChange}
-        >
-          Include hidden
-        </Checkbox>
-      </FiltersWrapper>
-      <PaginationButtons
-        filteredPatchCount={filteredCount}
-        loading={loading}
-        pageType={pageType}
-      />
+      <div className={styles.filterRow}>
+        <div className={styles.filters}>
+          <SearchField
+            aria-label="Search patch descriptions"
+            data-testid="patch-description-input"
+            errorMessage="Invalid regex"
+            isInvalid={!validateRegexp(patchNameInput)}
+            onChange={handleInputChange}
+            placeholder="Patch description regex"
+            value={patchNameInput}
+          />
+          <StatusSelector />
+          {filterComp}
+          <Checkbox
+            className={styles.hiddenCheckbox}
+            data-testid="include-hidden-checkbox"
+            isSelected={includeHiddenCheckboxChecked}
+            onChange={includeHiddenCheckboxOnChange}
+          >
+            Include hidden
+          </Checkbox>
+        </div>
+        <div className={styles.topPagination}>
+          <PaginationButtons
+            filteredPatchCount={filteredCount}
+            loading={loading}
+            pageType={pageType}
+          />
+        </div>
+      </div>
       <ListArea
         loading={loading}
         pageType={pageType}
         patches={patches?.patches || []}
       />
       {!loading && filteredCount > 10 ? (
-        <PaginationButtons
-          filteredPatchCount={filteredCount}
-          pageType={pageType}
-        />
+        <div className={styles.bottomPagination}>
+          <PaginationButtons
+            filteredPatchCount={filteredCount}
+            pageType={pageType}
+          />
+        </div>
       ) : null}
     </PageWrapper>
   );
