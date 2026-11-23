@@ -377,8 +377,6 @@ export const formToGql = ((form: OtherFormState) => {
       logBucketFailedTasks: {
         name: bucketConfig.failedTasksLogBucketName || undefined,
       },
-      // Always serialized: the backend merge treats an omitted list as
-      // "no change", so clearing wouldn't persist.
       longRetentionProjects: bucketConfig.longRetentionProjects,
       sourceCacheOptOutProjects: bucketConfig.sourceCacheOptOutProjects,
       testResultsBucket: {
