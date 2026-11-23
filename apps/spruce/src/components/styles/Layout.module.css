@@ -9,6 +9,10 @@
   overflow-y: scroll;
   flex-grow: 1;
   padding: var(--via-space-600);
+  padding-block-end: calc(
+    var(--via-space-600) + var(--via-layout-bottompanel-scroll-padding, 0px)
+  );
+  scroll-padding-block-end: var(--via-layout-bottompanel-scroll-padding, 0px);
 }
 
 .settingsPageContent {
@@ -22,10 +26,15 @@
   overflow-x: hidden;
   overflow-y: scroll;
   padding: var(--via-space-600) var(--via-space-800);
+  padding-block-end: calc(
+    var(--via-space-600) + var(--via-layout-bottompanel-scroll-padding, 0px)
+  );
+  scroll-padding-block-end: var(--via-layout-bottompanel-scroll-padding, 0px);
 }
 
 .omitPadding {
   padding: 0;
+  padding-block-end: var(--via-layout-bottompanel-scroll-padding, 0px);
 }
 
 .pageLayout {
