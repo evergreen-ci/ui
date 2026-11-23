@@ -9,7 +9,7 @@ const parameters = [
 describe("parameters modal", () => {
   it("modal is closed by default", () => {
     render(<ParametersModal parameters={parameters} />);
-    expect(screen.queryByTestId("parameters-modal")).not.toBeVisible();
+    expect(screen.queryByTestId("parameters-modal")).not.toBeInTheDocument();
   });
 
   it("link does not render if there are no parameters", () => {

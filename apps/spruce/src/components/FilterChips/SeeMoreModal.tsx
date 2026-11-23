@@ -29,8 +29,8 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
       </Link>
       <DisplayModal
         data-testid="see-more-modal"
-        open={open}
-        setOpen={setOpen}
+        isOpen={open}
+        onOpenChange={setOpen}
         size="large"
         title="Applied Filters"
       >

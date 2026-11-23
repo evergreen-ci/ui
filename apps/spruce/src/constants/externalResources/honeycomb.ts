@@ -77,6 +77,12 @@ const buildHoneycombStatUrl = (
   return `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&${columnSeriesParams}`;
 };
 
+const buildHoneycombBreakdownUrl = (
+  dataset: string,
+  query: { breakdowns: string[] },
+) =>
+  `${getHoneycombBaseURL()}/datasets/${dataset}?query=${JSON.stringify(query)}&omitMissingValues`;
+
 /**
  * Generates a URL for viewing the cost breakdown of a task in Honeycomb.
  * @param taskId - The ID of the task.
@@ -139,11 +145,11 @@ export const getHoneycombTaskCostUrl = (
 };
 
 /**
- * Generates a URL for viewing the cost breakdown of a version in Honeycomb.
+ * Generates a URL for viewing the cost of each task in a version in Honeycomb, sorted by S3 log storage cost.
  * @param versionId - The ID of the version.
  * @param startTs - The start timestamp of the version. Note that this timestamp is truncated to the nearest second.
  * @param endTs - The end timestamp of the version. Note that 300 seconds are added to this timestamp to account for S3 data-arrival lag.
- * @returns The URL for viewing the version cost breakdown in Honeycomb.
+ * @returns The URL for viewing the per-task cost breakdown of the version in Honeycomb.
  */
 export const getHoneycombVersionCostUrl = (
   versionId: string,
@@ -152,57 +158,45 @@ export const getHoneycombVersionCostUrl = (
 ): string => {
   const query = {
     calculations: [
-      { op: "MAX", column: "evergreen.version.adjusted_cost" },
-      { op: "MAX", column: "evergreen.version.on_demand_cost" },
+      { op: "SUM", column: "evergreen.task.adjusted_cost" },
+      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_throughput_cost" },
+      { op: "SUM", column: "evergreen.task.cost.ebs.adjusted_storage_cost" },
       {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.adjusted_artifact_put_cost",
+        op: "SUM",
+        column: "evergreen.task.s3_cost.adjusted_artifact_put_cost",
       },
       {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.on_demand_artifact_put_cost",
+        op: "SUM",
+        column: "evergreen.task.s3_cost.adjusted_artifact_storage_cost",
       },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.adjusted_log_put_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.on_demand_log_put_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.adjusted_artifact_storage_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.on_demand_artifact_storage_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.adjusted_log_storage_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.on_demand_log_storage_cost",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.artifact_put_requests",
-      },
-      {
-        op: "MAX",
-        column: "evergreen.version.s3_cost.artifact_upload_bytes",
-      },
-      { op: "MAX", column: "evergreen.version.s3_cost.log_put_requests" },
-      { op: "MAX", column: "evergreen.version.s3_cost.log_upload_bytes" },
+      { op: "SUM", column: "evergreen.task.s3_cost.adjusted_log_put_cost" },
+      { op: "SUM", column: "evergreen.task.s3_cost.adjusted_log_storage_cost" },
     ],
-    filters: [{ op: "=", column: "evergreen.version.id", value: versionId }],
+    // task.completed carries a task's EC2 and EBS cost; s3-cost-tracking carries its S3 cost.
+    // Each is emitted once per execution, so summing per task matches the version total.
+    filters: [
+      { op: "=", column: "evergreen.version.id", value: versionId },
+      {
+        op: "in",
+        column: "name",
+        value: ["task.completed", "s3-cost-tracking"],
+      },
+    ],
+    breakdowns: ["evergreen.task.id"],
+    orders: [
+      {
+        op: "SUM",
+        column: "evergreen.task.s3_cost.adjusted_log_storage_cost",
+        order: "descending",
+      },
+    ],
+    filter_combination: "AND",
+    limit: 1000,
     start_time: getUnixTime(startTs),
     end_time: getUnixTime(endTs) + 300,
   };
 
-  return buildHoneycombStatUrl("evergreen", query);
+  return buildHoneycombBreakdownUrl("evergreen", query);
 };
 
 const ONE_WEEK_IN_SECONDS = 604800;

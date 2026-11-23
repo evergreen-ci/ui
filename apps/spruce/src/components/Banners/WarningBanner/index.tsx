@@ -44,8 +44,8 @@ export const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
       </Banner>
       <DisplayModal
         data-testid="configuration-warnings-modal"
-        open={showModal}
-        setOpen={setShowModal}
+        isOpen={showModal}
+        onOpenChange={setShowModal}
         title={
           <TitleWrapper>
             <ImportantWithCircle size="xlarge" />
