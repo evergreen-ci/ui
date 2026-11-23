@@ -59,6 +59,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: ".spruce-e2e-shard"
+        run_on: ubuntu2204-large
       - name: lint
       - name: storybook
       - name: test
@@ -99,6 +100,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+        run_on: ubuntu2204-large
       - name: lint
       - name: storybook
       - name: test
