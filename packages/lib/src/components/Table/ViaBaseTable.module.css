@@ -1,0 +1,8 @@
+.emptyMessage {
+  margin-top: var(--via-space-400);
+  margin-left: var(--via-space-800);
+}
+
+.pagination {
+  margin-top: var(--via-space-200);
+}
