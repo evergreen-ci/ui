@@ -1,5 +1,5 @@
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import { Button } from "@via-ds/components/button";
+import { Chip, ChipGroup, ChipVariant } from "@via-ds/components/chip";
 import { Pagination } from "../../Pagination";
 import styles from "./index.module.css";
 import { TableControlInnerRow, TableControlOuterRow } from "./styles";
@@ -37,35 +37,33 @@ const TableControl: React.FC<Props> = ({
     onPageChange?.(newPage);
   };
 
-  const onClearAll = () => {
-    onClear();
-  };
-
   return (
     <TableControlOuterRow>
       <div className={styles.flexContainer}>
-        <Chip
-          data-testid="total-count"
-          label={`Total count: ${totalCount}`}
-          variant={ChipVariant.Gray}
-        />
-        {selectedCount !== undefined && (
+        <ChipGroup aria-label="Table count">
           <Chip
-            data-testid="selected-count"
-            label={`Selected: ${selectedCount}`}
+            data-testid="total-count"
+            id="total-count"
             variant={ChipVariant.Gray}
-          />
-        )}
+          >
+            {`Total count: ${totalCount}`}
+          </Chip>
+          {selectedCount !== undefined && (
+            <Chip data-testid="selected-count" variant={ChipVariant.Gray}>
+              {`Selected: ${selectedCount}`}
+            </Chip>
+          )}
+        </ChipGroup>
         <Button
           data-testid="clear-all-filters"
-          disabled={disabled}
-          onClick={onClearAll}
-          size={ButtonSize.Small}
+          isDisabled={disabled}
+          onPress={onClear}
+          size="small"
         >
           Clear all filters
         </Button>
       </div>
-      <TableControlInnerRow className={styles.paginationContainer}>
+      <TableControlInnerRow>
         <Pagination
           currentPage={page}
           loading={loading}

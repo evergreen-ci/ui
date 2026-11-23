@@ -377,14 +377,8 @@ export const formToGql = ((form: OtherFormState) => {
       logBucketFailedTasks: {
         name: bucketConfig.failedTasksLogBucketName || undefined,
       },
-      longRetentionProjects:
-        bucketConfig.longRetentionProjects.length > 0
-          ? bucketConfig.longRetentionProjects
-          : undefined,
-      sourceCacheOptOutProjects:
-        bucketConfig.sourceCacheOptOutProjects.length > 0
-          ? bucketConfig.sourceCacheOptOutProjects
-          : undefined,
+      longRetentionProjects: bucketConfig.longRetentionProjects,
+      sourceCacheOptOutProjects: bucketConfig.sourceCacheOptOutProjects,
       testResultsBucket: {
         name: bucketConfig.testResultsBucketName || undefined,
         testResultsPrefix:

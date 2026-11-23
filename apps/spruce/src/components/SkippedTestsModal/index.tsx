@@ -61,8 +61,8 @@ export const SkippedTestsModal = <T extends LGRowData>({
   return (
     <DisplayModal
       data-testid="skipped-tests-modal"
-      open={open}
-      setOpen={setOpen}
+      isOpen={open}
+      onOpenChange={setOpen}
       size="large"
       subtitle={subtitle}
       title="Tests skipped by TSS"

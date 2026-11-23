@@ -5,6 +5,7 @@ export default createPlaywrightConfig({
   appName: "Spruce",
   baseURL: "http://localhost:3000",
   viewport: { width: 1920, height: 1080 },
+  fullyParallel: true,
   workers: 1,
   projects: [
     {
