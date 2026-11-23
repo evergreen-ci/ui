@@ -42,6 +42,8 @@ buildvariants:
       - "apps/spruce/**"
       - "packages/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     run_on:
       - ubuntu2204-small
     expansions:
@@ -80,6 +82,8 @@ buildvariants:
       - "apps/parsley/**"
       - "packages/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: apps/parsley
       goroot: /opt/golang/go1.26
@@ -112,6 +116,8 @@ buildvariants:
       - "packages/lib/**"
       - "packages/storybook-config/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.26
@@ -135,6 +141,8 @@ buildvariants:
       - "packages/deploy-utils/**"
       - "packages/storybook-config/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.26
@@ -155,6 +163,8 @@ buildvariants:
       - "packages/lib/**"
       - "packages/storybook-config/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.26
@@ -174,6 +184,8 @@ buildvariants:
       - "packages/analytics-visualizer/**"
       - "packages/eslint-config/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/analytics-visualizer
       node_version: 22.18.0
