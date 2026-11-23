@@ -558,6 +558,16 @@ export type BuildVariantTuple = {
   displayName: Scalars["String"]["output"];
 };
 
+/**
+ * BulkTaskOperationResult is the result of an operation applied to a set of tasks. Tasks that could not be modified are
+ * reported in taskErrors rather than failing the whole operation.
+ */
+export type BulkTaskOperationResult = {
+  __typename?: "BulkTaskOperationResult";
+  modifiedTasks: Array<Task>;
+  taskErrors: Array<TaskError>;
+};
+
 export type CedarConfig = {
   __typename?: "CedarConfig";
   dbName: Scalars["String"]["output"];
@@ -2002,6 +2012,8 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
   scheduleTasks: Array<Task>;
+  scheduleTasksByFilter: BulkTaskOperationResult;
+  scheduleTasksByIds: BulkTaskOperationResult;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
@@ -2234,6 +2246,15 @@ export type MutationSchedulePatchArgs = {
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByFilterArgs = {
+  filter: TaskFilterOptions;
+  versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByIdsArgs = {
+  taskIds: Array<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -4344,6 +4365,12 @@ export type TaskEndDetail = {
   type: Scalars["String"]["output"];
 };
 
+export type TaskError = {
+  __typename?: "TaskError";
+  reason: Scalars["String"]["output"];
+  taskId: Scalars["String"]["output"];
+};
+
 export type TaskEventLogData = {
   __typename?: "TaskEventLogData";
   blockedOn?: Maybe<Scalars["String"]["output"]>;
@@ -4392,6 +4419,7 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  excludeTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
