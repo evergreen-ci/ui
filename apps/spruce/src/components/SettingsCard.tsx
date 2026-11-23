@@ -1,15 +1,18 @@
-import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { forwardRef } from "react";
 import { Card, CardProps } from "@via-ds/components/card";
-import { H3 } from "@via-ds/components/typography";
+import { H3, TextAliasProps } from "@via-ds/components/typography";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./SettingsCard.module.css";
 
-export const SettingsCardTitle = forwardRef<
-  HTMLElement,
-  ComponentPropsWithoutRef<typeof H3>
->(({ className, ...rest }, ref) => (
-  <H3 ref={ref} className={cx(styles.settingsCardTitle, className)} {...rest} />
-));
+export const SettingsCardTitle = forwardRef<HTMLElement, TextAliasProps>(
+  ({ className, ...rest }, ref) => (
+    <H3
+      ref={ref}
+      className={cx(styles.settingsCardTitle, className)}
+      {...rest}
+    />
+  ),
+);
 SettingsCardTitle.displayName = "SettingsCardTitle";
 
 export const formComponentSpacingCSS = "margin-bottom: 48px;";
