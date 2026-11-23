@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { Link } from "@via-ds/components/typography";
 import { formatDistanceToNow } from "date-fns";
-import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  BaseTable,
-  ColumnFiltering,
   ColumnFiltersState,
-  LGColumnDef,
   RowSelectionState,
-  RowSorting,
   SortingState,
+  ViaBaseTable,
+  ViaColumnDef,
   onChangeHandler,
-  useLeafyGreenTable,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -22,9 +21,6 @@ import { useTableSort } from "hooks/useTableSort";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
-
-const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
-const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
   hosts: HostsQuery["hosts"]["hosts"];
@@ -44,6 +40,9 @@ export const HostsTable: React.FC<Props> = ({
   setSelectedHosts,
 }) => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(initialFilters);
+  const [sorting, setSorting] = useState<SortingState>(initialSorting);
   const { sendEvent } = useHostsTableAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -56,17 +55,9 @@ export const HostsTable: React.FC<Props> = ({
     setSelectedHosts(selectedHosts);
   };
 
-  const setSorting = (s: SortingState) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getDefaultSorting(table).onSortingChange(s);
-
   const tableSortHandler = useTableSort({
     sendAnalyticsEvents: () => sendEvent({ name: "Sorted hosts table" }),
   });
-
-  const setFilters = (f: ColumnFiltersState) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
     const updatedParams = {
@@ -89,7 +80,7 @@ export const HostsTable: React.FC<Props> = ({
     });
   };
 
-  const table = useLeafyGreenTable<Host>({
+  const table = useTable<Host>({
     columns,
     data: hosts ?? [],
     defaultColumn: {
@@ -99,12 +90,10 @@ export const HostsTable: React.FC<Props> = ({
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    initialState: {
-      columnFilters: initialFilters,
-      sorting: initialSorting,
-    },
     state: {
+      columnFilters,
       rowSelection,
+      sorting,
     },
     enableMultiSort: false,
     hasSelectableRows: true,
@@ -112,8 +101,7 @@ export const HostsTable: React.FC<Props> = ({
     manualPagination: true,
     manualSorting: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setFilters,
+      setColumnFilters,
       (updatedState) => {
         updateFilters(updatedState);
         table.resetRowSelection();
@@ -124,7 +112,6 @@ export const HostsTable: React.FC<Props> = ({
       updateRowSelection,
     ),
     onSortingChange: onChangeHandler<SortingState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       (updatedState) => {
         tableSortHandler(updatedState);
@@ -134,7 +121,7 @@ export const HostsTable: React.FC<Props> = ({
   });
 
   return (
-    <BaseTable
+    <ViaBaseTable
       data-loading={loading}
       data-testid="hosts-table"
       loading={loading}
@@ -150,7 +137,7 @@ const emptyFilterQueryParams = Object.values(HostsTableFilterParams).reduce(
   {},
 );
 
-const columns: LGColumnDef<Host>[] = [
+const columns: ViaColumnDef<Host>[] = [
   {
     header: "ID",
     accessorKey: "id",
@@ -158,9 +145,13 @@ const columns: LGColumnDef<Host>[] = [
     cell: ({ getValue }): React.JSX.Element => {
       const id = getValue() as string;
       return (
-        <StyledRouterLink data-testid="host-id-link" to={getHostRoute(id)}>
+        <Link
+          data-testid="host-id-link"
+          href={getHostRoute(id)}
+          linkStyle="internal"
+        >
           <WordBreak>{id}</WordBreak>
-        </StyledRouterLink>
+        </Link>
       );
     },
     enableColumnFilter: true,
@@ -208,12 +199,13 @@ const columns: LGColumnDef<Host>[] = [
     cell: ({ getValue }) => {
       const task = getValue() as Host["runningTask"];
       return task?.id ? (
-        <StyledRouterLink
+        <Link
           data-testid="current-task-link"
-          to={getTaskRoute(task.id)}
+          href={getTaskRoute(task.id)}
+          linkStyle="internal"
         >
           <WordBreak all>{task?.name}</WordBreak>
-        </StyledRouterLink>
+        </Link>
       ) : (
         ""
       );
