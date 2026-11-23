@@ -43,7 +43,7 @@ buildvariants:
       - "packages/**"
       - ".evergreen/**"
     run_on:
-      - ubuntu2204-large
+      - ubuntu2204-small
     expansions:
       app_dir: apps/spruce
       goroot: /opt/golang/go1.26
@@ -88,7 +88,6 @@ buildvariants:
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
       node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     modules:
       - evergreen
@@ -109,13 +108,15 @@ buildvariants:
     display_name: Lib
     activate: true
     paths:
+      - "packages/eslint-config/**"
       - "packages/lib/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.26
       node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     modules:
       - evergreen
@@ -130,13 +131,15 @@ buildvariants:
     display_name: Deploy Utils
     activate: true
     paths:
+      - "packages/eslint-config/**"
       - "packages/deploy-utils/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.26
       node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
@@ -148,13 +151,15 @@ buildvariants:
     activate: true
     paths:
       - "packages/fungi/**"
+      - "packages/eslint-config/**"
       - "packages/lib/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.26
       node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
@@ -167,11 +172,12 @@ buildvariants:
     activate: true
     paths:
       - "packages/analytics-visualizer/**"
+      - "packages/eslint-config/**"
+      - ".evergreen/**"
     expansions:
       app_dir: packages/analytics-visualizer
       node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
