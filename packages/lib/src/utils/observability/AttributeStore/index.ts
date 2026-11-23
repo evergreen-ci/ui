@@ -1,4 +1,4 @@
-import { AttributeValue } from "@opentelemetry/api";
+import { Attributes } from "@opentelemetry/api";
 import { AttributeStore } from "./types";
 
 /**
@@ -7,13 +7,13 @@ import { AttributeStore } from "./types";
  * We can use this to add global attributes to all spans and traces
  */
 class OpenTelemetryAttributeStore implements AttributeStore {
-  private attributesMap: Map<string, AttributeValue>;
+  private attributesMap: Map<string, Attributes[string]>;
 
   constructor() {
     this.attributesMap = new Map();
   }
 
-  setGlobalAttribute(key: string, value: AttributeValue): void {
+  setGlobalAttribute(key: string, value: Attributes[string]): void {
     this.attributesMap.set(key, value);
   }
 
@@ -21,15 +21,15 @@ class OpenTelemetryAttributeStore implements AttributeStore {
     this.attributesMap.delete(key);
   }
 
-  getGlobalAttributes(): Record<string, AttributeValue> {
-    const attributes: Record<string, AttributeValue> = {};
+  getGlobalAttributes(): Attributes {
+    const attributes: Attributes = {};
     this.attributesMap.forEach((value, key) => {
       attributes[key] = value;
     });
     return attributes;
   }
 
-  getGlobalAttribute(key: string): AttributeValue | undefined {
+  getGlobalAttribute(key: string): Attributes[string] {
     return this.attributesMap.get(key);
   }
 }
