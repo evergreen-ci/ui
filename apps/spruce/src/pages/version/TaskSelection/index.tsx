@@ -5,14 +5,54 @@ import {
   useMemo,
   useState,
 } from "react";
+import { TaskFilterOptions } from "gql/generated/types";
 import { useQueryVariables } from "../Tabs/useQueryVariables";
-import {
-  EMPTY_SELECTION,
-  SelectedMode,
-  SelectionState,
-  getSelectedCount,
-  toggleTask,
-} from "./utils";
+
+enum SelectedMode {
+  Include = "include",
+  All = "all",
+}
+
+/**
+ * "include" (SelectedMode.Include) tracks hand-picked task IDs.
+ * "all" (SelectedMode.All) selects every task matching the current filter (for all pages) minus the deselected tasks.
+ */
+type SelectionState =
+  | { mode: SelectedMode.Include; taskIds: ReadonlySet<string> }
+  | {
+      mode: SelectedMode.All;
+      excludedIds: ReadonlySet<string>;
+      filter: TaskFilterOptions;
+    };
+
+const EMPTY_SELECTION: SelectionState = {
+  mode: SelectedMode.Include,
+  taskIds: new Set(),
+};
+
+const toggleTask = (state: SelectionState, taskId: string): SelectionState => {
+  if (state.mode === SelectedMode.Include) {
+    const taskIds = new Set(state.taskIds);
+    if (taskIds.has(taskId)) {
+      taskIds.delete(taskId);
+    } else {
+      taskIds.add(taskId);
+    }
+    return { mode: SelectedMode.Include, taskIds };
+  }
+  const excludedIds = new Set(state.excludedIds);
+  if (excludedIds.has(taskId)) {
+    excludedIds.delete(taskId);
+  } else {
+    excludedIds.add(taskId);
+  }
+  return { ...state, excludedIds };
+};
+
+const getSelectedCount = (state: SelectionState, filteredCount: number) =>
+  state.mode === SelectedMode.Include
+    ? state.taskIds.size
+    : Math.max(filteredCount - state.excludedIds.size, 0);
 
 interface TaskSelectionContextState {
   clearSelection: () => void;
@@ -38,7 +78,10 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
 }) => {
   const { taskFilterOptions } = useQueryVariables(versionId);
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    selectedCount: number;
+    selectionState: SelectionState;
+  }>({
     selectedCount: 0,
     selectionState: EMPTY_SELECTION,
   });
@@ -136,4 +179,5 @@ const useTaskSelectionContext = () => {
   return context;
 };
 
-export { TaskSelectionProvider, useTaskSelectionContext };
+export { SelectedMode, TaskSelectionProvider, useTaskSelectionContext };
+export type { SelectionState };

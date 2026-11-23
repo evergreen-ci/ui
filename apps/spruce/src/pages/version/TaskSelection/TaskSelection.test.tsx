@@ -1,8 +1,11 @@
 import { MemoryRouter } from "react-router-dom";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { PatchTasksQueryParams } from "types/task";
-import { SelectedMode } from "./utils";
-import { TaskSelectionProvider, useTaskSelectionContext } from ".";
+import {
+  SelectedMode,
+  TaskSelectionProvider,
+  useTaskSelectionContext,
+} from ".";
 
 const pageOne = ["a", "b", "c"];
 const pageTwo = ["d", "e"];

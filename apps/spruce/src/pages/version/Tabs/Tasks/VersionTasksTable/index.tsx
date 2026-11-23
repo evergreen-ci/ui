@@ -166,41 +166,36 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
       }),
   });
 
-  const rowSelection = useMemo(() => {
-    const selectedRows: RowSelectionState = {};
-    tasks.forEach((task) => {
-      if (isRowSelected(task.id)) {
-        selectedRows[getTaskRowId(task.id)] = true;
-      }
-      task.executionTasksFull?.forEach((executionTask) => {
-        if (isRowSelected(executionTask.id)) {
-          selectedRows[getTaskRowId(executionTask.id, task.id)] = true;
-        }
-      });
-    });
-    return selectedRows;
-  }, [isRowSelected, tasks]);
+  const taskRows = useMemo(
+    () =>
+      tasks.flatMap((task) => [
+        { taskId: task.id, rowId: getTaskRowId(task.id) },
+        ...(task.executionTasksFull ?? []).map((executionTask) => ({
+          taskId: executionTask.id,
+          rowId: getTaskRowId(executionTask.id, task.id),
+        })),
+      ]),
+    [tasks],
+  );
+
+  const rowSelection = useMemo(
+    () =>
+      Object.fromEntries(
+        taskRows
+          .filter(({ taskId }) => isRowSelected(taskId))
+          .map(({ rowId }) => [rowId, true]),
+      ),
+    [isRowSelected, taskRows],
+  );
 
   const updateSelection: OnChangeFn<RowSelectionState> = (updater) => {
     const nextRowSelection =
       typeof updater === "function" ? updater(rowSelection) : updater;
-
-    const addIfChanged = (taskId: string, rowId: string) => {
-      const isNowSelected = Boolean(nextRowSelection[rowId]);
-      if (isNowSelected !== isRowSelected(taskId)) {
-        changedTaskIds.add(taskId);
-      }
-    };
-
-    const changedTaskIds = new Set<string>();
-    tasks.forEach((task) => {
-      addIfChanged(task.id, getTaskRowId(task.id));
-      task.executionTasksFull?.forEach((executionTask) => {
-        addIfChanged(executionTask.id, getTaskRowId(executionTask.id, task.id));
-      });
-    });
-
-    onToggleRows([...changedTaskIds]);
+    const changedRows = taskRows.filter(
+      ({ rowId, taskId }) =>
+        !!nextRowSelection[rowId] !== isRowSelected(taskId),
+    );
+    onToggleRows(changedRows.map(({ taskId }) => taskId));
   };
 
   const table: LeafyGreenTable<TaskTableInfo> =
