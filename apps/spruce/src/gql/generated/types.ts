@@ -12198,6 +12198,7 @@ export type TaskQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
@@ -12785,6 +12786,7 @@ export type VersionQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
