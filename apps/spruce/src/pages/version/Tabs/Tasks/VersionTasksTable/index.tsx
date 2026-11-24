@@ -30,7 +30,6 @@ import {
   emptyFilterQueryParams,
   mapIdToFilterParam,
 } from "./constants";
-import styles from "./VersionTasksTable.module.css";
 
 const getTaskRowId = (taskId: string, parentRowId?: string) =>
   parentRowId ? `${parentRowId}.${taskId}` : taskId;
@@ -260,7 +259,6 @@ export const VersionTasksTable: React.FC<VersionTasksTableProps> = ({
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         loadingRows={limit}
-        rowClassName={showSelectableTaskRows ? styles.row : undefined}
         shouldAlternateRowColor
         table={table}
       />

@@ -47,19 +47,16 @@ export const getColumnsTemplate = ({
     cell: ({
       getValue,
       row: {
-        depth,
         original: { displayStatus, execution, id },
       },
     }): React.JSX.Element => (
-      <div className={depth > 0 ? styles.subrowTaskName : undefined}>
-        <TaskLink
-          execution={execution}
-          onClick={() => onClickTaskLink(id, displayStatus)}
-          showTaskExecutionLabel={showTaskExecutionLabel}
-          taskId={id}
-          taskName={getValue() as string}
-        />
-      </div>
+      <TaskLink
+        execution={execution}
+        onClick={() => onClickTaskLink(id, displayStatus)}
+        showTaskExecutionLabel={showTaskExecutionLabel}
+        taskId={id}
+        taskName={getValue() as string}
+      />
     ),
     meta: {
       search: {

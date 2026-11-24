@@ -1,7 +1,6 @@
 import { Checkbox } from "@leafygreen-ui/checkbox";
 import { LGColumnDef } from "@evg-ui/lib/components/Table";
 import { TaskTableInfo } from "components/TasksTable/types";
-import styles from "./SelectColumn.module.css";
 
 interface SelectColumnOptions {
   allSelected: boolean;
@@ -19,15 +18,13 @@ export const getSelectColumn = ({
   enableSorting: false,
   enableColumnFilter: false,
   header: () => (
-    <div className={styles.selectAllHeader}>
-      <Checkbox
-        aria-label="Select all tasks"
-        checked={allSelected}
-        data-testid="select-all-rows"
-        indeterminate={someSelected && !allSelected}
-        onChange={onToggleAll}
-      />
-    </div>
+    <Checkbox
+      aria-label="Select all tasks"
+      checked={allSelected}
+      data-testid="select-all-rows"
+      indeterminate={someSelected && !allSelected}
+      onChange={onToggleAll}
+    />
   ),
   cell: ({ row }) =>
     row.getCanSelect() ? (

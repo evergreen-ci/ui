@@ -3,7 +3,3 @@
   align-items: center;
   gap: var(--via-space-100);
 }
-
-.subrowTaskName {
-  padding-left: var(--via-space-400);
-}
