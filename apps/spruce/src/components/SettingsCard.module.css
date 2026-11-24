@@ -18,5 +18,5 @@
 }
 
 .settingsCard {
-  margin-bottom: 48px;
+  margin-bottom: var(--via-space-1200);
 }
