@@ -71,6 +71,7 @@ export const taskQuery: TaskQueryType = {
     canDisable: true,
     canModifyAnnotation: false,
     canOverrideDependencies: false,
+    canQuarantine: false,
     canRestart: true,
     canSchedule: false,
     canSetPriority: false,
