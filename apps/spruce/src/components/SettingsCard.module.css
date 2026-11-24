@@ -4,7 +4,7 @@
   &:hover {
     &::after {
       opacity: 1;
-      transition: opacity 150ms ease-in-out; /* transitionDuration.default */
+      transition: opacity var(--via-duration-default) ease-in-out;
     }
   }
 
@@ -13,7 +13,7 @@
     content: "#";
     margin-left: var(--via-space-200);
     opacity: 0;
-    transition: opacity 150ms ease-in-out; /* transitionDuration.default */
+    transition: opacity var(--via-duration-default) ease-in-out;
   }
 }
 
