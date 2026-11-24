@@ -1,18 +1,25 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { useAppLayout } from "@via-ds/components/app-layout";
+import {
+  TABLE_DETAILS_PANEL_KEY,
+  type TableDetailsRenderProps,
+  TableSlot,
+  useTableDetails,
+} from "@via-ds/components/table";
+import { ToggleButton } from "@via-ds/components/toggle-button";
+import Note from "@via-ds/icons/Note";
 import { formatDistanceToNow } from "date-fns";
 import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  BaseTable,
-  ExpandedState,
-  LGColumnDef,
-  LeafyGreenTableRow,
-  useLeafyGreenTable,
+  ViaBaseTable,
+  ViaColumnDef,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
-import { DoesNotExpire } from "components/Spawn";
+import { DetailsPanel, DoesNotExpire } from "components/Spawn";
 import { getSpawnHostRoute } from "constants/routes";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
@@ -29,62 +36,67 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
   const [selectedVolume] = useQueryParam(QueryParams.Volume, "");
+  const { setSelectedBottomPanelKey } = useAppLayout();
 
-  const volumeData: TableVolume[] = useMemo(() => {
-    const volumesCopy = [...volumes];
-    volumesCopy.sort(sortByHost);
-    return volumes.map((v) => ({
-      ...v,
-      renderExpandedContent,
-    }));
-  }, [volumes]);
-
-  const initialExpanded = Object.fromEntries(
-    volumeData.map(({ id }, i) => [i, id === selectedVolume]),
+  const [initialOpenRowIds] = useState(() =>
+    volumes.some(({ id }) => id === selectedVolume) ? [selectedVolume] : [],
   );
 
-  // Remove and use initialState instead when LG-5035 is complete.
-  const [expanded, setExpanded] = useState<ExpandedState>(initialExpanded);
+  useEffect(() => {
+    if (initialOpenRowIds.length) {
+      setSelectedBottomPanelKey(TABLE_DETAILS_PANEL_KEY);
+    }
+  }, [initialOpenRowIds, setSelectedBottomPanelKey]);
 
   const columns = useMemo(
     () => getColumns(maxSpawnableLimit),
     [maxSpawnableLimit],
   );
 
-  const table = useLeafyGreenTable<TableVolume>({
+  const table = useTable<TableVolume>({
     columns,
-    data: volumeData,
+    data: volumes,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
-      size: "auto" as unknown as number,
       // Handle bug in sorting order
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    onExpandedChange: setExpanded,
-    state: {
-      expanded,
-    },
+    getRowId: ({ id }) => id,
   });
 
-  return <BaseTable shouldAlternateRowColor table={table} />;
+  useTableDetails(table, {
+    id: "spawn-volumes",
+    defaultOpenRowIds: initialOpenRowIds,
+    getRowLabel: ({ original }) => getVolumeName(original),
+    render: renderVolumeDetails,
+  });
+
+  return (
+    <ViaBaseTable
+      data-testid="spawn-volume-table"
+      shouldAlternateRowColor
+      table={table}
+    />
+  );
 };
 
-const renderExpandedContent = (row: LeafyGreenTableRow<TableVolume>) => (
-  <SpawnVolumeCard volume={row.original} />
+const renderVolumeDetails = (details: TableDetailsRenderProps<TableVolume>) => (
+  <DetailsPanel
+    {...details}
+    getName={getVolumeName}
+    noun="volume"
+    renderRow={(volume) => <SpawnVolumeCard volume={volume} />}
+  />
 );
 
-const getHostDisplayName = (v: TableVolume) =>
-  v.host?.displayName || v.host?.id || "";
+const getVolumeName = ({ displayName, id }: TableVolume) => displayName || id;
 
-const sortByHost = (a: TableVolume, b: TableVolume) =>
-  getHostDisplayName(a).localeCompare(getHostDisplayName(b));
-
-const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
+const getColumns = (maxSpawnableLimit: number): ViaColumnDef<TableVolume>[] => [
   {
     header: "Volume",
-    accessorFn: ({ displayName, id }) => displayName || id,
+    accessorFn: getVolumeName,
     enableSorting: true,
     cell: ({ getValue }) => (
       <WordBreak data-testid="vol-name">{getValue() as string}</WordBreak>
@@ -148,6 +160,15 @@ const getColumns = (maxSpawnableLimit: number): LGColumnDef<TableVolume>[] => [
         maxSpawnableLimit={maxSpawnableLimit}
         volume={row.original}
       />
+    ),
+  },
+  {
+    id: "details",
+    header: "Details",
+    cell: () => (
+      <ToggleButton slot={TableSlot.PanelToggle}>
+        <Note slot="icon" />
+      </ToggleButton>
     ),
   },
 ];

@@ -26,6 +26,7 @@ const expectedVolNames = [
 test.describe("Spawn volume page", () => {
   const migratingVolumeID = "vol-0ae8720b445b771b6";
   const freeVolumeID = "vol-0ea662ac92f611ed4";
+  const freeVolume2ID = "vol-0c66e16459646704d";
   const mountedVolumeID =
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857";
   const mountedVolume2ID =
@@ -45,23 +46,26 @@ test.describe("Spawn volume page", () => {
   test("The table initially displays volumes with status ascending", async ({
     page,
   }) => {
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page
+      .getByTestId("spawn-volume-table")
+      .getByTestId("via-table-row");
     for (let i = 0; i < expectedVolNames.length; i++) {
       await expect(rows.nth(i)).toContainText(expectedVolNames[i]);
     }
   });
 
   test("Table should have no cards visible by default", async ({ page }) => {
-    for (const name of expectedVolNames) {
-      await expect(page.getByTestId(name)).toHaveCount(0);
-    }
+    await expect(
+      page.locator("[data-testid^='spawn-volume-card-']"),
+    ).toHaveCount(0);
   });
 
   test("Should render migrating volumes with a different badge and disable action buttons", async ({
     page,
   }) => {
     const migratingRow = page
-      .getByTestId("leafygreen-table-row")
+      .getByTestId("spawn-volume-table")
+      .getByTestId("via-table-row")
       .filter({ hasText: migratingVolumeID });
     await expect(migratingRow.getByTestId("volume-status-badge")).toContainText(
       "Migrating",
@@ -77,27 +81,116 @@ test.describe("Spawn volume page", () => {
   test("Should have a volume card visible initially when the 'volume' query param is provided", async ({
     page,
   }) => {
-    const targetVolume = "vol-0ea662ac92f611ed4";
-    await page.goto(`/spawn/volume?volume=${targetVolume}`);
-    const card = page.getByTestId(`spawn-volume-card-${targetVolume}`);
-    await expect(card).toBeVisible();
-  });
-
-  test("Clicking on the row should toggle the volume card open and closed", async ({
-    page,
-  }) => {
     await page.goto(`/spawn/volume?volume=${freeVolumeID}`);
     const card = page.getByTestId(`spawn-volume-card-${freeVolumeID}`);
     await expect(card).toBeVisible();
+    await expect(
+      page
+        .getByTestId("spawn-volume-table")
+        .getByRole("button", { name: `View details for ${freeVolumeID}` }),
+    ).toHaveAttribute("aria-pressed", "true");
+  });
 
-    const row = page
-      .getByTestId("leafygreen-table-row")
-      .filter({ hasText: freeVolumeID });
-    await row.getByRole("button", { name: "Collapse row" }).click();
-    await expect(card).toHaveCount(0);
+  test("Should not open any details when the 'volume' query param is unknown", async ({
+    page,
+  }) => {
+    await page.goto("/spawn/volume?volume=does-not-exist");
+    await expect(
+      page.getByTestId("spawn-volume-table").getByTestId("via-table-row"),
+    ).toHaveCount(expectedVolNames.length);
+    await expect(
+      page.locator("[data-testid^='spawn-volume-card-']"),
+    ).toHaveCount(0);
+  });
 
-    await row.getByRole("button", { name: "Expand row" }).click();
+  test("Clicking the row's details button should toggle the volume card open and closed", async ({
+    page,
+  }) => {
+    const card = page.getByTestId(`spawn-volume-card-${freeVolumeID}`);
+    const detailsButton = page
+      .getByTestId("spawn-volume-table")
+      .getByRole("button", { name: `View details for ${freeVolumeID}` });
+    await detailsButton.click();
+    await expect(detailsButton).toHaveAttribute("aria-pressed", "true");
     await expect(card).toBeVisible();
+
+    await detailsButton.click();
+    await expect(detailsButton).toHaveAttribute("aria-pressed", "false");
+    await expect(card).toHaveCount(0);
+  });
+
+  test("Closing the details panel should close every open volume", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-volume-table");
+    const detailsButton = table.getByRole("button", {
+      name: `View details for ${freeVolumeID}`,
+    });
+    await detailsButton.click();
+    await table
+      .getByRole("button", { name: `View details for ${freeVolume2ID}` })
+      .click();
+    const cards = page.locator("[data-testid^='spawn-volume-card-']");
+    await expect(cards).toHaveCount(2);
+
+    await page.getByRole("button", { name: "Close details" }).click();
+    await expect(cards).toHaveCount(0);
+    await expect(detailsButton).toHaveAttribute("aria-pressed", "false");
+
+    await detailsButton.click();
+    await expect(cards).toHaveCount(1);
+  });
+
+  test("Switching the details panel to tabs should show one volume at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-volume-table");
+    await table
+      .getByRole("button", { name: `View details for ${freeVolumeID}` })
+      .click();
+    await table
+      .getByRole("button", { name: `View details for ${freeVolume2ID}` })
+      .click();
+    const cards = page.locator("[data-testid^='spawn-volume-card-']");
+    await expect(cards).toHaveCount(2);
+
+    await page.getByRole("button", { name: "Tabs layout" }).click();
+    await expect(cards).toHaveCount(1);
+    await expect(
+      page.getByTestId(`spawn-volume-card-${freeVolumeID}`),
+    ).toBeVisible();
+
+    await page.getByRole("tab", { name: freeVolume2ID }).click();
+    await expect(cards).toHaveCount(1);
+    await expect(
+      page.getByTestId(`spawn-volume-card-${freeVolume2ID}`),
+    ).toBeVisible();
+  });
+
+  test("Switching the details panel to an accordion should expand one volume at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-volume-table");
+    await table
+      .getByRole("button", { name: `View details for ${freeVolumeID}` })
+      .click();
+    await table
+      .getByRole("button", { name: `View details for ${freeVolume2ID}` })
+      .click();
+
+    await page.getByRole("button", { name: "Accordion layout" }).click();
+    const visibleCards = page
+      .locator("[data-testid^='spawn-volume-card-']")
+      .filter({ visible: true });
+    await expect(visibleCards).toHaveCount(0);
+
+    await page
+      .getByRole("button", { name: freeVolume2ID, exact: true })
+      .click();
+    await expect(visibleCards).toHaveCount(1);
+    await expect(
+      page.getByTestId(`spawn-volume-card-${freeVolume2ID}`),
+    ).toBeVisible();
   });
 
   test("Clicking the trash can should remove the volume from the table and update free/mounted volumes badges", async ({
@@ -109,7 +202,8 @@ test.describe("Spawn volume page", () => {
     });
     await expect(
       page
-        .getByTestId("leafygreen-table-row")
+        .getByTestId("spawn-volume-table")
+        .getByTestId("via-table-row")
         .filter({ hasText: freeVolumeID }),
     ).toBeVisible();
 
@@ -311,7 +405,8 @@ test.describe("Migrate Modal", () => {
     page,
   }) => {
     const migratingRow = page
-      .getByTestId("leafygreen-table-row")
+      .getByTestId("spawn-volume-table")
+      .getByTestId("via-table-row")
       .filter({ hasText: migratingVolumeID });
     await expect(migratingRow.getByTestId("volume-status-badge")).toContainText(
       "Migrating",

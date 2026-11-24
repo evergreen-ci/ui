@@ -1,4 +1,4 @@
-import { DetailsCard, DoesNotExpire } from "components/Spawn";
+import { DetailsFields, DoesNotExpire } from "components/Spawn";
 import { useDateFormat } from "hooks";
 import { TableVolume } from "types/spawn";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
-  <DetailsCard
+  <DetailsFields
     data-testid={`spawn-volume-card-${volume.displayName || volume.id}`}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     fieldMaps={spawnVolumeCardFields}
