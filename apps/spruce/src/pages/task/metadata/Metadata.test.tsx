@@ -151,7 +151,7 @@ describe("metadata", () => {
     expect(screen.getByTestId("cost-modal")).toBeInTheDocument();
   });
 
-  it("hides host information and cost for a push-completed virtual task", async () => {
+  it("hides host information but shows cost for a push-completed virtual task", async () => {
     render(<Metadata loading={false} task={pushCompletedVirtualTask.task} />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
@@ -165,8 +165,20 @@ describe("metadata", () => {
     expect(screen.queryByTestId("task-host-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("task-distro-link")).not.toBeInTheDocument();
     expect(screen.queryByTestId("task-metrics-link")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("cost-details-button")).not.toBeInTheDocument();
+    expect(screen.getByTestId("cost-details-button")).toBeInTheDocument();
     expect(screen.queryByText("External Links")).not.toBeInTheDocument();
+  });
+
+  it("hides cost for a push-completed virtual task with no cost", () => {
+    render(
+      <Metadata loading={false} task={pushCompletedVirtualTaskNoCost.task} />,
+      {
+        route: `/task/${taskId}`,
+        path: "/task/:id",
+        wrapper,
+      },
+    );
+    expect(screen.queryByTestId("cost-details-button")).not.toBeInTheDocument();
   });
 
   it("hides the External Links section when there are no links to show", () => {
@@ -403,6 +415,13 @@ const pushCompletedVirtualTask: TaskQueryType = {
     ...ranVirtualTask.task,
     completedBy: runnerTaskId,
     hostId: null,
+  },
+};
+
+const pushCompletedVirtualTaskNoCost: TaskQueryType = {
+  task: {
+    ...pushCompletedVirtualTask.task,
+    taskCost: null,
   },
 };
 

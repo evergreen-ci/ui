@@ -13,7 +13,6 @@ import {
   LeafyGreenTableRow,
   LeafyGreenVirtualTable,
   Row,
-  type RowData,
   Table,
   TableBody,
   TableHead,
@@ -21,35 +20,11 @@ import {
   VirtualItem,
   flexRender,
 } from "@leafygreen-ui/table";
-import { conditionalToArray } from "../../utils/array";
 import { cx } from "../../utils/css";
-import { TreeDataEntry } from "../TreeSelect";
 import styles from "./BaseTable.module.css";
 import TableLoader from "./TableLoader";
-import TableFilterPopover from "./TablePopover/TableFilterPopover";
-import TableSearchPopover from "./TablePopover/TableSearchPopover";
-
-// Define typing of columns' meta field
-// https://tanstack.com/table/v8/docs/api/core/column-def#meta
-declare module "@tanstack/table-core" {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ColumnMeta<TData extends RowData, TValue> {
-    search?: {
-      "data-testid"?: string;
-      placeholder?: string;
-    };
-    treeSelect?: {
-      "data-testid"?: string;
-      // Configures whether or not the tree select should be filtered to only represent values found in the table.
-      // Note that this may not be very performant for large tables.
-      filterOptions?: boolean;
-      options: TreeDataEntry[];
-    };
-    // Overcome react-table's column width limitations
-    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3334470
-    width?: string;
-  }
-}
+import { ColumnFilter } from "./TablePopover/ColumnFilter";
+import "./types";
 
 interface SpruceTableProps<T extends LGRowData> {
   "data-testid-row"?: string;
@@ -208,44 +183,10 @@ const TableHeaderCell = <T extends LGRowData>({
       style={meta?.width && { width: meta.width }}
     >
       {flexRender(columnDef.header, header.getContext())}
-      {header.column.getCanFilter() &&
-        (meta?.treeSelect ? (
-          <TableFilterPopover
-            data-testid={meta.treeSelect?.["data-testid"]}
-            onConfirm={(value) => {
-              header.column.setFilterValue(value);
-              if (usePagination) {
-                table.firstPage();
-              }
-            }}
-            options={
-              meta.treeSelect?.filterOptions
-                ? meta.treeSelect.options.filter(
-                    ({ value }) =>
-                      !!header.column.getFacetedUniqueValues().get(value),
-                  )
-                : meta.treeSelect.options
-            }
-            value={
-              conditionalToArray(
-                header?.column?.getFilterValue() ?? [],
-                true,
-              ) as string[]
-            }
-          />
-        ) : (
-          <TableSearchPopover
-            data-testid={meta?.search?.["data-testid"]}
-            onConfirm={(value) => {
-              header.column.setFilterValue(value);
-              if (usePagination) {
-                table.firstPage();
-              }
-            }}
-            placeholder={meta?.search?.placeholder}
-            value={(header?.column?.getFilterValue() as string) ?? ""}
-          />
-        ))}
+      <ColumnFilter
+        column={header.column}
+        onFilter={usePagination ? () => table.firstPage() : undefined}
+      />
     </HeaderCell>
   );
 };

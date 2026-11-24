@@ -31,7 +31,7 @@ describe("other tab transformers", () => {
     );
   });
 
-  it("round-trips a cleared source cache opt-out list as an omitted field", () => {
+  it("round-trips a cleared source cache opt-out list so it persists as empty", () => {
     const adminSettingsWithEmptyOptOut: AdminSettingsData = {
       ...mockAdminSettings,
       buckets: {
@@ -49,7 +49,27 @@ describe("other tab transformers", () => {
       ...expectedGql,
       buckets: {
         ...expectedGql.buckets,
-        sourceCacheOptOutProjects: undefined,
+        sourceCacheOptOutProjects: [],
+      },
+    });
+  });
+
+  it("round-trips a cleared long-retention projects list so it persists as empty", () => {
+    const adminSettingsWithEmptyLongRetention: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        longRetentionProjects: [],
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithEmptyLongRetention);
+    expect(loaded?.other.bucketConfig.longRetentionProjects).toStrictEqual([]);
+    expect(formToGql(loaded!)).toStrictEqual({
+      ...expectedGql,
+      buckets: {
+        ...expectedGql.buckets,
+        longRetentionProjects: [],
       },
     });
   });
