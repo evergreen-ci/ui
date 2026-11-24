@@ -15,6 +15,7 @@ import { getDisplayRevision } from "utils/string";
 import { VERSION_LIMIT } from "../constants";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
 import { Version } from "../types";
+import { useWaterfallFilters } from "../useWaterfallFilters";
 import styles from "./index.module.css";
 
 const MODAL_MAX_MESSAGE_LENGTH = 150;
@@ -53,6 +54,8 @@ export const VersionLabel: React.FC<Props> = ({
     user,
   } = version;
   const getDateCopy = useDateFormat();
+  const { statuses, taskTags, tasks, variantTags, variants } =
+    useWaterfallFilters();
   const createDate = new Date(createTime);
 
   const { sendEvent } = useWaterfallAnalytics();
@@ -98,7 +101,13 @@ export const VersionLabel: React.FC<Props> = ({
         });
       }}
       revision={getDisplayRevision(version)}
-      to={getVersionRoute(id)}
+      to={getVersionRoute(id, {
+        statuses,
+        taskName: tasks.join("|"),
+        variant: variants.join("|"),
+        taskTags,
+        variantTags,
+      })}
     />
   );
 

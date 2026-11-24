@@ -5660,7 +5660,6 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   runEveryMainlineCommit?: boolean | null;
-  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5685,7 +5684,6 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   runEveryMainlineCommit: boolean;
-  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5866,7 +5864,6 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -6089,7 +6086,6 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     runEveryMainlineCommit: boolean;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -6507,7 +6503,6 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -8133,6 +8128,11 @@ export type AdminSettingsQuery = {
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
+    } | null;
+    githubRecoveryApp?: {
+      __typename?: "GitHubRecoveryAppConfig";
+      appId?: number | null;
+      privateKey?: string | null;
     } | null;
     graphite?: {
       __typename?: "GraphiteConfig";
@@ -9765,7 +9765,6 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10002,7 +10001,6 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10304,7 +10302,6 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       runEveryMainlineCommit?: boolean | null;
-      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -10589,7 +10586,6 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10826,7 +10822,6 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -11069,7 +11064,6 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       runEveryMainlineCommit: boolean;
-      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;

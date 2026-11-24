@@ -510,6 +510,16 @@ const AdminSettingsPage: React.FC = () => {
               </SideNavItem>
               <SideNavItem
                 as={Link}
+                data-testid="navitem-admin-github-recovery-app"
+                to={getAdminSettingsRoute(
+                  AdminSettingsTabRoutes.General,
+                  "github-recovery-app",
+                )}
+              >
+                GitHub Recovery App
+              </SideNavItem>
+              <SideNavItem
+                as={Link}
                 data-testid="navitem-admin-single-task-host-configuration"
                 to={getAdminSettingsRoute(
                   AdminSettingsTabRoutes.General,

@@ -12,6 +12,30 @@ describe("other tab transformers", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
 
+  it("shows an unset GitHub recovery app ID as empty", () => {
+    const loaded = gqlToForm({
+      ...mockAdminSettings,
+      githubRecoveryApp: { appId: 0, privateKey: "stale-key" },
+    });
+    expect(loaded?.other.githubRecoveryApp).toStrictEqual({
+      appId: null,
+      privateKey: "stale-key",
+    });
+  });
+
+  it("sends a cleared GitHub recovery app ID so it persists as unset", () => {
+    const form: OtherFormState = {
+      other: {
+        ...expectedForm.other,
+        githubRecoveryApp: { appId: null, privateKey: "" },
+      },
+    };
+    expect(formToGql(form).githubRecoveryApp).toStrictEqual({
+      appId: 0,
+      privateKey: "",
+    });
+  });
+
   it("converts lifecycleLastSyncedAt values arriving as ISO strings", () => {
     const isoString = "2026-07-06T12:00:00.000Z";
     const adminSettingsWithSyncTime: AdminSettingsData = {
@@ -273,6 +297,10 @@ const mockAdminSettings: AdminSettingsData = {
   githubCheckRun: {
     checkRunLimit: 10,
   },
+  githubRecoveryApp: {
+    appId: 1234,
+    privateKey: "recovery-private-key",
+  },
   diagnostics: {
     s3BucketName: "diagnostics-bucket",
     s3Prefix: "diagnostics/",
@@ -436,6 +464,10 @@ const expectedForm: OtherFormState = {
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
     },
+    githubRecoveryApp: {
+      appId: 1234,
+      privateKey: "recovery-private-key",
+    },
     diagnosticsConfig: {
       s3BucketName: "diagnostics-bucket",
       s3Prefix: "diagnostics/",
@@ -587,6 +619,10 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  githubRecoveryApp: {
+    appId: 1234,
+    privateKey: "recovery-private-key",
   },
   diagnostics: {
     s3BucketName: "diagnostics-bucket",

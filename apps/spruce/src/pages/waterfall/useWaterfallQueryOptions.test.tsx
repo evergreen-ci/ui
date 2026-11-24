@@ -2,14 +2,14 @@ import { PropsWithChildren } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { useUserTimeZone } from "hooks";
-import { useWaterfallQueryParams } from "./useWaterfallQueryParams";
+import { useWaterfallQueryOptions } from "./useWaterfallQueryOptions";
 
 vi.mock("hooks", () => ({ useUserTimeZone: vi.fn() }));
 
 const setup = (search = "", omitInactiveBuilds = false) =>
   renderHook(
     () =>
-      useWaterfallQueryParams({
+      useWaterfallQueryOptions({
         projectIdentifier: "spruce",
         omitInactiveBuilds,
       }),
@@ -22,7 +22,7 @@ const setup = (search = "", omitInactiveBuilds = false) =>
     },
   );
 
-describe("useWaterfallQueryParams", () => {
+describe("useWaterfallQueryOptions", () => {
   beforeEach(() => {
     vi.mocked(useUserTimeZone).mockReturnValue(undefined);
   });

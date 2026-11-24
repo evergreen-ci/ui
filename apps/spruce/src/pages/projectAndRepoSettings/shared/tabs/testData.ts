@@ -2,7 +2,6 @@ import {
   BannerTheme,
   ProjectSettingsQuery,
   RepoSettingsQuery,
-  SourceCacheMode,
 } from "gql/generated/types";
 import { JiraTicketType } from "types/jira";
 
@@ -55,7 +54,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
     waterfallDisabled: null,
-    sourceCacheMode: null,
     versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,
@@ -242,7 +240,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     stepbackBisect: true,
     stepbackPushTriggers: true,
     disabledStatsCache: false,
-    sourceCacheMode: SourceCacheMode.Waterfall,
     restricted: true,
     admins: ["admin"],
     prTestingEnabled: false,
