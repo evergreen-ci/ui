@@ -84,15 +84,21 @@ const renderHostDetails = ({
 }: TableDetailsRenderProps<MyHost>) => (
   <>
     <Header>
-      <Text slot="title">Host details</Text>
+      <Text slot="title">
+        {rows.length} {rows.length === 1 ? "host" : "hosts"} selected
+      </Text>
       {hiddenCount > 0 && <Text>+{hiddenCount} not shown</Text>}
       <BottomPanelCloseButton aria-label="Close details" onPress={clear} />
     </Header>
     <Content isScrollable>
       <div className={styles.details}>
         {rows.map(({ id, original }) => (
-          <section key={id} aria-label={getHostName(original)}>
-            <Text elementType="h3" textStyle={TextStyle.heading6}>
+          <section
+            key={id}
+            aria-label={getHostName(original)}
+            className={styles.host}
+          >
+            <Text elementType="h3" textStyle={TextStyle.heading5}>
               {getHostName(original)}
             </Text>
             <SpawnHostCard host={original} />
