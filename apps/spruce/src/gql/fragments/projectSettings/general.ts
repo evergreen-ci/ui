@@ -18,7 +18,6 @@ export const PROJECT_GENERAL_SETTINGS = gql`
     repo
     repotrackerDisabled
     runEveryMainlineCommit
-    sourceCacheMode
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled
@@ -44,7 +43,6 @@ export const REPO_GENERAL_SETTINGS = gql`
     repo
     repotrackerDisabled
     runEveryMainlineCommit
-    sourceCacheMode
     spawnHostScriptPath
     stepbackBisect
     stepbackDisabled

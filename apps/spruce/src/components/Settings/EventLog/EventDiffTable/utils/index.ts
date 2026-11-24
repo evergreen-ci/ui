@@ -1,4 +1,4 @@
-import isEqual from "lodash.isequal";
+import { deepEqual } from "fast-equals";
 import { isObject, omitTypename } from "utils/object";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../../types";
@@ -46,7 +46,7 @@ const getArrayDiff = (before: JSONValue[], after: JSONValue[]): ArrayDiff => {
 
   for (let i = before.length - 1; i >= 0; i--) {
     for (let j = after.length - 1; j >= 0; j--) {
-      lcsLengths[i][j] = isEqual(before[i], after[j])
+      lcsLengths[i][j] = deepEqual(before[i], after[j])
         ? lcsLengths[i + 1][j + 1] + 1
         : Math.max(lcsLengths[i + 1][j], lcsLengths[i][j + 1]);
     }
@@ -57,7 +57,7 @@ const getArrayDiff = (before: JSONValue[], after: JSONValue[]): ArrayDiff => {
   let afterIndex = 0;
 
   while (beforeIndex < before.length && afterIndex < after.length) {
-    if (isEqual(before[beforeIndex], after[afterIndex])) {
+    if (deepEqual(before[beforeIndex], after[afterIndex])) {
       arrayDiff.matches.push({ afterIndex, beforeIndex });
       beforeIndex += 1;
       afterIndex += 1;
@@ -130,7 +130,7 @@ const haveMatchingIdentity = (before: JSONValue, after: JSONValue): boolean => {
       return (
         hasBeforeIdentity &&
         hasAfterIdentity &&
-        isEqual(beforeIdentity, afterIdentity)
+        deepEqual(beforeIdentity, afterIdentity)
       );
     }
   }
@@ -155,7 +155,7 @@ const pairModifiedObjects = (
   beforeObjects.forEach((beforeIndex) => {
     const afterIndex = [...availableAfterObjects].find(
       (candidateIndex) =>
-        !isEqual(before[beforeIndex], after[candidateIndex]) &&
+        !deepEqual(before[beforeIndex], after[candidateIndex]) &&
         haveMatchingIdentity(before[beforeIndex], after[candidateIndex]),
     );
 
@@ -172,7 +172,7 @@ const pairModifiedObjects = (
   if (availableBeforeObjects.length === 1 && availableAfterObjects.size === 1) {
     const beforeIndex = availableBeforeObjects[0];
     const afterIndex = [...availableAfterObjects][0];
-    if (!isEqual(before[beforeIndex], after[afterIndex])) {
+    if (!deepEqual(before[beforeIndex], after[afterIndex])) {
       matches.push({ afterIndex, beforeIndex });
     }
   }
@@ -238,7 +238,7 @@ const getSemanticDiffLines = (
   after: JSONValue,
   path = "",
 ): EventDiffLine[] => {
-  if (isEqual(before, after)) {
+  if (deepEqual(before, after)) {
     return [];
   }
 

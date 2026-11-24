@@ -40,7 +40,7 @@ test.describe("Hosts page default", () => {
   test("Renders hosts table with hosts sorted by status by default", async ({
     page,
   }) => {
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     for (let i = 0; i < defaultHostsFirstPage.length; i++) {
       await expect(rows.nth(i)).toContainText(defaultHostsFirstPage[i]);
     }
@@ -48,17 +48,14 @@ test.describe("Hosts page default", () => {
 
   test("ID column value links to host page", async ({ page }) => {
     await expect(
-      page
-        .getByTestId("leafygreen-table-row")
-        .first()
-        .getByTestId("host-id-link"),
+      page.getByTestId("via-table-row").first().getByTestId("host-id-link"),
     ).toHaveAttribute("href", "/host/i-06f80fa6e28f93b");
   });
 
   test("Current Task column value links to task page", async ({ page }) => {
     await expect(
       page
-        .getByTestId("leafygreen-table-row")
+        .getByTestId("via-table-row")
         .first()
         .getByTestId("current-task-link"),
     ).toHaveAttribute("href", `/task/${taskId}`);
@@ -68,7 +65,7 @@ test.describe("Hosts page default", () => {
 test.describe("Hosts page pagination", () => {
   test("URL query parameters determine pagination values", async ({ page }) => {
     await page.goto(`${hostsRoute}?limit=10&page=1`);
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     for (let i = 0; i < hostsSecondPageWithLimitOfTen.length; i++) {
       await expect(rows.nth(i)).toContainText(hostsSecondPageWithLimitOfTen[i]);
     }
@@ -78,7 +75,7 @@ test.describe("Hosts page pagination", () => {
       ...defaultHostsFirstPage,
       ...hostsSecondPageWithLimitOfTen,
     ];
-    const rows2 = page.getByTestId("leafygreen-table-row");
+    const rows2 = page.getByTestId("via-table-row");
     for (let i = 0; i < allHosts.length; i++) {
       await expect(rows2.nth(i)).toContainText(allHosts[i]);
     }
@@ -88,7 +85,7 @@ test.describe("Hosts page pagination", () => {
     page,
   }) => {
     await page.goto(`${hostsRoute}?limit=10&page=0`);
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     await expect(rows.first()).toContainText(defaultHostsFirstPage[0]);
 
     const pagination = page.getByTestId("pagination");
@@ -108,7 +105,7 @@ test.describe("Hosts page pagination", () => {
     page,
   }) => {
     await page.goto(`${hostsRoute}?limit=10&page=0`);
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     await expect(rows).toHaveCount(defaultHostsFirstPage.length);
 
     await selectPageSize(page, 20);

@@ -1,47 +1,28 @@
 import { useMemo } from "react";
 import { useQueryParams } from "@evg-ui/lib/hooks";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { utcTimeZone } from "constants/time";
 import { WaterfallOptions } from "gql/generated/types";
 import { useUserTimeZone } from "hooks";
 import { getUTCEndOfDay } from "utils/date";
 import { VERSION_LIMIT } from "./constants";
 import { WaterfallFilterOptions } from "./types";
-import { normalizeWaterfallFilters } from "./utils";
+import { useWaterfallFilters } from "./useWaterfallFilters";
 
-type UseWaterfallQueryParamsProps = {
+type UseWaterfallQueryOptionsProps = {
   omitInactiveBuilds: boolean;
   projectIdentifier: string;
 };
 
 const PARSE_OPTIONS = { parseBooleans: false, parseNumbers: false };
 
-const toStringArray = (value: unknown): string[] | undefined => {
-  if (typeof value === "string" || Array.isArray(value)) {
-    return conditionalToArray(value, true).filter(
-      (item): item is string => typeof item === "string",
-    );
-  }
-  return undefined;
-};
-
-export const useWaterfallQueryParams = ({
+export const useWaterfallQueryOptions = ({
   omitInactiveBuilds,
   projectIdentifier,
-}: UseWaterfallQueryParamsProps) => {
+}: UseWaterfallQueryOptionsProps) => {
   const [queryParams] = useQueryParams(PARSE_OPTIONS);
-  const {
-    date,
-    maxOrder,
-    minOrder,
-    requesters,
-    revision,
-    statuses,
-    taskTags,
-    tasks,
-    variantTags,
-    variants,
-  } = useMemo(() => {
+  const { requesters, statuses, taskTags, tasks, variantTags, variants } =
+    useWaterfallFilters();
+  const { date, maxOrder, minOrder, revision } = useMemo(() => {
     const {
       [WaterfallFilterOptions.MaxOrder]: rawMaxOrder,
       [WaterfallFilterOptions.MinOrder]: rawMinOrder,
@@ -49,27 +30,12 @@ export const useWaterfallQueryParams = ({
       [WaterfallFilterOptions.Date]: rawDate,
     } = queryParams;
     return {
-      ...normalizeWaterfallFilters({
-        projectIdentifier,
-        requesters: toStringArray(
-          queryParams[WaterfallFilterOptions.Requesters],
-        ),
-        statuses: toStringArray(queryParams[WaterfallFilterOptions.Statuses]),
-        tasks: toStringArray(queryParams[WaterfallFilterOptions.Task]),
-        taskTags: toStringArray(queryParams[WaterfallFilterOptions.TaskTags]),
-        variants: toStringArray(
-          queryParams[WaterfallFilterOptions.BuildVariant],
-        ),
-        variantTags: toStringArray(
-          queryParams[WaterfallFilterOptions.VariantTags],
-        ),
-      }),
       maxOrder: typeof rawMaxOrder === "string" ? Number(rawMaxOrder) || 0 : 0,
       minOrder: typeof rawMinOrder === "string" ? Number(rawMinOrder) || 0 : 0,
       revision: typeof rawRevision === "string" ? rawRevision : null,
       date: typeof rawDate === "string" ? rawDate : "",
     };
-  }, [queryParams, projectIdentifier]);
+  }, [queryParams]);
   const timezone = useUserTimeZone() ?? utcTimeZone;
   const utcDate = useMemo(
     () => getUTCEndOfDay(date, timezone),
