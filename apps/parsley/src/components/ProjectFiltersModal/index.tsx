@@ -159,9 +159,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
                 <Link
                   href={getProjectSettingsURL(projectId, "views-and-filters")}
                   isStandalone={false}
-                  linkStyle="external"
-                  rel="noopener noreferrer"
-                  target="_blank"
                 >
                   project settings
                 </Link>
