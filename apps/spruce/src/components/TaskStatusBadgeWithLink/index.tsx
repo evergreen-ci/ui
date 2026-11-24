@@ -1,4 +1,3 @@
-import { palette } from "@leafygreen-ui/palette";
 import OpenNewTab from "@via-ds/icons/OpenNewTab";
 import { Link } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
@@ -41,7 +40,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
       })}
     >
       <TaskStatusBadge status={status as TaskStatus} {...rest} />
-      <OpenNewTab className="link-icon" fill={palette.blue.base} />
+      <OpenNewTab className="link-icon" fill="var(--via-color-blue-400)" />
     </Link>
   );
 };
