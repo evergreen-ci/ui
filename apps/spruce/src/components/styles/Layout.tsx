@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { Body, BodyProps, H2, H2Props } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./Layout.module.css";
@@ -111,13 +110,6 @@ export const PageContent = forwardRef<
 ));
 PageContent.displayName = "PageContent";
 
-export const PageTitle = forwardRef<HTMLHeadingElement, H2Props>(
-  ({ className, ...rest }, ref) => (
-    <H2 ref={ref} className={cx(styles.pageTitle, className)} {...rest} />
-  ),
-);
-PageTitle.displayName = "PageTitle";
-
 export const PageButtonRow = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
@@ -134,10 +126,3 @@ export const InputLabel = forwardRef<
   <label ref={ref} className={cx(styles.inputLabel, className)} {...rest} />
 ));
 InputLabel.displayName = "InputLabel";
-
-export const ErrorMessage = forwardRef<HTMLElement, BodyProps>(
-  ({ className, ...rest }, ref) => (
-    <Body ref={ref} className={cx(styles.errorMessage, className)} {...rest} />
-  ),
-);
-ErrorMessage.displayName = "ErrorMessage";

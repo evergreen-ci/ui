@@ -1,13 +1,11 @@
 import { Divider } from "./Divider";
 import { inactiveElementStyle } from "./inactive";
 import {
-  ErrorMessage,
   InputLabel,
   PageButtonRow,
   PageContent,
   PageLayout,
   PageSider,
-  PageTitle,
   PageWrapper,
   SettingsPageContent,
   SideNavPageContent,
@@ -20,14 +18,12 @@ import { SiderCard } from "./SiderCard";
 export {
   ShortenedRouterLink,
   Divider,
-  ErrorMessage,
   inactiveElementStyle,
   InputLabel,
   PageButtonRow,
   PageContent,
   PageLayout,
   PageSider,
-  PageTitle,
   PageWrapper,
   SideNav,
   SideNavGroup,
