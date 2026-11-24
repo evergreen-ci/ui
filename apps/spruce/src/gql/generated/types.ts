@@ -4428,7 +4428,9 @@ export type TaskFilterOptions = {
   sorts?: InputMaybe<Array<SortOrder>>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   taskName?: InputMaybe<Scalars["String"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variant?: InputMaybe<Scalars["String"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type TaskHistory = {
