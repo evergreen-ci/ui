@@ -94,7 +94,9 @@ const toCalendarDate = (
 
 // The date segments are proportional text, so without a fixed width the field
 // grows and shrinks as placeholders are replaced by digits. Each width fits the
-// "mm / dd / yyyy" placeholder, the widest state.
+// "mm / dd / yyyy" placeholder, the widest state. Flex rows like task history's
+// controls would otherwise shrink it below that.
 const StyledDatePicker = styled(DatePicker)<{ size?: Size }>`
   width: ${({ size }) => (size === Size.Small ? "128px" : "140px")};
+  flex-shrink: 0;
 `;
