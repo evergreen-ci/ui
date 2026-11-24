@@ -930,3 +930,25 @@ export const githubCheckRunConfigurations = {
     "ui:objectFieldCss": objectGridCss,
   },
 };
+
+export const githubRecoveryApp = {
+  schema: {
+    appId: {
+      type: ["number", "null"],
+      title: "App ID",
+    },
+    privateKey: {
+      type: "string" as const,
+      title: "Private Key",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-testid": "github-recovery-app",
+    "ui:objectFieldCss": objectGridCss,
+    privateKey: {
+      "ui:widget": "textarea",
+      "ui:fieldCss": fullWidthCss,
+    },
+  },
+};

@@ -1,6 +1,36 @@
 import { expect, test } from "../../fixtures";
 
 test.describe("navigation", () => {
+  test("carries task filters onto the commit page without requester or navigation parameters", async ({
+    page,
+  }) => {
+    await page.goto(
+      "/project/evergreen/waterfall?tasks=agent,annotation&buildVariants=ubuntu1604,Lint&statuses=success&taskTags=db,agent&requesters=gitter_request&revision=33016573166a36bd5f46b4111151899d5c4e95b1&page=2&limit=5",
+    );
+
+    const commitLink = page
+      .getByTestId("version-label-active")
+      .getByRole("link", { name: "3301657" });
+    await expect(commitLink).toBeVisible();
+    const expectedFilters = {
+      taskName: "agent|annotation",
+      variant: "ubuntu1604|Lint",
+      statuses: "success",
+      taskTags: "db,agent",
+    };
+    const href = await commitLink.getAttribute("href");
+    expect(href).not.toBeNull();
+    expect(
+      Object.fromEntries(new URL(href ?? "", page.url()).searchParams),
+    ).toEqual(expectedFilters);
+
+    await commitLink.click();
+    await expect(page).toHaveURL(/\/version\/[^/]+\/tasks\?/);
+
+    const params = new URL(page.url()).searchParams;
+    expect(Object.fromEntries(params)).toMatchObject(expectedFilters);
+  });
+
   test("can view the waterfall page", async ({ page }) => {
     await page.goto("/project/evergreen/waterfall");
     await expect(page.getByTestId("waterfall-page")).toBeVisible();

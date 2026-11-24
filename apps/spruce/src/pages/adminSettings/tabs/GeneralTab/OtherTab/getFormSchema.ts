@@ -6,6 +6,7 @@ import {
   expansions,
   getSingleTaskDistroSchema,
   githubCheckRunConfigurations,
+  githubRecoveryApp,
   hostJasper,
   jiraNotificationsFields,
   miscSettings,
@@ -93,6 +94,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => {
               title: "GitHub Check Run Config",
               properties: githubCheckRunConfigurations.schema,
             },
+            githubRecoveryApp: {
+              type: "object" as const,
+              title: "GitHub Recovery App",
+              properties: githubRecoveryApp.schema,
+            },
             diagnosticsConfig: {
               type: "object" as const,
               title: "Diagnostics Config",
@@ -123,6 +129,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => {
         tracerConfiguration: tracerConfiguration.uiSchema,
         projectCreationSettings: projectCreationSettings.uiSchema,
         githubCheckRunConfigurations: githubCheckRunConfigurations.uiSchema,
+        githubRecoveryApp: githubRecoveryApp.uiSchema,
         diagnosticsConfig: diagnosticsConfig.uiSchema,
       },
     },
