@@ -36,10 +36,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
 }) => {
   const { sendEvent } = useTaskQueueAnalytics();
   const columns = useMemo(() => taskQueueTableColumns(sendEvent), [sendEvent]);
-  const rowSelection = useMemo(
-    () => (taskId ? { [taskId]: true } : {}),
-    [taskId],
-  );
+  const rowSelection = taskId ? { [taskId]: true } : {};
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useVirtualTable<TaskQueueColumnData>({
