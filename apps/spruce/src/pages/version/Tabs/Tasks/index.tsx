@@ -110,7 +110,7 @@ const Tasks: React.FC<Props> = ({ setActiveTaskIds, versionId }) => {
       loading={tasksData.length === 0 && loading}
       onFilterChange={clearSelection}
       onToggleAll={() => toggleAll(count)}
-      onToggleRows={(taskIds) => toggleRows(taskIds, count)}
+      onToggleRows={toggleRows}
       page={page ?? 0}
       selectedCount={selectedCount}
       tasks={tasksData}

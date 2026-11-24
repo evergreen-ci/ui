@@ -23,6 +23,7 @@ type SelectionState =
       mode: SelectedMode.All;
       excludedIds: ReadonlySet<string>;
       filter: TaskFilterOptions;
+      totalCount: number;
     };
 
 const EMPTY_SELECTION: SelectionState = {
@@ -49,10 +50,10 @@ const toggleTask = (state: SelectionState, taskId: string): SelectionState => {
   return { ...state, excludedIds };
 };
 
-const getSelectedCount = (state: SelectionState, filteredCount: number) =>
+const getSelectedCount = (state: SelectionState) =>
   state.mode === SelectedMode.Include
     ? state.taskIds.size
-    : Math.max(filteredCount - state.excludedIds.size, 0);
+    : Math.max(state.totalCount - state.excludedIds.size, 0);
 
 interface TaskSelectionContextState {
   clearSelection: () => void;
@@ -60,7 +61,7 @@ interface TaskSelectionContextState {
   selectedCount: number;
   taskSelection: SelectionState | null;
   toggleAll: (filteredCount: number) => void;
-  toggleRows: (taskIds: string[], filteredCount: number) => void;
+  toggleRows: (taskIds: string[]) => void;
 }
 
 const TaskSelectionContext = createContext<TaskSelectionContextState | null>(
@@ -78,21 +79,16 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
 }) => {
   const { taskFilterOptions } = useQueryVariables(versionId);
 
-  const [state, setState] = useState<{
-    selectedCount: number;
-    selectionState: SelectionState;
-  }>({
-    selectedCount: 0,
-    selectionState: EMPTY_SELECTION,
-  });
-  const { selectedCount, selectionState } = state;
+  const [selectionState, setSelectionState] =
+    useState<SelectionState>(EMPTY_SELECTION);
+
+  const selectedCount = useMemo(
+    () => getSelectedCount(selectionState),
+    [selectionState],
+  );
 
   const clearSelection = useCallback(
-    () =>
-      setState({
-        selectedCount: 0,
-        selectionState: EMPTY_SELECTION,
-      }),
+    () => setSelectionState(EMPTY_SELECTION),
     [],
   );
 
@@ -105,15 +101,12 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
   );
 
   const toggleRows = useCallback(
-    (taskIds: string[], filteredCount: number) => {
+    (taskIds: string[]) => {
       let nextSelectionState = selectionState;
       taskIds.forEach((taskId) => {
         nextSelectionState = toggleTask(nextSelectionState, taskId);
       });
-      setState({
-        selectedCount: getSelectedCount(nextSelectionState, filteredCount),
-        selectionState: nextSelectionState,
-      });
+      setSelectionState(nextSelectionState);
     },
     [selectionState],
   );
@@ -123,22 +116,18 @@ const TaskSelectionProvider: React.FC<TaskSelectionProviderProps> = ({
       if (filteredCount === 0) {
         return;
       }
-      const isEverythingSelected =
-        getSelectedCount(state.selectionState, filteredCount) === filteredCount;
-      if (isEverythingSelected) {
-        setState({ selectedCount: 0, selectionState: EMPTY_SELECTION });
+      if (selectedCount === filteredCount) {
+        setSelectionState(EMPTY_SELECTION);
       } else {
-        setState({
-          selectedCount: filteredCount,
-          selectionState: {
-            mode: SelectedMode.All,
-            excludedIds: new Set(),
-            filter: taskFilterOptions,
-          },
+        setSelectionState({
+          mode: SelectedMode.All,
+          excludedIds: new Set(),
+          filter: taskFilterOptions,
+          totalCount: filteredCount,
         });
       }
     },
-    [taskFilterOptions, state.selectionState],
+    [taskFilterOptions, selectedCount],
   );
 
   const taskSelection = selectedCount === 0 ? null : selectionState;
