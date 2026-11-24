@@ -3,20 +3,32 @@ import styled from "@emotion/styled";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
 import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
+import {
+  TableSlot,
+  UseTableDetailsOptions,
+  useTableDetails,
+} from "@via-ds/components/table";
+import { ToggleButton } from "@via-ds/components/toggle-button";
+import { Size } from "@via-ds/components/types";
+import Note from "@via-ds/icons/Note";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import {
-  BaseTable,
-  LGColumnDef,
-  useLeafyGreenTable,
+  ViaBaseTable,
+  ViaColumnDef,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
-import { processFilesWithAssociatedLinks } from "./AssociatedLinks";
+import {
+  AssociatedLinks,
+  processFilesWithAssociatedLinks,
+} from "./AssociatedLinks";
 import { FileTableRow, GroupedFilesFile } from "./types";
 
 const getColumns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
-): LGColumnDef<FileTableRow>[] => [
+  hasAssociatedLinks: boolean,
+): ViaColumnDef<FileTableRow>[] => [
   {
     accessorKey: "name",
     header: "Name",
@@ -79,7 +91,46 @@ const getColumns = (
       );
     },
   },
+  ...(hasAssociatedLinks
+    ? [
+        {
+          id: "details",
+          header: "Details",
+          enableSorting: false,
+          cell: ({ row }) =>
+            row.original.associatedLinks.length > 0 && (
+              <ToggleButton
+                data-testid="associated-links-toggle"
+                size={Size.Small}
+                slot={TableSlot.PanelToggle}
+              >
+                <Note slot="icon" />
+              </ToggleButton>
+            ),
+        } satisfies ViaColumnDef<FileTableRow>,
+      ]
+    : []),
 ];
+
+const getTableDetailsOptions = (
+  taskAnalytics: ReturnType<typeof useTaskAnalytics>,
+  taskName?: string,
+): UseTableDetailsOptions<FileTableRow> => ({
+  id: `task-files-${taskName}`,
+  getRowLabel: (row) => row.original.name,
+  render: (details) => (
+    <AssociatedLinks
+      {...details}
+      onLinkPress={(fileName, linkName) =>
+        taskAnalytics.sendEvent({
+          name: "Clicked task file associated link",
+          "file.name": fileName,
+          "link.name": linkName,
+        })
+      }
+    />
+  ),
+});
 
 interface GroupedFileTableProps {
   files: GroupedFilesFile[];
@@ -92,31 +143,39 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
 }) => {
   const taskAnalytics = useTaskAnalytics();
 
-  const memoizedColumns = useMemo(
-    () => getColumns(taskAnalytics),
-    [taskAnalytics],
-  );
-
   const tableData = useMemo(
-    () => processFilesWithAssociatedLinks(files, taskAnalytics),
-    [files, taskAnalytics],
+    () => processFilesWithAssociatedLinks(files),
+    [files],
   );
 
-  const table = useLeafyGreenTable<FileTableRow>({
+  const hasAssociatedLinks = tableData.some(
+    ({ associatedLinks }) => associatedLinks.length > 0,
+  );
+
+  const memoizedColumns = useMemo(
+    () => getColumns(taskAnalytics, hasAssociatedLinks),
+    [taskAnalytics, hasAssociatedLinks],
+  );
+
+  const table = useTable<FileTableRow>({
     data: tableData,
     columns: memoizedColumns,
     defaultColumn: {
       enableColumnFilter: false,
     },
-    initialState: {
-      expanded: true,
-    },
+    getRowId: ({ link, name }) => `${name}-${link}`,
   });
+
+  useTableDetails(table, getTableDetailsOptions(taskAnalytics, taskName));
 
   return (
     <Container>
       {taskName && <Subtitle>{taskName}</Subtitle>}
-      <BaseTable shouldAlternateRowColor table={table} />
+      <ViaBaseTable
+        data-testid="files-table"
+        shouldAlternateRowColor
+        table={table}
+      />
     </Container>
   );
 };

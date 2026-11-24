@@ -38,25 +38,30 @@ test.describe("files table", () => {
     await expect(page.getByText("No files found")).toBeVisible();
   });
 
-  test("Should display associated links when a file has them", async ({
+  test("Should display associated links in the details panel when a file's row is opened", async ({
     page,
   }) => {
     await page.goto(FILES_ROUTE_WITH_ASSOCIATED_LINKS);
     await expect(
       page.getByTestId("file-link").getByText("sample file"),
     ).toBeVisible();
+    await expect(page.getByTestId("associated-links-container")).toBeHidden();
 
-    await expect(page.getByTestId("associated-links-container")).toBeVisible();
+    const toggle = page.getByRole("button", {
+      name: "View details for sample file",
+    });
+    await toggle.click();
+    const panel = page.getByTestId("associated-links-container");
+    await expect(panel).toBeVisible();
+    await expect(panel.getByText("sample file")).toBeVisible();
     await expect(
-      page
-        .getByTestId("associated-links-container")
-        .getByText("Associated Links"),
+      panel.getByTestId("associated-link").getByText("Documentation"),
     ).toBeVisible();
     await expect(
-      page.getByTestId("associated-link").getByText("Documentation"),
+      panel.getByTestId("associated-link").getByText("Test Results"),
     ).toBeVisible();
-    await expect(
-      page.getByTestId("associated-link").getByText("Test Results"),
-    ).toBeVisible();
+
+    await toggle.click();
+    await expect(panel).toBeHidden();
   });
 });
