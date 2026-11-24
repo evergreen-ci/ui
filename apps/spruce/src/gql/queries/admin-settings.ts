@@ -91,6 +91,10 @@ export const ADMIN_SETTINGS = gql`
           key
           secret
         }
+        githubFileCacheBucket {
+          name
+          roleARN
+        }
         logBucket {
           expirationDays
           lifecycleLastSyncedAt

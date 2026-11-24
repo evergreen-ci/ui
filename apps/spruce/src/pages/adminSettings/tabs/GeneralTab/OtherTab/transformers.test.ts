@@ -98,6 +98,28 @@ describe("other tab transformers", () => {
     });
   });
 
+  it("round-trips a pre-existing GitHub file cache bucket so a save preserves it", () => {
+    const adminSettingsWithGithubFileCache: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        githubFileCacheBucket: {
+          name: "pre-existing-github-file-cache",
+          roleARN: "",
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithGithubFileCache);
+    expect(loaded?.other.bucketConfig.githubFileCacheBucketName).toBe(
+      "pre-existing-github-file-cache",
+    );
+    expect(formToGql(loaded!).buckets.githubFileCacheBucket).toStrictEqual({
+      name: "pre-existing-github-file-cache",
+      roleARN: "",
+    });
+  });
+
   it("round-trips a cleared source cache config so it persists as empty", () => {
     const adminSettingsWithClearedSourceCache: AdminSettingsData = {
       ...mockAdminSettings,
@@ -226,6 +248,10 @@ const mockAdminSettings: AdminSettingsData = {
     sourceCacheBucket: {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+    },
+    githubFileCacheBucket: {
+      name: "evergreen-github-file-cache",
+      roleARN: "",
     },
     sourceCacheOptOutProjects: ["project3"],
     credentials: {
@@ -377,6 +403,8 @@ const expectedForm: OtherFormState = {
       testResultsBucketTestResultsPrefix: "results/",
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       testResultsBucketType: "s3",
+      githubFileCacheBucketName: "evergreen-github-file-cache",
+      githubFileCacheBucketRoleARN: "",
       sourceCacheBucketName: "evergreen-source-cache",
       sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
       sourceCacheOptOutProjects: ["project3"],
@@ -527,6 +555,10 @@ const expectedGql: AdminSettingsInput = {
     sourceCacheBucket: {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+    },
+    githubFileCacheBucket: {
+      name: "evergreen-github-file-cache",
+      roleARN: "",
     },
     sourceCacheOptOutProjects: ["project3"],
     credentials: {
