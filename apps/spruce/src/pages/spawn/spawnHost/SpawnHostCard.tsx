@@ -5,7 +5,7 @@ import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/hooks/types";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { DetailsCard, DoesNotExpire } from "components/Spawn";
+import { DetailsFields, DoesNotExpire } from "components/Spawn";
 import { getIdeUrl } from "constants/externalResources";
 import { getHostRoute, getSpawnVolumeRoute } from "constants/routes";
 import { useDateFormat } from "hooks";
@@ -21,7 +21,7 @@ const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
   const { sendEvent } = useSpawnAnalytics();
 
   return (
-    <DetailsCard
+    <DetailsFields
       data-testid="spawn-host-card"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       fieldMaps={spawnHostCardFieldMaps(sendEvent)}

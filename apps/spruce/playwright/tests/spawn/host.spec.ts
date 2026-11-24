@@ -52,7 +52,9 @@ test.describe("Spawn Host page", () => {
   test("Visiting the spawn host page should display all of your spawned hosts", async ({
     page,
   }) => {
-    await expect(page.getByTestId("leafygreen-table-row")).toHaveCount(3);
+    await expect(
+      page.getByTestId("spawn-host-table").getByTestId("via-table-row"),
+    ).toHaveCount(3);
   });
 
   test("Visiting the spawn host page should not have any cards expanded by default", async ({
@@ -61,42 +63,123 @@ test.describe("Spawn Host page", () => {
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
   });
 
-  test("Clicking on a spawn host row should toggle the host card", async ({
+  test("Clicking a spawn host row's details button should toggle the host card", async ({
     page,
   }) => {
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
 
-    const firstExpandButton = page
-      .getByRole("button", { name: "Expand row" })
+    const firstDetailsButton = page
+      .getByTestId("spawn-host-table")
+      .getByRole("button", { name: "View details" })
       .first();
-    await firstExpandButton.click();
+    await firstDetailsButton.click();
+    await expect(firstDetailsButton).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByTestId("spawn-host-card")).toBeVisible();
 
-    const firstCollapseButton = page
-      .getByRole("button", { name: "Collapse row" })
-      .first();
-    await firstCollapseButton.click();
+    await firstDetailsButton.click();
+    await expect(firstDetailsButton).toHaveAttribute("aria-pressed", "false");
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
   });
 
-  test("Visiting the spawn host page with an id in the url should open the page with the row expanded", async ({
+  test("Visiting the spawn host page with an id in the url should open that host's details", async ({
     page,
   }) => {
     await page.goto("/spawn/host?host=i-092593689871a50dc");
     await expect(page.getByTestId("spawn-host-card")).toHaveCount(1);
     await expect(page.getByTestId("spawn-host-card")).toBeVisible();
+    await expect(
+      page
+        .getByTestId("spawn-host-table")
+        .getByTestId("via-table-row")
+        .filter({ hasText: "i-092593689871a50dc" })
+        .getByRole("button", { name: "View details" }),
+    ).toHaveAttribute("aria-pressed", "true");
+  });
+
+  test("Visiting the spawn host page with an unknown id in the url should not open any details", async ({
+    page,
+  }) => {
+    await page.goto("/spawn/host?host=does-not-exist");
+    await expect(
+      page.getByTestId("spawn-host-table").getByTestId("via-table-row"),
+    ).toHaveCount(3);
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
+  });
+
+  test("Closing the details panel should close every open host", async ({
+    page,
+  }) => {
+    const detailsButton = page
+      .getByTestId("spawn-host-table")
+      .getByRole("button", { name: "View details for i-092593689871a50dc" });
+    await detailsButton.click();
+    await expect(page.getByTestId("spawn-host-card")).toBeVisible();
+
+    await page.getByRole("button", { name: "Close details" }).click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
+    await expect(detailsButton).toHaveAttribute("aria-pressed", "false");
+
+    await detailsButton.click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(1);
   });
 
   test("Clicking on the Event Log link should redirect to /host/:hostId", async ({
     page,
   }) => {
     await page
-      .getByTestId("leafygreen-table-row")
+      .getByTestId("spawn-host-table")
+      .getByTestId("via-table-row")
       .filter({ hasText: "i-092593689871a50dc" })
-      .getByRole("button", { name: "Expand row" })
+      .getByRole("button", { name: "View details" })
       .click();
     await page.getByText("Event Log").click();
     await expect(page).toHaveURL("/host/i-092593689871a50dc");
+  });
+
+  test("Switching the details panel to tabs should show one host at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-host-table");
+    await table
+      .getByRole("button", { name: "View details for i-092593689871a50dc" })
+      .click();
+    await table
+      .getByRole("button", { name: "View details for i-04ade558e1e26b0ad" })
+      .click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(2);
+
+    await page.getByRole("button", { name: "Tabs layout" }).click();
+    const card = page.getByTestId("spawn-host-card");
+    await expect(card).toHaveCount(1);
+    await expect(card).toContainText("i-092593689871a50dc");
+
+    await page.getByRole("tab", { name: "i-04ade558e1e26b0ad" }).click();
+    await expect(card).toHaveCount(1);
+    await expect(card).toContainText("i-04ade558e1e26b0ad");
+  });
+
+  test("Switching the details panel to an accordion should expand one host at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-host-table");
+    await table
+      .getByRole("button", { name: "View details for i-092593689871a50dc" })
+      .click();
+    await table
+      .getByRole("button", { name: "View details for i-04ade558e1e26b0ad" })
+      .click();
+
+    await page.getByRole("button", { name: "Accordion layout" }).click();
+    const visibleCards = page.getByTestId("spawn-host-card").filter({
+      visible: true,
+    });
+    await expect(visibleCards).toHaveCount(0);
+
+    await page
+      .getByRole("button", { name: "i-04ade558e1e26b0ad", exact: true })
+      .click();
+    await expect(visibleCards).toHaveCount(1);
+    await expect(visibleCards).toContainText("i-04ade558e1e26b0ad");
   });
 
   test.describe("Spawn host card sorting", () => {
@@ -107,7 +190,9 @@ test.describe("Spawn Host page", () => {
         name: "Sort by Host",
       });
       await hostSortControl.click();
-      const rows = page.getByTestId("leafygreen-table-row");
+      const rows = page
+        .getByTestId("spawn-host-table")
+        .getByTestId("via-table-row");
       for (let i = 0; i < ascendingSortSpawnHostOrderByHostId.length; i++) {
         await expect(rows.nth(i)).toContainText(
           ascendingSortSpawnHostOrderByHostId[i],
@@ -130,7 +215,9 @@ test.describe("Spawn Host page", () => {
         name: "Sort by Expires In",
       });
       await expiresInSortControl.click();
-      const rows = page.getByTestId("leafygreen-table-row");
+      const rows = page
+        .getByTestId("spawn-host-table")
+        .getByTestId("via-table-row");
       for (let i = 0; i < ascendingSortSpawnHostOrderByExpiration.length; i++) {
         await expect(rows.nth(i)).toContainText(
           ascendingSortSpawnHostOrderByExpiration[i],
