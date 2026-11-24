@@ -1,7 +1,19 @@
-import { LabeledValue } from "@via-ds/components/labeled-value";
-import { Body, Label } from "@via-ds/components/typography";
+import { Card } from "@leafygreen-ui/card";
 import { MyHost, TableVolume } from "types/spawn";
 import styles from "./DetailsCard.module.css";
+
+interface CardItem {
+  label: string;
+  value: React.JSX.Element;
+}
+
+const CardField: React.FC<CardItem> = ({ label, value }) =>
+  value !== undefined ? (
+    <div className={styles.fieldContainer}>
+      <div className={styles.fieldName}>{label}</div>
+      <div>{value}</div>
+    </div>
+  ) : null;
 
 type FieldMap<T> = {
   [key: string]: (T: T) => React.JSX.Element;
@@ -18,17 +30,13 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
   fieldMaps,
   type,
 }) => (
-  <div className={styles.fields} data-testid={dataTestId}>
-    {Object.entries(fieldMaps).map(([label, getValue]) => {
-      const value = getValue(type);
-      return value === undefined ? null : (
-        <LabeledValue key={label}>
-          <Label>{label}</Label>
-          <Body className={styles.value} elementType="div">
-            {value}
-          </Body>
-        </LabeledValue>
-      );
-    })}
-  </div>
+  <Card className={styles.cardContainer} data-testid={dataTestId}>
+    {Object.keys(fieldMaps).map((key) => (
+      <CardField
+        key={`${key}_${type.id}`}
+        label={key}
+        value={fieldMaps[key](type)}
+      />
+    ))}
+  </Card>
 );
