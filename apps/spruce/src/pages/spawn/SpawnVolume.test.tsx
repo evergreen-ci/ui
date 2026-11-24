@@ -1,3 +1,5 @@
+import { AppLayoutProvider } from "@via-ds/components/app-layout";
+import { TableDetailsProvider } from "@via-ds/components/table";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -41,7 +43,13 @@ describe("SpawnVolume", () => {
   });
 
   it("shows the skeleton on initial load and replaces it once volumes have loaded", async () => {
-    const { Component } = RenderFakeToastContext(<SpawnVolume />);
+    const { Component } = RenderFakeToastContext(
+      <AppLayoutProvider>
+        <TableDetailsProvider placement="bottom">
+          <SpawnVolume />
+        </TableDetailsProvider>
+      </AppLayoutProvider>,
+    );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
@@ -58,7 +66,13 @@ describe("SpawnVolume", () => {
 
   it("keeps the open spawn volume modal mounted when a background refetch occurs after returning to the tab", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<SpawnVolume />);
+    const { Component } = RenderFakeToastContext(
+      <AppLayoutProvider>
+        <TableDetailsProvider placement="bottom">
+          <SpawnVolume />
+        </TableDetailsProvider>
+      </AppLayoutProvider>,
+    );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
