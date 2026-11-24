@@ -54,12 +54,13 @@ export const DetailsPanel = <T extends ViaRowData>({
 
   const shownRowId =
     rows.find(({ id }) => id === currentRowId)?.id ?? rows[0]?.id;
+  const openCount = rows.length + hiddenCount;
 
   return (
     <>
       <Header>
         <Text slot="title">
-          {rows.length} {rows.length === 1 ? noun : `${noun}s`} selected
+          {openCount} {openCount === 1 ? noun : `${noun}s`} selected
         </Text>
         <div className={styles.actions}>
           {hiddenCount > 0 && (
