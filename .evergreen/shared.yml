@@ -114,8 +114,9 @@ functions:
             ${decompress} mongodb-tools.tgz
             mv ./mongodb-*/bin/* .
 
-  setup-node:
+  setup-pnpm-and-node:
     - command: subprocess.exec
+      retry_on_failure: true
       params:
         binary: bash
         args:

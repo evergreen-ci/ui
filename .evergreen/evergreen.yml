@@ -14,7 +14,7 @@ modules:
 pre:
   - func: assume-ec2-role
   - func: get-project
-  - func: setup-node
+  - func: setup-pnpm-and-node
   - func: pnpm-install
 
 post:
