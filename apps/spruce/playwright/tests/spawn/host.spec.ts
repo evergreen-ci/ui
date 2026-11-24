@@ -109,6 +109,28 @@ test.describe("Spawn Host page", () => {
     await expect(page).toHaveURL("/host/i-092593689871a50dc");
   });
 
+  test("Switching the details panel to tabs should show one host at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-host-table");
+    await table
+      .getByRole("button", { name: "View details for i-092593689871a50dc" })
+      .click();
+    await table
+      .getByRole("button", { name: "View details for i-04ade558e1e26b0ad" })
+      .click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(2);
+
+    await page.getByRole("button", { name: "Tabs layout" }).click();
+    const card = page.getByTestId("spawn-host-card");
+    await expect(card).toHaveCount(1);
+    await expect(card).toContainText("i-092593689871a50dc");
+
+    await page.getByRole("tab", { name: "i-04ade558e1e26b0ad" }).click();
+    await expect(card).toHaveCount(1);
+    await expect(card).toContainText("i-04ade558e1e26b0ad");
+  });
+
   test.describe("Spawn host card sorting", () => {
     test("Clicking on the host column header should sort spawn hosts by ascending order, then descending, then remove sort", async ({
       page,
