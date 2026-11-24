@@ -16,7 +16,8 @@
 }
 
 .requesterFilterItem {
-  min-width: 120px;
+  min-width: 160px;
+  flex-shrink: 0;
   flex-basis: 12%;
 }
 
