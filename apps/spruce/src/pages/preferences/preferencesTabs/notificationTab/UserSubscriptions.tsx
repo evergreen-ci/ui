@@ -4,14 +4,19 @@ import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
 import { Pagination } from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
+import { TableSlot, useTableDetails } from "@via-ds/components/table";
+import { ToggleButton } from "@via-ds/components/toggle-button";
+import Note from "@via-ds/icons/Note";
 import Trash from "@via-ds/icons/Trash";
 import {
-  BaseTable,
-  LGColumnDef,
+  ColumnFiltersState,
+  RowSelectionState,
+  ViaBaseTable,
+  ViaColumnDef,
   filterFns,
   getFacetedUniqueValues,
   getFilteredRowModel,
-  useLeafyGreenTable,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -40,8 +45,13 @@ import {
 import { ResourceType } from "types/triggers";
 import { jiraLinkify } from "utils/string";
 import { ClearSubscriptions } from "./ClearSubscriptions";
+import { renderSubscriptionDetails } from "./SubscriptionDetails";
 import { useSubscriptionData } from "./useSubscriptionData";
-import { getResourceRoute } from "./utils";
+import {
+  getResourceRoute,
+  getResourceSelector,
+  getSubscriptionLabel,
+} from "./utils";
 
 const { gray } = palette;
 
@@ -86,12 +96,12 @@ const SubscriptionsTable: React.FC<{
       );
     },
   });
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [rowSelection, setRowSelection] = useState({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const columns = useMemo(() => getColumns(jiraHost ?? ""), [jiraHost]);
 
-  const table = useLeafyGreenTable<GeneralSubscription>({
+  const table = useTable<GeneralSubscription>({
     columns,
     data: subscriptions ?? [],
     defaultColumn: {
@@ -99,8 +109,8 @@ const SubscriptionsTable: React.FC<{
     },
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
+    getRowId: ({ id }) => id,
     hasSelectableRows: true,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     state: {
@@ -108,6 +118,12 @@ const SubscriptionsTable: React.FC<{
       rowSelection,
     },
     withPagination: true,
+  });
+
+  useTableDetails(table, {
+    id: "subscriptions",
+    getRowLabel: ({ original }) => getSubscriptionLabel(original),
+    render: renderSubscriptionDetails,
   });
 
   const onDeleteSubscriptions = () => {
@@ -151,8 +167,8 @@ const SubscriptionsTable: React.FC<{
           />
         </PaginationWrapper>
       </InteractiveWrapper>
-      <BaseTable
-        data-testid-row="subscription-row"
+      <ViaBaseTable
+        data-testid="subscriptions-table"
         shouldAlternateRowColor
         table={table}
       />
@@ -163,7 +179,7 @@ const SubscriptionsTable: React.FC<{
   );
 };
 
-const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
+const getColumns = (jiraHost: string): ViaColumnDef<GeneralSubscription>[] => [
   {
     accessorKey: "resourceType",
     id: "resourceType",
@@ -192,9 +208,7 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
       },
     }) => {
       const selectors = getValue() as Selector[];
-      const resourceSelector = selectors.find(
-        (s) => s.type !== "object" && s.type !== "requester",
-      );
+      const resourceSelector = getResourceSelector(selectors);
       const { data: selectorId } = resourceSelector ?? {};
       const route = getResourceRoute(
         resourceType as ResourceType,
@@ -244,6 +258,21 @@ const getColumns = (jiraHost: string): LGColumnDef<GeneralSubscription>[] => [
         ? jiraLinkify(text, jiraHost)
         : text;
     },
+  },
+  {
+    id: "details",
+    header: "Details",
+    cell: ({
+      row: {
+        original: { regexSelectors, triggerData },
+      },
+    }) =>
+      (Object.keys(triggerData ?? {}).length > 0 ||
+        regexSelectors.length > 0) && (
+        <ToggleButton slot={TableSlot.PanelToggle}>
+          <Note slot="icon" />
+        </ToggleButton>
+      ),
   },
 ];
 
