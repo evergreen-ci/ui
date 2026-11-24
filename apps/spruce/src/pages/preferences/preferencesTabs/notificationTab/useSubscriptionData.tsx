@@ -1,12 +1,8 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client/react";
-import styled from "@emotion/styled";
-import { LeafyGreenTableRow } from "@evg-ui/lib/components/Table";
-import { size } from "@evg-ui/lib/constants/tokens";
 import { convertFromFamilyTrigger } from "constants/triggers";
 import {
   GeneralSubscription,
-  Selector,
   UserSubscriptionsQuery,
   UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
@@ -62,50 +58,5 @@ const processSubscriptionData = (
         ...subscription,
         trigger: convertFromFamilyTrigger(trigger),
       }))
-      // For subscriptions that contain regex selectors or additional trigger data, append an expandable section
-      .map((subscription) => {
-        const hasTriggerData = !!Object.entries(subscription.triggerData ?? {})
-          .length;
-        const hasRegexSelectors = !!subscription.regexSelectors.length;
-        return hasTriggerData || hasRegexSelectors
-          ? {
-              ...subscription,
-              renderExpandedContent: (
-                row: LeafyGreenTableRow<GeneralSubscription>,
-              ) => (
-                <ExpandedBlock data-testid="expanded-block">
-                  {hasTriggerData && (
-                    <div data-testid="trigger-data">
-                      {JSON.stringify(row.original.triggerData, null, 2)}
-                    </div>
-                  )}
-                  {hasRegexSelectors && (
-                    <div data-testid="regex-selectors">
-                      {JSON.stringify(
-                        formatRegexSelectors(row.original.regexSelectors),
-                        null,
-                        2,
-                      )}
-                    </div>
-                  )}
-                </ExpandedBlock>
-              ),
-            }
-          : subscription;
-      })
   );
 };
-
-const ExpandedBlock = styled.pre`
-  padding: ${size.s} ${size.l};
-`;
-
-const formatRegexSelectors = (regexSelectors: Selector[]) => ({
-  "regex-selectors": regexSelectors.reduce<Record<string, string>>(
-    (obj, { data, type }) => ({
-      ...obj,
-      [type]: data,
-    }),
-    {},
-  ),
-});

@@ -4,7 +4,7 @@ import {
   getVersionRoute,
   getWaterfallRoute,
 } from "constants/routes";
-import { Selector } from "gql/generated/types";
+import { GeneralSubscription, Selector } from "gql/generated/types";
 import { ResourceType } from "types/triggers";
 
 export const getResourceRoute = (
@@ -33,3 +33,9 @@ export const getResourceRoute = (
       return "";
   }
 };
+
+export const getResourceSelector = (selectors: Selector[]) =>
+  selectors.find(({ type }) => type !== "object" && type !== "requester");
+
+export const getSubscriptionLabel = ({ id, selectors }: GeneralSubscription) =>
+  getResourceSelector(selectors)?.data ?? id;
