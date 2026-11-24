@@ -1,14 +1,11 @@
-import {
-  CalendarDate,
-  DateValue,
-  getLocalTimeZone,
-  parseDate,
-  today,
-} from "@internationalized/date";
-import { DatePicker } from "@via-ds/components";
+import { useState } from "react";
+import styled from "@emotion/styled";
+import { DatePicker, Internationalized } from "@via-ds/components";
 import { Size } from "@via-ds/components/types";
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
+
+const { getLocalTimeZone, parseDate, today } = Internationalized;
 
 interface DateFilterProps {
   dataProps?: StringMap;
@@ -31,14 +28,26 @@ export const DateFilter: React.FC<DateFilterProps> = ({
     ? maxDate.subtract({ years: 1, days: 1 })
     : undefined;
 
-  const handleChange = (updatedValue: DateValue | null) => {
+  // The picker keeps its own copy of the date so partial or out-of-range input
+  // stays on screen. Feeding it only the URL value would make react-aria reset
+  // the field, wiping the month and day while the year is still being typed.
+  const [draftDate, setDraftDate] =
+    useState<Internationalized.DateValue | null>(() => toCalendarDate(value));
+  const [syncedValue, setSyncedValue] = useState(value);
+  if (value !== syncedValue) {
+    setSyncedValue(value);
+    setDraftDate(toCalendarDate(value));
+  }
+
+  const handleChange = (updatedValue: Internationalized.DateValue | null) => {
+    setDraftDate(updatedValue);
     if (updatedValue && isSelectable(updatedValue, minDate, maxDate)) {
       onChange(updatedValue.toString());
     }
   };
 
   return (
-    <DatePicker
+    <StyledDatePicker
       aria-label="Go to date"
       data-testid="date-picker"
       firstDayOfWeek="mon"
@@ -47,7 +56,7 @@ export const DateFilter: React.FC<DateFilterProps> = ({
       minValue={minDate}
       onChange={handleChange}
       size={size}
-      value={toCalendarDate(value)}
+      value={draftDate}
       {...dataProps}
     />
   );
@@ -63,9 +72,9 @@ export const DateFilter: React.FC<DateFilterProps> = ({
  * @returns whether the date should be passed to onChange
  */
 const isSelectable = (
-  date: DateValue,
-  min: DateValue | undefined,
-  max: DateValue,
+  date: Internationalized.DateValue,
+  min: Internationalized.DateValue | undefined,
+  max: Internationalized.DateValue,
 ) =>
   date.year >= MIN_COMPLETE_YEAR &&
   date.compare(max) <= 0 &&
@@ -73,10 +82,19 @@ const isSelectable = (
 
 const MIN_COMPLETE_YEAR = 1000;
 
-const toCalendarDate = (value: string): CalendarDate | null => {
+const toCalendarDate = (
+  value: string,
+): Internationalized.CalendarDate | null => {
   try {
     return parseDate(value);
   } catch {
     return null;
   }
 };
+
+// The date segments are proportional text, so without a fixed width the field
+// grows and shrinks as placeholders are replaced by digits. Each width fits the
+// "mm / dd / yyyy" placeholder, the widest state.
+const StyledDatePicker = styled(DatePicker)<{ size?: Size }>`
+  width: ${({ size }) => (size === Size.Small ? "128px" : "140px")};
+`;

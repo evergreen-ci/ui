@@ -27,9 +27,31 @@ describe("date filter", () => {
     render(<DateFilter onChange={vi.fn()} value="2023-12-25" />);
 
     await user.click(screen.getByRole("button", { name: "Open calendar" }));
-    const [firstRow] = screen.getAllByRole("row");
+    const firstRow = screen.getAllByRole("row")[0];
     const firstCell = within(firstRow).getAllByRole("gridcell")[0];
-    expect(firstCell).toHaveTextContent("27");
+    expect(
+      within(firstCell).getByRole("button", {
+        name: "Monday, November 27, 2023",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps the typed month and day while the year is incomplete", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<DateFilter onChange={onChange} value="" />);
+
+    await user.click(getSegment("month"));
+    await user.keyboard("1225202");
+
+    expect(getSegment("month")).toHaveTextContent("12");
+    expect(getSegment("day")).toHaveTextContent("25");
+    expect(getSegment("year")).toHaveTextContent("202");
+    expect(onChange).not.toHaveBeenCalled();
+
+    await user.keyboard("2");
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith("2022-12-25");
   });
 
   it("only calls onChange once the typed year is complete", async () => {
@@ -60,6 +82,18 @@ describe("date filter", () => {
     expect(getSegment("year")).toHaveTextContent("2023");
     expect(getSegment("month")).toHaveTextContent("12");
     expect(getSegment("day")).toHaveTextContent("23");
+  });
+
+  it("updates the field when value changes from outside", () => {
+    const { rerender } = render(
+      <DateFilter onChange={vi.fn()} value="2023-12-23" />,
+    );
+    rerender(<DateFilter onChange={vi.fn()} value="2024-01-05" />);
+    expect(getSegment("year")).toHaveTextContent("2024");
+    expect(getSegment("day")).toHaveTextContent("5");
+
+    rerender(<DateFilter onChange={vi.fn()} value="" />);
+    expect(getSegment("year")).not.toHaveAttribute("aria-valuenow");
   });
 
   it("renders an empty field when value is empty", () => {
