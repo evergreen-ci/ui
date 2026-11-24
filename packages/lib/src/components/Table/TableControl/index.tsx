@@ -42,6 +42,7 @@ const TableControl: React.FC<Props> = ({
       <div className={styles.flexContainer}>
         <ChipGroup aria-label="Table count">
           <Chip
+            className={styles.chip}
             data-testid="total-count"
             id="total-count"
             variant={ChipVariant.Gray}
@@ -49,7 +50,11 @@ const TableControl: React.FC<Props> = ({
             {`Total count: ${totalCount}`}
           </Chip>
           {selectedCount !== undefined && (
-            <Chip data-testid="selected-count" variant={ChipVariant.Gray}>
+            <Chip
+              className={styles.chip}
+              data-testid="selected-count"
+              variant={ChipVariant.Gray}
+            >
               {`Selected: ${selectedCount}`}
             </Chip>
           )}

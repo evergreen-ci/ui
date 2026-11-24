@@ -111,20 +111,18 @@ export const VersionPage: React.FC = () => {
   );
 
   return (
-    <TaskSelectionProvider versionId={versionId}>
-      <PageWrapper data-testid="version-page">
-        <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
-        {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
-        {warnings && warnings.length > 0 && (
-          <WarningBanner warnings={warnings} />
-        )}
-        {ignored && <IgnoredBanner />}
-        {version && (
-          <VersionPageBreadcrumbs
-            patchNumber={patchNumber}
-            versionMetadata={version}
-          />
-        )}
+    <PageWrapper data-testid="version-page">
+      <ProjectBanner projectIdentifier={projectMetadata?.identifier} />
+      {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
+      {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
+      {ignored && <IgnoredBanner />}
+      {version && (
+        <VersionPageBreadcrumbs
+          patchNumber={patchNumber}
+          versionMetadata={version}
+        />
+      )}
+      <TaskSelectionProvider versionId={versionId}>
         <PageTitle
           badge={<PatchStatusBadge status={status} />}
           buttons={
@@ -155,7 +153,7 @@ export const VersionPage: React.FC = () => {
             />
           </PageContent>
         </PageLayout>
-      </PageWrapper>
-    </TaskSelectionProvider>
+      </TaskSelectionProvider>
+    </PageWrapper>
   );
 };
