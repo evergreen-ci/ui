@@ -96,6 +96,33 @@ test.describe("Spawn Host page", () => {
     ).toHaveAttribute("aria-pressed", "true");
   });
 
+  test("Visiting the spawn host page with an unknown id in the url should not open any details", async ({
+    page,
+  }) => {
+    await page.goto("/spawn/host?host=does-not-exist");
+    await expect(
+      page.getByTestId("spawn-host-table").getByTestId("via-table-row"),
+    ).toHaveCount(3);
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
+  });
+
+  test("Closing the details panel should close every open host", async ({
+    page,
+  }) => {
+    const detailsButton = page
+      .getByTestId("spawn-host-table")
+      .getByRole("button", { name: "View details for i-092593689871a50dc" });
+    await detailsButton.click();
+    await expect(page.getByTestId("spawn-host-card")).toBeVisible();
+
+    await page.getByRole("button", { name: "Close details" }).click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(0);
+    await expect(detailsButton).toHaveAttribute("aria-pressed", "false");
+
+    await detailsButton.click();
+    await expect(page.getByTestId("spawn-host-card")).toHaveCount(1);
+  });
+
   test("Clicking on the Event Log link should redirect to /host/:hostId", async ({
     page,
   }) => {
@@ -129,6 +156,30 @@ test.describe("Spawn Host page", () => {
     await page.getByRole("tab", { name: "i-04ade558e1e26b0ad" }).click();
     await expect(card).toHaveCount(1);
     await expect(card).toContainText("i-04ade558e1e26b0ad");
+  });
+
+  test("Switching the details panel to an accordion should expand one host at a time", async ({
+    page,
+  }) => {
+    const table = page.getByTestId("spawn-host-table");
+    await table
+      .getByRole("button", { name: "View details for i-092593689871a50dc" })
+      .click();
+    await table
+      .getByRole("button", { name: "View details for i-04ade558e1e26b0ad" })
+      .click();
+
+    await page.getByRole("button", { name: "Accordion layout" }).click();
+    const visibleCards = page.getByTestId("spawn-host-card").filter({
+      visible: true,
+    });
+    await expect(visibleCards).toHaveCount(0);
+
+    await page
+      .getByRole("button", { name: "i-04ade558e1e26b0ad", exact: true })
+      .click();
+    await expect(visibleCards).toHaveCount(1);
+    await expect(visibleCards).toContainText("i-04ade558e1e26b0ad");
   });
 
   test.describe("Spawn host card sorting", () => {

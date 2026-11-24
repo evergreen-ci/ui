@@ -1,4 +1,5 @@
 import { AppLayoutProvider } from "@via-ds/components/app-layout";
+import { TableDetailsProvider } from "@via-ds/components/table";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -140,7 +141,9 @@ describe("spawn host table", () => {
     const user = userEvent.setup({ delay: null });
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHostTable hosts={[baseSpawnHost]} />
+        <TableDetailsProvider placement="bottom">
+          <SpawnHostTable hosts={[baseSpawnHost]} />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(
@@ -169,11 +172,13 @@ describe("spawn host table", () => {
   it("does not prompt user when pausing expirable host", () => {
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHostTable
-          hosts={[
-            { ...baseSpawnHost, noExpiration: false, sleepSchedule: null },
-          ]}
-        />
+        <TableDetailsProvider placement="bottom">
+          <SpawnHostTable
+            hosts={[
+              { ...baseSpawnHost, noExpiration: false, sleepSchedule: null },
+            ]}
+          />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(
@@ -189,19 +194,21 @@ describe("spawn host table", () => {
   it("does not prompt user when permanent exemption is granted", () => {
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHostTable
-          hosts={[
-            {
-              ...baseSpawnHost,
-              sleepSchedule: {
-                ...defaultSleepSchedule,
-                nextStartTime: null,
-                timeZone: "America/New_York",
-                permanentlyExempt: true,
+        <TableDetailsProvider placement="bottom">
+          <SpawnHostTable
+            hosts={[
+              {
+                ...baseSpawnHost,
+                sleepSchedule: {
+                  ...defaultSleepSchedule,
+                  nextStartTime: null,
+                  timeZone: "America/New_York",
+                  permanentlyExempt: true,
+                },
               },
-            },
-          ]}
-        />
+            ]}
+          />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(
@@ -218,19 +225,21 @@ describe("spawn host table", () => {
     const user = userEvent.setup({ delay: null });
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHostTable
-          hosts={[
-            {
-              ...baseSpawnHost,
-              sleepSchedule: {
-                ...defaultSleepSchedule,
-                nextStartTime: null,
-                timeZone: "America/New_York",
-                permanentlyExempt: false,
+        <TableDetailsProvider placement="bottom">
+          <SpawnHostTable
+            hosts={[
+              {
+                ...baseSpawnHost,
+                sleepSchedule: {
+                  ...defaultSleepSchedule,
+                  nextStartTime: null,
+                  timeZone: "America/New_York",
+                  permanentlyExempt: false,
+                },
               },
-            },
-          ]}
-        />
+            ]}
+          />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(
@@ -247,19 +256,21 @@ describe("spawn host table", () => {
   it("does not prompt user when beta testing disabled", () => {
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHostTable
-          hosts={[
-            {
-              ...baseSpawnHost,
-              sleepSchedule: {
-                ...defaultSleepSchedule,
-                nextStartTime: null,
-                timeZone: "America/New_York",
-                permanentlyExempt: true,
+        <TableDetailsProvider placement="bottom">
+          <SpawnHostTable
+            hosts={[
+              {
+                ...baseSpawnHost,
+                sleepSchedule: {
+                  ...defaultSleepSchedule,
+                  nextStartTime: null,
+                  timeZone: "America/New_York",
+                  permanentlyExempt: true,
+                },
               },
-            },
-          ]}
-        />
+            ]}
+          />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(

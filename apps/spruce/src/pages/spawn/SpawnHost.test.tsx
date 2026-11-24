@@ -1,4 +1,5 @@
 import { AppLayoutProvider } from "@via-ds/components/app-layout";
+import { TableDetailsProvider } from "@via-ds/components/table";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -55,7 +56,9 @@ describe("SpawnHost", () => {
   it("shows the skeleton on initial load and replaces it once hosts have loaded", async () => {
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHost />
+        <TableDetailsProvider placement="bottom">
+          <SpawnHost />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(
@@ -76,7 +79,9 @@ describe("SpawnHost", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <AppLayoutProvider>
-        <SpawnHost />
+        <TableDetailsProvider placement="bottom">
+          <SpawnHost />
+        </TableDetailsProvider>
       </AppLayoutProvider>,
     );
     render(

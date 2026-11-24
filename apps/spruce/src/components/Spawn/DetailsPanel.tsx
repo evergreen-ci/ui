@@ -107,7 +107,7 @@ export const DetailsPanel = <T extends ViaRowData>({
                     aria-label={getName(original)}
                     className={styles.section}
                   >
-                    <Text elementType="h3" textStyle={TextStyle.heading5}>
+                    <Text elementType="h3" textStyle={TextStyle.heading6}>
                       {getName(original)}
                     </Text>
                     {renderRow(original)}
