@@ -9,7 +9,7 @@ import {
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useFilters } from "./useFilters";
-import { useWaterfallQueryParams } from "./useWaterfallQueryParams";
+import { useWaterfallQueryOptions } from "./useWaterfallQueryOptions";
 import { normalizeWaterfallFilters } from "./utils";
 
 type UseWaterfallDataProps = {
@@ -25,7 +25,7 @@ export const useWaterfallData = ({
   pins,
   projectIdentifier,
 }: UseWaterfallDataProps) => {
-  const { hasFilters, queryOptions } = useWaterfallQueryParams({
+  const { hasFilters, queryOptions } = useWaterfallQueryOptions({
     omitInactiveBuilds,
     projectIdentifier,
   });
