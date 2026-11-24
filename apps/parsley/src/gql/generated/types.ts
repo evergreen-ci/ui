@@ -502,6 +502,7 @@ export type BucketConfigInput = {
 export type BucketsConfig = {
   __typename?: "BucketsConfig";
   credentials?: Maybe<S3Credentials>;
+  githubFileCacheBucket?: Maybe<BucketConfig>;
   internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
   logBucketFailedTasks?: Maybe<BucketConfig>;
@@ -517,6 +518,7 @@ export type BucketsConfig = {
 
 export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
+  githubFileCacheBucket?: InputMaybe<BucketConfigInput>;
   internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
