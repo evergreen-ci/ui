@@ -1,10 +1,7 @@
-import { Badge, Variant } from "@leafygreen-ui/badge";
-import { palette } from "@leafygreen-ui/palette";
+import { Badge, BadgeVariant } from "@via-ds/components";
 import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { HostStatus } from "types/host";
 import styles from "./index.module.css";
-
-const { red } = palette;
 
 interface Props {
   status: HostStatus;
@@ -18,7 +15,7 @@ const HostStatusBadge: React.FC<Props> = ({ status }) => (
     {status === HostStatus.Terminated && (
       <IconWithTooltip
         className={styles.iconWithTooltip}
-        fill={red.base}
+        fill="var(--via-color-red-400)"
         glyph="InfoWithCircle"
       >
         Terminated hosts will disappear in 5 minutes. See Event Log for more
@@ -28,25 +25,25 @@ const HostStatusBadge: React.FC<Props> = ({ status }) => (
   </div>
 );
 
-const statusToBadgeVariant = {
-  [HostStatus.Running]: Variant.Green,
-  [HostStatus.Terminated]: Variant.Red,
-  [HostStatus.Provisioning]: Variant.Yellow,
-  [HostStatus.Starting]: Variant.Yellow,
-  [HostStatus.Decommissioned]: Variant.LightGray,
-  [HostStatus.Quarantined]: Variant.LightGray,
-  [HostStatus.ProvisionFailed]: Variant.LightGray,
-  [HostStatus.BuildingFailed]: Variant.LightGray,
-  [HostStatus.Uninitialized]: Variant.LightGray,
-  [HostStatus.Building]: Variant.LightGray,
-  [HostStatus.Success]: Variant.LightGray,
-  [HostStatus.Stopping]: Variant.LightGray,
-  [HostStatus.Stopped]: Variant.LightGray,
-  [HostStatus.Failed]: Variant.LightGray,
-  [HostStatus.ExternalUserName]: Variant.LightGray,
+const statusToBadgeVariant: Record<HostStatus, BadgeVariant> = {
+  [HostStatus.Running]: BadgeVariant.Success,
+  [HostStatus.Terminated]: BadgeVariant.Error,
+  [HostStatus.Provisioning]: BadgeVariant.Warning,
+  [HostStatus.Starting]: BadgeVariant.Warning,
+  [HostStatus.Decommissioned]: BadgeVariant.Status,
+  [HostStatus.Quarantined]: BadgeVariant.Status,
+  [HostStatus.ProvisionFailed]: BadgeVariant.Status,
+  [HostStatus.BuildingFailed]: BadgeVariant.Status,
+  [HostStatus.Uninitialized]: BadgeVariant.Status,
+  [HostStatus.Building]: BadgeVariant.Status,
+  [HostStatus.Success]: BadgeVariant.Status,
+  [HostStatus.Stopping]: BadgeVariant.Status,
+  [HostStatus.Stopped]: BadgeVariant.Status,
+  [HostStatus.Failed]: BadgeVariant.Status,
+  [HostStatus.ExternalUserName]: BadgeVariant.Status,
 };
 
-const hostStatusToCopy = {
+const hostStatusToCopy: Record<HostStatus, string> = {
   [HostStatus.Running]: "Running",
   [HostStatus.Terminated]: "Terminated",
   [HostStatus.Starting]: "Starting",
