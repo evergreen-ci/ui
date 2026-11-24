@@ -1,12 +1,6 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client/react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  ServiceFlagsListQuery,
-  ServiceFlagsListQueryVariables,
-} from "gql/generated/types";
-import { SERVICE_FLAGS_LIST } from "gql/queries";
 import { useProjectSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
@@ -14,8 +8,6 @@ import { getFormSchema } from "./getFormSchema";
 import { GeneralFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
-
-const SOURCE_CACHE_ALL_PROJECTS_FLAG = "source_cache_all_projects_enabled";
 
 export const GeneralTab: React.FC<TabProps> = ({
   projectData,
@@ -44,15 +36,6 @@ export const GeneralTab: React.FC<TabProps> = ({
     [initialIdentifier, formData?.generalConfiguration?.other?.identifier],
   );
 
-  const { data: flagsData } = useQuery<
-    ServiceFlagsListQuery,
-    ServiceFlagsListQueryVariables
-  >(SERVICE_FLAGS_LIST);
-  const sourceCacheAllProjectsEnabled =
-    flagsData?.adminSettings?.serviceFlagsList?.some(
-      ({ enabled, name }) => name === SOURCE_CACHE_ALL_PROJECTS_FLAG && enabled,
-    ) ?? false;
-
   const formSchema = useMemo(
     () =>
       getFormSchema(
@@ -63,7 +46,6 @@ export const GeneralTab: React.FC<TabProps> = ({
         initialOwner,
         initialRepo,
         projectType === ProjectType.AttachedProject ? repoData : null,
-        sourceCacheAllProjectsEnabled,
       ),
     [
       identifierHasChanges,
@@ -72,7 +54,6 @@ export const GeneralTab: React.FC<TabProps> = ({
       projectId,
       projectType,
       repoData,
-      sourceCacheAllProjectsEnabled,
     ],
   );
 
