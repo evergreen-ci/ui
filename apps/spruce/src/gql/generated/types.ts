@@ -8134,6 +8134,11 @@ export type AdminSettingsQuery = {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
     } | null;
+    githubRecoveryApp?: {
+      __typename?: "GitHubRecoveryAppConfig";
+      appId?: number | null;
+      privateKey?: string | null;
+    } | null;
     graphite?: {
       __typename?: "GraphiteConfig";
       ciOptimizationToken?: string | null;
