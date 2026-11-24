@@ -1,5 +1,6 @@
 export * from "./Layout";
 export { DetailsCard } from "./DetailsCard";
+export { DetailsPanel } from "./DetailsPanel";
 export { AttachVolumeSelect } from "./AttachVolumeSelect";
 export {
   defaultSleepSchedule,

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
 import { useAppLayout } from "@via-ds/components/app-layout";
-import { BottomPanelCloseButton } from "@via-ds/components/bottom-panel";
-import { Content, Header } from "@via-ds/components/structure";
 import {
   TABLE_DETAILS_PANEL_KEY,
   type TableDetailsRenderProps,
@@ -11,7 +9,6 @@ import {
   useTableDetails,
 } from "@via-ds/components/table";
 import { ToggleButton } from "@via-ds/components/toggle-button";
-import { Text, TextStyle } from "@via-ds/components/typography";
 import Note from "@via-ds/icons/Note";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
@@ -23,11 +20,10 @@ import {
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import HostStatusBadge from "components/HostStatusBadge";
-import { DoesNotExpire } from "components/Spawn";
+import { DetailsPanel, DoesNotExpire } from "components/Spawn";
 import { HostStatus } from "types/host";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";
-import styles from "./SpawnHostTable.module.css";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
@@ -77,36 +73,13 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   );
 };
 
-const renderHostDetails = ({
-  clear,
-  hiddenCount,
-  rows,
-}: TableDetailsRenderProps<MyHost>) => (
-  <>
-    <Header>
-      <Text slot="title">
-        {rows.length} {rows.length === 1 ? "host" : "hosts"} selected
-      </Text>
-      {hiddenCount > 0 && <Text>+{hiddenCount} not shown</Text>}
-      <BottomPanelCloseButton aria-label="Close details" onPress={clear} />
-    </Header>
-    <Content isScrollable>
-      <div className={styles.details}>
-        {rows.map(({ id, original }) => (
-          <section
-            key={id}
-            aria-label={getHostName(original)}
-            className={styles.host}
-          >
-            <Text elementType="h3" textStyle={TextStyle.heading5}>
-              {getHostName(original)}
-            </Text>
-            <SpawnHostCard host={original} />
-          </section>
-        ))}
-      </div>
-    </Content>
-  </>
+const renderHostDetails = (details: TableDetailsRenderProps<MyHost>) => (
+  <DetailsPanel
+    {...details}
+    getName={getHostName}
+    noun="host"
+    renderRow={(host) => <SpawnHostCard host={host} />}
+  />
 );
 
 const getHostName = ({ displayName, id }: MyHost) => displayName || id;
