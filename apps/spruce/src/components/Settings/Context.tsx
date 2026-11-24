@@ -7,7 +7,7 @@ import {
   useMemo,
   useReducer,
 } from "react";
-import isEqual from "lodash.isequal";
+import { deepEqual } from "fast-equals";
 import { useDebouncedCallback } from "@evg-ui/lib/hooks/useDebouncedCallback";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";
@@ -95,7 +95,7 @@ const reducer =
               ...state[action.tab],
               hasChanges:
                 formToGql &&
-                !isEqual(
+                !deepEqual(
                   state[action.tab].initialData,
                   formToGql(action.formData),
                 ),
