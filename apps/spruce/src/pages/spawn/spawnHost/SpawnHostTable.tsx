@@ -1,14 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Badge } from "@leafygreen-ui/badge";
+import { useAppLayout } from "@via-ds/components/app-layout";
+import { BottomPanelCloseButton } from "@via-ds/components/bottom-panel";
+import { Content, Header } from "@via-ds/components/structure";
+import {
+  TABLE_DETAILS_PANEL_KEY,
+  type TableDetailsRenderProps,
+  TableSlot,
+  useTableDetails,
+} from "@via-ds/components/table";
+import { ToggleButton } from "@via-ds/components/toggle-button";
+import { Text, TextStyle } from "@via-ds/components/typography";
+import Note from "@via-ds/icons/Note";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  BaseTable,
-  ExpandedState,
-  LGColumnDef,
-  LeafyGreenTableRow,
-  useLeafyGreenTable,
+  ViaBaseTable,
+  ViaColumnDef,
+  useTable,
 } from "@evg-ui/lib/components/Table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useQueryParam } from "@evg-ui/lib/hooks";
@@ -17,6 +27,7 @@ import { DoesNotExpire } from "components/Spawn";
 import { HostStatus } from "types/host";
 import { MyHost, QueryParams } from "types/spawn";
 import SpawnHostCard from "./SpawnHostCard";
+import styles from "./SpawnHostTable.module.css";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
@@ -25,62 +36,89 @@ interface SpawnHostTableProps {
 
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const [selectedHost] = useQueryParam(QueryParams.Host, "");
+  const { setSelectedBottomPanelKey } = useAppLayout();
 
-  const hostData = useMemo(
-    () =>
-      hosts.map((h) => ({
-        ...h,
-        renderExpandedContent,
-      })),
-    [hosts],
+  const [initialOpenRowIds] = useState(() =>
+    hosts.some(({ id }) => id === selectedHost) ? [selectedHost] : [],
   );
 
-  const initialExpanded = Object.fromEntries(
-    hostData.map(({ id }, i) => [i, id === selectedHost]),
-  );
-  // Remove and use initialState instead when LG-5035 is complete.
-  const [expanded, setExpanded] = useState<ExpandedState>(initialExpanded);
+  useEffect(() => {
+    if (initialOpenRowIds.length) {
+      setSelectedBottomPanelKey(TABLE_DETAILS_PANEL_KEY);
+    }
+  }, [initialOpenRowIds, setSelectedBottomPanelKey]);
 
-  const table = useLeafyGreenTable<MyHost>({
+  const table = useTable<MyHost>({
     columns,
-    data: hostData,
+    data: hosts,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
-      size: "auto" as unknown as number,
       // Handle bug in sorting order
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    onExpandedChange: setExpanded,
-    state: {
-      expanded,
-    },
+    getRowId: ({ id }) => id,
   });
 
-  return <BaseTable shouldAlternateRowColor table={table} />;
+  useTableDetails(table, {
+    id: "spawn-hosts",
+    defaultOpenRowIds: initialOpenRowIds,
+    getRowLabel: ({ original }) => getHostName(original),
+    render: renderHostDetails,
+  });
+
+  return (
+    <ViaBaseTable
+      data-testid="spawn-host-table"
+      shouldAlternateRowColor
+      table={table}
+    />
+  );
 };
 
-const renderExpandedContent = (row: LeafyGreenTableRow<MyHost>) => (
-  <SpawnHostCard host={row.original} />
+const renderHostDetails = ({
+  clear,
+  hiddenCount,
+  rows,
+}: TableDetailsRenderProps<MyHost>) => (
+  <>
+    <Header>
+      <Text slot="title">Host details</Text>
+      {hiddenCount > 0 && <Text>+{hiddenCount} not shown</Text>}
+      <BottomPanelCloseButton aria-label="Close details" onPress={clear} />
+    </Header>
+    <Content isScrollable>
+      <div className={styles.details}>
+        {rows.map(({ id, original }) => (
+          <section key={id} aria-label={getHostName(original)}>
+            <Text elementType="h3" textStyle={TextStyle.heading6}>
+              {getHostName(original)}
+            </Text>
+            <SpawnHostCard host={original} />
+          </section>
+        ))}
+      </div>
+    </Content>
+  </>
 );
 
-const columns: LGColumnDef<MyHost>[] = [
+const getHostName = ({ displayName, id }: MyHost) => displayName || id;
+
+const columns: ViaColumnDef<MyHost>[] = [
   {
     header: "Host",
     accessorKey: "id",
     enableSorting: true,
-    cell: ({ getValue, row }) => {
-      const id = getValue() as string;
-      return row.original.distro?.isVirtualWorkStation ? (
+    cell: ({ row }) =>
+      row.original.distro?.isVirtualWorkStation ? (
         <FlexContainer>
-          <NoWrap>{row.original.displayName || id}</NoWrap>
+          <NoWrap>{getHostName(row.original)}</NoWrap>
           <Badge>Workstation</Badge>
         </FlexContainer>
       ) : (
-        <WordBreak>{row.original.displayName || id}</WordBreak>
-      );
-    },
+        <WordBreak>{getHostName(row.original)}</WordBreak>
+      ),
   },
   {
     header: "Distro",
@@ -116,6 +154,15 @@ const columns: LGColumnDef<MyHost>[] = [
   {
     header: "Actions",
     cell: ({ row }) => <SpawnHostTableActions host={row.original} />,
+  },
+  {
+    id: "details",
+    header: "Details",
+    cell: () => (
+      <ToggleButton slot={TableSlot.PanelToggle}>
+        <Note slot="icon" />
+      </ToggleButton>
+    ),
   },
 ];
 

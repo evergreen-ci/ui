@@ -1,3 +1,4 @@
+import { AppLayoutProvider } from "@via-ds/components/app-layout";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -52,7 +53,11 @@ describe("SpawnHost", () => {
   });
 
   it("shows the skeleton on initial load and replaces it once hosts have loaded", async () => {
-    const { Component } = RenderFakeToastContext(<SpawnHost />);
+    const { Component } = RenderFakeToastContext(
+      <AppLayoutProvider>
+        <SpawnHost />
+      </AppLayoutProvider>,
+    );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
@@ -69,7 +74,11 @@ describe("SpawnHost", () => {
 
   it("keeps the open spawn host modal mounted when a background refetch occurs after returning to the tab", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<SpawnHost />);
+    const { Component } = RenderFakeToastContext(
+      <AppLayoutProvider>
+        <SpawnHost />
+      </AppLayoutProvider>,
+    );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
