@@ -8,8 +8,3 @@
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   cursor: pointer;
 }
-
-/* TODO(UXE-1589) */
-.table [data-disabled="true"][data-selected="true"] [slot="indicator"] > div {
-  background-color: var(--via-color-background-disabled);
-}

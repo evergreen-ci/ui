@@ -145,7 +145,6 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       title="Project Filters"
     >
       <ViaBaseTable
-        className={styles.table}
         disabledRowIndexes={parsleyFilters
           .map((_, index) => index)
           .filter(isRowDisabled)}
