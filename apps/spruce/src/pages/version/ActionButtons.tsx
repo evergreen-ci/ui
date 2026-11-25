@@ -4,6 +4,7 @@ import {
   AddNotification,
   DisableTasks,
   IncludeNeverActivatedTasksToggle,
+  ModifyTasks,
   RefreshGitHubStatuses,
   RestartPatch,
   ScheduleTasks,
@@ -12,6 +13,7 @@ import {
 } from "components/PatchActionButtons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
+import { showSelectableTaskRows } from "constants/featureFlags";
 import { Requester } from "constants/requesters";
 
 interface ActionButtonProps {
@@ -60,6 +62,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       {canRefreshGitHubStatuses && (
         <RefreshGitHubStatuses versionId={versionId} />
       )}
+      {showSelectableTaskRows && <ModifyTasks versionId={versionId} />}
       <ScheduleTasks isButton versionId={versionId} />
       <RestartPatch
         disabled={isMergeQueuePatch}

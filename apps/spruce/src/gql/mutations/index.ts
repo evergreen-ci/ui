@@ -43,6 +43,8 @@ export { SAVE_REPO_SETTINGS_FOR_SECTION } from "./save-repo-settings-for-section
 export { SAVE_SUBSCRIPTION } from "./save-subscription";
 export { SCHEDULE_PATCH } from "./schedule-patch";
 export { SCHEDULE_TASKS } from "./schedule-tasks";
+export { SCHEDULE_TASKS_BY_FILTER } from "./schedule-tasks-by-filter";
+export { SCHEDULE_TASKS_BY_IDS } from "./schedule-tasks-by-ids";
 export { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "./schedule-undispatched-base-tasks";
 export { SET_LAST_REVISION } from "./set-last-revision";
 export { SET_PATCH_VISIBILITY } from "./set-patch-visibility";
