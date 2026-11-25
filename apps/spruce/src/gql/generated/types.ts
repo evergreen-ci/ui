@@ -8020,6 +8020,11 @@ export type AdminSettingsQuery = {
         key?: string | null;
         secret?: string | null;
       } | null;
+      githubFileCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       logBucket?: {
         __typename?: "BucketConfig";
         expirationDays?: number | null;
