@@ -11,14 +11,16 @@ test.describe("/image/imageId/random redirect route", () => {
 test.describe("Image dropdown", () => {
   test("navigates to the image when clicked", async ({ page }) => {
     await page.goto("/image/amazon2/build-information");
-    const imagesSelect = page.getByTestId("images-select");
-    await expect(imagesSelect).toBeVisible();
+    const imagesSelect = page
+      .getByTestId("images-select")
+      .getByRole("combobox", { name: "Images" });
+    await expect(imagesSelect).toBeEnabled();
     await imagesSelect.click();
 
-    const listbox = page.locator("[role='listbox']");
-    await expect(listbox.locator("li")).not.toHaveCount(0);
+    const listbox = page.getByRole("listbox");
+    await expect(listbox.getByRole("option")).not.toHaveCount(0);
 
-    const secondItem = listbox.locator("li").nth(1);
+    const secondItem = listbox.getByRole("option").nth(1);
     const itemText = await secondItem.textContent();
     await secondItem.click();
 

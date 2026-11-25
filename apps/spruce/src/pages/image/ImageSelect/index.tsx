@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
-import { Skeleton } from "@leafygreen-ui/skeleton-loader";
+import { Combobox, ComboboxItem } from "@via-ds/components/combobox";
+import { Skeleton } from "@via-ds/components/skeleton";
 import { useNavigate } from "react-router-dom";
 import { useErrorToast } from "@evg-ui/lib/hooks";
 import { useImageAnalytics } from "analytics";
@@ -25,15 +25,16 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
 
   const { images } = imagesData || {};
 
-  if (!loading) {
-    return (
+  return (
+    <Skeleton isLoading={loading}>
       <Combobox
-        clearable={false}
         data-testid="images-select"
-        disabled={loading}
         label="Images"
-        // @ts-expect-error: onChange expects type string | null
-        onChange={(imageId: string) => {
+        onChange={(key) => {
+          if (key === null) {
+            return;
+          }
+          const imageId = String(key);
           sendEvent({
             name: "Changed image",
             from: selectedImage,
@@ -44,13 +45,12 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
         placeholder="Select an image"
         value={selectedImage}
       >
-        {images?.map((image) => (
-          <ComboboxOption key={image} value={image}>
+        {(images ?? []).map((image) => (
+          <ComboboxItem key={image} id={image} textValue={image}>
             {image}
-          </ComboboxOption>
+          </ComboboxItem>
         ))}
       </Combobox>
-    );
-  }
-  return <Skeleton />;
+    </Skeleton>
+  );
 };

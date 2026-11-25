@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ImageTabRoutes } from "constants/routes";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { Header } from "./Header";
 import { BuildInformationTab, EventLogTab } from "./tabs/index";
+import styles from "./Tabs.module.css";
 
 type ImageTabsProps = {
   imageId: string;
@@ -17,7 +17,7 @@ export const ImageTabs: React.FC<ImageTabsProps> = ({
   useScrollToAnchor();
 
   return (
-    <Container>
+    <div className={styles.container}>
       <Header imageId={imageId} tab={currentTab} />
       <Routes>
         <Route
@@ -33,11 +33,6 @@ export const ImageTabs: React.FC<ImageTabsProps> = ({
           path={ImageTabRoutes.EventLog}
         />
       </Routes>
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  min-width: 600px;
-  max-width: 75%;
-`;

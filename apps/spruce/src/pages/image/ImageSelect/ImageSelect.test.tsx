@@ -41,11 +41,11 @@ describe("image select", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("images-select")).toBeInTheDocument();
+      expect(screen.getByRole("combobox", { name: "Images" })).toBeEnabled();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    await user.click(screen.getByLabelText("Images"));
+    await user.click(screen.getByRole("combobox", { name: "Images" }));
     await waitFor(() => {
       expect(screen.getByRole("listbox")).toBeVisible();
     });
@@ -62,11 +62,11 @@ describe("image select", () => {
     );
     render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getByTestId("images-select")).toBeInTheDocument();
+      expect(screen.getByRole("combobox", { name: "Images" })).toBeEnabled();
     });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    await user.click(screen.getByLabelText("Images"));
+    await user.click(screen.getByRole("combobox", { name: "Images" }));
     await waitFor(() => {
       expect(screen.getByRole("listbox")).toBeVisible();
     });
