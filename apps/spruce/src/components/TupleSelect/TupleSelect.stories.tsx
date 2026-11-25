@@ -1,4 +1,4 @@
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Text } from "@via-ds/components/typography";
 import { action } from "storybook/actions";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 
@@ -21,7 +21,7 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
         validator={(v) => v !== "bad"}
         validatorErrorMessage="Invalid Input"
       />
-      <Disclaimer>The word `bad` will fail validation</Disclaimer>
+      <Text>The word `bad` will fail validation</Text>
     </>
   ),
 };

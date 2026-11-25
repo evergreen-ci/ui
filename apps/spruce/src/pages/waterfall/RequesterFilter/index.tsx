@@ -1,4 +1,4 @@
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { Combobox, ComboboxItem } from "@via-ds/components/combobox";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { mainlineRequesters, requesterToTitle } from "constants/requesters";
@@ -11,29 +11,33 @@ export const RequesterFilter = () => {
     [],
   );
 
-  const handleChange = (value: string[]) => {
+  const handleChange = (keys: React.Key[]) => {
+    const value = keys.map(String);
     setRequesters(value);
     sendEvent({ name: "Filtered by requester", requesters: value });
   };
 
   return (
-    <Combobox
+    <Combobox<object, "multiple">
       data-testid="requester-filter"
       dropdownWidthBasis="option"
-      initialValue={requesters}
       label="Requesters"
-      multiselect
+      menuTriggerAriaLabel="Requesters"
       onChange={handleChange}
-      overflow="scroll-x"
       placeholder="All"
+      selectionMode="multiple"
+      showChips={false}
+      value={requesters}
     >
       {mainlineRequesters.map((requester) => (
-        <ComboboxOption
+        <ComboboxItem
           key={`${requester}-option`}
           data-testid={`${requester}-option`}
-          displayName={requesterToTitle[requester]}
-          value={requester}
-        />
+          id={requester}
+          textValue={requesterToTitle[requester]}
+        >
+          {requesterToTitle[requester]}
+        </ComboboxItem>
       ))}
     </Combobox>
   );

@@ -15,20 +15,22 @@
   flex-direction: row;
 }
 
-/* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when these components migrate to Via. */
-.groupedSelect.groupedSelect {
-  button {
-    margin-top: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: 0;
-    width: max-content;
-  }
+.groupedSelect {
+  flex-shrink: 0;
+  width: max-content;
 }
 
-.groupedTextInput.groupedTextInput > div > div {
+.groupedSelect button {
+  border-bottom-right-radius: 0;
+  border-right-width: 0;
+  border-top-right-radius: 0;
+}
+
+.groupedTextInput {
+  flex: 1;
+}
+
+.groupedTextInput input {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }

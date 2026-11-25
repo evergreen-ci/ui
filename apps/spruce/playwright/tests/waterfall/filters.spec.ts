@@ -1,9 +1,15 @@
-import { expect, test } from "../../fixtures";
+import { Page, expect, test } from "../../fixtures";
 import {
   isGraphQLQuery,
   selectDatePickerDate,
   validateDatePickerDate,
 } from "../../helpers";
+
+const openFilter = async (page: Page, testId: string) => {
+  const combobox = page.getByTestId(testId).getByRole("combobox");
+  await combobox.click();
+  await combobox.press("ArrowDown");
+};
 
 test.describe("status filtering", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +25,7 @@ test.describe("status filtering", () => {
     const filteredRequest = page.waitForRequest((request) =>
       isGraphQLQuery(request, "Waterfall"),
     );
-    await page.getByTestId("status-filter").click();
+    await openFilter(page, "status-filter");
     await page.getByTestId("failed-option").click();
     expect((await filteredRequest).postDataJSON()).toMatchObject({
       variables: {
@@ -46,7 +52,7 @@ test.describe("requester filtering", () => {
     await expect(
       page.getByTestId("inactive-versions-button").first(),
     ).toContainText("1");
-    await page.getByTestId("requester-filter").click();
+    await openFilter(page, "requester-filter");
     await page.getByTestId("ad_hoc-option").click();
     await expect(page.getByText("No Results Found")).toBeVisible();
     await expect(
@@ -58,7 +64,7 @@ test.describe("requester filtering", () => {
   test("filters on git tags and fetches more from the server", async ({
     page,
   }) => {
-    await page.getByTestId("requester-filter").click();
+    await openFilter(page, "requester-filter");
     await page.getByTestId("git_tag_request-option").click();
 
     const inactiveButtons = page.getByTestId("inactive-versions-button");
@@ -82,7 +88,7 @@ test.describe("requester filtering", () => {
     ];
     await expect(versionRevisions).toHaveText(unfilteredRevisions);
 
-    await page.getByTestId("requester-filter").click();
+    await openFilter(page, "requester-filter");
     await page.getByTestId("gitter_request-option").click();
     await expect(versionRevisions).toHaveText([
       "2c9056d",
@@ -93,10 +99,9 @@ test.describe("requester filtering", () => {
     ]);
     await expect(page.getByTestId("inactive-versions-button")).toHaveCount(2);
 
-    await page
-      .getByTestId("requester-filter")
-      .getByRole("button", { name: "Clear selection" })
-      .click();
+    await page.keyboard.press("Escape");
+    await openFilter(page, "requester-filter");
+    await page.getByTestId("gitter_request-option").click();
     await expect(page).not.toHaveURL(/requesters=/);
     await expect(versionRevisions).toHaveText(unfilteredRevisions);
   });
@@ -424,7 +429,7 @@ test.describe("project selection", () => {
     page,
   }) => {
     await page.goto("/project/spruce/waterfall");
-    await page.getByTestId("status-filter").click();
+    await openFilter(page, "status-filter");
     await page.getByTestId("test-timed-out-option").click();
     await page.keyboard.press("Escape");
     await page.getByTestId("project-select").click();
