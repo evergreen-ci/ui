@@ -1,6 +1,3 @@
-.sectionHeader {
-  color: var(--via-color-neutral-100);
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 0 var(--via-space-300);
+.checkbox {
+  pointer-events: none;
 }

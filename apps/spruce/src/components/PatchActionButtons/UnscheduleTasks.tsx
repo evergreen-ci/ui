@@ -1,8 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { Checkbox } from "@leafygreen-ui/checkbox";
-import { MenuItem } from "@leafygreen-ui/menu";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Checkbox } from "@via-ds/components";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
@@ -12,75 +10,71 @@ import {
 } from "gql/generated/types";
 import { UNSCHEDULE_VERSION_TASKS } from "gql/mutations";
 
-interface props {
-  disabled?: boolean;
-  refetchQueries?: string[];
-  versionId: string;
-}
-export const UnscheduleTasks: React.FC<props> = ({
-  disabled,
-  refetchQueries = [],
-  versionId,
-}) => {
+export const useUnscheduleVersionTasks = (
+  versionId: string,
+  refetchQueries: string[] = [],
+) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(versionId);
 
-  const [abort, setAbort] = useState(true);
-  const [open, setOpen] = useState(false);
-  const menuItemRef = useRef<HTMLDivElement>(null);
+  const [unscheduleVersionTasks, { loading }] = useMutation<
+    UnscheduleVersionTasksMutation,
+    UnscheduleVersionTasksMutationVariables
+  >(UNSCHEDULE_VERSION_TASKS, {
+    onError: (err) => {
+      dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
+    },
+    refetchQueries,
+  });
 
-  const [unscheduleVersionTasks, { loading: loadingUnscheduleVersionTasks }] =
-    useMutation<
-      UnscheduleVersionTasksMutation,
-      UnscheduleVersionTasksMutationVariables
-    >(UNSCHEDULE_VERSION_TASKS, {
+  const unschedule = (abort: boolean) => {
+    unscheduleVersionTasks({
       onCompleted: () => {
         dispatchToast.success(
           `All tasks were unscheduled ${
             abort ? "and tasks that already started were aborted" : ""
           }`,
         );
-        setAbort(false);
       },
-      onError: (err) => {
-        dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
-      },
-      refetchQueries,
+      variables: { versionId, abort },
     });
-
-  const onConfirm = () => {
-    unscheduleVersionTasks({ variables: { versionId, abort } });
     sendEvent({ name: "Clicked unschedule tasks button", abort });
   };
 
+  return { loading, unschedule };
+};
+
+interface props {
+  onConfirm: (abort: boolean) => void;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
+}
+export const UnscheduleTasksPopconfirm: React.FC<props> = ({
+  onConfirm,
+  open,
+  refEl,
+  setOpen,
+}) => {
+  const [abort, setAbort] = useState(true);
+
   return (
-    <>
-      <div ref={menuItemRef}>
-        <MenuItem
-          active={open}
-          data-testid="unschedule-patch"
-          disabled={disabled || loadingUnscheduleVersionTasks}
-          onClick={() => setOpen(!open)}
-        >
-          Unschedule all tasks
-        </MenuItem>
-      </div>
-      <Popconfirm
-        data-testid="unschedule-patch-popconfirm"
-        onConfirm={onConfirm}
-        open={open}
-        refEl={menuItemRef}
-        setOpen={setOpen}
-        side="left"
+    <Popconfirm
+      data-testid="unschedule-patch-popconfirm"
+      onConfirm={() => onConfirm(abort)}
+      open={open}
+      refEl={refEl}
+      setOpen={setOpen}
+      side="left"
+    >
+      <Body>Unschedule all tasks?</Body>
+      <Checkbox
+        data-testid="abort-checkbox"
+        isSelected={abort}
+        onChange={setAbort}
       >
-        <Body weight="medium">Unschedule all tasks?</Body>
-        <Checkbox
-          checked={abort}
-          data-testid="abort-checkbox"
-          label="Abort tasks that have already started"
-          onChange={() => setAbort(!abort)}
-        />
-      </Popconfirm>
-    </>
+        Abort tasks that have already started
+      </Checkbox>
+    </Popconfirm>
   );
 };

@@ -1,5 +1,10 @@
-import { Checkbox } from "@leafygreen-ui/checkbox";
-import { MenuItem, MenuSeparator } from "@leafygreen-ui/menu";
+import {
+  Checkbox,
+  Header,
+  MenuItem,
+  MenuSection,
+  Text,
+} from "@via-ds/components";
 import Cookies from "js-cookie";
 import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useVersionAnalytics } from "analytics/version/useVersionAnalytics";
@@ -22,10 +27,7 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
       Cookies.get(INCLUDE_NEVER_ACTIVATED_TASKS) === "true",
     );
 
-  const handleIncludeNeverActivatedTasksChange = (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    e.preventDefault();
+  const handleAction = () => {
     const checked = !includeNeverActivatedTasks;
     setIncludeNeverActivatedTasks(checked);
     Cookies.set(INCLUDE_NEVER_ACTIVATED_TASKS, checked.toString());
@@ -36,23 +38,27 @@ export const IncludeNeverActivatedTasksToggle: React.FC<
   };
 
   return (
-    <>
-      <MenuSeparator />
-      {/* MenuGroup is not used because it does not inherit the dark mode styles correctly; this should be addressed when migrating the component to Via.*/}
-      <div className={styles.sectionHeader} role="presentation">
-        Settings
-      </div>
+    <MenuSection>
+      <Header>
+        <Text slot="heading">Settings</Text>
+      </Header>
       <MenuItem
         data-testid="include-never-activated-tasks"
-        onClick={handleIncludeNeverActivatedTasksChange}
+        onAction={handleAction}
+        shouldCloseOnSelect={false}
+        textValue="Include never-activated tasks"
       >
         <Checkbox
-          checked={includeNeverActivatedTasks}
-          darkMode
-          description="Show tasks that exist in this version but have never been activated."
-          label="Include never-activated tasks"
-        />
+          className={styles.checkbox}
+          excludeFromTabOrder
+          isSelected={!!includeNeverActivatedTasks}
+        >
+          Include never-activated tasks
+        </Checkbox>
+        <Text slot="description">
+          Show tasks that exist in this version but have never been activated.
+        </Text>
       </MenuItem>
-    </>
+    </MenuSection>
   );
 };

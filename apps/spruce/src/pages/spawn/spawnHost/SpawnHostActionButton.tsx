@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { Button, Size } from "@leafygreen-ui/button";
-import { Checkbox } from "@leafygreen-ui/checkbox";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Checkbox, Disclaimer } from "@via-ds/components";
 import Refresh from "@via-ds/icons/Refresh";
 import Trash from "@via-ds/icons/Trash";
 import Icon from "@evg-ui/lib/components/Icon";
@@ -181,13 +180,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         Delete host “{host.displayName || host.id}”?
         {checkboxLabel && (
           <Checkbox
-            checked={checkboxAcknowledged}
-            label={checkboxLabel}
-            onChange={(e) => {
-              e.nativeEvent.stopPropagation();
-              setCheckboxAcknowledged(!checkboxAcknowledged);
-            }}
-          />
+            isSelected={checkboxAcknowledged}
+            onChange={setCheckboxAcknowledged}
+          >
+            {checkboxLabel}
+          </Checkbox>
         )}
       </Popconfirm>
     </>

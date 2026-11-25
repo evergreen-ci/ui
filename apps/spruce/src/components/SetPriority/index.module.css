@@ -1,9 +1,10 @@
-/* Doubled selector outranks LeafyGreen's runtime-injected Emotion styles.
-   Remove when this component migrates to Via. */
-.priorityInput.priorityInput {
-  :global(.priority-input) {
-    width: 200px;
-  }
+.priorityInput {
+  width: 200px;
+}
+
+.messageSlot {
+  min-block-size: calc(3lh + var(--via-space-100));
+  inline-size: 200px;
 }
 
 .message {

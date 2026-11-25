@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   MockedProvider,
@@ -28,14 +29,14 @@ describe("setPriority", () => {
       expect(screen.getByTestId("set-priority-button")).toBeInTheDocument();
     });
 
-    it("renders a menu item when isButton is false", () => {
+    it("does not render a button when isButton is false", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider>
-          <SetPriority versionId="version_id" />
+          <SetPriority onOpenChange={vi.fn()} open versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
-      expect(screen.getByTestId("set-priority-menu-item")).toBeInTheDocument();
+      expect(screen.queryByTestId("set-priority-button")).toBeNull();
     });
   });
 
@@ -44,19 +45,21 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setVersionPriority]}>
-          <SetPriority versionId="version_id" />
+          <SetPriority onOpenChange={vi.fn()} open versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-default-message")).toBeVisible();
-      await user.type(screen.getByTestId("patch-priority-input"), "9");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "9",
+      );
       expect(screen.queryByTestId("priority-default-message")).toBeVisible();
     });
 
@@ -64,19 +67,21 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setVersionPriority]}>
-          <SetPriority versionId="version_id" />
+          <SetPriority onOpenChange={vi.fn()} open versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-warning-message")).toBeNull();
-      await user.type(screen.getByTestId("patch-priority-input"), "99");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "99",
+      );
       expect(screen.queryByTestId("priority-warning-message")).toBeVisible();
     });
 
@@ -84,19 +89,21 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setVersionPriority]}>
-          <SetPriority versionId="version_id" />
+          <SetPriority onOpenChange={vi.fn()} open versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-admin-message")).toBeNull();
-      await user.type(screen.getByTestId("patch-priority-input"), "999");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "999",
+      );
       expect(screen.queryByTestId("priority-admin-message")).toBeVisible();
     });
 
@@ -104,18 +111,20 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setVersionPriority]}>
-          <SetPriority versionId="version_id" />
+          <SetPriority onOpenChange={vi.fn()} open versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-patch-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByTestId("patch-priority-input"), "99");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "99",
+      );
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledTimes(1);
@@ -123,42 +132,101 @@ describe("setPriority", () => {
     });
   });
 
-  describe("task priority", () => {
-    it("shows correct initial priority", async () => {
+  describe("input validation", () => {
+    it("accepts a negative priority", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority initialPriority={10} taskIds={["task_id"]} />
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      await user.type(input, "-1");
+      expect(input).toHaveValue("-1");
+      expect(screen.getByRole("button", { name: "Set" })).toBeEnabled();
+    });
+
+    it("disables Set and ignores Enter when the input is not a number", async () => {
+      const user = userEvent.setup();
+      const { Component, dispatchToast } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      expect(screen.getByRole("button", { name: "Set" })).toBeDisabled();
+      await user.type(input, "{Enter}");
+      expect(dispatchToast.success).not.toHaveBeenCalled();
+      await user.type(input, "-");
+      expect(input).toHaveValue("-");
+      expect(screen.getByRole("button", { name: "Set" })).toBeDisabled();
+    });
+
+    it("ignores non-numeric characters", async () => {
+      const user = userEvent.setup();
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
+      const input = screen.getByRole("textbox", { name: "Set New Priority" });
+      await user.clear(input);
+      await user.type(input, "1a2");
+      expect(input).toHaveValue("12");
+    });
+  });
+
+  describe("task priority", () => {
+    it("shows correct initial priority", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={[setTaskPriority]}>
+          <SetPriority
+            initialPriority={10}
+            onOpenChange={vi.fn()}
+            open
+            taskIds={["task_id"]}
+          />
+        </MockedProvider>,
+      );
+      renderWithRouterMatch(<Component />);
+
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      expect(screen.queryByTestId("task-priority-input")).toHaveValue(10);
+      expect(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+      ).toHaveValue("10");
     });
 
     it("shows default message", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskIds={["task_id"]} />
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-default-message")).toBeVisible();
-      await user.type(screen.getByTestId("task-priority-input"), "9");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "9",
+      );
       expect(screen.queryByTestId("priority-default-message")).toBeVisible();
     });
 
@@ -166,19 +234,21 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskIds={["task_id"]} />
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-warning-message")).toBeNull();
-      await user.type(screen.getByTestId("task-priority-input"), "99");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "99",
+      );
       expect(screen.queryByTestId("priority-warning-message")).toBeVisible();
     });
 
@@ -186,19 +256,21 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskIds={["task_id"]} />
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
       expect(screen.queryByTestId("priority-admin-message")).toBeNull();
-      await user.type(screen.getByTestId("task-priority-input"), "999");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "999",
+      );
       expect(screen.queryByTestId("priority-admin-message")).toBeVisible();
     });
 
@@ -206,18 +278,20 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskIds={["task_id"]} />
+          <SetPriority onOpenChange={vi.fn()} open taskIds={["task_id"]} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByTestId("task-priority-input"), "99");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "99",
+      );
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),
@@ -233,18 +307,24 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setMultipleTaskPriorities]}>
-          <SetPriority taskIds={["task_id", "task_id_2"]} />
+          <SetPriority
+            onOpenChange={vi.fn()}
+            open
+            taskIds={["task_id", "task_id_2"]}
+          />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
-      await user.click(screen.getByTestId("set-priority-menu-item"));
       await waitFor(() => {
         expect(
           screen.queryByTestId("set-task-priority-popconfirm"),
         ).toBeVisible();
       });
-      await user.type(screen.getByTestId("task-priority-input"), "99");
+      await user.type(
+        screen.getByRole("textbox", { name: "Set New Priority" }),
+        "99",
+      );
       await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1),

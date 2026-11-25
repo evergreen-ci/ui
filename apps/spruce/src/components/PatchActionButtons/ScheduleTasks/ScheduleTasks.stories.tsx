@@ -14,9 +14,9 @@ export default {
 } satisfies CustomMeta<typeof ScheduleTasks>;
 
 export const ScheduleTasksPopulated: CustomStoryObj<typeof ScheduleTasks> = {
-  render: () => <ScheduleTasks isButton versionId="version" />,
+  render: () => <ScheduleTasks versionId="version" />,
 };
 
 export const ScheduleTasksEmpty: CustomStoryObj<typeof ScheduleTasks> = {
-  render: () => <ScheduleTasks isButton versionId="emptyVersion" />,
+  render: () => <ScheduleTasks versionId="emptyVersion" />,
 };

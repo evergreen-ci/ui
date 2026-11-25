@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { MenuItem } from "@leafygreen-ui/menu";
-import { NumberInput } from "@leafygreen-ui/number-input";
-import { Align, Side } from "@via-ds/components";
+import { Align, Side, TextField } from "@via-ds/components";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
@@ -32,16 +30,29 @@ type SetPriorityProps = (
   disabled?: boolean;
   initialPriority?: number;
   isButton?: boolean;
+  onLoadingChange?: (loading: boolean) => void;
+  onOpenChange?: (open: boolean) => void;
+  onSubmit?: () => void;
+  open?: boolean;
+  refEl?: React.RefObject<HTMLElement | null>;
   popconfirmSide?: Side;
   popconfirmAlign?: Align;
 };
+
+const INTEGER_PATTERN = /^-?\d+$/;
+const PARTIAL_INTEGER_PATTERN = /^-?\d*$/;
 
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   isButton = false,
-  popconfirmAlign = Align.Start,
+  onLoadingChange,
+  onOpenChange,
+  onSubmit,
+  open: controlledOpen,
+  popconfirmAlign,
   popconfirmSide = Side.Left,
+  refEl,
   taskIds,
   versionId,
 }) => {
@@ -50,10 +61,23 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const { sendEvent: sendTaskEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
-  const [priority, setPriority] = useState<number>(initialPriority);
-  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState(initialPriority.toString());
+  const isValidPriority = INTEGER_PATTERN.test(input);
+  const priority = isValidPriority ? parseInt(input, 10) : NaN;
+  const [internalOpen, setInternalOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const menuItemRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = onOpenChange ?? setInternalOpen;
+
+  // Start each open from the current priority, not what was typed last time.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setInput(initialPriority.toString());
+    }
+  }
 
   const [setVersionPriority, { loading: loadingSetVersionPriority }] =
     useMutation<
@@ -90,6 +114,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     );
 
   const onConfirm = () => {
+    onSubmit?.();
     if (taskIds) {
       setTaskPriorities({
         variables: {
@@ -109,6 +134,11 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     }
   };
 
+  const loading = loadingSetVersionPriority || loadingSetTaskPriorities;
+  useEffect(() => {
+    onLoadingChange?.(loading);
+  }, [loading, onLoadingChange]);
+
   useEffect(() => {
     inputRef?.focus();
     inputRef?.select();
@@ -120,9 +150,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
 
   return (
     <>
-      {isButton ? (
+      {isButton && (
         <Button
-          ref={menuItemRef}
+          ref={buttonRef}
           data-testid="set-priority-button"
           disabled={disableButton}
           onClick={() => setOpen(!open)}
@@ -130,76 +160,74 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         >
           Set priority
         </Button>
-      ) : (
-        <MenuItem
-          ref={menuItemRef}
-          active={open}
-          data-testid="set-priority-menu-item"
-          disabled={disableButton}
-          onClick={() => setOpen(!open)}
-        >
-          Set {label} priority
-          {(taskIds?.length ?? 0) > 1 && ` (${taskIds?.length})`}
-        </MenuItem>
       )}
-      <Popconfirm
-        align={popconfirmAlign}
-        confirmText="Set"
-        data-testid={`set-${label}-priority-popconfirm`}
-        onConfirm={onConfirm}
-        open={open}
-        refEl={menuItemRef}
-        setOpen={setOpen}
-        side={popconfirmSide}
-      >
-        <NumberInput
-          ref={(el) => setInputRef(el)}
-          className={styles.priorityInput}
-          data-testid={`${label}-priority-input`}
-          inputClassName="priority-input"
-          label="Set New Priority"
-          min={-1}
-          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              onConfirm();
-              setOpen(false);
-            }
-          }}
-          value={priority.toString()}
-        />
-        {priority >= 0 && priority < 50 && (
-          <div
-            className={cx(styles.message, styles.messageDefault)}
-            data-testid="priority-default-message"
-          >
-            <Icon className={styles.icon} glyph="InfoWithCircle" />
-            <span>
-              Use with discretion for tasks you&apos;re actively waiting on.
-            </span>
+      {open && (
+        <Popconfirm
+          align={popconfirmAlign ?? (refEl ? Align.Center : Align.Start)}
+          confirmDisabled={!isValidPriority}
+          confirmText="Set"
+          data-testid={`set-${label}-priority-popconfirm`}
+          onConfirm={onConfirm}
+          open={open}
+          refEl={isButton ? buttonRef : refEl}
+          setOpen={setOpen}
+          side={popconfirmSide}
+        >
+          <TextField
+            ref={(el) => setInputRef(el)}
+            className={styles.priorityInput}
+            data-testid={`${label}-priority-input`}
+            inputMode="numeric"
+            label="Set New Priority"
+            onChange={(value) => {
+              if (PARTIAL_INTEGER_PATTERN.test(value)) {
+                setInput(value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && isValidPriority) {
+                onConfirm();
+                setOpen(false);
+              }
+            }}
+            value={input}
+          />
+          <div className={styles.messageSlot}>
+            {priority >= 0 && priority < 50 && (
+              <div
+                className={cx(styles.message, styles.messageDefault)}
+                data-testid="priority-default-message"
+              >
+                <Icon className={styles.icon} glyph="InfoWithCircle" />
+                <span>
+                  Use with discretion for tasks you&apos;re actively waiting on.
+                </span>
+              </div>
+            )}
+            {priority >= 50 && priority < 100 && (
+              <div
+                className={cx(styles.message, styles.messageWarning)}
+                data-testid="priority-warning-message"
+              >
+                <Icon className={styles.icon} glyph="ImportantWithCircle" />
+                <span>Please ensure that this is a high priority change.</span>
+              </div>
+            )}
+            {priority >= 100 && (
+              <div
+                className={cx(styles.message, styles.messageAdmin)}
+                data-testid="priority-admin-message"
+              >
+                <Icon className={styles.icon} glyph="Warning" />
+                <span>
+                  This is admin-restricted and should only be used in
+                  emergencies.
+                </span>
+              </div>
+            )}
           </div>
-        )}
-        {priority >= 50 && priority < 100 && (
-          <div
-            className={cx(styles.message, styles.messageWarning)}
-            data-testid="priority-warning-message"
-          >
-            <Icon className={styles.icon} glyph="ImportantWithCircle" />
-            <span>Please ensure that this is a high priority change.</span>
-          </div>
-        )}
-        {priority >= 100 && (
-          <div
-            className={cx(styles.message, styles.messageAdmin)}
-            data-testid="priority-admin-message"
-          >
-            <Icon className={styles.icon} glyph="Warning" />
-            <span>
-              This is admin-restricted and should only be used in emergencies.
-            </span>
-          </div>
-        )}
-      </Popconfirm>
+        </Popconfirm>
+      )}
     </>
   );
 };

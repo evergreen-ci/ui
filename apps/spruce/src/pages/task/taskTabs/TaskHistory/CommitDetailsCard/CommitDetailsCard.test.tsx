@@ -268,8 +268,10 @@ describe("CommitDetailsCard component", () => {
       });
       await user.click(setPriorityButton);
 
-      const priorityInput = await screen.findByLabelText("Set New Priority");
-      expect(priorityInput).toHaveValue(0);
+      const priorityInput = await screen.findByRole("textbox", {
+        name: "Set New Priority",
+      });
+      expect(priorityInput).toHaveValue("0");
       await user.clear(priorityInput);
       await user.type(priorityInput, "25");
 

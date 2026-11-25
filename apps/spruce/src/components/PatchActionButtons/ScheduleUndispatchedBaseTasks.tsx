@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client/react";
-import { MenuItem } from "@leafygreen-ui/menu";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
@@ -8,21 +6,14 @@ import {
   ScheduleUndispatchedBaseTasksMutationVariables,
 } from "gql/generated/types";
 import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
+import styles from "./PopconfirmMessage.module.css";
 
-interface Props {
-  versionId: string;
-  disabled: boolean;
-}
-
-export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
-  disabled,
-  versionId,
-}) => {
+// The mutation lives in a hook so its callbacks survive the popconfirm
+// unmounting on confirm.
+export const useScheduleUndispatchedBaseTasks = (versionId: string) => {
   const dispatchToast = useToastContext();
-  const [open, setOpen] = useState(false);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [scheduleBaseVersionTasks] = useMutation<
+  const [scheduleBaseVersionTasks, { loading }] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
     ScheduleUndispatchedBaseTasksMutationVariables
   >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
@@ -36,32 +27,37 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
     },
   });
 
-  const onConfirm = () => {
+  const schedule = () => {
     scheduleBaseVersionTasks({ variables: { versionId } });
   };
 
-  return (
-    <>
-      <div ref={menuItemRef}>
-        <MenuItem
-          active={open}
-          disabled={disabled}
-          onClick={() => setOpen(!open)}
-        >
-          Schedule failing base tasks
-        </MenuItem>
-      </div>
-      <Popconfirm
-        data-testid="schedule-undispatched-base-popconfirm"
-        onConfirm={onConfirm}
-        open={open}
-        refEl={menuItemRef}
-        setOpen={setOpen}
-        side="left"
-      >
-        Are you sure you want to schedule all the undispatched base tasks for
-        this patch&apos;s failing tasks?
-      </Popconfirm>
-    </>
-  );
+  return { loading, schedule };
 };
+
+interface Props {
+  onConfirm: () => void;
+  open: boolean;
+  refEl: React.RefObject<HTMLElement | null>;
+  setOpen: (open: boolean) => void;
+}
+
+export const ScheduleUndispatchedBaseTasksPopconfirm: React.FC<Props> = ({
+  onConfirm,
+  open,
+  refEl,
+  setOpen,
+}) => (
+  <Popconfirm
+    data-testid="schedule-undispatched-base-popconfirm"
+    onConfirm={onConfirm}
+    open={open}
+    refEl={refEl}
+    setOpen={setOpen}
+    side="left"
+  >
+    <div className={styles.message}>
+      Are you sure you want to schedule all the undispatched base tasks for this
+      patch&apos;s failing tasks?
+    </div>
+  </Popconfirm>
+);

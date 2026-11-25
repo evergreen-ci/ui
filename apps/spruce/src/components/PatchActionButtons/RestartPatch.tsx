@@ -1,32 +1,23 @@
 import { useState } from "react";
 import { SplitButton } from "@leafygreen-ui/split-button";
 import { Align, Justify, Tooltip } from "@leafygreen-ui/tooltip";
-import { DropdownItem } from "components/ButtonDropdown";
 import { VersionRestartModal } from "components/VersionRestartModal";
 import { RestartFailedTasks } from "./RestartFailedTasks";
 
 interface RestartPatchProps {
   disabled?: boolean;
-  isButton?: boolean;
   isMergeQueuePatch: boolean;
   patchId: string;
   refetchQueries: string[];
-  visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   disabled = false,
-  isButton,
   isMergeQueuePatch,
   patchId,
   refetchQueries,
-  visibilityControl,
 }) => {
-  const fallbackVisibilityControl = useState(false);
-  const [isVisible, setIsVisible] =
-    visibilityControl !== undefined
-      ? visibilityControl
-      : fallbackVisibilityControl;
+  const [isVisible, setIsVisible] = useState(false);
 
   const onClick = () => setIsVisible(!isVisible);
 
@@ -37,37 +28,25 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
   return (
     <>
       <Tooltip
-        align={isButton ? Align.Top : Align.Left}
+        align={Align.Top}
         enabled={disabled}
         justify={Justify.End}
         trigger={
-          isButton ? (
-            <SplitButton
-              data-testid="restart-version"
-              disabled={disabled}
-              label="Restart"
-              menuItems={[
-                <RestartFailedTasks
-                  key="restart-failed"
-                  disabled={disabled}
-                  patchId={patchId}
-                  refetchQueries={refetchQueries}
-                />,
-              ]}
-              onClick={onClick}
-              size="small"
-            />
-          ) : (
-            <span>
-              <DropdownItem
-                data-testid="restart-version"
+          <SplitButton
+            data-testid="restart-version"
+            disabled={disabled}
+            label="Restart"
+            menuItems={[
+              <RestartFailedTasks
+                key="restart-failed"
                 disabled={disabled}
-                onClick={onClick}
-              >
-                Restart
-              </DropdownItem>
-            </span>
-          )
+                patchId={patchId}
+                refetchQueries={refetchQueries}
+              />,
+            ]}
+            onClick={onClick}
+            size="small"
+          />
         }
       >
         {message}

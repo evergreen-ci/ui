@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import pluralize from "pluralize";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskAnalytics } from "analytics";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import {
+  ButtonDropdown,
+  DropdownItem,
+  usePopconfirmAnchor,
+} from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
@@ -134,12 +139,20 @@ export const ActionButtons: React.FC<Props> = ({
     loadingScheduleTask ||
     loadingOverrideTaskDependencies;
 
+  const [priorityOpen, setPriorityOpen] = useState(false);
+  const [priorityLoading, setPriorityLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { anchorRef, getItemProps } = usePopconfirmAnchor({
+    isOpen: priorityOpen,
+    onClose: () => setPriorityOpen(false),
+  });
+
   const dropdownItems = [
     <DropdownItem
       key="unschedule"
       data-testid="unschedule-task"
-      disabled={disabled || !canUnschedule}
-      onClick={() => {
+      isDisabled={disabled || !canUnschedule}
+      onAction={() => {
         unscheduleTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked unschedule task button" });
       }}
@@ -149,8 +162,8 @@ export const ActionButtons: React.FC<Props> = ({
     <DropdownItem
       key="abort"
       data-testid="abort-task"
-      disabled={disabled || !canAbort}
-      onClick={() => {
+      isDisabled={disabled || !canAbort}
+      onAction={() => {
         abortTask({ variables: { taskId } });
         taskAnalytics.sendEvent({ name: "Clicked abort task button" });
       }}
@@ -160,8 +173,8 @@ export const ActionButtons: React.FC<Props> = ({
     <DropdownItem
       key="disable-task"
       data-testid="disable-enable"
-      disabled={disabled || !canDisable}
-      onClick={() => {
+      isDisabled={disabled || !canDisable}
+      onAction={() => {
         setTaskPriority({
           variables: {
             taskPriorities: [
@@ -176,25 +189,30 @@ export const ActionButtons: React.FC<Props> = ({
               : "Clicked disable task button",
         });
       }}
-      title={
-        initialPriority < 0
-          ? ""
-          : "Disabling a task prevents it from being run unless explicitly activated by a user."
-      }
     >
-      {initialPriority < 0 ? "Enable" : "Disable"}
+      <span
+        title={
+          initialPriority < 0
+            ? ""
+            : "Disabling a task prevents it from being run unless explicitly activated by a user."
+        }
+      >
+        {initialPriority < 0 ? "Enable" : "Disable"}
+      </span>
     </DropdownItem>,
-    <SetPriority
+    <DropdownItem
       key="set-task-priority"
-      disabled={disabled || !canSetPriority}
-      initialPriority={initialPriority}
-      taskIds={[taskId]}
-    />,
+      data-testid="set-priority-menu-item"
+      isDisabled={disabled || !canSetPriority || priorityLoading}
+      {...getItemProps("priority", () => setPriorityOpen(true), priorityOpen)}
+    >
+      Set task priority
+    </DropdownItem>,
     <DropdownItem
       key="override-dependencies"
       data-testid="override-dependencies"
-      disabled={disabled || !canOverrideDependencies}
-      onClick={() => {
+      isDisabled={disabled || !canOverrideDependencies}
+      onAction={() => {
         overrideTaskDependencies({ variables: { taskId } });
         taskAnalytics.sendEvent({
           name: "Clicked override dependencies button",
@@ -230,6 +248,25 @@ export const ActionButtons: React.FC<Props> = ({
         loading={
           loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
         }
+        open={menuOpen}
+        setOpen={(isOpen) => {
+          setMenuOpen(isOpen);
+          if (!isOpen) {
+            setPriorityOpen(false);
+          }
+        }}
+      />
+      <SetPriority
+        initialPriority={initialPriority}
+        onLoadingChange={setPriorityLoading}
+        onOpenChange={setPriorityOpen}
+        onSubmit={() => {
+          setPriorityOpen(false);
+          setMenuOpen(false);
+        }}
+        open={priorityOpen}
+        refEl={anchorRef}
+        taskIds={[taskId]}
       />
     </PageButtonRow>
   );
