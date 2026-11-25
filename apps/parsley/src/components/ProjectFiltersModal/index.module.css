@@ -1,7 +1,3 @@
-.row {
-  border-bottom: 1px solid var(--via-color-neutral-200);
-}
-
 .filterExpression {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -11,4 +7,9 @@
   font-family:
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   cursor: pointer;
+}
+
+/* TODO(UXE-1615) */
+.table tr[aria-disabled="true"] {
+  color: var(--via-color-text-placeholder);
 }

@@ -69,6 +69,8 @@ export interface OtherFormState {
       testResultsBucketTestResultsPrefix: string;
       testResultsBucketRoleARN: string;
       testResultsBucketType: string;
+      githubFileCacheBucketName: string;
+      githubFileCacheBucketRoleARN: string;
       sourceCacheBucketName: string;
       sourceCacheBucketRoleARN: string;
       sourceCacheOptOutProjects: string[];

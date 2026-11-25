@@ -82,11 +82,11 @@ describe("projectFiltersModal", () => {
       hook.current.setLogMetadata(logMetadata);
     });
     await waitForModalLoad();
-    const checkbox = screen.getAllByRole("checkbox")[1];
+    const checkbox = screen.getByRole("checkbox", { name: "Select row 0" });
     await waitFor(() => {
       expect(checkbox).toBeChecked();
     });
-    expect(checkbox).toHaveAttribute("aria-disabled", "true");
+    expect(checkbox).toBeDisabled();
   });
 
   it("disables submit button when no filters have been selected", async () => {
@@ -121,14 +121,8 @@ describe("projectFiltersModal", () => {
     });
     await waitForModalLoad();
 
-    // LeafyGreen checkbox has pointer-events: none so we click on the labels as a workaround.
-    const checkboxes = screen.getAllByRole("checkbox");
-    const checkbox2 = checkboxes[2];
-    const checkbox3 = checkboxes[3];
-    const checkbox2Label = checkbox2.nextElementSibling as HTMLElement;
-    const checkbox3Label = checkbox3.nextElementSibling as HTMLElement;
-    await user.click(checkbox2Label);
-    await user.click(checkbox3Label);
+    await user.click(screen.getByRole("checkbox", { name: "Select row 1" }));
+    await user.click(screen.getByRole("checkbox", { name: "Select row 2" }));
 
     expect(
       screen.queryByRole("button", { name: "Apply filters" }),
@@ -167,7 +161,7 @@ const waitForModalLoad = async () => {
   );
   await waitFor(() =>
     expect(
-      screen.queryByTestId("table-loader-loading-row"),
+      screen.queryByRole("checkbox", { name: "Select row" }),
     ).not.toBeInTheDocument(),
   );
 };

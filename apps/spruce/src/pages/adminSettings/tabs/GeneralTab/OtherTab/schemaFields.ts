@@ -446,6 +446,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Type",
     },
+    githubFileCacheBucketName: {
+      type: "string" as const,
+      title: "GitHub File Cache Bucket Name",
+    },
+    githubFileCacheBucketRoleARN: {
+      type: "string" as const,
+      title: "GitHub File Cache Bucket Role ARN",
+    },
     sourceCacheBucketName: {
       type: "string" as const,
       title: "Source Cache Bucket Name",
@@ -524,6 +532,14 @@ export const bucketConfig = {
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+    },
+    githubFileCacheBucketName: {
+      "ui:description":
+        "The S3 bucket that caches GitHub files fetched when loading project configuration.",
+    },
+    githubFileCacheBucketRoleARN: {
+      "ui:description":
+        "The IAM role ARN granting scoped access to the GitHub file cache bucket.",
     },
     sourceCacheBucketName: {
       "ui:description":

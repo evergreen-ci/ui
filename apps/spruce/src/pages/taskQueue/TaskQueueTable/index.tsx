@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Badge, BadgeVariant } from "@via-ds/components/badge";
-import { Body } from "@via-ds/components/typography";
-import { StyledRouterLink, WordBreak } from "@evg-ui/lib/components/styles";
+import { Body, Link } from "@via-ds/components/typography";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import {
-  BaseTable,
-  LGColumnDef,
   TablePlaceholder,
-  useLeafyGreenVirtualTable,
+  ViaBaseTable,
+  ViaColumnDef,
+  useVirtualTable,
 } from "@evg-ui/lib/components/Table";
 import { useTaskQueueAnalytics } from "analytics";
 import { Requester, isWaterfallRequester } from "constants/requesters";
@@ -35,42 +35,39 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   taskQueue = [],
 }) => {
   const { sendEvent } = useTaskQueueAnalytics();
-  const [selectedRowIndexes, setSelectedRowIndexes] = useState<number[]>([]);
   const columns = useMemo(() => taskQueueTableColumns(sendEvent), [sendEvent]);
+  const rowSelection = taskId ? { [taskId]: true } : {};
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenVirtualTable<TaskQueueColumnData>({
+  const table = useVirtualTable<TaskQueueColumnData>({
     containerRef: tableContainerRef,
     data: taskQueue,
     columns,
     enableColumnFilters: false,
+    getRowId: (row) => row.id,
+    state: { rowSelection },
     virtualizerOptions: {
       estimateSize,
     },
   });
   const performedInitialScroll = useRef(false);
   useEffect(() => {
-    if (taskId !== undefined && !performedInitialScroll.current) {
-      const i = taskQueue.findIndex((t) => t.id === taskId);
-      setSelectedRowIndexes([i]);
-      table.virtual.scrollToIndex(i, { align: "center" });
-      setTimeout(() => {
-        performedInitialScroll.current = true;
-        table.virtual.scrollToIndex(i, { align: "center", behavior: "smooth" });
-      }, 500);
-    }
+    if (performedInitialScroll.current) return;
+    const i = taskQueue.findIndex((t) => t.id === taskId);
+    if (i === -1) return;
+    performedInitialScroll.current = true;
+    table.virtual.scrollToIndex(i, { align: "center" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskId, taskQueue]);
 
   return (
-    <BaseTable
+    <ViaBaseTable
       ref={tableContainerRef}
       className={styles.virtualScrollingContainer}
       data-testid="task-queue-table"
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       loading={loading}
       loadingRows={10}
-      selectedRowIndexes={selectedRowIndexes}
       shouldAlternateRowColor
       table={table}
     />
@@ -80,7 +77,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
 const taskQueueTableColumns = (
   sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"],
 ) => {
-  const columns: LGColumnDef<TaskQueueColumnData>[] = [
+  const columns: ViaColumnDef<TaskQueueColumnData>[] = [
     {
       header: "",
       cell: ({ row }) => (
@@ -100,13 +97,14 @@ const taskQueueTableColumns = (
         const { buildVariant, displayName, id } = value.row.original;
         return (
           <div className={styles.taskCell}>
-            <StyledRouterLink
+            <Link
               data-testid="current-task-link"
-              onClick={() => sendEvent({ name: "Clicked task link" })}
-              to={getTaskRoute(id)}
+              href={getTaskRoute(id)}
+              linkStyle="internal"
+              onPress={() => sendEvent({ name: "Clicked task link" })}
             >
               {displayName}
-            </StyledRouterLink>
+            </Link>
             <Body>{buildVariant}</Body>
           </div>
         );
@@ -127,12 +125,13 @@ const taskQueueTableColumns = (
         const project =
           value.row.original.projectIdentifier || value.row.original.project;
         return (
-          <StyledRouterLink
-            onClick={() => sendEvent({ name: "Clicked project link" })}
-            to={getProjectPatchesRoute(project)}
+          <Link
+            href={getProjectPatchesRoute(project)}
+            linkStyle="internal"
+            onPress={() => sendEvent({ name: "Clicked project link" })}
           >
             {project}
-          </StyledRouterLink>
+          </Link>
         );
       },
     },
@@ -141,12 +140,13 @@ const taskQueueTableColumns = (
       accessorKey: "version",
       size: NaN,
       cell: (value) => (
-        <StyledRouterLink
-          onClick={() => sendEvent({ name: "Clicked version link" })}
-          to={getVersionRoute(value.row.original.version)}
+        <Link
+          href={getVersionRoute(value.row.original.version)}
+          linkStyle="internal"
+          onPress={() => sendEvent({ name: "Clicked version link" })}
         >
           <WordBreak>{value.row.original.version}</WordBreak>
-        </StyledRouterLink>
+        </Link>
       ),
     },
     {
@@ -164,12 +164,13 @@ const taskQueueTableColumns = (
       header: "Activated By",
       accessorKey: "activatedBy",
       cell: (value) => (
-        <StyledRouterLink
-          onClick={() => sendEvent({ name: "Clicked activated by link" })}
-          to={getUserPatchesRoute(value.row.original.activatedBy)}
+        <Link
+          href={getUserPatchesRoute(value.row.original.activatedBy)}
+          linkStyle="internal"
+          onPress={() => sendEvent({ name: "Clicked activated by link" })}
         >
           <WordBreak>{value.row.original.activatedBy}</WordBreak>
-        </StyledRouterLink>
+        </Link>
       ),
     },
     {

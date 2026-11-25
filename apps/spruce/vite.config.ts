@@ -62,8 +62,11 @@ const getProjectConfig = () => {
         // exclude storybook stories
         exclude: [/\.stories\.tsx?$/],
       }),
-      // Typescript checking
-      checker({ typescript: true }),
+      // Typescript checking - disabled for builds because we run tsc
+      checker({
+        enableBuild: false,
+        typescript: true,
+      }),
       // Bundle analyzer
       visualizer({
         filename: "dist/source_map.html",
