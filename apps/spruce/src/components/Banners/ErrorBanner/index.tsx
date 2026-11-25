@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Callout } from "@leafygreen-ui/callout";
+import { Callout, Text } from "@via-ds/components";
 import Warning from "@via-ds/icons/Warning";
 import { DisplayModal } from "components/DisplayModal";
 import {
@@ -24,7 +24,8 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
 
   return (
     <BannerContainer data-testid="configuration-errors-banner">
-      <Callout title={errorTitle} variant="warning">
+      <Callout variant="warning">
+        <Text slot="title">{errorTitle}</Text>
         {errors[0]}
         {errors.length > 1 && (
           <>
