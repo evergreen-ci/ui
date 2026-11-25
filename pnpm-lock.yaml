@@ -333,11 +333,11 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.19.0
-        version: 0.19.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
+        specifier: 0.20.1
+        version: 0.20.1(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
       '@via-ds/icons':
-        specifier: 0.2.2
-        version: 0.2.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.3.0
+        version: 0.3.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.6
         version: 0.3.6
@@ -691,11 +691,11 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.19.0
-        version: 0.19.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
+        specifier: 0.20.1
+        version: 0.20.1(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
       '@via-ds/icons':
-        specifier: 0.2.2
-        version: 0.2.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.3.0
+        version: 0.3.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.6
         version: 0.3.6
@@ -1258,11 +1258,11 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@via-ds/components':
-        specifier: 0.19.0
-        version: 0.19.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
+        specifier: 0.20.1
+        version: 0.20.1(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)
       '@via-ds/icons':
-        specifier: 0.2.2
-        version: 0.2.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.3.0
+        version: 0.3.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens':
         specifier: 0.3.6
         version: 0.3.6
@@ -5600,13 +5600,13 @@ packages:
     resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
     engines: {node: '>= 20'}
 
-  '@via-ds/components@0.19.0':
-    resolution: {integrity: sha512-zd05viUk/Qv4ab5VsFWqk6cXgHrbMMDtlCMS+J1Uqih1go9ZUBa8Ujk6cnjuDqgYz+KlaHomte6SWr/L3YtH0g==}
+  '@via-ds/components@0.20.1':
+    resolution: {integrity: sha512-xYdm8CSm/8hQsehOuvHSIzzblIbzP3qY+OxyrskVK0jhBSEDGW3ITTrqwiqU6itJPJ54VuTItadaDq3YfAGhcQ==}
     peerDependencies:
-      '@types/react': ^17 || ^18 || ^19
-      '@types/react-dom': ^17 || ^18 || ^19
-      react: ^17 || ^18 || ^19
-      react-dom: ^17 || ^18 || ^19
+      '@types/react': ^18 || ^19
+      '@types/react-dom': ^18 || ^19
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   '@via-ds/eslint-plugin@0.4.0':
     resolution: {integrity: sha512-BBIEPI4i+y/gB09LUZ+Qc0i390I1NLPshk+A2E4OSpYHPci/5oL2nOYGQvrB9uegVcPG19zO/YThUaoGpYIdcg==}
@@ -5619,11 +5619,11 @@ packages:
       '@types/react': '*'
       react: ^17 || ^18 || ^19
 
-  '@via-ds/icons@0.2.2':
-    resolution: {integrity: sha512-vqvDxR+F2aH3XLaLhxXDw5Jyt4gN/H4ogXKLQHFQQg90Jv7nxeF/aKRwUinos3a3vGBT7sueA+t591WvjVZ0Wg==}
+  '@via-ds/icons@0.3.0':
+    resolution: {integrity: sha512-v7stoF/7u/arYyoWreFjb2W8bvMMoBtGp1dCXBBNI8upsA1vHfmBMOPXK2U+g7l/oarHMc4KZ824JBQpn05ymw==}
     peerDependencies:
       '@types/react': '*'
-      react: ^17 || ^18 || ^19
+      react: ^18 || ^19
 
   '@via-ds/tokens@0.3.1':
     resolution: {integrity: sha512-8RFKgcFH+6zBxtAXeb4PJ6Gh2tFychsauV7mywJiDAVs3Wr7v6+IFgj+kxY4VQ8wWWlEMkX/tdUM/uhWUadioA==}
@@ -10494,12 +10494,12 @@ snapshots:
 
   '@emnapi/wasi-threads@1.2.1':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
     optional: true
 
   '@emnapi/wasi-threads@1.2.2':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
     optional: true
 
   '@emnapi/wasi-threads@1.2.3':
@@ -10638,34 +10638,34 @@ snapshots:
       '@envelop/instrumentation': 1.0.0
       '@envelop/types': 5.2.1
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@envelop/core@5.6.1':
     dependencies:
       '@envelop/instrumentation': 1.0.1
       '@envelop/types': 5.2.2
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@envelop/instrumentation@1.0.0':
     dependencies:
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@envelop/instrumentation@1.0.1':
     dependencies:
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@envelop/types@5.2.1':
     dependencies:
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@envelop/types@5.2.2':
     dependencies:
       '@whatwg-node/promise-helpers': 1.3.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@es-joy/escodegen@5.0.1':
     dependencies:
@@ -11157,7 +11157,7 @@ snapshots:
       '@whatwg-node/promise-helpers': 1.3.2
       dataloader: 2.2.3
       graphql: 16.12.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-tools/code-file-loader@8.1.28(graphql@16.12.0)':
     dependencies:
@@ -11203,7 +11203,7 @@ snapshots:
       '@whatwg-node/promise-helpers': 1.3.2
       dataloader: 2.2.3
       graphql: 16.12.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-tools/documents@1.0.1(graphql@16.12.0)':
     dependencies:
@@ -11249,7 +11249,7 @@ snapshots:
       graphql: 16.12.0
       graphql-ws: 6.4.1(@types/ws@8.18.2)(graphql@16.12.0)(ws@8.22.0)
       isows: 1.0.7(ws@8.22.0)
-      tslib: 2.8.1
+      tslib: 2.9.1
       ws: 8.22.0
     transitivePeerDependencies:
       - '@fastify/websocket'
@@ -11283,7 +11283,7 @@ snapshots:
       '@whatwg-node/promise-helpers': 1.3.2
       graphql: 16.12.0
       meros: 1.3.2(@types/node@26.6.6)
-      tslib: 2.8.1
+      tslib: 2.9.1
     transitivePeerDependencies:
       - '@types/node'
 
@@ -11305,7 +11305,7 @@ snapshots:
       '@types/ws': 8.18.2
       graphql: 16.12.0
       isomorphic-ws: 5.0.0(ws@8.22.0)
-      tslib: 2.8.1
+      tslib: 2.9.1
       ws: 8.22.0
     transitivePeerDependencies:
       - bufferutil
@@ -11329,7 +11329,7 @@ snapshots:
       '@whatwg-node/disposablestack': 0.1.0
       '@whatwg-node/promise-helpers': 2.0.0
       graphql: 16.12.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-tools/git-loader@8.0.32(graphql@16.12.0)':
     dependencies:
@@ -11412,7 +11412,7 @@ snapshots:
       '@graphql-tools/utils': 12.1.0(graphql@16.12.0)
       graphql: 16.12.0
       resolve-from: 5.0.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-tools/json-file-loader@8.0.26(graphql@16.12.0)':
     dependencies:
@@ -11482,7 +11482,7 @@ snapshots:
       '@graphql-tools/merge': 9.2.8(graphql@16.12.0)
       '@graphql-tools/utils': 12.1.0(graphql@16.12.0)
       graphql: 16.12.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-tools/url-loader@9.0.6(@types/node@22.19.17)(graphql@16.12.0)':
     dependencies:
@@ -11576,7 +11576,7 @@ snapshots:
       '@graphql-tools/utils': 12.1.0(graphql@16.12.0)
       '@whatwg-node/promise-helpers': 1.3.2
       graphql: 16.12.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@graphql-typed-document-node/core@3.2.0(graphql@16.12.0)':
     dependencies:
@@ -15469,7 +15469,7 @@ snapshots:
 
   '@vercel/oidc@3.2.0': {}
 
-  '@via-ds/components@0.19.0(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)':
+  '@via-ds/components@0.20.1(@react-spectrum/provider@3.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(@typescript/typescript6@6.0.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.33)':
     dependencies:
       '@codemirror/legacy-modes': 6.5.5
       '@floating-ui/react': 0.26.28(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -15503,8 +15503,7 @@ snapshots:
       '@tanstack/react-virtual': 3.14.26(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react': 18.3.12
       '@types/react-dom': 18.3.1
-      '@types/use-sync-external-store': 1.7.0
-      '@via-ds/icons': 0.2.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@via-ds/icons': 0.3.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@via-ds/tokens': 0.3.6
       '@via-ds/types': 0.0.1
       clsx: 2.1.1
@@ -15520,7 +15519,6 @@ snapshots:
       react-intersection-observer: 10.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-stately: 3.51.0(react@18.3.1)
       sonner: 2.0.8(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      use-sync-external-store: 1.7.0(react@18.3.1)
     transitivePeerDependencies:
       - '@react-spectrum/provider'
       - typescript
@@ -15552,7 +15550,7 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@via-ds/icons@0.2.2(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@via-ds/icons@0.3.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@react-aria/utils': 3.34.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react': 18.3.12
@@ -15750,7 +15748,7 @@ snapshots:
   '@whatwg-node/disposablestack@0.1.0':
     dependencies:
       '@whatwg-node/promise-helpers': 2.0.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@whatwg-node/fetch@0.10.13':
     dependencies:
@@ -15774,7 +15772,7 @@ snapshots:
       '@fastify/busboy': 3.2.3
       '@whatwg-node/disposablestack': 0.1.0
       '@whatwg-node/promise-helpers': 2.0.0
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@whatwg-node/promise-helpers@1.3.2':
     dependencies:
@@ -15782,7 +15780,7 @@ snapshots:
 
   '@whatwg-node/promise-helpers@2.0.0':
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@workflow/serde@4.1.0': {}
 
@@ -16120,7 +16118,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   camelcase@7.0.1: {}
 
@@ -16131,7 +16129,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
       upper-case-first: 2.0.2
 
   chai@5.3.3:
@@ -16183,7 +16181,7 @@ snapshots:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   character-entities@2.0.2: {}
 
@@ -16283,7 +16281,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
       upper-case: 2.0.2
 
   content-disposition@0.5.2: {}
@@ -16528,7 +16526,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   dotenv@17.4.2: {}
 
@@ -17406,7 +17404,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   hermes-estree@0.25.1: {}
 
@@ -17633,7 +17631,7 @@ snapshots:
 
   is-lower-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   is-map@2.0.3: {}
 
@@ -17694,7 +17692,7 @@ snapshots:
 
   is-upper-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   is-weakmap@2.0.2: {}
 
@@ -17980,11 +17978,11 @@ snapshots:
 
   lower-case-first@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   lru-cache@11.5.3: {}
 
@@ -18292,7 +18290,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   node-domexception@1.0.0: {}
 
@@ -18488,7 +18486,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   parent-module@1.0.1:
     dependencies:
@@ -18520,12 +18518,12 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   path-exists@4.0.0: {}
 
@@ -19186,7 +19184,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
       upper-case-first: 2.0.2
 
   serve-handler@6.1.7:
@@ -19326,7 +19324,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   sonner@2.0.8(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -19365,7 +19363,7 @@ snapshots:
 
   sponge-case@1.0.1:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   stable-hash-x@0.2.0: {}
 
@@ -19616,7 +19614,7 @@ snapshots:
 
   swap-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   swr@2.5.1(@types/react@18.3.12)(react@18.3.1):
     dependencies:
@@ -19703,7 +19701,7 @@ snapshots:
 
   title-case@3.0.3:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   tldts-core@7.5.5: {}
 
@@ -19968,11 +19966,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   uri-js@4.4.1:
     dependencies:
