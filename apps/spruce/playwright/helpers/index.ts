@@ -133,8 +133,8 @@ const getViaDateSegment = (
  * @param testId - The data-testid attribute value of the date picker
  * @param opts - The expected date values; omit all three to expect an empty picker
  * @param opts.year - The expected year value (e.g., "2025")
- * @param opts.month - The expected zero-padded month value (e.g., "02")
- * @param opts.day - The expected zero-padded day value (e.g., "28")
+ * @param opts.month - The expected month, without a leading zero (e.g., "2")
+ * @param opts.day - The expected day, without a leading zero (e.g., "8")
  */
 export const validateViaDatePickerDate = async (
   page: Page | Locator,
@@ -145,10 +145,7 @@ export const validateViaDatePickerDate = async (
   for (const segment of ["year", "month", "day"] as const) {
     const locator = getViaDateSegment(page, testId, segment);
     if (expected[segment]) {
-      await expect(locator).toHaveAttribute(
-        "aria-valuenow",
-        String(Number(expected[segment])),
-      );
+      await expect(locator).toHaveAttribute("aria-valuenow", expected[segment]);
     } else {
       await expect(locator).not.toHaveAttribute("aria-valuenow");
     }
@@ -160,8 +157,8 @@ export const validateViaDatePickerDate = async (
  * @param page - The Playwright page object
  * @param opts - The date to enter
  * @param opts.year - The year to enter (e.g., "2025")
- * @param opts.month - The zero-padded month to enter (e.g., "02")
- * @param opts.day - The zero-padded day to enter (e.g., "28")
+ * @param opts.month - The month to enter (e.g., "2")
+ * @param opts.day - The day to enter (e.g., "28")
  * @param testId - The data-testid attribute value of the date picker (default: "date-picker")
  */
 export const typeViaDatePickerDate = async (

@@ -338,13 +338,13 @@ test.describe("date filter", () => {
 
     await typeViaDatePickerDate(page, {
       year: "2022",
-      month: "02",
+      month: "2",
       day: "28",
     });
     await expect(page).toHaveURL(/date=2022-02-28/);
     await validateViaDatePickerDate(page, "date-picker", {
       year: "2022",
-      month: "02",
+      month: "2",
       day: "28",
     });
 
@@ -357,7 +357,7 @@ test.describe("date filter", () => {
     await page.goto("/project/spruce/waterfall?date=2022-02-28");
     await validateViaDatePickerDate(page, "date-picker", {
       year: "2022",
-      month: "02",
+      month: "2",
       day: "28",
     });
     await expect(page.getByTestId("waterfall-skeleton")).toBeHidden();

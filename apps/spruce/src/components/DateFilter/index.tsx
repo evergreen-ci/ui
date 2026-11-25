@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
 import { DatePicker, Internationalized } from "@via-ds/components";
 import { Size } from "@via-ds/components/types";
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { isProduction } from "utils/environmentVariables";
+import styles from "./index.module.css";
 
 const { getLocalTimeZone, parseDate, today } = Internationalized;
 
@@ -47,8 +47,13 @@ export const DateFilter: React.FC<DateFilterProps> = ({
   };
 
   return (
-    <StyledDatePicker
+    <DatePicker
       aria-label="Go to date"
+      className={
+        size === Size.Small
+          ? `${styles.datePicker} ${styles.small}`
+          : styles.datePicker
+      }
       data-testid="date-picker"
       firstDayOfWeek="mon"
       label={showLabel ? "Go to Date" : undefined}
@@ -91,12 +96,3 @@ const toCalendarDate = (
     return null;
   }
 };
-
-// The date segments are proportional text, so without a fixed width the field
-// grows and shrinks as placeholders are replaced by digits. Each width fits the
-// "mm / dd / yyyy" placeholder, the widest state. Flex rows like task history's
-// controls would otherwise shrink it below that.
-const StyledDatePicker = styled(DatePicker)<{ size?: Size }>`
-  width: ${({ size }) => (size === Size.Small ? "128px" : "140px")};
-  flex-shrink: 0;
-`;

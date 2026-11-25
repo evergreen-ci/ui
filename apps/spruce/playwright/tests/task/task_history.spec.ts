@@ -440,13 +440,13 @@ test.describe("task history", () => {
 
       await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(
@@ -472,13 +472,13 @@ test.describe("task history", () => {
 
       await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(page).toHaveURL(/2025-02-28/);
       await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(
@@ -494,7 +494,7 @@ test.describe("task history", () => {
       await page.getByTestId("expanded-option").click();
       await validateViaDatePickerDate(page, "date-picker", {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(
@@ -546,7 +546,7 @@ test.describe("task history", () => {
 
       await typeViaDatePickerDate(page, {
         year: "2025",
-        month: "02",
+        month: "2",
         day: "28",
       });
       await expect(firstTaskCard.getByText("Order: 12306")).toBeHidden();
