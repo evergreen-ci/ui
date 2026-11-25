@@ -16,14 +16,14 @@ test.describe("Viewing a patch requester", () => {
     }) => {
       const breadcrumb = page.getByTestId("bc-display-task");
       await expect(breadcrumb).toContainText("asdf");
-      await breadcrumb.click();
+      await breadcrumb.getByRole("link").click();
       await expect(page).toHaveURL(new RegExp(`/task/${displayTaskId}`));
     });
 
     test("Clicking the 'My Patches' breadcrumb goes to the logged in user's Patches Page when the current patch belongs to the logged in user", async ({
       page,
     }) => {
-      await page.getByTestId("bc-my-patches").click();
+      await page.getByTestId("bc-my-patches").getByRole("link").click();
       await expect(page).toHaveURL("/user/admin/patches");
     });
   });
@@ -40,7 +40,7 @@ test.describe("Viewing a patch requester", () => {
     }) => {
       const breadcrumb = page.getByTestId("bc-message");
       await expect(breadcrumb).toContainText("Patch 1251 - dist");
-      await breadcrumb.click();
+      await breadcrumb.getByRole("link").click();
       await expect(page).toHaveURL(
         "/version/5ecedafb562343215a7ff297/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
@@ -67,7 +67,7 @@ test.describe("Viewing a mainline commit requester", () => {
   }) => {
     const breadcrumb = page.getByTestId("bc-message");
     await expect(breadcrumb).toContainText("5e823e1 - 'ever…reen/pull/3186)");
-    await breadcrumb.click();
+    await breadcrumb.getByRole("link").click();
     await expect(page).toHaveURL(
       "/version/5e4ff3abe3c3317e352062e4/tasks?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
@@ -78,7 +78,7 @@ test.describe("Viewing a mainline commit requester", () => {
   }) => {
     const breadcrumb = page.getByTestId("bc-waterfall");
     await expect(breadcrumb).toContainText("evergreen");
-    await breadcrumb.click();
+    await breadcrumb.getByRole("link").click();
     await expect(page).toHaveURL("/project/evergreen/waterfall");
   });
 });
