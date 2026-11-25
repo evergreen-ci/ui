@@ -3,6 +3,7 @@ export { RestartPatch } from "./RestartPatch";
 export { RestartFailedTasks } from "./RestartFailedTasks";
 export { AddNotification } from "./AddNotification";
 export { DisableTasks } from "./DisableTasks";
+export { ModifyTasks } from "./ModifyTasks";
 export { ScheduleTasks } from "./ScheduleTasks";
 export { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 export { SetPatchVisibility } from "./SetPatchVisibility";

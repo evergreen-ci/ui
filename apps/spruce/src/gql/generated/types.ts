@@ -7623,6 +7623,65 @@ export type SchedulePatchMutation = {
   };
 };
 
+export type ScheduleTasksByFilterMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  filter: TaskFilterOptions;
+}>;
+
+export type ScheduleTasksByFilterMutation = {
+  __typename?: "Mutation";
+  scheduleTasksByFilter: {
+    __typename?: "BulkTaskOperationResult";
+    modifiedTasks: Array<{
+      __typename?: "Task";
+      canSchedule: boolean;
+      canUnschedule: boolean;
+      status: string;
+      id: string;
+      buildVariant: string;
+      buildVariantDisplayName?: string | null;
+      displayName: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    }>;
+    taskErrors: Array<{
+      __typename?: "TaskError";
+      taskId: string;
+      reason: string;
+    }>;
+  };
+};
+
+export type ScheduleTasksByIdsMutationVariables = Exact<{
+  taskIds: Array<Scalars["String"]["input"]>;
+}>;
+
+export type ScheduleTasksByIdsMutation = {
+  __typename?: "Mutation";
+  scheduleTasksByIds: {
+    __typename?: "BulkTaskOperationResult";
+    modifiedTasks: Array<{
+      __typename?: "Task";
+      canSchedule: boolean;
+      canUnschedule: boolean;
+      status: string;
+      id: string;
+      buildVariant: string;
+      buildVariantDisplayName?: string | null;
+      displayName: string;
+      displayStatus: string;
+      execution: number;
+      revision?: string | null;
+    }>;
+    taskErrors: Array<{
+      __typename?: "TaskError";
+      taskId: string;
+      reason: string;
+    }>;
+  };
+};
+
 export type ScheduleTasksMutationVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
