@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
+import { BadgeVariant } from "@via-ds/components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQueryParams } from "@evg-ui/lib/hooks";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -35,7 +36,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numFailedChildPatches}
-        badgeVariant="red"
+        badgeVariant={BadgeVariant.Error}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -45,7 +46,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numStartedChildPatches}
-        badgeVariant="yellow"
+        badgeVariant={BadgeVariant.Warning}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -55,7 +56,7 @@ const getDownstreamTabName = (
     return (
       <TabLabelWithBadge
         badgeText={numSuccessChildPatches}
-        badgeVariant="green"
+        badgeVariant={BadgeVariant.Success}
         dataTestIdBadge="downstream-tab-badge"
         tabLabel="Downstream Projects"
       />
@@ -64,7 +65,7 @@ const getDownstreamTabName = (
   return (
     <TabLabelWithBadge
       badgeText={0}
-      badgeVariant="lightgray"
+      badgeVariant={BadgeVariant.Status}
       dataTestIdBadge="downstream-tab-badge"
       tabLabel="Downstream Projects"
     />
