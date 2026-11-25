@@ -91,6 +91,10 @@ export const ADMIN_SETTINGS = gql`
           key
           secret
         }
+        githubFileCacheBucket {
+          name
+          roleARN
+        }
         logBucket {
           expirationDays
           lifecycleLastSyncedAt
@@ -185,6 +189,10 @@ export const ADMIN_SETTINGS = gql`
       }
       githubOrgs
       githubPRCreatorOrg
+      githubRecoveryApp {
+        appId
+        privateKey
+      }
       githubWebhookSecret
       graphite {
         ciOptimizationToken

@@ -27,6 +27,7 @@ import { IgnoredBanner } from "./version/IgnoredBanner";
 import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
 import VersionTabs from "./version/Tabs";
+import { TaskSelectionProvider } from "./version/TaskSelection";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
@@ -121,33 +122,38 @@ export const VersionPage: React.FC = () => {
           versionMetadata={version}
         />
       )}
-      <PageTitle
-        badge={<PatchStatusBadge status={status} />}
-        buttons={
-          <ActionButtons
-            activeTaskIds={activeTaskIds}
-            isPatch={!!isPatch}
-            requester={requester}
-            versionId={versionId}
-          />
-        }
-        loading={false}
-        pageTitle={pageTitle}
-        title={linkifiedMessage || `Version ${order}`}
-      >
-        {isPatch && (
-          <NameChangeModal originalPatchName={message} patchId={versionId} />
-        )}
-      </PageTitle>
-      <PageLayout hasSider>
-        <PageSider>
-          <Metadata version={version} />
-          <BuildVariantCard versionId={versionId} />
-        </PageSider>
-        <PageContent>
-          <VersionTabs setActiveTaskIds={setActiveTaskIds} version={version} />
-        </PageContent>
-      </PageLayout>
+      <TaskSelectionProvider versionId={versionId}>
+        <PageTitle
+          badge={<PatchStatusBadge status={status} />}
+          buttons={
+            <ActionButtons
+              activeTaskIds={activeTaskIds}
+              isPatch={!!isPatch}
+              requester={requester}
+              versionId={versionId}
+            />
+          }
+          loading={false}
+          pageTitle={pageTitle}
+          title={linkifiedMessage || `Version ${order}`}
+        >
+          {isPatch && (
+            <NameChangeModal originalPatchName={message} patchId={versionId} />
+          )}
+        </PageTitle>
+        <PageLayout hasSider>
+          <PageSider>
+            <Metadata version={version} />
+            <BuildVariantCard versionId={versionId} />
+          </PageSider>
+          <PageContent>
+            <VersionTabs
+              setActiveTaskIds={setActiveTaskIds}
+              version={version}
+            />
+          </PageContent>
+        </PageLayout>
+      </TaskSelectionProvider>
     </PageWrapper>
   );
 };

@@ -1,5 +1,5 @@
-import { Button, Size as ButtonSize } from "@leafygreen-ui/button";
-import { Chip, Variant as ChipVariant } from "@leafygreen-ui/chip";
+import { Button } from "@via-ds/components/button";
+import { Chip, ChipGroup, ChipVariant } from "@via-ds/components/chip";
 import { Pagination } from "../../Pagination";
 import styles from "./index.module.css";
 import { TableControlInnerRow, TableControlOuterRow } from "./styles";
@@ -14,6 +14,7 @@ interface Props {
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
   page: number;
+  selectedCount?: number;
 }
 
 const TableControl: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const TableControl: React.FC<Props> = ({
   onPageChange,
   onPageSizeChange,
   page,
+  selectedCount,
   totalCount,
 }) => {
   const handlePageSizeChange = (pageSize: number) => {
@@ -35,23 +37,33 @@ const TableControl: React.FC<Props> = ({
     onPageChange?.(newPage);
   };
 
-  const onClearAll = () => {
-    onClear();
-  };
-
   return (
     <TableControlOuterRow>
       <div className={styles.flexContainer}>
-        <Chip
-          data-testid="total-count"
-          label={`Total count: ${totalCount}`}
-          variant={ChipVariant.Gray}
-        />
+        <ChipGroup aria-label="Table count">
+          <Chip
+            className={styles.chip}
+            data-testid="total-count"
+            id="total-count"
+            variant={ChipVariant.Gray}
+          >
+            {`Total count: ${totalCount}`}
+          </Chip>
+          {selectedCount !== undefined && (
+            <Chip
+              className={styles.chip}
+              data-testid="selected-count"
+              variant={ChipVariant.Gray}
+            >
+              {`Selected: ${selectedCount}`}
+            </Chip>
+          )}
+        </ChipGroup>
         <Button
           data-testid="clear-all-filters"
-          disabled={disabled}
-          onClick={onClearAll}
-          size={ButtonSize.Small}
+          isDisabled={disabled}
+          onPress={onClear}
+          size="small"
         >
           Clear all filters
         </Button>

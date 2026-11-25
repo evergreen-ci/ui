@@ -34,6 +34,7 @@ export const gqlToForm = ((data) => {
     githubCheckRun,
     githubOrgs,
     githubPRCreatorOrg,
+    githubRecoveryApp,
     githubWebhookSecret,
     hostJasper,
     jiraNotifications,
@@ -148,6 +149,9 @@ export const gqlToForm = ((data) => {
           buckets?.testResultsBucket?.testResultsPrefix ?? "",
         testResultsBucketType: buckets?.testResultsBucket?.type ?? "",
         testResultsBucketRoleARN: buckets?.testResultsBucket?.roleARN ?? "",
+        githubFileCacheBucketName: buckets?.githubFileCacheBucket?.name ?? "",
+        githubFileCacheBucketRoleARN:
+          buckets?.githubFileCacheBucket?.roleARN ?? "",
         sourceCacheBucketName: buckets?.sourceCacheBucket?.name ?? "",
         sourceCacheBucketRoleARN: buckets?.sourceCacheBucket?.roleARN ?? "",
         sourceCacheOptOutProjects: buckets?.sourceCacheOptOutProjects ?? [],
@@ -262,6 +266,11 @@ export const gqlToForm = ((data) => {
         checkRunLimit: githubCheckRun?.checkRunLimit ?? 0,
       },
 
+      githubRecoveryApp: {
+        appId: githubRecoveryApp?.appId || null,
+        privateKey: githubRecoveryApp?.privateKey ?? "",
+      },
+
       diagnosticsConfig: {
         s3BucketName: diagnostics?.s3BucketName ?? "",
         s3Prefix: diagnostics?.s3Prefix ?? "",
@@ -279,6 +288,7 @@ export const formToGql = ((form: OtherFormState) => {
     diagnosticsConfig,
     expansions,
     githubCheckRunConfigurations,
+    githubRecoveryApp,
     hostJasper,
     jiraNotificationsFields,
     miscSettings,
@@ -377,14 +387,8 @@ export const formToGql = ((form: OtherFormState) => {
       logBucketFailedTasks: {
         name: bucketConfig.failedTasksLogBucketName || undefined,
       },
-      longRetentionProjects:
-        bucketConfig.longRetentionProjects.length > 0
-          ? bucketConfig.longRetentionProjects
-          : undefined,
-      sourceCacheOptOutProjects:
-        bucketConfig.sourceCacheOptOutProjects.length > 0
-          ? bucketConfig.sourceCacheOptOutProjects
-          : undefined,
+      longRetentionProjects: bucketConfig.longRetentionProjects,
+      sourceCacheOptOutProjects: bucketConfig.sourceCacheOptOutProjects,
       testResultsBucket: {
         name: bucketConfig.testResultsBucketName || undefined,
         testResultsPrefix:
@@ -398,6 +402,10 @@ export const formToGql = ((form: OtherFormState) => {
       sourceCacheBucket: {
         name: bucketConfig.sourceCacheBucketName,
         roleARN: bucketConfig.sourceCacheBucketRoleARN,
+      },
+      githubFileCacheBucket: {
+        name: bucketConfig.githubFileCacheBucketName,
+        roleARN: bucketConfig.githubFileCacheBucketRoleARN,
       },
       credentials: {
         key: bucketConfig.credentialsKey || undefined,
@@ -489,6 +497,12 @@ export const formToGql = ((form: OtherFormState) => {
 
     githubCheckRun: {
       checkRunLimit: githubCheckRunConfigurations.checkRunLimit || undefined,
+    },
+
+    // Always serialized so that clearing the app ID persists.
+    githubRecoveryApp: {
+      appId: githubRecoveryApp.appId ?? 0,
+      privateKey: githubRecoveryApp.privateKey,
     },
 
     diagnostics: {

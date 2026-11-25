@@ -165,10 +165,11 @@ test.describe("Tasks filters", () => {
         "Dispatched",
         "Blocked",
       ];
-      const allCheckbox = page.getByRole("checkbox", { name: "All" });
+      const options = page.getByTestId("tree-select-options");
+      const allCheckbox = options.getByRole("checkbox", { name: "All" });
       await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
-        const checkbox = page.getByRole("checkbox", { name: label }).first();
+        const checkbox = options.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).toBeChecked();
       }
       await expect(page).toHaveURL(/statuses=all/);
@@ -176,7 +177,7 @@ test.describe("Tasks filters", () => {
 
       await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
-        const checkbox = page.getByRole("checkbox", { name: label }).first();
+        const checkbox = options.getByRole("checkbox", { name: label }).first();
         await expect(checkbox).not.toBeChecked();
       }
       await expect(page).not.toHaveURL(/statuses/);
@@ -216,10 +217,13 @@ test.describe("Tasks filters", () => {
       page,
     }) => {
       const taskStatuses = ["All", "Succeeded", "Running"];
-      const allCheckbox = page.getByRole("checkbox", { name: "All" });
+      const options = page.getByTestId("base-status-filter-wrapper");
+      const allCheckbox = options.getByRole("checkbox", { name: "All" });
       await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
-        await expect(page.getByRole("checkbox", { name: label })).toBeChecked();
+        await expect(
+          options.getByRole("checkbox", { name: label }),
+        ).toBeChecked();
       }
       await expect(page).toHaveURL(/baseStatuses=all/);
       await waitForTaskTable(page);
@@ -227,7 +231,7 @@ test.describe("Tasks filters", () => {
       await clickCheckbox(allCheckbox);
       for (const label of taskStatuses) {
         await expect(
-          page.getByRole("checkbox", { name: label }),
+          options.getByRole("checkbox", { name: label }),
         ).not.toBeChecked();
       }
       await expect(page).not.toHaveURL(/baseStatuses/);

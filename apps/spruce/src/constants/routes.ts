@@ -199,6 +199,9 @@ export const getVersionRoute = (
   options?: {
     tab?: VersionPageTabs;
     variant?: string;
+    taskName?: string;
+    taskTags?: string[];
+    variantTags?: string[];
     page?: number;
     statuses?: string[];
     sorts?: string | string[];

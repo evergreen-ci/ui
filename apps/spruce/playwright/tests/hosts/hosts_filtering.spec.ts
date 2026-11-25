@@ -101,7 +101,7 @@ test.describe("Hosts page filtering from table filters", () => {
           "false",
         );
 
-        const rows = page.getByTestId("leafygreen-table-row");
+        const rows = page.getByTestId("via-table-row");
         for (let i = 0; i < expectedIds.length; i++) {
           await expect(rows.nth(i)).toContainText(expectedIds[i]);
         }
@@ -140,7 +140,7 @@ test.describe("Hosts page filtering from table filters", () => {
       "build10.ny.cbi.10gen.cc",
     ];
 
-    const rows = page.getByTestId("leafygreen-table-row");
+    const rows = page.getByTestId("via-table-row");
     for (let i = 0; i < expectedIds.length; i++) {
       await expect(rows.nth(i)).toContainText(expectedIds[i]);
     }

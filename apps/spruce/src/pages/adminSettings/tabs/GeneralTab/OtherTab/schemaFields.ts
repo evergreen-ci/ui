@@ -446,6 +446,14 @@ export const bucketConfig = {
       type: "string" as const,
       title: "Test Results Bucket Type",
     },
+    githubFileCacheBucketName: {
+      type: "string" as const,
+      title: "GitHub File Cache Bucket Name",
+    },
+    githubFileCacheBucketRoleARN: {
+      type: "string" as const,
+      title: "GitHub File Cache Bucket Role ARN",
+    },
     sourceCacheBucketName: {
       type: "string" as const,
       title: "Source Cache Bucket Name",
@@ -524,6 +532,14 @@ export const bucketConfig = {
     longRetentionProjects: {
       "ui:widget": widgets.ChipInputWidget,
       "ui:fieldCss": fullWidthCss,
+    },
+    githubFileCacheBucketName: {
+      "ui:description":
+        "The S3 bucket that caches GitHub files fetched when loading project configuration.",
+    },
+    githubFileCacheBucketRoleARN: {
+      "ui:description":
+        "The IAM role ARN granting scoped access to the GitHub file cache bucket.",
     },
     sourceCacheBucketName: {
       "ui:description":
@@ -928,5 +944,27 @@ export const githubCheckRunConfigurations = {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     "ui:data-testid": "github-check-run-configurations",
     "ui:objectFieldCss": objectGridCss,
+  },
+};
+
+export const githubRecoveryApp = {
+  schema: {
+    appId: {
+      type: ["number", "null"],
+      title: "App ID",
+    },
+    privateKey: {
+      type: "string" as const,
+      title: "Private Key",
+    },
+  },
+  uiSchema: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    "ui:data-testid": "github-recovery-app",
+    "ui:objectFieldCss": objectGridCss,
+    privateKey: {
+      "ui:widget": "textarea",
+      "ui:fieldCss": fullWidthCss,
+    },
   },
 };
