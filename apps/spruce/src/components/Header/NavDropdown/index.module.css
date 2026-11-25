@@ -1,8 +1,5 @@
-.navDropdownTitle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.navDropdownTitle.navDropdownTitle {
+  --button-text-color-light: var(--via-color-neutral-000);
+  --button-text-color-dark: var(--via-color-neutral-000);
   flex-shrink: 0;
-  color: var(--via-color-neutral-000);
-  cursor: pointer;
 }
