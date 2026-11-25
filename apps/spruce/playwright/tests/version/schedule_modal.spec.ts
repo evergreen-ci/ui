@@ -19,7 +19,7 @@ test.describe("Restarting and scheduling mainline commits", () => {
     await taskCheckbox.click();
 
     const confirmButton = modal.getByRole("button", { name: "Schedule" });
-    await expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+    await expect(confirmButton).toBeEnabled();
     await confirmButton.click();
     await validateToast(page, "success", "Successfully scheduled tasks!");
   });
