@@ -95,7 +95,6 @@
     "@leafygreen-ui/skeleton-loader": "^3.0.6",
     "@leafygreen-ui/split-button": "^6.3.0",
     "@leafygreen-ui/table": "^15.2.2",
-    "@leafygreen-ui/tabs": "^17.0.9",
     "@leafygreen-ui/text-area": "^12.1.4",
     "@leafygreen-ui/text-input": "^16.2.0",
     "@leafygreen-ui/toggle": "^12.1.4",

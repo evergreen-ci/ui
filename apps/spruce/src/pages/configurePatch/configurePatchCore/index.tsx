@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useMutation } from "@apollo/client/react";
 import styled from "@emotion/styled";
 import { Button } from "@leafygreen-ui/button";
-import { Tab } from "@leafygreen-ui/tabs";
 import { TextInput } from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -257,34 +256,45 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({
           <StyledTabs
             aria-label="Configure Patch Tabs"
             onValueChange={(i: number) => setSelectedTab(indexToTabMap[i])}
+            tabs={[
+              {
+                key: "configure-tab",
+                name: "Configure",
+                content: (
+                  <ConfigureTasks
+                    activated={activated}
+                    activatedVariants={variantsTasks}
+                    aliasCount={aliasCount}
+                    childPatches={childPatchesWithAliases}
+                    selectableAliases={selectableAliases}
+                    selectedAliases={selectedAliases}
+                    selectedBuildVariants={selectedBuildVariants}
+                    selectedBuildVariantTasks={selectedBuildVariantTasks}
+                    setSelectedAliases={setSelectedAliases}
+                    setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+                    totalSelectedTaskCount={totalSelectedTaskCount}
+                  />
+                ),
+              },
+              {
+                key: "changes-tab",
+                name: "Changes",
+                content: <CodeChanges patchId={id} />,
+              },
+              {
+                key: "parameters-tab",
+                name: "Parameters",
+                content: (
+                  <ParametersContent
+                    patchActivated={activated}
+                    patchParameters={patchParams}
+                    setPatchParams={setPatchParams}
+                  />
+                ),
+              },
+            ]}
             value={tabToIndexMap[selectedTab]}
-          >
-            <Tab data-testid="tasks-tab" name="Configure">
-              <ConfigureTasks
-                activated={activated}
-                activatedVariants={variantsTasks}
-                aliasCount={aliasCount}
-                childPatches={childPatchesWithAliases}
-                selectableAliases={selectableAliases}
-                selectedAliases={selectedAliases}
-                selectedBuildVariants={selectedBuildVariants}
-                selectedBuildVariantTasks={selectedBuildVariantTasks}
-                setSelectedAliases={setSelectedAliases}
-                setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-                totalSelectedTaskCount={totalSelectedTaskCount}
-              />
-            </Tab>
-            <Tab data-testid="changes-tab" name="Changes">
-              <CodeChanges patchId={id} />
-            </Tab>
-            <Tab data-testid="parameters-tab" name="Parameters">
-              <ParametersContent
-                patchActivated={activated}
-                patchParameters={patchParams}
-                setPatchParams={setPatchParams}
-              />
-            </Tab>
-          </StyledTabs>
+          />
         </PageContent>
       </PageLayout>
     </>
