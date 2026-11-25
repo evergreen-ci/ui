@@ -9696,6 +9696,49 @@ export type ProjectBuildBaronSettingsQuery = {
   };
 };
 
+export type ProjectCommitHistoryQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+  options: ProjectCommitsOptions;
+}>;
+
+export type ProjectCommitHistoryQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    identifier: string;
+    commits: {
+      __typename?: "ProjectCommits";
+      pagination: {
+        __typename?: "ProjectCommitsPagination";
+        hasNextPage: boolean;
+        nextPageOrder: number;
+      };
+      versions: Array<{
+        __typename?: "Version";
+        id: string;
+        createTime: Date;
+        message: string;
+        order: number;
+        revision: string;
+        taskStatusStats?: {
+          __typename?: "TaskStats";
+          counts?: Array<{
+            __typename?: "StatusCount";
+            count: number;
+            status: string;
+          }> | null;
+        } | null;
+        user: {
+          __typename?: "User";
+          displayName?: string | null;
+          userId: string;
+        };
+      }>;
+    };
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;

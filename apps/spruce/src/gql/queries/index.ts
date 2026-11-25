@@ -40,6 +40,7 @@ export { PATCH_CONFIGURE_GENERATED_TASK_COUNTS } from "./patch-configure-generat
 export { PROJECT } from "./project";
 export { PROJECT_BANNER } from "./project-banner";
 export { PROJECT_BUILD_BARON_SETTINGS } from "./project-build-baron-settings";
+export { PROJECT_COMMIT_HISTORY } from "./project-commit-history";
 export { PROJECT_EVENT_LOGS } from "./project-event-logs";
 export { PROJECT_PATCHES } from "./project-patches";
 export { PROJECT_SETTINGS } from "./project-settings";

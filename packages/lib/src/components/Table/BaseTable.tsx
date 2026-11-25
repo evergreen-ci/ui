@@ -101,7 +101,7 @@ export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
           <TableBody>
             {loading && (
               <TableLoader
-                numColumns={table.getAllColumns().length}
+                numColumns={table.getVisibleLeafColumns().length}
                 numRows={loadingRows}
               />
             )}
