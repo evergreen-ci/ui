@@ -7600,11 +7600,8 @@ packages:
   lodash.throttle@4.1.1:
     resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-
-  lodash@4.17.23:
-    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -11557,7 +11554,7 @@ snapshots:
       '@leafygreen-ui/logo': 11.1.0(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/palette': 5.0.2
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11690,7 +11687,7 @@ snapshots:
       facepaint: 1.2.1
       highlight.js: 11.5.1
       highlightjs-graphql: 1.0.2
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -11716,7 +11713,7 @@ snapshots:
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       chalk: 4.1.2
-      lodash: 4.17.23
+      lodash: 4.18.1
       polished: 4.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -11782,7 +11779,7 @@ snapshots:
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       date-fns: 2.30.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
       weekstart: 2.0.0
     transitivePeerDependencies:
@@ -11797,7 +11794,7 @@ snapshots:
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
       date-fns: 2.30.0
       date-fns-tz: 2.0.1(date-fns@2.30.0)
-      lodash: 4.17.21
+      lodash: 4.18.1
       timezone-mock: 1.3.6
       weekstart: 2.0.0
     transitivePeerDependencies:
@@ -11808,7 +11805,7 @@ snapshots:
       '@leafygreen-ui/hooks': 9.3.1(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/leafygreen-provider': 5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11939,7 +11936,7 @@ snapshots:
     dependencies:
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11949,7 +11946,7 @@ snapshots:
     dependencies:
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11959,7 +11956,7 @@ snapshots:
     dependencies:
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@19.2.17)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11985,7 +11982,7 @@ snapshots:
     dependencies:
       '@leafygreen-ui/emotion': 5.2.0(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/hooks': 9.3.0(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -11995,7 +11992,7 @@ snapshots:
     dependencies:
       '@leafygreen-ui/emotion': 5.2.0(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/hooks': 9.3.1(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -12071,12 +12068,12 @@ snapshots:
 
   '@leafygreen-ui/lib@15.6.2(react@18.3.1)':
     dependencies:
-      lodash: 4.17.23
+      lodash: 4.18.1
       react: 18.3.1
 
   '@leafygreen-ui/lib@15.7.0(react@18.3.1)':
     dependencies:
-      lodash: 4.17.23
+      lodash: 4.18.1
       react: 18.3.1
 
   '@leafygreen-ui/loading-indicator@5.1.1(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)':
@@ -12119,7 +12116,7 @@ snapshots:
       '@leafygreen-ui/popover': 14.3.2(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
       react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
@@ -12161,7 +12158,7 @@ snapshots:
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tooltip': 14.3.1(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -12180,7 +12177,7 @@ snapshots:
       '@leafygreen-ui/select': 17.1.0(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -12193,7 +12190,7 @@ snapshots:
   '@leafygreen-ui/polymorphic@3.1.0(react@18.3.1)':
     dependencies:
       '@leafygreen-ui/lib': 15.7.0(react@18.3.1)
-      lodash: 4.17.23
+      lodash: 4.18.1
     transitivePeerDependencies:
       - react
 
@@ -12207,7 +12204,7 @@ snapshots:
       '@leafygreen-ui/portal': 7.1.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@types/react-transition-group': 4.4.12(@types/react@18.3.12)
-      lodash: 4.17.21
+      lodash: 4.18.1
       react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - '@types/react'
@@ -12286,7 +12283,7 @@ snapshots:
       '@leafygreen-ui/popover': 14.3.2(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -12306,7 +12303,7 @@ snapshots:
       '@leafygreen-ui/polymorphic': 3.1.0(react@18.3.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -12329,7 +12326,7 @@ snapshots:
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@lg-tools/test-harnesses': 0.3.4
       '@types/react-is': 18.3.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
       react-is: 18.3.1
     transitivePeerDependencies:
@@ -12355,7 +12352,7 @@ snapshots:
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@lg-tools/test-harnesses': 0.3.4
       '@types/react-is': 18.3.1
-      lodash: 4.17.23
+      lodash: 4.18.1
       polished: 4.3.1
       react-is: 18.3.1
     transitivePeerDependencies:
@@ -12399,7 +12396,7 @@ snapshots:
       '@leafygreen-ui/palette': 5.0.2
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -12440,7 +12437,7 @@ snapshots:
       '@lg-tools/test-harnesses': 0.3.4
       '@tanstack/react-table': 8.21.3(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-virtual': 3.13.6(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
       react-fast-compare: 3.2.2
       react-intersection-observer: 8.34.0(react@18.3.1)
@@ -12513,7 +12510,7 @@ snapshots:
       '@leafygreen-ui/portal': 7.1.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
       react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
@@ -12589,7 +12586,7 @@ snapshots:
       '@leafygreen-ui/popover': 14.3.2(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
       polished: 4.3.1
     transitivePeerDependencies:
       - '@types/react'
@@ -12974,7 +12971,7 @@ snapshots:
       '@leafygreen-ui/tokens': 4.2.2(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@leafygreen-ui/typography': 22.2.4(@leafygreen-ui/leafygreen-provider@5.0.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1))(@types/react@18.3.12)(react@18.3.1)(supports-color@8.1.1)
       '@lg-chat/leafygreen-chat-provider': 6.0.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       react-keyed-flatten-children: 1.3.0(@types/react@18.3.12)(react@18.3.1)
       react-textarea-autosize: 8.5.9(@types/react@18.3.12)(react@18.3.1)
     transitivePeerDependencies:
@@ -17598,9 +17595,7 @@ snapshots:
 
   lodash.throttle@4.1.1: {}
 
-  lodash@4.17.21: {}
-
-  lodash@4.17.23: {}
+  lodash@4.18.1: {}
 
   log-symbols@4.1.0:
     dependencies:
