@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Button, Variant } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { RJSFValidationError } from "@rjsf/utils";
-import isEqual from "lodash.isequal";
+import { deepEqual } from "fast-equals";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
@@ -69,7 +69,7 @@ export const Settings: React.FC<SettingsProps> = ({
   const hasChanges =
     slackUsername !== formState.slackUsername ||
     slackMemberId !== formState.slackMemberId ||
-    !isEqual(formState.notifications, notifications);
+    !deepEqual(formState.notifications, notifications);
 
   return (
     <>

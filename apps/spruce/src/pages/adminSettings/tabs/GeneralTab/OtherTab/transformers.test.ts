@@ -12,6 +12,30 @@ describe("other tab transformers", () => {
     expect(formToGql(expectedForm)).toStrictEqual(expectedGql);
   });
 
+  it("shows an unset GitHub recovery app ID as empty", () => {
+    const loaded = gqlToForm({
+      ...mockAdminSettings,
+      githubRecoveryApp: { appId: 0, privateKey: "stale-key" },
+    });
+    expect(loaded?.other.githubRecoveryApp).toStrictEqual({
+      appId: null,
+      privateKey: "stale-key",
+    });
+  });
+
+  it("sends a cleared GitHub recovery app ID so it persists as unset", () => {
+    const form: OtherFormState = {
+      other: {
+        ...expectedForm.other,
+        githubRecoveryApp: { appId: null, privateKey: "" },
+      },
+    };
+    expect(formToGql(form).githubRecoveryApp).toStrictEqual({
+      appId: 0,
+      privateKey: "",
+    });
+  });
+
   it("converts lifecycleLastSyncedAt values arriving as ISO strings", () => {
     const isoString = "2026-07-06T12:00:00.000Z";
     const adminSettingsWithSyncTime: AdminSettingsData = {
@@ -71,6 +95,28 @@ describe("other tab transformers", () => {
         ...expectedGql.buckets,
         longRetentionProjects: [],
       },
+    });
+  });
+
+  it("round-trips a pre-existing GitHub file cache bucket so a save preserves it", () => {
+    const adminSettingsWithGithubFileCache: AdminSettingsData = {
+      ...mockAdminSettings,
+      buckets: {
+        ...mockAdminSettings.buckets,
+        githubFileCacheBucket: {
+          name: "pre-existing-github-file-cache",
+          roleARN: "",
+        },
+      },
+    };
+
+    const loaded = gqlToForm(adminSettingsWithGithubFileCache);
+    expect(loaded?.other.bucketConfig.githubFileCacheBucketName).toBe(
+      "pre-existing-github-file-cache",
+    );
+    expect(formToGql(loaded!).buckets.githubFileCacheBucket).toStrictEqual({
+      name: "pre-existing-github-file-cache",
+      roleARN: "",
     });
   });
 
@@ -203,6 +249,10 @@ const mockAdminSettings: AdminSettingsData = {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
     },
+    githubFileCacheBucket: {
+      name: "evergreen-github-file-cache",
+      roleARN: "",
+    },
     sourceCacheOptOutProjects: ["project3"],
     credentials: {
       key: "cred-key",
@@ -272,6 +322,10 @@ const mockAdminSettings: AdminSettingsData = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  githubRecoveryApp: {
+    appId: 1234,
+    privateKey: "recovery-private-key",
   },
   diagnostics: {
     s3BucketName: "diagnostics-bucket",
@@ -349,6 +403,8 @@ const expectedForm: OtherFormState = {
       testResultsBucketTestResultsPrefix: "results/",
       testResultsBucketRoleARN: "arn:aws:iam::123456789:role/TestRole",
       testResultsBucketType: "s3",
+      githubFileCacheBucketName: "evergreen-github-file-cache",
+      githubFileCacheBucketRoleARN: "",
       sourceCacheBucketName: "evergreen-source-cache",
       sourceCacheBucketRoleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
       sourceCacheOptOutProjects: ["project3"],
@@ -436,6 +492,10 @@ const expectedForm: OtherFormState = {
     githubCheckRunConfigurations: {
       checkRunLimit: 10,
     },
+    githubRecoveryApp: {
+      appId: 1234,
+      privateKey: "recovery-private-key",
+    },
     diagnosticsConfig: {
       s3BucketName: "diagnostics-bucket",
       s3Prefix: "diagnostics/",
@@ -495,6 +555,10 @@ const expectedGql: AdminSettingsInput = {
     sourceCacheBucket: {
       name: "evergreen-source-cache",
       roleARN: "arn:aws:iam::123456789:role/SourceCacheRole",
+    },
+    githubFileCacheBucket: {
+      name: "evergreen-github-file-cache",
+      roleARN: "",
     },
     sourceCacheOptOutProjects: ["project3"],
     credentials: {
@@ -587,6 +651,10 @@ const expectedGql: AdminSettingsInput = {
   },
   githubCheckRun: {
     checkRunLimit: 10,
+  },
+  githubRecoveryApp: {
+    appId: 1234,
+    privateKey: "recovery-private-key",
   },
   diagnostics: {
     s3BucketName: "diagnostics-bucket",

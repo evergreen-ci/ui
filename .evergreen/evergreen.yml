@@ -14,7 +14,7 @@ modules:
 pre:
   - func: assume-ec2-role
   - func: get-project
-  - func: setup-node
+  - func: setup-pnpm-and-node
   - func: pnpm-install
 
 post:
@@ -42,21 +42,23 @@ buildvariants:
       - "apps/spruce/**"
       - "packages/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     run_on:
-      - ubuntu2204-large
+      - ubuntu2204-small
     expansions:
       app_dir: apps/spruce
       goroot: /opt/golang/go1.26
       mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.11.0.tgz
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.4.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
-      node_version: 22.18.0
     modules:
       - evergreen
     tasks:
       - name: check_codegen
       - name: compile
       - name: ".spruce-e2e-shard"
+        run_on: ubuntu2204-large
       - name: lint
       - name: storybook
       - name: test
@@ -80,15 +82,15 @@ buildvariants:
       - "apps/parsley/**"
       - "packages/**"
       - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: apps/parsley
       goroot: /opt/golang/go1.26
       mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.11.0.tgz
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.4.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.3.1-linux-x64.tgz
-      node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     modules:
       - evergreen
@@ -96,6 +98,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+        run_on: ubuntu2204-large
       - name: lint
       - name: storybook
       - name: test
@@ -109,13 +112,16 @@ buildvariants:
     display_name: Lib
     activate: true
     paths:
+      - "packages/eslint-config/**"
       - "packages/lib/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/lib
       goroot: /opt/golang/go1.26
-      node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     modules:
       - evergreen
@@ -130,13 +136,16 @@ buildvariants:
     display_name: Deploy Utils
     activate: true
     paths:
+      - "packages/eslint-config/**"
       - "packages/deploy-utils/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/deploy-utils
       goroot: /opt/golang/go1.26
-      node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
@@ -148,13 +157,16 @@ buildvariants:
     activate: true
     paths:
       - "packages/fungi/**"
+      - "packages/eslint-config/**"
       - "packages/lib/**"
+      - "packages/storybook-config/**"
+      - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/fungi
       goroot: /opt/golang/go1.26
-      node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
@@ -167,11 +179,13 @@ buildvariants:
     activate: true
     paths:
       - "packages/analytics-visualizer/**"
+      - "packages/eslint-config/**"
+      - ".evergreen/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
     expansions:
       app_dir: packages/analytics-visualizer
-      node_version: 22.18.0
     run_on:
-      - ubuntu2204-large
       - ubuntu2204-small
     tasks:
       - name: lint
@@ -181,8 +195,6 @@ buildvariants:
   - name: deploy
     display_name: Deploys
     activate: false
-    expansions:
-      node_version: 22.18.0
     run_on:
       - ubuntu2204-large
     tasks:

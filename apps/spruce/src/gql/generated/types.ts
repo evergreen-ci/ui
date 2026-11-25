@@ -499,6 +499,7 @@ export type BucketConfigInput = {
 export type BucketsConfig = {
   __typename?: "BucketsConfig";
   credentials?: Maybe<S3Credentials>;
+  githubFileCacheBucket?: Maybe<BucketConfig>;
   internalBuckets?: Maybe<Array<Scalars["String"]["output"]>>;
   logBucket?: Maybe<BucketConfig>;
   logBucketFailedTasks?: Maybe<BucketConfig>;
@@ -514,6 +515,7 @@ export type BucketsConfig = {
 
 export type BucketsConfigInput = {
   credentials?: InputMaybe<S3CredentialsInput>;
+  githubFileCacheBucket?: InputMaybe<BucketConfigInput>;
   internalBuckets?: InputMaybe<Array<Scalars["String"]["input"]>>;
   logBucket?: InputMaybe<BucketConfigInput>;
   logBucketFailedTasks?: InputMaybe<BucketConfigInput>;
@@ -556,6 +558,16 @@ export type BuildVariantTuple = {
   __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
+};
+
+/**
+ * BulkTaskOperationResult is the result of an operation applied to a set of tasks. Tasks that could not be modified are
+ * reported in taskErrors rather than failing the whole operation.
+ */
+export type BulkTaskOperationResult = {
+  __typename?: "BulkTaskOperationResult";
+  modifiedTasks: Array<Task>;
+  taskErrors: Array<TaskError>;
 };
 
 export type CedarConfig = {
@@ -2002,6 +2014,8 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
   scheduleTasks: Array<Task>;
+  scheduleTasksByFilter: BulkTaskOperationResult;
+  scheduleTasksByIds: BulkTaskOperationResult;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
@@ -2234,6 +2248,15 @@ export type MutationSchedulePatchArgs = {
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByFilterArgs = {
+  filter: TaskFilterOptions;
+  versionId: Scalars["String"]["input"];
+};
+
+export type MutationScheduleTasksByIdsArgs = {
+  taskIds: Array<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -2809,7 +2832,6 @@ export type Project = {
   repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   runEveryMainlineCommit?: Maybe<Scalars["Boolean"]["output"]>;
-  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2986,7 +3008,6 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3495,7 +3516,6 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"]["output"];
   restricted: Scalars["Boolean"]["output"];
   runEveryMainlineCommit: Scalars["Boolean"]["output"];
-  sourceCacheMode?: Maybe<SourceCacheMode>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
@@ -3548,7 +3568,6 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   restricted?: InputMaybe<Scalars["Boolean"]["input"]>;
   runEveryMainlineCommit?: InputMaybe<Scalars["Boolean"]["input"]>;
-  sourceCacheMode?: InputMaybe<SourceCacheMode>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]["input"]>;
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -4002,17 +4021,6 @@ export type Source = {
   time: Scalars["Time"]["output"];
 };
 
-/**
- * SourceCacheMode controls whether a project's tasks may use the git source cache.
- * OFF disables it, ALL enables it for every build, and WATERFALL enables it only
- * for mainline (waterfall/commit) builds.
- */
-export enum SourceCacheMode {
-  All = "ALL",
-  Off = "OFF",
-  Waterfall = "WATERFALL",
-}
-
 export type SpawnHostConfig = {
   __typename?: "SpawnHostConfig";
   spawnHostsPerUser?: Maybe<Scalars["Int"]["output"]>;
@@ -4359,6 +4367,12 @@ export type TaskEndDetail = {
   type: Scalars["String"]["output"];
 };
 
+export type TaskError = {
+  __typename?: "TaskError";
+  reason: Scalars["String"]["output"];
+  taskId: Scalars["String"]["output"];
+};
+
 export type TaskEventLogData = {
   __typename?: "TaskEventLogData";
   blockedOn?: Maybe<Scalars["String"]["output"]>;
@@ -4407,13 +4421,16 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  excludeTaskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
   includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
   sorts?: InputMaybe<Array<SortOrder>>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   taskName?: InputMaybe<Scalars["String"]["input"]>;
+  taskTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variant?: InputMaybe<Scalars["String"]["input"]>;
+  variantTags?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type TaskHistory = {
@@ -5632,7 +5649,6 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   runEveryMainlineCommit?: boolean | null;
-  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
@@ -5657,7 +5673,6 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   runEveryMainlineCommit: boolean;
-  sourceCacheMode?: SourceCacheMode | null;
   spawnHostScriptPath: string;
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
@@ -5838,7 +5853,6 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -6061,7 +6075,6 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     runEveryMainlineCommit: boolean;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
@@ -6479,7 +6492,6 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     runEveryMainlineCommit?: boolean | null;
-    sourceCacheMode?: SourceCacheMode | null;
     spawnHostScriptPath: string;
     stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
@@ -8008,6 +8020,11 @@ export type AdminSettingsQuery = {
         key?: string | null;
         secret?: string | null;
       } | null;
+      githubFileCacheBucket?: {
+        __typename?: "BucketConfig";
+        name?: string | null;
+        roleARN?: string | null;
+      } | null;
       logBucket?: {
         __typename?: "BucketConfig";
         expirationDays?: number | null;
@@ -8105,6 +8122,11 @@ export type AdminSettingsQuery = {
     githubCheckRun?: {
       __typename?: "GitHubCheckRunConfig";
       checkRunLimit?: number | null;
+    } | null;
+    githubRecoveryApp?: {
+      __typename?: "GitHubRecoveryAppConfig";
+      appId?: number | null;
+      privateKey?: string | null;
     } | null;
     graphite?: {
       __typename?: "GraphiteConfig";
@@ -9737,7 +9759,6 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -9974,7 +9995,6 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10276,7 +10296,6 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       runEveryMainlineCommit?: boolean | null;
-      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
@@ -10561,7 +10580,6 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -10798,7 +10816,6 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           runEveryMainlineCommit?: boolean | null;
-          sourceCacheMode?: SourceCacheMode | null;
           spawnHostScriptPath: string;
           stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
@@ -11041,7 +11058,6 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       runEveryMainlineCommit: boolean;
-      sourceCacheMode?: SourceCacheMode | null;
       spawnHostScriptPath: string;
       stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
@@ -12198,6 +12214,7 @@ export type TaskQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
@@ -12785,6 +12802,7 @@ export type VersionQuery = {
       adjustedEBSStorageCost?: number | null;
       adjustedEBSThroughputCost?: number | null;
       adjustedEC2Cost?: number | null;
+      adjustedEngFlowCost?: number | null;
       adjustedS3ArtifactPutCost?: number | null;
       adjustedS3ArtifactStorageCost?: number | null;
       adjustedS3LogPutCost?: number | null;
