@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
-import { H2, Overline } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { H2, H6 } from "@via-ds/components/typography";
 import { ImageTabRoutes } from "constants/routes";
 import { getTabTitle } from "./getTabTitle";
+import styles from "./Header.module.css";
 
 interface HeaderProps {
   imageId: string;
@@ -13,20 +12,11 @@ export const Header: React.FC<HeaderProps> = ({ imageId, tab }) => {
   const { title } = getTabTitle(tab);
 
   return (
-    <Container data-testid="image-tab-title">
-      <Overline>{title}</Overline>
-      <TitleContainer>
+    <div className={styles.container} data-testid="image-tab-title">
+      <H6 elementType="p">{title}</H6>
+      <div className={styles.titleContainer}>
         <H2>{imageId}</H2>
-      </TitleContainer>
-    </Container>
+      </div>
+    </div>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TitleContainer = styled.div`
-  margin-right: ${size.s};
-`;
