@@ -1,12 +1,10 @@
-/* Doubled selectors outrank LeafyGreen's runtime-injected Emotion styles.
-   Remove when these components migrate to Via. */
-.settingsCardTitle.settingsCardTitle {
+.settingsCardTitle {
   margin: var(--via-space-600) 0 var(--via-space-400) 0;
 
   &:hover {
     &::after {
       opacity: 1;
-      transition: opacity 150ms ease-in-out; /* transitionDuration.default */
+      transition: opacity var(--via-duration-default) ease-in-out;
     }
   }
 
@@ -15,11 +13,10 @@
     content: "#";
     margin-left: var(--via-space-200);
     opacity: 0;
-    transition: opacity 150ms ease-in-out; /* transitionDuration.default */
+    transition: opacity var(--via-duration-default) ease-in-out;
   }
 }
 
-.settingsCard.settingsCard {
-  padding: var(--via-space-600);
-  margin-bottom: 48px;
+.settingsCard {
+  margin-bottom: var(--via-space-1200);
 }

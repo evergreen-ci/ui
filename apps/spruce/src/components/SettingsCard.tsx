@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
-import { Card, CardProps } from "@leafygreen-ui/card";
-import { H3, H3Props } from "@leafygreen-ui/typography";
+import { Card, CardProps } from "@via-ds/components/card";
+import { H3, TextAliasProps } from "@via-ds/components/typography";
 import { cx } from "@evg-ui/lib/utils/css";
 import styles from "./SettingsCard.module.css";
 
-export const SettingsCardTitle = forwardRef<HTMLHeadingElement, H3Props>(
+export const SettingsCardTitle = forwardRef<HTMLElement, TextAliasProps>(
   ({ className, ...rest }, ref) => (
     <H3
       ref={ref}
@@ -17,7 +17,7 @@ SettingsCardTitle.displayName = "SettingsCardTitle";
 
 export const formComponentSpacingCSS = "margin-bottom: 48px;";
 
-export const SettingsCard = forwardRef<HTMLDivElement, CardProps>(
+export const SettingsCard = forwardRef<HTMLElement, CardProps>(
   ({ className, ...rest }, ref) => (
     <Card ref={ref} className={cx(styles.settingsCard, className)} {...rest} />
   ),
